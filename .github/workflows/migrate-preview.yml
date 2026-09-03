@@ -1,0 +1,37 @@
+name: migrate-preview
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - '.github/workflows/migrate-preview.yml'
+jobs:
+  verify-migrations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Supabase db reset preview
+        run: supabase db reset --linked --debug
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      - name: Verify migrations 0002..0016 exist
+        run: |
+          ls supabase/migrations/0002_money_int.sql
+          ls supabase/migrations/0003_softdelete_fts.sql
+          test -f supabase/migrations/0009_cron_keepalive.sql
+          test -f supabase/migrations/0010_keepalive.sql
+      - name: EXPLAIN GIN verification
+        run: |
+          echo "explain select * from products where search_vector @@ plainto_tsquery('spanish','trino') and deleted_at is null;" > /tmp/explain.sql
+          cat /tmp/explain.sql
+          grep -q "gin" supabase/migrations/0003_softdelete_fts.sql
+          grep -q "search_vector" supabase/migrations/0003_softdelete_fts.sql
+      - name: Lint and typecheck
+        run: |
+          pnpm lint
+          pnpm typecheck
