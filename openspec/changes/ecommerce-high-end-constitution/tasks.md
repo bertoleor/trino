@@ -42,18 +42,18 @@ PR5b split ready if PR5>750 (move T-E02 to PR6: PR5→650 PR6→720+overflow to 
 
 ## Phase 2 PR2-3 DB
 
-- [ ] T-B01 `supabase/migrations/0002_money_int.sql` price_cents INT MONEY-01 <=30l
-- [ ] T-B01b `.github/workflows/migrate-preview.yml` supabase db reset 0002..0016 EXPLAIN GIN <=90l
-- [ ] T-B02 `supabase/migrations/0003_softdelete_fts.sql` deleted_at GIN <=30l
-- [ ] T-B03 `src/lib/validations/money.ts` Decimal HALF 1c <=40l
-- [ ] T-B08 `supabase/migrations/0010_keepalive.sql`+`src/lib/supabase/keepalive.ts`+`src/app/api/cron/keepalive/route.ts`+`.github/workflows/keepalive.yml` pause7d fix SELECT1 pg_cron 6h logs Vercel 04:00UTC UptimeRobot 5min Tr RES-02 Te keepalive_logs row Ac heartbeat ok C0 pg_cron+Vercel free <=110l PR2
-- [ ] T-B04 `supabase/migrations/0004_audit_security.sql` INSERT-only 1yr <=30l
-- [ ] T-B05 `supabase/migrations/0005_events_entitlements.sql` PK DLQ <=30l
-- [ ] T-B06 `supabase/migrations/0006_carts_session.sql` session_id ECOM-01 <=40l
-- [ ] T-B07 `supabase/migrations/0007_order_enum.sql` ENUM 9 422 409 <=30l
-- [ ] T-E01 `supabase/migrations/0011_cultura.sql` cultura_posts(id uuid pk, slug unique, locale CHECK es-AR/en/fr/pt-BR, title, excerpt, body jsonb TipTap, cover_image Storage, status draft/published, published_at, author_id FK, tags text[], related_product_ids int[], social_source enum, social_url, views int, search_vector tsvector GIN, deleted_at) + RLS anon SELECT published+deleted_at IS NULL, admin via is_admin() GIN+slug idx Tr ECOM/CMS/CULTURA-01 Te RLS anon 403 admin 200 Ac 0011 ok C0 free <=40l PR3
-- [ ] T-F01 `supabase/migrations/0013_wishlist.sql` wishlists(id uuid pk, user_id uuid FK nullable, session_id text nullable, product_id int FK ON DELETE CASCADE, created_at timestamptz, unique (user_id,product_id) where user_id IS NOT NULL, unique (session_id,product_id) where session_id IS NOT NULL, check user_id OR session_id) + RLS owner read/write, anon via session_id, merge on login like T-B06, idx (user_id),(session_id),(product_id) Tr ECOM/SEC/ARCH-05 Te Vitest RLS 403 vs 200 +409 duplicate Ac 0013 ok C0 free <=40l PR3
-- [ ] T-G01 `supabase/migrations/0014_reviews.sql` reviews(id uuid pk, product_id int FK CASCADE, user_id uuid FK, order_id uuid FK nullable, rating smallint 1..5, title text <=120, body text <=2000, images text[] <=3 presigned, status pending/approved/rejected default pending, helpful int 0, verified_purchase bool generated, created_at timestamptz, unique (user_id,product_id)) + RLS anon SELECT approved, owner INSERT own pending, admin moderate is_admin(), GIN+avg_rating view Tr ECOM/TRUST/SEC Te Vitest 422 rating 0/6 +403 write Ac 0014 ok C0 free <=50l PR3
+- [x] T-B01 `supabase/migrations/0002_money_int.sql` price_cents INT MONEY-01 <=30l
+- [x] T-B01b `.github/workflows/migrate-preview.yml` supabase db reset 0002..0016 EXPLAIN GIN <=90l
+- [x] T-B02 `supabase/migrations/0003_softdelete_fts.sql` deleted_at GIN <=30l
+- [x] T-B03 `src/lib/validations/money.ts` Decimal HALF 1c <=40l
+- [x] T-B08 `supabase/migrations/0010_keepalive.sql`+`src/lib/supabase/keepalive.ts`+`src/app/api/cron/keepalive/route.ts`+`.github/workflows/keepalive.yml` pause7d fix SELECT1 pg_cron 6h logs Vercel 04:00UTC UptimeRobot 5min Tr RES-02 Te keepalive_logs row Ac heartbeat ok C0 pg_cron+Vercel free <=110l PR2
+- [x] T-B04 `supabase/migrations/0004_audit_security.sql` INSERT-only 1yr <=30l
+- [x] T-B05 `supabase/migrations/0005_events_entitlements.sql` PK DLQ <=30l
+- [x] T-B06 `supabase/migrations/0006_carts_session.sql` session_id ECOM-01 <=40l
+- [x] T-B07 `supabase/migrations/0007_order_enum.sql` ENUM 9 422 409 <=30l
+- [x] T-E01 `supabase/migrations/0011_cultura.sql` cultura_posts(id uuid pk, slug unique, locale CHECK es-AR/en/fr/pt-BR, title, excerpt, body jsonb TipTap, cover_image Storage, status draft/published, published_at, author_id FK, tags text[], related_product_ids int[], social_source enum, social_url, views int, search_vector tsvector GIN, deleted_at) + RLS anon SELECT published+deleted_at IS NULL, admin via is_admin() GIN+slug idx Tr ECOM/CMS/CULTURA-01 Te RLS anon 403 admin 200 Ac 0011 ok C0 free <=40l PR3
+- [x] T-F01 `supabase/migrations/0013_wishlist.sql` wishlists(id uuid pk, user_id uuid FK nullable, session_id text nullable, product_id int FK ON DELETE CASCADE, created_at timestamptz, unique (user_id,product_id) where user_id IS NOT NULL, unique (session_id,product_id) where session_id IS NOT NULL, check user_id OR session_id) + RLS owner read/write, anon via session_id, merge on login like T-B06, idx (user_id),(session_id),(product_id) Tr ECOM/SEC/ARCH-05 Te Vitest RLS 403 vs 200 +409 duplicate Ac 0013 ok C0 free <=40l PR3
+- [x] T-G01 `supabase/migrations/0014_reviews.sql` reviews(id uuid pk, product_id int FK CASCADE, user_id uuid FK, order_id uuid FK nullable, rating smallint 1..5, title text <=120, body text <=2000, images text[] <=3 presigned, status pending/approved/rejected default pending, helpful int 0, verified_purchase bool generated, created_at timestamptz, unique (user_id,product_id)) + RLS anon SELECT approved, owner INSERT own pending, admin moderate is_admin(), GIN+avg_rating view Tr ECOM/TRUST/SEC Te Vitest 422 rating 0/6 +403 write Ac 0014 ok C0 free <=50l PR3
 
 ## Phase 3 PR4 Security+Legal
 
