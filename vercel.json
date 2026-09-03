@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/keepalive",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/cultura-sync",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/fx",
+      "schedule": "0 5 * * *"
+    }
+  ]
+}

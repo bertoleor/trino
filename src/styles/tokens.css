@@ -1,0 +1,24 @@
+:root {
+  --primary: #D95D39;
+  --primary-foreground: #FFFFFF;
+  --color-verde: #2B4731;
+  --color-mostaza: #E6AF2E;
+  --color-celeste: #7A9E9F;
+  --text-grafito: #212529;
+  --pill: 9999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --font-geist-sans: var(--font-geist-sans);
+  --font-geist-mono: var(--font-geist-mono);
+}
+
+* { scrollbar-width: thin; }
+html { font-size: 16px; }
+body { color: var(--text-grafito); background: #FFFFFF; font-family: var(--font-geist-sans), system-ui, sans-serif; }
+
+button, a { min-height: 44px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
