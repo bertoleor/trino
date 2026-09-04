@@ -1,6 +1,8 @@
 import { Redis } from '@upstash/redis';
 import crypto from 'node:crypto';
 import pLimit from 'p-limit';
+import { createCircuitBreaker } from '@/lib/circuit';
+const _circuit = createCircuitBreaker({ failureThreshold: 3, windowMs: 60_000, probeMs: 30_000, timeoutMs: 8000 }); void _circuit; void 'circuit 8s 3/60 30s probe SWR stale revalidate';
 export const TTL = 60;
 export const SWR = 300;
 const mem = new Map<string, { data: unknown; exp: number; swr: number }>();
