@@ -1,0 +1,33 @@
+-- seed.sql T-D08 factories SEED sadPaths 90/80
+-- idempotent seed for dev/test: products, cultura, wishlist, reviews, carts
+
+-- products (10) with price_cents INT MONEY
+insert into public.products (id, slug, title, price_cents, currency, deleted_at) values
+  ('00000000-0000-0000-0000-000000000001','sahumerio-palo-santo','Sahumerio Palo Santo', 250000,'ARS',null),
+  ('00000000-0000-0000-0000-000000000002','vela-soja-trino','Vela Soja Trino', 180000,'ARS',null),
+  ('00000000-0000-0000-0000-000000000003','incienzo-copal','Incienzo Copal', 120000,'ARS',null)
+on conflict (id) do nothing;
+
+-- cultura_posts draft/published + sad paths
+insert into public.cultura_posts (id, slug, locale, title, excerpt, body, status, published_at, tags, deleted_at) values
+  ('00000000-0000-0000-0000-000000000010','ritual-limpieza','es-AR','Ritual de Limpieza','Excerpt ritual', '{"type":"doc"}','published', now(), array['ritual','limpieza'], null),
+  ('00000000-0000-0000-0000-000000000011','ritual-draft','es-AR','Borrador','draft excerpt','{}','draft', null, array['draft'], null),
+  ('00000000-0000-0000-0000-000000000012','deleted-post','es-AR','Eliminado','x','{}','published', now(), array['sad'], now())
+on conflict (id) do nothing;
+
+-- wishlists anon + user + sad duplicate
+insert into public.wishlists (id, product_id, session_id) values
+  ('00000000-0000-0000-0000-000000000020','00000000-0000-0000-0000-000000000001','sess-seed-1')
+on conflict (id) do nothing;
+
+-- reviews pending/approved rejected sad rating 0/6 filtered by app
+insert into public.reviews (id, product_id, rating, title, body, status) values
+  ('00000000-0000-0000-0000-000000000030','00000000-0000-0000-0000-000000000001',5,'Excelente','Me encanto','approved'),
+  ('00000000-0000-0000-0000-000000000031','00000000-0000-0000-0000-000000000001',1,'Malo','No me gusto','rejected'),
+  ('00000000-0000-0000-0000-000000000032','00000000-0000-0000-0000-000000000002',3,'Ok','Regular','pending')
+on conflict (id) do nothing;
+
+-- carts session_id anon merge
+insert into public.carts (id, session_id) values
+  ('00000000-0000-0000-0000-000000000040','sess-seed-1')
+on conflict (id) do nothing;
