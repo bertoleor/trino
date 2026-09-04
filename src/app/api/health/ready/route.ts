@@ -21,7 +21,7 @@ async function checkRedis(): Promise<{ ok: boolean; latency: number }> {
     const redis = Redis.fromEnv();
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 1000);
-    await redis.ping();
+    await redis.ping(); // PING
     clearTimeout(t);
     return { ok: true, latency: Date.now() - start };
   } catch { return { ok: false, latency: Date.now() - start }; }
