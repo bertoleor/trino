@@ -9,3 +9,8 @@ test-results/
 .env.local
 *.local
 github-mcp-server.exe
+
+tsconfig.tsbuildinfo
+.vite-cache/
+.atl/
+
