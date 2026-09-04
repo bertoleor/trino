@@ -70,16 +70,16 @@ PR5b split ready if PR5>750 (move T-E02 to PR6: PR5→650 PR6→720+overflow to 
 ## Phase 4 PR5 Perf+Ecom+Cultura Public
 
 - [x] T-D01 `src/lib/db/pagination.ts` 25/100 PERF-01 <=30l
-- [ ] T-D01b `src/lib/db/facets.ts`+`src/app/[locale]/tienda/page.tsx` tipo10/tradicion9/intencion7 FTS GIN <=140l
-- [ ] T-D01c `src/lib/perf/budget.ts`+`next.config.ts` ISR+`src/app/[locale]/tienda/loading.tsx`+`src/components/ui/skeleton.tsx`+`src/proxy.ts` edge LCP<2.5 CLS<0.1 INP<200 LH90 lighthouse-ci Tr PERF-01..07 Te LH-CI Ac budget enforced C0 free edge/ISR/LH <=130l PR5
-- [ ] T-D02 `src/components/shared/virtual-list.tsx` virtual>50 WebP PERF-02 <=50l
-- [ ] T-D02b `src/lib/seo/json-ld.ts`+`src/app/[locale]/producto/[slug]/page.tsx` Product JSON-LD ARS OG hreflang x4 <=110l
-- [ ] T-D02c `next.config.ts` images remotePatterns Storage WebP/AVIF BlurHash <=120l
-- [ ] T-D03 `src/lib/shipping/*` Strategy 60/300 ECOM-06 <=80l
-- [ ] T-D04 `src/lib/actions/cart.ts` merge SERIALIZABLE 409 44px <=60l
+- [x] T-D01b `src/lib/db/facets.ts`+`src/app/[locale]/tienda/page.tsx` tipo10/tradicion9/intencion7 FTS GIN <=140l
+- [x] T-D01c `src/lib/perf/budget.ts`+`next.config.ts` ISR+`src/app/[locale]/tienda/loading.tsx`+`src/components/ui/skeleton.tsx`+`src/proxy.ts` edge LCP<2.5 CLS<0.1 INP<200 LH90 lighthouse-ci Tr PERF-01..07 Te LH-CI Ac budget enforced C0 free edge/ISR/LH <=130l PR5
+- [x] T-D02 `src/components/shared/virtual-list.tsx` virtual>50 WebP PERF-02 <=50l
+- [x] T-D02b `src/lib/seo/json-ld.ts`+`src/app/[locale]/producto/[slug]/page.tsx` Product JSON-LD ARS OG hreflang x4 <=110l
+- [x] T-D02c `next.config.ts` images remotePatterns Storage WebP/AVIF BlurHash <=120l
+- [x] T-D03 `src/lib/shipping/*` Strategy 60/300 ECOM-06 <=80l
+- [x] T-D04 `src/lib/actions/cart.ts` merge SERIALIZABLE 409 44px <=60l
 - [x] T-D05 `src/app/api/health/route.ts` 2s/1s/2s HEALTH 503 <=40l
-- [ ] T-E02 `src/lib/validations/cultura.ts`+`src/lib/actions/cultura.ts` Zod triple slug/title/excerpt/body/cover/tags/related_product_ids/social_source/url, Server Actions create/update/publish/delete is_admin() 403 revalidatePath FTS soft-delete Tr ARCH-05/CULTURA-02 Te Vitest Zod 422 +403 anon+200 admin Ac ok C0 free <=90l PR5
-- [ ] T-E03 `src/app/[locale]/cultura/page.tsx`+`src/app/[locale]/cultura/[slug]/page.tsx`+`src/app/[locale]/cultura/loading.tsx` listing 12 ISR revalidate 300 skeletons Bauhaus, detail TipTap + JSON-LD Article + OG/hreflang x4 + related carousel Tr I18N/PERF/SEO/CULTURA-03 Te LH90+Playwright Ac /cultura 200 12 cards C0 ISR free <=120l PR5
+- [x] T-E02 `src/lib/validations/cultura.ts`+`src/lib/actions/cultura.ts` Zod triple slug/title/excerpt/body/cover/tags/related_product_ids/social_source/url, Server Actions create/update/publish/delete is_admin() 403 revalidatePath FTS soft-delete Tr ARCH-05/CULTURA-02 Te Vitest Zod 422 +403 anon+200 admin Ac ok C0 free <=90l PR5
+- [x] T-E03 `src/app/[locale]/cultura/page.tsx`+`src/app/[locale]/cultura/[slug]/page.tsx`+`src/app/[locale]/cultura/loading.tsx` listing 12 ISR revalidate 300 skeletons Bauhaus, detail TipTap + JSON-LD Article + OG/hreflang x4 + related carousel Tr I18N/PERF/SEO/CULTURA-03 Te LH90+Playwright Ac /cultura 200 12 cards C0 ISR free <=120l PR5
 
 ## Phase 5 PR6 Social/ShippingIntl/Tracking+Cultura Admin/Sync+Motion/Responsive
 
