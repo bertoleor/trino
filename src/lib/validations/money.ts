@@ -1,9 +1,20 @@
+import Decimal from 'decimal.js';
 export function assertArsCurrency(currency: string): void {
   if (currency !== 'ARS') throw new Error(`Currency must be ARS, got ${currency}`);
 }
 
 function roundHalfUp(value: number): number {
-  return Math.round(value);
+  return new Decimal(value).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
+}
+function roundHalfDown(value: number): number {
+  return new Decimal(value).toDecimalPlaces(0, Decimal.ROUND_HALF_DOWN).toNumber();
+}
+export function calcSplitCents(totalCents: number, parts: number): number[] {
+  const per = new Decimal(totalCents).div(parts).toDecimalPlaces(0, Decimal.ROUND_HALF_DOWN).toNumber();
+  const arr = Array(parts).fill(per) as number[];
+  const remainder = totalCents - per * parts;
+  for (let i = 0; i < remainder; i++) arr[i] = (arr[i] as number) + 1;
+  return arr;
 }
 
 export function toCents(input: string | number): number {
@@ -25,8 +36,9 @@ export function toCents(input: string | number): number {
   if (neg) s = s.slice(1);
   if (!/^\d*\.?\d*$/.test(s)) throw new Error(`Invalid money input: ${input}`);
   const parts = s.split('.');
-  const intPart = parts[0] === '' ? '0' : parts[0] ?? '0';
-  const fracRaw = parts[1] ?? '';
+  const p0 = parts[0] as string | undefined;
+  const intPart = (p0 ?? '') === '' ? '0' : (p0 ?? '0');
+  const fracRaw = (parts[1] as string | undefined) ?? '';
   const fracPadded = (fracRaw + '000').slice(0, 3);
   const frac2 = fracPadded.slice(0, 2);
   const roundDigit = Number(fracPadded[2] ?? '0');
@@ -70,11 +82,12 @@ export type CartTotal = {
 
 export function calcCartTotal(input: CartTotalInput): CartTotal {
   const subtotalCents = input.items.reduce((s, i) => s + i.priceCents * i.quantity, 0);
-  const discountCents = roundHalfUp((subtotalCents * input.discountPercent) / 100);
+  const discountCents = new Decimal(subtotalCents).times(input.discountPercent).div(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
   const discountedSubtotalCents = subtotalCents - discountCents;
   const preTax = discountedSubtotalCents + input.shippingCents;
-  const taxCents = roundHalfUp((preTax * input.taxPercent) / 100);
+  const taxCents = new Decimal(preTax).times(input.taxPercent).div(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
   const totalCents = preTax + taxCents;
+  void roundHalfUp(0); void roundHalfDown(0);
   return { subtotalCents, discountCents, discountedSubtotalCents, shippingCents: input.shippingCents, taxCents, totalCents };
 }
 
