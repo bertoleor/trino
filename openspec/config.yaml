@@ -1,0 +1,76 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 16.3.4 (App Router) + React 19.2.8 + TypeScript 5 strict + Tailwind CSS v4 + Supabase SSR/JS + TanStack Query + RHF+Zod + CVA/clsx/lucide
+  Architecture: src/app (routes-only) + src/components/{ui,shared,[feature]} + src/lib/{actions,api,db,validations,utils,mocks} + src/hooks + src/types + @/* alias
+  Testing: Vitest 4.1.11 (unit) + Playwright 1.62.1 (E2E) + @vitest/coverage-v8 (v8 provider)
+  Style: ESLint (next/core-web-vitals + typescript) + Prettier 3.5.3 (printWidth 100, lf) + pnpm 11.25.0
+  Constraints: AGENT CONSTITUTION v3.1 — 154 rules / 43 sections — zero warnings/errors/emojis/comments-except-justified, mobile-first (44px), cost-zero, high-end e-commerce, Context7 mandatory
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Quantify cost-zero impact for every external service choice
+    - Validate against AGENT CONSTITUTION sections relevant to scope
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Every requirement maps to one CONSTITUTION rule ID where applicable
+  design:
+    - Include sequence diagrams for checkout/auth/payment/payment-webhook flows
+    - Document architecture decisions with rationale and CONSTITUTION traceability
+    - Enforce 150-line file limit and decomposition plan
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session (<800 lines per PR, chained-PR auto-forecast)
+    - Every task references spec requirement IDs
+  apply:
+    - Follow existing code patterns and CONSTITUTION hard constraints
+    - Verify with Context7 before using any library API
+    tdd: true
+    test_command: "pnpm test"
+  verify:
+    test_command: "pnpm test"
+    build_command: "pnpm build"
+    coverage_threshold: 80
+  archive:
+    - Warn before merging destructive deltas
+    - Ensure database.types.ts regenerated and Zod schemas synced for schema changes
+
+testing:
+  strict_tdd: true
+  test_command: "pnpm test"
+  unit:
+    available: true
+    tool: "vitest"
+    include: "tests/unit/**/*.test.{ts,tsx}"
+    environment: "node"
+  integration:
+    available: false
+    tool: "-"
+  e2e:
+    available: true
+    tool: "playwright"
+    dir: "tests/e2e"
+  coverage:
+    available: true
+    tool: "@vitest/coverage-v8 (v8)"
+    command: "pnpm run test:coverage"
+    provider: "v8"
+    reporters: ["text", "json", "html"]
+  quality:
+    linter:
+      available: true
+      tool: "eslint"
+      command: "pnpm lint"
+      config: "eslint.config.mjs (next/core-web-vitals + typescript)"
+    type_checker:
+      available: true
+      tool: "typescript"
+      command: "npx tsc --noEmit"
+      strict: true
+    formatter:
+      available: true
+      tool: "prettier"
+      command: "pnpm format:check"
+      config: ".prettierrc.json"
