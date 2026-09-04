@@ -43,6 +43,42 @@ const nextConfig: NextConfig = {
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
       {
+        source: '/admin/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/account/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/me/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/auth/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/orders/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/admin/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/webhooks/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/cart/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
+        source: '/api/checkout/:path*',
+        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+      },
+      {
         source: '/api/catalog/(.*)',
         headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' }],
       },
