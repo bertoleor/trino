@@ -6,7 +6,7 @@ async function checkDb(): Promise<{ ok: boolean; latency: number }> {
   try {
     const supabase = await createClient();
     const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), 2000);
+    const t = setTimeout(() => controller.abort(), 2 * 1000);
     const { error } = await supabase.from('products').select('id').limit(1).abortSignal(controller.signal).maybeSingle();
     clearTimeout(t);
     const latency = Date.now() - start;
@@ -31,7 +31,7 @@ async function checkStorage(): Promise<{ ok: boolean; latency: number }> {
   try {
     const supabase = await createClient();
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 2000);
+    const t = setTimeout(() => ctrl.abort(), 2 * 1000);
     const { data, error } = await supabase.storage.listBuckets();
     void data;
     clearTimeout(t);
@@ -45,3 +45,4 @@ export async function GET() {
   const healthy = db.ok && cache.ok && storage.ok;
   return NextResponse.json({ status: healthy ? 'ok' : 'degraded', checks: { db, cache, storage } }, { status: healthy ? 200 : 503 });
 }
+
