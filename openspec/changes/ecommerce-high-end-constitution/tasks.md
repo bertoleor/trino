@@ -57,19 +57,19 @@ PR5b split ready if PR5>750 (move T-E02 to PR6: PR5→650 PR6→720+overflow to 
 
 ## Phase 3 PR4 Security+Legal
 
-- [ ] T-C01 `src/lib/rate-limit.ts` Upstash 5/15m 429 <=40l
-- [ ] T-C02 `src/app/api/webhooks/mercadopago/route.ts` HMAC 401 DLQ dup200 <=80l
-- [ ] T-C03 `src/app/api/bank-proof/url/route.ts` presigned 10MB <200ms <=60l
-- [ ] T-C04 `src/proxy.ts` cookie HttpOnly Turnstile <=40l
-- [ ] T-C05 `src/lib/circuit.ts` Abort8s 3/60 30s <=40l
-- [ ] T-C05b `src/components/shared/cookie-consent.tsx`+`consent.json`+`privacy/page.tsx` granular blocks Resend Tr SEC/PRIV-01 Te axe+e2e Ac 4 locales <=130l
-- [ ] T-C06 CORS-WH POST-only HMAC-only <=30l
-- [ ] T-C07 `docs/LEGAL.md`+`disclaimer.tsx` DOC-01 esoteric <=80l
-- [ ] T-C07b `src/app/[locale]/(legal)/terms/page.tsx`+`src/app/[locale]/(legal)/defensa-consumidor/page.tsx`+`docs/TERMS.md` Terms Ley24.240 link+domicilio IVA incluido factura C/B olvido DELETE soft+anonymize 1yr Tr LEGAL/DOC-01 Te 4 locales render Ac footer links ok C0 no cost <=110l PR4
+- [x] T-C01 `src/lib/rate-limit.ts` Upstash 5/15m 429 <=40l
+- [x] T-C02 `src/app/api/webhooks/mercadopago/route.ts` HMAC 401 DLQ dup200 <=80l
+- [x] T-C03 `src/app/api/bank-proof/url/route.ts` presigned 10MB <200ms <=60l
+- [x] T-C04 `src/proxy.ts` cookie HttpOnly Turnstile <=40l
+- [x] T-C05 `src/lib/circuit.ts` Abort8s 3/60 30s <=40l
+- [x] T-C05b `src/components/shared/cookie-consent.tsx`+`consent.json`+`privacy/page.tsx` granular blocks Resend Tr SEC/PRIV-01 Te axe+e2e Ac 4 locales <=130l
+- [x] T-C06 CORS-WH POST-only HMAC-only <=30l
+- [x] T-C07 `docs/LEGAL.md`+`disclaimer.tsx` DOC-01 esoteric <=80l
+- [x] T-C07b `src/app/[locale]/(legal)/terms/page.tsx`+`src/app/[locale]/(legal)/defensa-consumidor/page.tsx`+`docs/TERMS.md` Terms Ley24.240 link+domicilio IVA incluido factura C/B olvido DELETE soft+anonymize 1yr Tr LEGAL/DOC-01 Te 4 locales render Ac footer links ok C0 no cost <=110l PR4
 
 ## Phase 4 PR5 Perf+Ecom+Cultura Public
 
-- [ ] T-D01 `src/lib/db/pagination.ts` 25/100 PERF-01 <=30l
+- [x] T-D01 `src/lib/db/pagination.ts` 25/100 PERF-01 <=30l
 - [ ] T-D01b `src/lib/db/facets.ts`+`src/app/[locale]/tienda/page.tsx` tipo10/tradicion9/intencion7 FTS GIN <=140l
 - [ ] T-D01c `src/lib/perf/budget.ts`+`next.config.ts` ISR+`src/app/[locale]/tienda/loading.tsx`+`src/components/ui/skeleton.tsx`+`src/proxy.ts` edge LCP<2.5 CLS<0.1 INP<200 LH90 lighthouse-ci Tr PERF-01..07 Te LH-CI Ac budget enforced C0 free edge/ISR/LH <=130l PR5
 - [ ] T-D02 `src/components/shared/virtual-list.tsx` virtual>50 WebP PERF-02 <=50l
@@ -77,7 +77,7 @@ PR5b split ready if PR5>750 (move T-E02 to PR6: PR5→650 PR6→720+overflow to 
 - [ ] T-D02c `next.config.ts` images remotePatterns Storage WebP/AVIF BlurHash <=120l
 - [ ] T-D03 `src/lib/shipping/*` Strategy 60/300 ECOM-06 <=80l
 - [ ] T-D04 `src/lib/actions/cart.ts` merge SERIALIZABLE 409 44px <=60l
-- [ ] T-D05 `src/app/api/health/route.ts` 2s/1s/2s HEALTH 503 <=40l
+- [x] T-D05 `src/app/api/health/route.ts` 2s/1s/2s HEALTH 503 <=40l
 - [ ] T-E02 `src/lib/validations/cultura.ts`+`src/lib/actions/cultura.ts` Zod triple slug/title/excerpt/body/cover/tags/related_product_ids/social_source/url, Server Actions create/update/publish/delete is_admin() 403 revalidatePath FTS soft-delete Tr ARCH-05/CULTURA-02 Te Vitest Zod 422 +403 anon+200 admin Ac ok C0 free <=90l PR5
 - [ ] T-E03 `src/app/[locale]/cultura/page.tsx`+`src/app/[locale]/cultura/[slug]/page.tsx`+`src/app/[locale]/cultura/loading.tsx` listing 12 ISR revalidate 300 skeletons Bauhaus, detail TipTap + JSON-LD Article + OG/hreflang x4 + related carousel Tr I18N/PERF/SEO/CULTURA-03 Te LH90+Playwright Ac /cultura 200 12 cards C0 ISR free <=120l PR5
 
