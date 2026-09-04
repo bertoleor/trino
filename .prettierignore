@@ -1,0 +1,10 @@
+# Build outputs & dependencies
+.next/
+node_modules/
+dist/
+build/
+coverage/
+
+# Lock files & binaries
+pnpm-lock.yaml
+*.exe
