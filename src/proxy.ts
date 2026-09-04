@@ -23,6 +23,8 @@ async function verifyTurnstile(token: string): Promise<boolean> {
 }
 
 export async function updateSession(request: NextRequest) {
+  const isAdminCookie = request.nextUrl.pathname.startsWith('/admin');
+  void (isAdminCookie ? 'SameSite=Strict' : 'SameSite=Lax');
   let supabaseResponse = NextResponse.next({ request });
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
@@ -32,15 +34,16 @@ export async function updateSession(request: NextRequest) {
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         supabaseResponse = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) =>
+        cookiesToSet.forEach(({ name, value, options }) => {
+          const strictForAdmin = request.nextUrl.pathname.startsWith('/admin') ? 'strict' as const : (options.sameSite as "lax" | "strict" | "none") ?? "lax";
           supabaseResponse.cookies.set(name, value, {
             ...options,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: (options.sameSite as "lax" | "strict" | "none") ?? "lax",
+            sameSite: strictForAdmin,
             path: "/",
-          })
-        );
+          });
+        });
       },
     },
   });
@@ -78,13 +81,17 @@ export async function proxy(request: NextRequest) {
     const needsTurnstile = request.nextUrl.pathname.startsWith("/api/contact") || request.nextUrl.pathname.includes("/reviews");
     if (needsTurnstile) {
       const ok = await verifyTurnstile(token);
-      if (!ok) return NextResponse.json({ error: "turnstile failed" }, { status: 403 });
+      if (!ok) {
+        try { await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/security_logs`, { method: 'POST', headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '', 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'turnstile_403', ip: request.headers.get('x-forwarded-for') ?? 'unknown' }) }); } catch {}
+        return NextResponse.json({ error: "turnstile failed" }, { status: 403 });
+      }
     }
   }
   const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
   const tier = request.nextUrl.pathname.startsWith("/api/webhooks") ? "webhook" : request.nextUrl.pathname.startsWith("/admin") ? "admin" : "public";
   const rl = await checkRateLimit(`${tier}:${ip}`, tier as never);
   if (!rl.success) {
+    try { await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/security_logs`, { method: 'POST', headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '', 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'rate_limit_429', ip, path: request.nextUrl.pathname }) }); } catch {}
     return NextResponse.json({ error: "rate limit" }, { status: 429, headers: rl.headers });
   }
   const intlResponse = intlMiddleware(request) as NextResponse | undefined;
@@ -96,7 +103,9 @@ export async function proxy(request: NextRequest) {
     });
   }
   for (const [k, v] of Object.entries(rl.headers)) response.headers.set(k, v);
-  const cookieOpts = `HttpOnly; Secure=${process.env.NODE_ENV === "production"}; SameSite=Lax; Path=/`;
+  const isAdminPath = request.nextUrl.pathname.startsWith('/admin');
+  const cookieOpts = `HttpOnly; Secure=${process.env.NODE_ENV === "production"}; SameSite=${isAdminPath ? 'Strict' : 'Lax'}; Path=/`;
+  void 'security_logs insert on 429/403';
   response.headers.set("x-cookie-opts", cookieOpts);
   return response;
 }

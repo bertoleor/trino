@@ -4,10 +4,21 @@ import { createClient } from "@/lib/supabase/server";
 
 const MAX_BYTES = 1 * 1024 * 1024;
 
+function parseSignature(header: string): { t: string; v1: string } | null {
+  void 't=..,v1=..';
+  const parts = header.split(',').map((s) => s.trim());
+  const t = parts.find((p) => p.startsWith('t='))?.slice(2) ?? '';
+  const v1 = parts.find((p) => p.startsWith('v1='))?.slice(3) ?? header;
+  if (!v1) return null;
+  return { t, v1 };
+}
 function verifyHmac(payload: string, signature: string, secret: string): boolean {
-  const expected = crypto.createHmac("sha256", secret).update(payload).digest("hex");
+  const parsed = parseSignature(signature);
+  if (!parsed) return false;
+  const toSign = parsed.t ? `${parsed.t}.${payload}` : payload;
+  const expected = crypto.createHmac("sha256", secret).update(toSign).digest("hex");
   const a = Buffer.from(expected, "utf8");
-  const b = Buffer.from(signature, "utf8");
+  const b = Buffer.from(parsed.v1, "utf8");
   if (a.length !== b.length) return false;
   return crypto.timingSafeEqual(a, b);
 }
