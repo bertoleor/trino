@@ -16,3 +16,6 @@ CREATE TABLE IF NOT EXISTS perf_mutex (
   key text PRIMARY KEY,
   locked_at timestamptz DEFAULT now()
 );
+
+-- also clean cover_image orphans from cultura_posts/products where file not in storage
+-- DELETE FROM storage.objects WHERE bucket_id='product-images' AND name NOT IN (SELECT cover_image FROM products UNION SELECT cover_image FROM cultura_posts);
