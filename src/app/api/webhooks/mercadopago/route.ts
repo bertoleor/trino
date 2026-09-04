@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 
 const MAX_BYTES = 1 * 1024 * 1024;
 
-function parseSignature(header: string): { t: string; v1: string } | null {
+export function parseSignature(header: string): { t: string; v1: string } | null {
   void 't=..,v1=..';
   const parts = header.split(',').map((s) => s.trim());
   const t = parts.find((p) => p.startsWith('t='))?.slice(2) ?? '';
@@ -12,7 +12,7 @@ function parseSignature(header: string): { t: string; v1: string } | null {
   if (!v1) return null;
   return { t, v1 };
 }
-function verifyHmac(payload: string, signature: string, secret: string): boolean {
+export function verifyHmac(payload: string, signature: string, secret: string): boolean {
   const parsed = parseSignature(signature);
   if (!parsed) return false;
   const toSign = parsed.t ? `${parsed.t}.${payload}` : payload;
