@@ -34,7 +34,8 @@ export function getShareText(locale: string, entity: ShareEntity): string {
     fr: { product: 'Decouvrez ce produit', cultura: 'Lisez cet article', wishlist: 'Ma liste', review: 'Voir cet avis', cart: 'Mon panier' },
     'pt-BR': { product: 'Veja este produto', cultura: 'Leia este artigo', wishlist: 'Minha lista', review: 'Veja esta avaliacao', cart: 'Meu carrinho' },
   };
-  return map[locale]?.[entity] ?? map['es-AR'][entity] ?? textFallback(entity);
+  const es = (map['es-AR'] as Record<ShareEntity, string>)[entity];
+  return (map[locale] as Record<ShareEntity, string> | undefined)?.[entity] ?? es ?? textFallback(entity);
 }
 function textFallback(e: ShareEntity) {
   return e;

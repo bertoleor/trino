@@ -18,6 +18,7 @@ describe('T-G03 reviews UI stars 44px distribution ISR JSON-LD', () => {
     const lc = fs.readFileSync(rl, 'utf8');
     const sc = fs.readFileSync(sr, 'utf8');
     const fc = fs.readFileSync(rf, 'utf8');
+    expect(fc).toMatch(/44|locale|honeypot|turnstile/i);
     expect(sc).toMatch(/44|min-h.*44|minHeight/i);
     expect(lc).toMatch(/distribution|bar|10|paginat/i);
     expect(pc).toMatch(/revalidate|300|ISR/i);

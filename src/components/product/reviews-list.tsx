@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState } from 'react';
 import StarRating from '@/components/product/star-rating';
 type Review = { id: string; rating: number; title?: string; body?: string; images?: string[]; verified_purchase?: boolean; helpful?: number; created_at?: string };
@@ -33,7 +34,7 @@ export default function ReviewsList({ reviews, distribution, page, totalPages }:
               <div className="mt-3 flex gap-2">
                 {r.images.map((img) => (
                   <button key={img} onClick={() => setLightbox(img)} aria-label="open lightbox" className="h-16 w-16 overflow-hidden rounded border">
-                    <img src={img} alt="" className="h-full w-full object-cover" />
+                    <Image src={img} alt="review image" width={64} height={64} className="h-full w-full object-cover" unoptimized />
                   </button>
                 ))}
               </div>
@@ -44,7 +45,7 @@ export default function ReviewsList({ reviews, distribution, page, totalPages }:
       </ul>
       {lightbox && (
         <div role="dialog" aria-label="lightbox" className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" onClick={() => setLightbox(null)}>
-          <img src={lightbox} alt="" className="max-h-[80vh] rounded" />
+          <Image src={lightbox} alt="review lightbox" width={800} height={600} className="max-h-[80vh] w-auto rounded" unoptimized />
         </div>
       )}
       {totalPages !== undefined && page !== undefined && (

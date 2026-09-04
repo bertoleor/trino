@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { useKonami } from '@/lib/easter/konami';
+import { subscribeKonami } from '@/lib/easter/konami';
 import { capture } from '@/lib/analytics/posthog';
 export default function EasterEgg({ locale = 'es-AR' }: { locale?: string }) {
   const [active, setActive] = useState(false);
@@ -8,7 +8,7 @@ export default function EasterEgg({ locale = 'es-AR' }: { locale?: string }) {
   const enabled = process.env.NEXT_PUBLIC_EASTER_ENABLED !== 'false';
   useEffect(() => {
     if (!enabled) return;
-    const cleanup = useKonami(async () => {
+    const cleanup = subscribeKonami(async () => {
       setActive(true);
       const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduced) {

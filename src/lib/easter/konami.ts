@@ -5,7 +5,7 @@ export function isKonamiSequence(keys: string[]): boolean {
   const tail = keys.slice(-KONAMI.length);
   return tail.every((k, i) => k === KONAMI[i]);
 }
-export function useKonami(callback: () => void) {
+export function subscribeKonami(callback: () => void) {
   if (typeof window === 'undefined') return () => {};
   let buffer: string[] = [];
   const handler = (e: KeyboardEvent) => {
@@ -19,3 +19,4 @@ export function useKonami(callback: () => void) {
   window.addEventListener('keydown', handler);
   return () => window.removeEventListener('keydown', handler);
 }
+export const useKonami = subscribeKonami;
