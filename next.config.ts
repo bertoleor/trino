@@ -16,6 +16,16 @@ const csp = [
 const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
+  cacheMaxMemorySize: 50 * 1024 * 1024,
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' },
+      { protocol: 'https', hostname: '**.supabase.in', pathname: '/storage/v1/object/public/**' },
+    ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: false,
+  },
   async headers() {
     return [
       {
@@ -34,6 +44,14 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/api/catalog/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' }],
+      },
+      {
+        source: '/tienda',
+        headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' }],
+      },
+      {
+        source: '/cultura/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, s-maxage=60, stale-while-revalidate=300' }],
       },
     ];

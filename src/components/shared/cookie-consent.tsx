@@ -20,6 +20,7 @@ export default function CookieConsent() {
 
   useEffect(() => {
     const c = load();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!c) setOpen(true);
     else setConsent(c);
   }, []);
