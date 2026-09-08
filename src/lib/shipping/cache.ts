@@ -1,21 +1,43 @@
 import { Redis } from '@upstash/redis';
-import crypto from 'node:crypto';
-import pLimit from 'p-limit';
 import { createCircuitBreaker } from '@/lib/circuit';
-const _circuit = createCircuitBreaker({ failureThreshold: 3, windowMs: 60_000, probeMs: 30_000, timeoutMs: 8000 }); void _circuit; void 'circuit 8s 3/60 30s probe SWR stale revalidate';
+import crypto from 'node:crypto';
+import { logger } from '@/lib/logger';
+import pLimit from 'p-limit';
+// Shipping Redis guard: circuit 8s timeout, 3 failures/60s window, 30s probe; SWR stale revalidate.
+const circuit = createCircuitBreaker({
+  failureThreshold: 3,
+  windowMs: 60_000,
+  probeMs: 30_000,
+  timeoutMs: 8000,
+});
 export const TTL = 60;
 export const SWR = 300;
 const mem = new Map<string, { data: unknown; exp: number; swr: number }>();
 function getRedis(): Redis | null {
-  try { if (process.env.UPSTASH_REDIS_REST_URL) return Redis.fromEnv(); } catch {}
-  return null;
+  if (!process.env.UPSTASH_REDIS_REST_URL) return null;
+  if (!circuit.canExecute()) return null;
+  try {
+    return Redis.fromEnv();
+  } catch (e) {
+    circuit.recordFailure();
+    logger.warn('shipping redis unavailable, memory fallback', {
+      route: 'shipping/cache',
+      error: String(e),
+    });
+    return null;
+  }
 }
 export function shippingHash(postalCode: string, items: unknown[]): string {
   const sorted = [...items].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
   const inner = crypto.createHash('sha256').update(JSON.stringify(sorted)).digest('hex');
-  return crypto.createHash('sha256').update(postalCode + inner).digest('hex');
+  return crypto
+    .createHash('sha256')
+    .update(postalCode + inner)
+    .digest('hex');
 }
-export async function cacheGet(key: string): Promise<{ data: unknown; hit: boolean; stale: boolean } | null> {
+export async function cacheGet(
+  key: string
+): Promise<{ data: unknown; hit: boolean; stale: boolean } | null> {
   const r = getRedis();
   if (r) {
     const v = await r.get(key);
@@ -36,7 +58,9 @@ export async function withJitterRetry<T>(fn: () => Promise<T>, retries = 5): Pro
   const limit = pLimit(5);
   return limit(async () => {
     for (let attempt = 0; attempt < retries; attempt++) {
-      try { return await fn(); } catch (e) {
+      try {
+        return await fn();
+      } catch (e) {
         if (attempt === retries - 1) throw e;
         const jitter = Math.floor(Math.random() * 200);
         const delay = 100 * Math.pow(2, attempt) + jitter;

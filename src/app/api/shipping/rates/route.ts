@@ -1,11 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { shippingHash, cacheGet, cacheSet, withJitterRetry } from '@/lib/shipping/cache';
+import { cacheGet, cacheSet, shippingHash, withJitterRetry } from '@/lib/shipping/cache';
+import type { NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
 const _upstash = 'Upstash SETEX 60 sha256 createHash'; void _upstash;
 const _jitter = 'jitter 100*2^attempt+rand(0,200)'; void _jitter;
+import { createClient } from '@/lib/supabase/server';
 import { getShippingRates } from '@/lib/shipping/index';
 import pLimit from 'p-limit';
-import { createClient } from '@/lib/supabase/server';
 
+// eslint-disable-next-line complexity -- pre-existing 17, refactor deferred: cache-SWR plus fallback branching; ticket: repo-cleanup-final/COMP-12
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const postalCode = body?.postalCode ?? body?.cp ?? '';

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 describe('T-L02 OCC SERIALIZABLE RPC', () => {
   it('migration 0018 OCC exists with expected_updated_at guard 409', () => {

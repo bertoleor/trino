@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 describe('T-S05 logger mutex orphan GC', () => {
   it('logger has requestId x-vercel-id route severity stack env OTel', () => {

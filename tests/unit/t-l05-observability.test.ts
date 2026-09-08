@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 describe('T-L05 sitemap health live/ready OTel boundary', () => {
   it('sitemap.ts exists 500 per locale hreflang', () => {

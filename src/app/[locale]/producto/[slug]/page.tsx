@@ -1,6 +1,8 @@
-import { notFound } from 'next/navigation';
+import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
+import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { productJsonLd } from '@/lib/seo/json-ld';
 import { routing } from '@/i18n/routing';
 
@@ -47,6 +49,7 @@ export default async function ProductoPage({
     .eq('slug', slug)
     .single();
   if (!product) notFound();
+  const nonce = nonceProp((await headers()).get(NONCE_HEADER));
   const priceCents = (product as { price_cents?: number }).price_cents ?? Math.round(Number(product.price) * 100);
   const ld = productJsonLd({
     name: product.name,
@@ -58,7 +61,7 @@ export default async function ProductoPage({
   });
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="aspect-square rounded-xl bg-zinc-100" />
         <div>

@@ -1,7 +1,7 @@
+import { INTENCION, TIPO, TRADICION, parseFacets } from '@/lib/db/facets';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { paginate } from '@/lib/db/pagination';
-import { parseFacets, TIPO, TRADICION, INTENCION } from '@/lib/db/facets';
-import Link from 'next/link';
 
 export const revalidate = 300;
 export const dynamic = 'force-static';

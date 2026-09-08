@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import fs from 'node:fs';
 
 describe('T-S04 shipping hash jitter SWR behavioral', () => {
@@ -67,7 +67,7 @@ describe('T-S04 shipping hash jitter SWR behavioral', () => {
     await cacheSet(key, { price: 1999 });
     const hit = await cacheGet(key);
     expect(hit).not.toBeNull();
-    expect(hit!.hit).toBe(true);
-    expect(hit!.data).toEqual({ price: 1999 });
+    expect(hit?.hit).toBe(true);
+    expect(hit?.data).toEqual({ price: 1999 });
   });
 });

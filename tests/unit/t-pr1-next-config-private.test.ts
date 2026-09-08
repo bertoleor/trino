@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -32,10 +32,11 @@ describe('PR1 next.config private vs public cache split W-03', () => {
     const api = find('/api');
     const tienda = find('/tienda');
     expect(admin).toBeDefined();
-    expect(admin!.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private.*no-cache.*no-store/i);
+    expect(admin?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private.*no-cache.*no-store/i);
     expect(account?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private/);
     expect(api?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private/);
-    expect(tienda!.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/s-maxage=60/);
+    expect(tienda).toBeDefined();
+    expect(tienda?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/s-maxage=60/);
   });
 
   it('does not cache private routes via CDN — private no-store required', async () => {

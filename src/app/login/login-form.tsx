@@ -1,8 +1,8 @@
 'use client'
 
-import { useActionState } from 'react'
+import { type AuthState, login } from '@/app/auth/actions'
 import Link from 'next/link'
-import { login, type AuthState } from '@/app/auth/actions'
+import { useActionState } from 'react'
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState<AuthState, FormData>(

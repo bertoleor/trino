@@ -1,6 +1,6 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 import { signOut } from '@/app/auth/actions'
 
 export const dynamic = 'force-dynamic'

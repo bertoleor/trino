@@ -1,0 +1,95 @@
+name: ci
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm tsc --noEmit
+      - name: Lint
+        run: pnpm eslint .
+      - name: Unit tests
+        run: pnpm vitest run
+      - name: Build
+        run: pnpm build
+  lint-format-drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Fail on eslint errors or warnings
+        run: pnpm exec eslint . --max-warnings 0 || npx eslint . --max-warnings 0
+      - name: Fail on prettier drift (touched files)
+        run: |
+          files=$(git diff --name-only origin/main...HEAD -- . ':!pnpm-lock.yaml' || git diff --name-only HEAD -- .)
+          if [ -z "$files" ]; then echo "no touched files"; exit 0; fi
+          echo "$files" | xargs npx prettier --check
+  types-drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 1.142.2
+      - name: Supabase start + regen + drift guard
+        run: |
+          supabase start
+          supabase gen types typescript --local --schema public > /tmp/types.gen.ts
+          diff --exit-code src/types/database.types.ts /tmp/types.gen.ts
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build (static export for LHCI)
+        run: pnpm build
+      - name: Lighthouse CI
+        run: |
+          npx lhci autorun --assert --upload.target=temporary-public-storage
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

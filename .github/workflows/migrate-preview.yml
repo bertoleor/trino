@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 1.142.2
       - name: Supabase db reset preview
         run: supabase db reset --linked --debug
         env:

@@ -18,6 +18,7 @@ type SupabaseLike = {
   };
 };
 
+// eslint-disable-next-line complexity -- pre-existing 17, refactor deferred: RPC-plus-fallback branching, budget reserved for T4 resilience; ticket: repo-cleanup-final/COMP-11
 export async function getCustomer360(supabase: SupabaseLike, userId: string): Promise<Customer360> {
   const start = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
   let data: Customer360 | null = null;

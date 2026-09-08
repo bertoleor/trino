@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest} from 'next/server';
+import { NextResponse } from 'next/server';
 import { getSocialStats } from '@/lib/social/graph';
 
 export const dynamic = 'force-dynamic';

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-unused-vars */
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
   beforeEach(() => {
@@ -85,7 +85,7 @@ describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
     initAuthSync({ onLogout });
     // simulate storage event from other tab
     // @ts-ignore
-    listeners['storage']!({ key: 'auth:logout', newValue: String(Date.now()) });
+    listeners['storage']?.({ key: 'auth:logout', newValue: String(Date.now()) });
     expect(onLogout).toHaveBeenCalledTimes(1);
   });
 

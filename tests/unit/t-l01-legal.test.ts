@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 
 describe('T-L01 legal P0 3 pages + footer arrepentimiento + 0800', () => {

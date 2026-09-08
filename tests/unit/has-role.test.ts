@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { hasRole, requireRole, isEditorOrAbove, ROLE_RANK, type Role } from '@/lib/auth/roles';
+import { ROLE_RANK, type Role, hasRole, isEditorOrAbove, requireRole } from '@/lib/auth/roles';
+import { describe, expect, it } from 'vitest';
 
 describe('has-role hierarchy 4-tier — W-02', () => {
   it('exports Role rank super_admin 4 > admin 3 > editor 2 > viewer 1', () => {

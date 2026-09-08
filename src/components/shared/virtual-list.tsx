@@ -11,11 +11,16 @@ type Props<T> = {
   threshold?: number;
 };
 
-export function VirtualList<T>({ items, estimateSize = 280, renderItem, threshold = 50 }: Props<T>) {
+export function VirtualList<T>({
+  items,
+  estimateSize = 280,
+  renderItem,
+  threshold = 50,
+}: Props<T>) {
   const parentRef = useRef<HTMLDivElement>(null);
   const useVirtual = items.length > threshold;
 
-  // eslint-disable-next-line react-hooks/incompatible-library
+  // eslint-disable-next-line react-hooks/incompatible-library -- S1 triage: TanStack useVirtualizer returns non-memoizable functions by design; component gates virtualization behind a plain-list fallback under threshold; ticket: warnings-smells-cleanup/S1
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
@@ -38,11 +43,19 @@ export function VirtualList<T>({ items, estimateSize = 280, renderItem, threshol
 
   return (
     <div ref={parentRef} className="h-[80vh] overflow-auto">
-      <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative', width: '100%' }}>
+      <div
+        style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative', width: '100%' }}
+      >
         {virtualizer.getVirtualItems().map((v) => (
           <div
             key={v.key}
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', transform: `translateY(${v.start}px)` }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              transform: `translateY(${v.start}px)`,
+            }}
             className="min-h-[44px] touch-manipulation"
           >
             {renderItem(items[v.index] as T, v.index)}

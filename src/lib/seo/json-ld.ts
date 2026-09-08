@@ -6,6 +6,8 @@ export function productJsonLd(input: {
   image: string;
   description?: string;
   availability?: string;
+  // Carried for the <script nonce> contract; never embedded in the payload.
+  nonce?: string;
 }) {
   const price = (input.priceCents / 100).toFixed(2);
   return {
@@ -32,6 +34,8 @@ export function articleJsonLd(input: {
   image?: string;
   datePublished?: string;
   author?: string;
+  // Carried for the <script nonce> contract; never embedded in the payload.
+  nonce?: string;
 }) {
   return {
     '@context': 'https://schema.org',

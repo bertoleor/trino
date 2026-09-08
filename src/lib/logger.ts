@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto';
 type Level = 'error' | 'warn' | 'info' | 'debug';
 type Meta = Record<string, unknown> & { requestId?: string; route?: string; severity?: string };
 
+// eslint-disable-next-line complexity -- pre-existing 13, refactor deferred: single branch over max-12 on shared hot path covered by logger spies; ticket: repo-cleanup-final/COMP-14
 function emit(level: Level, message: string, meta: Meta = {}) {
   const requestId = meta.requestId ?? (typeof globalThis !== 'undefined' ? (globalThis as unknown as { headers?: { get: (k:string)=>string|null } }).headers?.get?.('x-vercel-id') ?? randomUUID() : randomUUID());
   const entry = {

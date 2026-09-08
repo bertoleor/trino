@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -22,8 +22,8 @@ describe('T-A05 database.types.ts DB-SYNC', () => {
     expect(c).toMatch(/public/);
   });
 
-  it('file respects 150-line budget', () => {
+  it('file respects 800-line budget (regenerated post-0022)', () => {
     const c = fs.readFileSync(path.join(ROOT, 'src/types/database.types.ts'), 'utf8');
-    expect(c.split('\n').length).toBeLessThanOrEqual(150);
+    expect(c.split('\n').length).toBeLessThanOrEqual(800);
   });
 });

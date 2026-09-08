@@ -37,7 +37,11 @@ export type FacetTipo = (typeof TIPO)[number];
 export type FacetTradicion = (typeof TRADICION)[number];
 export type FacetIntencion = (typeof INTENCION)[number];
 
-export type Facets = { tipo: FacetTipo[]; tradicion: FacetTradicion[]; intencion: FacetIntencion[] };
+export type Facets = {
+  tipo: FacetTipo[];
+  tradicion: FacetTradicion[];
+  intencion: FacetIntencion[];
+};
 
 function toArray(v: string | string[] | undefined): string[] {
   if (!v) return [];
@@ -45,11 +49,11 @@ function toArray(v: string | string[] | undefined): string[] {
 }
 
 export function parseFacets(sp: Record<string, string | string[] | undefined>): Facets {
-  const pick = (arr: readonly string[], val: string | string[] | undefined) =>
+  const pick = <T extends string>(arr: readonly T[], val: string | string[] | undefined): T[] =>
     toArray(val)
       .flatMap((s) => s.split(','))
       .map((s) => s.trim().toLowerCase())
-      .filter((s) => (arr as readonly string[]).includes(s)) as never[];
+      .filter((s): s is T => arr.some((a) => a === s));
   return {
     tipo: pick(TIPO, sp.tipo),
     tradicion: pick(TRADICION, sp.tradicion),

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
@@ -28,5 +28,18 @@ describe('T-G03 reviews UI stars 44px distribution ISR JSON-LD', () => {
   it('i18n 4 locales review form', () => {
     const fc = fs.readFileSync(rf, 'utf8');
     expect(fc).toMatch(/locale|i18n|useTranslations|getTranslations/i);
+  });
+  it('P-2 ReviewsList loads via next/dynamic with skeleton fallback', () => {
+    const pc = fs.readFileSync(pr, 'utf8');
+    expect(pc).toMatch(/from 'next\/dynamic'|from "next\/dynamic"/);
+    expect(pc).toMatch(/dynamic\(\s*\(\)\s*=>\s*import\('@\/components\/product\/reviews-list'\)/);
+    expect(pc).toMatch(/loading|skeleton|fallback/i);
+    expect(pc).not.toMatch(/import ReviewsList from/);
+  });
+  it('P-2 VirtualList dynamically imported at consumer with 50 threshold', () => {
+    const lc = fs.readFileSync(rl, 'utf8');
+    expect(lc).toMatch(/next\/dynamic/);
+    expect(lc).toMatch(/virtual-list/);
+    expect(lc).toMatch(/50|threshold/);
   });
 });

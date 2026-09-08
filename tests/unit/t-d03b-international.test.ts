@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
@@ -16,8 +16,8 @@ describe('T-D03b international 4th carrier DHL flag', () => {
     const m = await import('@/lib/shipping/carriers/international');
     const r = await m.getInternationalRates({ postalCode: '1000', country: 'US', items: [{ weight: 1 }] });
     expect(r.source).toBe('fallback');
-    expect(r.rates[0]!.carrier).toBe('fallback');
-    expect(r.rates[0]!.priceCents).toBeGreaterThan(0);
+    expect(r.rates[0]?.carrier).toBe('fallback');
+    expect(r.rates[0]?.priceCents).toBeGreaterThan(0);
   });
   it('references DHL eCommerce / Correo Intl customs', () => {
     const c = fs.readFileSync(p, 'utf8');

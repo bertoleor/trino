@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import fs from 'node:fs';
+import { describe, expect, it } from 'vitest';
 import Decimal from 'decimal.js';
+import fs from 'node:fs';
 
 describe('T-S02 Decimal.js p-limit @dnd-kit behavioral', () => {
   it('package.json has decimal.js p-limit @dnd-kit deps', () => {

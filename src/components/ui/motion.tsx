@@ -1,6 +1,6 @@
 "use client";
+import { type VariantKey, variants } from '@/lib/motion/variants';
 import React from 'react';
-import { variants, type VariantKey } from '@/lib/motion/variants';
 
 type Props = { variant?: VariantKey; children: React.ReactNode; className?: string };
 

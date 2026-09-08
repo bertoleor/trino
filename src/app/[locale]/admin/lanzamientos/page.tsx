@@ -1,5 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
 import LaunchCountdown from '@/components/shared/launch-countdown';
+import { createClient } from '@/lib/supabase/server';
 export const dynamic = 'force-dynamic';
 async function isAdmin() {
   const supabase = await createClient();

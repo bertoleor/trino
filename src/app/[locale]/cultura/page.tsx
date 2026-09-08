@@ -1,5 +1,6 @@
-import { createClient } from '@/lib/supabase/server';
+import Image from 'next/image';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
 
 export const revalidate = 300;
 export const dynamic = 'force-static';
@@ -23,11 +24,19 @@ export default async function CulturaPage() {
     <main className="mx-auto w-full max-w-7xl px-6 py-8">
       <h1 className="text-3xl font-bold lowercase">cultura.</h1>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((p) => (
+        {items.map((p, i) => (
           <Link key={p.id} href={`/cultura/${p.slug}`} className="rounded-xl border p-4 hover:shadow-md">
             {p.cover_image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={p.cover_image} alt={p.title} className="aspect-video w-full rounded-lg object-cover" />
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                <Image
+                  src={p.cover_image}
+                  alt={p.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={i === 0}
+                  className="object-cover"
+                />
+              </div>
             ) : (
               <div className="aspect-video rounded-lg bg-zinc-100" />
             )}

@@ -1,4 +1,5 @@
 import { createCircuitBreaker } from '@/lib/circuit';
+import { logger } from '@/lib/logger';
 
 export type ShippingItem = { weight: number; dims?: { w: number; h: number; d: number } };
 export type ShippingRate = { carrier: string; priceCents: number; etaDays: number };
@@ -9,11 +10,20 @@ const SWR = 300;
 const MEM = new Map<string, { data: ShippingRate[]; exp: number }>();
 
 export function ShippingCarrier(name: string) {
-  const cb = createCircuitBreaker({ failureThreshold: 3, windowMs: 60_000, probeMs: 30_000, timeoutMs: 8000 });
+  const cb = createCircuitBreaker({
+    failureThreshold: 3,
+    windowMs: 60_000,
+    probeMs: 30_000,
+    timeoutMs: 8000,
+  });
   return {
     name,
     cb,
-    async getRates(postalCode: string, items: ShippingItem[], signal: AbortSignal): Promise<ShippingRate[]> {
+    async getRates(
+      postalCode: string,
+      items: ShippingItem[],
+      signal: AbortSignal
+    ): Promise<ShippingRate[]> {
       if (!cb.canExecute()) throw new Error('circuit open');
       const res = await fetch(`https://fake-carrier.example/${name}/rates`, {
         method: 'POST',
@@ -61,7 +71,12 @@ export async function getShippingRates(opts: {
       const rates = await c.getRates(opts.postalCode, opts.items, signal);
       MEM.set(key, { data: rates, exp: Date.now() + CACHE_TTL * 1000 });
       return { source: c.name, rates, cache: 'MISS' };
-    } catch {}
+    } catch (e) {
+      logger.warn('shipping carrier failed, trying next', {
+        route: 'shipping/rates',
+        error: String(e),
+      });
+    }
   }
   const fallback: ShippingRate[] = [{ carrier: 'fallback', priceCents: FIXED_CENTS, etaDays: 5 }];
   MEM.set(key, { data: fallback, exp: Date.now() + CACHE_TTL * 1000 });

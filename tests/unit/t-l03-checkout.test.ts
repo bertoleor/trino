@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 describe('T-L03 checkout price-integrity 422 orders', () => {
   it('price-integrity lib exists recompute 422', () => {

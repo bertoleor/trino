@@ -1,9 +1,12 @@
+import type { Duration } from "@upstash/ratelimit";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 type Tier = "auth" | "public" | "authed" | "webhook" | "admin";
 
-export const rateLimitConfigs = {
+type RateLimitConfig = { requests: number; window: Duration; label: string };
+
+export const rateLimitConfigs: Record<Tier, RateLimitConfig> = {
   auth: { requests: 5, window: "15 m", label: "5/15m" },
   public: { requests: 60, window: "60 s", label: "60/m" },
   authed: { requests: 600, window: "60 s", label: "600/m" },
@@ -34,11 +37,21 @@ function getWindowMs(window: string): number {
 }
 
 let redisClient: Redis | null = null;
+
+export function isMemoryRateLimitFallback(): boolean {
+  return !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN;
+}
+
 function getRedis(): Redis | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (!url || !token) return null;
-  if (!redisClient) redisClient = new Redis({ url, token });
+  if (isMemoryRateLimitFallback()) return null;
+  if (!redisClient) {
+    redisClient = new Redis({
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- guarded by isMemoryRateLimitFallback early-return above, fail-fast refactor out of scope; ticket: repo-cleanup-final/COMP-16
+      url: process.env.UPSTASH_REDIS_REST_URL!,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- guarded by isMemoryRateLimitFallback early-return above, fail-fast refactor out of scope; ticket: repo-cleanup-final/COMP-16
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    });
+  }
   return redisClient;
 }
 
@@ -47,11 +60,12 @@ const limiterCache = new Map<string, Ratelimit>();
 function getLimiter(tier: Tier): Ratelimit | null {
   const redis = getRedis();
   if (!redis) return null;
-  if (limiterCache.has(tier)) return limiterCache.get(tier)!;
+  const cached = limiterCache.get(tier);
+  if (cached) return cached;
   const cfg = rateLimitConfigs[tier];
   const limiter = new Ratelimit({
     redis,
-    limiter: Ratelimit.slidingWindow(cfg.requests, cfg.window as never),
+    limiter: Ratelimit.slidingWindow(cfg.requests, cfg.window),
     prefix: `rl:${tier}`,
   });
   limiterCache.set(tier, limiter);

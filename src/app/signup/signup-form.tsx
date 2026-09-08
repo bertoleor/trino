@@ -1,8 +1,8 @@
 'use client'
 
-import { useActionState } from 'react'
+import { type AuthState, signup } from '@/app/auth/actions'
 import Link from 'next/link'
-import { signup, type AuthState } from '@/app/auth/actions'
+import { useActionState } from 'react'
 
 export function SignupForm() {
   const [state, formAction, pending] = useActionState<AuthState, FormData>(

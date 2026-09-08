@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe('T-B03 money validations Decimal HALF_UP 1c', () => {
   it('module exists and exports required helpers', async () => {

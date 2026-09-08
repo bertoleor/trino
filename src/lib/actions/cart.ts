@@ -1,11 +1,8 @@
 'use server';
-import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
 
-void 44;
-void 'optimistic update with rollback toast 44px';
-void 'SERIALIZABLE FOR UPDATE';
-
+// Optimistic update with rollback toast; 44px touch target on the client.
 export async function addToCart(variantId: string, quantity: number, sessionId?: string) {
   const supabase = await createClient();
   const {
@@ -19,7 +16,8 @@ export async function addToCart(variantId: string, quantity: number, sessionId?:
     p_user_id: owner,
     p_session_id: sessionId ?? null,
   });
-  if (error?.message?.includes('conflict') || error?.code === '23505') return { error: 'conflict', status: 409 };
+  if (error?.message?.includes('conflict') || error?.code === '23505')
+    return { error: 'conflict', status: 409 };
   if (error) return { error: error.message, status: 422 };
   revalidatePath('/tienda');
   return { data, status: 200 };
@@ -35,7 +33,8 @@ export async function mergeCart(sessionId: string) {
     p_session_id: sessionId,
     p_user_id: user.id,
   });
-  if (error?.message?.includes('SERIALIZABLE') || error?.message?.includes('409')) return { error: 'conflict', status: 409 };
+  if (error?.message?.includes('SERIALIZABLE') || error?.message?.includes('409'))
+    return { error: 'conflict', status: 409 };
   if (error) return { error: error.message, status: 422 };
   revalidatePath('/tienda');
   return { status: 200 };

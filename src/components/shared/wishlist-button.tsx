@@ -1,7 +1,7 @@
 "use client";
 import { useOptimistic, useState, useTransition } from 'react';
-import { toggleWishlist } from '@/lib/actions/wishlist';
 import WishlistHeart from '@/components/shared/wishlist-heart';
+import { toggleWishlist } from '@/lib/actions/wishlist';
 export default function WishlistButton({ productId, sessionId, initial }: { productId: string; sessionId?: string; initial?: boolean }) {
   const [active, setActive] = useState(Boolean(initial));
   const [optimistic, addOptimistic] = useOptimistic(active, (_s, v: boolean) => v);

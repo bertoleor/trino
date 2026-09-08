@@ -27,11 +27,11 @@ rules:
   apply:
     - Follow existing code patterns and CONSTITUTION hard constraints
     - Verify with Context7 before using any library API
-    tdd: true
-    test_command: "pnpm test"
+    - tdd: true
+    - test_command: 'pnpm test'
   verify:
-    test_command: "pnpm test"
-    build_command: "pnpm build"
+    test_command: 'pnpm test'
+    build_command: 'pnpm build'
     coverage_threshold: 80
   archive:
     - Warn before merging destructive deltas
@@ -39,38 +39,38 @@ rules:
 
 testing:
   strict_tdd: true
-  test_command: "pnpm test"
+  test_command: 'pnpm test'
   unit:
     available: true
-    tool: "vitest"
-    include: "tests/unit/**/*.test.{ts,tsx}"
-    environment: "node"
+    tool: 'vitest'
+    include: 'tests/unit/**/*.test.{ts,tsx}'
+    environment: 'node'
   integration:
     available: false
-    tool: "-"
+    tool: '-'
   e2e:
     available: true
-    tool: "playwright"
-    dir: "tests/e2e"
+    tool: 'playwright'
+    dir: 'tests/e2e'
   coverage:
     available: true
-    tool: "@vitest/coverage-v8 (v8)"
-    command: "pnpm run test:coverage"
-    provider: "v8"
-    reporters: ["text", "json", "html"]
+    tool: '@vitest/coverage-v8 (v8)'
+    command: 'pnpm run test:coverage'
+    provider: 'v8'
+    reporters: ['text', 'json', 'html']
   quality:
     linter:
       available: true
-      tool: "eslint"
-      command: "pnpm lint"
-      config: "eslint.config.mjs (next/core-web-vitals + typescript)"
+      tool: 'eslint'
+      command: 'pnpm lint'
+      config: 'eslint.config.mjs (next/core-web-vitals + typescript)'
     type_checker:
       available: true
-      tool: "typescript"
-      command: "npx tsc --noEmit"
+      tool: 'typescript'
+      command: 'npx tsc --noEmit'
       strict: true
     formatter:
       available: true
-      tool: "prettier"
-      command: "pnpm format:check"
-      config: ".prettierrc.json"
+      tool: 'prettier'
+      command: 'pnpm format:check'
+      config: '.prettierrc.json'

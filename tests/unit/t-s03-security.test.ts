@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import fs from 'node:fs';
+import { describe, expect, it } from 'vitest';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
 
 function sign(payload: string, secret: string, t: string): string {
   const toSign = `${t}.${payload}`;
@@ -12,9 +12,10 @@ describe('T-S03 HMAC t=v1 RLS Strict behavioral', () => {
   it('parseSignature extracts t and v1 correctly', async () => {
     const { parseSignature } = await import('@/app/api/webhooks/mercadopago/route');
     const header = 't=1710000000,v1=abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890';
-    const p = parseSignature(header)!;
-    expect(p.t).toBe('1710000000');
-    expect(p.v1).toBe('abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890');
+    const p = parseSignature(header);
+    expect(p).not.toBeNull();
+    expect(p?.t).toBe('1710000000');
+    expect(p?.v1).toBe('abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890');
   });
 
   it('verifyHmac rejects short v1 and wrong secret', async () => {

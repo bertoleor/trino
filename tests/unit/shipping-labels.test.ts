@@ -1,11 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import type { OrderForLabel } from '@/lib/shipping/labels';
 
 function makeOrders(count: number, postalCodes: string[]): OrderForLabel[] {
   return Array.from({ length: count }, (_, i) => ({
     id: `order-${String(i).padStart(3, '0')}`,
-    postal_code: postalCodes[i % postalCodes.length]!,
+    postal_code: postalCodes[i % postalCodes.length] ?? '',
     recipient: `Recipient ${i}`,
   }));
 }
@@ -22,8 +22,8 @@ describe('shipping labels W-07 groupByPostalCode + p-limit 10 A4/ZPL', () => {
     const orders = makeOrders(45, ['1425', '1426']);
     const grouped = groupByPostalCode(orders);
     expect(grouped.size).toBe(2);
-    expect(grouped.get('1425')!.length).toBe(23);
-    expect(grouped.get('1426')!.length).toBe(22);
+    expect(grouped.get('1425')?.length).toBe(23);
+    expect(grouped.get('1426')?.length).toBe(22);
     // all ids preserved
     const total = [...grouped.values()].reduce((a, b) => a + b.length, 0);
     expect(total).toBe(45);
@@ -34,7 +34,7 @@ describe('shipping labels W-07 groupByPostalCode + p-limit 10 A4/ZPL', () => {
     const orders = makeOrders(5, ['2000']);
     const grouped = groupByPostalCode(orders);
     expect(grouped.size).toBe(1);
-    expect(grouped.get('2000')!.length).toBe(5);
+    expect(grouped.get('2000')?.length).toBe(5);
   });
 
   it('groupByPostalCode empty returns empty map', async () => {
@@ -61,7 +61,7 @@ describe('shipping labels W-07 groupByPostalCode + p-limit 10 A4/ZPL', () => {
     const orders = makeOrders(3, ['1425']);
     const result = await createLabelsBatch(orders, 'A4');
     expect(result.groups.size).toBe(1);
-    const blob = result.groups.get('1425')!;
+    const blob = result.groups.get('1425') ?? '';
     // A4 should contain page markers or PDF header
     expect(blob.length).toBeGreaterThan(0);
     expect(blob).toMatch(/%PDF|Page|1425/);
@@ -72,8 +72,8 @@ describe('shipping labels W-07 groupByPostalCode + p-limit 10 A4/ZPL', () => {
     const orders = makeOrders(2, ['1425', '1426']);
     const zpl = await createLabelsBatch(orders, 'ZPL');
     const a4 = await createLabelsBatch(orders, 'A4');
-    const zplBlob = [...zpl.groups.values()][0]!;
-    const a4Blob = [...a4.groups.values()][0]!;
+    const zplBlob = [...zpl.groups.values()][0] ?? '';
+    const a4Blob = [...a4.groups.values()][0] ?? '';
     expect(zplBlob).toContain('^XA');
     expect(a4Blob).not.toBe(zplBlob);
   });

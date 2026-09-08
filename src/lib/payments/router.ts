@@ -1,5 +1,5 @@
-import { STRIPE_ENABLED } from './providers/stripe';
 import { PAYPAL_ENABLED } from './providers/paypal';
+import { STRIPE_ENABLED } from './providers/stripe';
 export type Provider = 'mercadopago' | 'stripe' | 'paypal';
 export function getPaymentProvider(preferred?: Provider): Provider {
   if (preferred === 'stripe' && STRIPE_ENABLED) return 'stripe';

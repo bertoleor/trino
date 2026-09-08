@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { subscribeKonami } from '@/lib/easter/konami';
 import { capture } from '@/lib/analytics/posthog';
+import { subscribeKonami } from '@/lib/easter/konami';
 export default function EasterEgg({ locale = 'es-AR' }: { locale?: string }) {
   const [active, setActive] = useState(false);
   const [shareToken] = useState(() => (typeof crypto !== 'undefined' && 'randomUUID' in crypto ? (crypto as unknown as { randomUUID: () => string }).randomUUID() : 'easter-token'));

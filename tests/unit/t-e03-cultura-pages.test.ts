@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
@@ -23,5 +23,22 @@ describe('T-E03 cultura listing 12 ISR Article LD', () => {
     expect(c).toMatch(/generateMetadata|openGraph/i);
     expect(c).toMatch(/hreflang|alternates/i);
     expect(c).toMatch(/TipTap|body/i);
+  });
+  it('P-1 covers use next/image, no raw <img>', () => {
+    for (const f of [listing, detail]) {
+      const c = fs.readFileSync(f, 'utf8');
+      expect(c).toMatch(/from 'next\/image'|from "next\/image"/);
+      expect(c).not.toMatch(/<img[\s>]/);
+    }
+  });
+  it('P-1 alt verbatim + mobile-first sizes + priority LCP', () => {
+    const lc = fs.readFileSync(listing, 'utf8');
+    expect(lc).toMatch(/alt=\{p\.title\}/);
+    expect(lc).toMatch(/sizes="\(max-width: 640px\) 100vw[^"]*"/);
+    expect(lc).toMatch(/priority/);
+    const dc = fs.readFileSync(detail, 'utf8');
+    expect(dc).toMatch(/alt=\{post\.title\}/);
+    expect(dc).toMatch(/sizes=/);
+    expect(dc).toMatch(/priority/);
   });
 });

@@ -8,3 +8,9 @@ coverage/
 # Lock files & binaries
 pnpm-lock.yaml
 *.exe
+
+# Immutable history: archived OpenSpec reports are never reformatted (T2)
+openspec/changes/archive/**
+openspec/**/verify-report*.md
+sdd/**
+DOCS/**

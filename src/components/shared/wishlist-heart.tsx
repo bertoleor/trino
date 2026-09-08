@@ -1,5 +1,5 @@
 "use client";
-import { useState, useOptimistic, useTransition } from 'react';
+import { useOptimistic, useState, useTransition } from 'react';
 import { toggleWishlist } from '@/lib/actions/wishlist';
 export default function WishlistHeart({ productId, initial, sessionId }: { productId: string; initial?: boolean; sessionId?: string }) {
   const [liked, setLiked] = useState(Boolean(initial));

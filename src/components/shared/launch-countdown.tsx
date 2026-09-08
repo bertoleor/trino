@@ -1,9 +1,6 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 type Props = { launchDate: string; locale?: string };
-function diffMs(target: string) {
-  return new Date(target).getTime() - Date.now();
-}
 function pickUnit(ms: number): { value: number; unit: Intl.RelativeTimeFormatUnit } {
   const s = Math.round(ms / 1000);
   const abs = Math.abs(s);
@@ -20,15 +17,19 @@ export default function LaunchCountdown({ launchDate, locale = 'es-AR' }: Props)
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
-  void now;
-  const ms = diffMs(launchDate);
+  const ms = new Date(launchDate).getTime() - now;
   const { value, unit } = pickUnit(ms);
   const locales = ['es-AR', 'en', 'fr', 'pt-BR'];
   const l = locales.includes(locale) ? locale : 'es-AR';
   const fmt = new Intl.RelativeTimeFormat(l, { numeric: 'auto' });
   const text = fmt.format(value, unit);
   return (
-    <span aria-live="polite" style={{ minHeight: 44, minWidth: 44, display: 'inline-flex', alignItems: 'center' }} data-locale={l} data-tick>
+    <span
+      aria-live="polite"
+      style={{ minHeight: 44, minWidth: 44, display: 'inline-flex', alignItems: 'center' }}
+      data-locale={l}
+      data-tick
+    >
       es-AR en fr pt-BR {text}
     </span>
   );

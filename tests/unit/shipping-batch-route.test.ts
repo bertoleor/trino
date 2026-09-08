@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('shipping batch SSE W-07 POST ReadableStream progress per10 done grouped', () => {
   beforeEach(() => vi.restoreAllMocks());

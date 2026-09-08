@@ -1,6 +1,12 @@
 import { SocialProvider } from '@/lib/social/graph';
 
-type SyncItem = { id: string; platform: 'tiktok' | 'instagram'; url: string; caption: string; hash: string };
+type SyncItem = {
+  id: string;
+  platform: 'tiktok' | 'instagram';
+  url: string;
+  caption: string;
+  hash: string;
+};
 
 const seen = new Set<string>();
 
@@ -10,21 +16,39 @@ function hash(s: string): string {
   return String(h);
 }
 
-export async function syncCulturaFromSocial(): Promise<{ imported: number; items: SyncItem[] }> {
+export async function syncCulturaFromSocial(): Promise<{
+  imported: number;
+  items: SyncItem[];
+  followers: { tiktok: number; instagram: number };
+}> {
   const t = await SocialProvider.fetchTikTokDisplay('mock').catch(() => ({ followers: 0 }));
   const ig = await SocialProvider.fetchInstagramBasic('mock').catch(() => ({ followers: 0 }));
-  void t;
-  void ig;
   const raw: SyncItem[] = [
-    { id: 't1', platform: 'tiktok', url: 'https://tiktok.com/@santisima/video/1', caption: 'Ritual TikTok', hash: hash('t1') },
-    { id: 'ig1', platform: 'instagram', url: 'https://instagram.com/p/1', caption: 'Ritual IG', hash: hash('ig1') },
+    {
+      id: 't1',
+      platform: 'tiktok',
+      url: 'https://tiktok.com/@santisima/video/1',
+      caption: 'Ritual TikTok',
+      hash: hash('t1'),
+    },
+    {
+      id: 'ig1',
+      platform: 'instagram',
+      url: 'https://instagram.com/p/1',
+      caption: 'Ritual IG',
+      hash: hash('ig1'),
+    },
   ];
   const filtered = raw.filter((r) => {
     if (seen.has(r.hash)) return false;
     seen.add(r.hash);
     return true;
   });
-  return { imported: filtered.length, items: filtered };
+  return {
+    imported: filtered.length,
+    items: filtered,
+    followers: { tiktok: t.followers, instagram: ig.followers },
+  };
 }
 
 export function clearSyncDedup() {

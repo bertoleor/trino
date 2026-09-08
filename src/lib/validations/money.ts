@@ -3,26 +3,28 @@ export function assertArsCurrency(currency: string): void {
   if (currency !== 'ARS') throw new Error(`Currency must be ARS, got ${currency}`);
 }
 
-function roundHalfUp(value: number): number {
-  return new Decimal(value).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
-}
-function roundHalfDown(value: number): number {
-  return new Decimal(value).toDecimalPlaces(0, Decimal.ROUND_HALF_DOWN).toNumber();
-}
 export function calcSplitCents(totalCents: number, parts: number): number[] {
-  const per = new Decimal(totalCents).div(parts).toDecimalPlaces(0, Decimal.ROUND_HALF_DOWN).toNumber();
+  const per = new Decimal(totalCents)
+    .div(parts)
+    .toDecimalPlaces(0, Decimal.ROUND_HALF_DOWN)
+    .toNumber();
   const arr = Array(parts).fill(per) as number[];
   const remainder = totalCents - per * parts;
   for (let i = 0; i < remainder; i++) arr[i] = (arr[i] as number) + 1;
   return arr;
 }
 
+// eslint-disable-next-line complexity -- pre-existing 18, refactor follow-up, ticket: warnings-pr-followup/COMP-6
 export function toCents(input: string | number): number {
   if (typeof input === 'number') {
     const s = String(input);
     return toCents(s);
   }
-  let s = input.trim().replace(/AR\$\s*/i, '').replace(/\$/g, '').trim();
+  let s = input
+    .trim()
+    .replace(/AR\$\s*/i, '')
+    .replace(/\$/g, '')
+    .trim();
   s = s.replace(/\s+/g, '');
   if (s === '' || s === '-' || s === ',') return 0;
   const hasDot = s.includes('.');
@@ -82,17 +84,36 @@ export type CartTotal = {
 
 export function calcCartTotal(input: CartTotalInput): CartTotal {
   const subtotalCents = input.items.reduce((s, i) => s + i.priceCents * i.quantity, 0);
-  const discountCents = new Decimal(subtotalCents).times(input.discountPercent).div(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
+  const discountCents = new Decimal(subtotalCents)
+    .times(input.discountPercent)
+    .div(100)
+    .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
+    .toNumber();
   const discountedSubtotalCents = subtotalCents - discountCents;
   const preTax = discountedSubtotalCents + input.shippingCents;
-  const taxCents = new Decimal(preTax).times(input.taxPercent).div(100).toDecimalPlaces(0, Decimal.ROUND_HALF_UP).toNumber();
+  const taxCents = new Decimal(preTax)
+    .times(input.taxPercent)
+    .div(100)
+    .toDecimalPlaces(0, Decimal.ROUND_HALF_UP)
+    .toNumber();
   const totalCents = preTax + taxCents;
-  void roundHalfUp(0); void roundHalfDown(0);
-  return { subtotalCents, discountCents, discountedSubtotalCents, shippingCents: input.shippingCents, taxCents, totalCents };
+  return {
+    subtotalCents,
+    discountCents,
+    discountedSubtotalCents,
+    shippingCents: input.shippingCents,
+    taxCents,
+    totalCents,
+  };
 }
 
 export function getEffectivePriceCents(
-  p: { priceCents: number; salePriceCents?: number | null; saleStart?: string | null; saleEnd?: string | null },
+  p: {
+    priceCents: number;
+    salePriceCents?: number | null;
+    saleStart?: string | null;
+    saleEnd?: string | null;
+  },
   now = new Date()
 ): number {
   if (p.salePriceCents == null || p.salePriceCents <= 0) return p.priceCents;

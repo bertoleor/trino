@@ -28,10 +28,12 @@ function getQueryClient() {
   return browserQueryClient
 }
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children, nonce }: { children: React.ReactNode; nonce?: string }) {
   const queryClient = getQueryClient()
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <div style={{ display: 'contents' }} data-csp-nonce={nonce}>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </div>
   )
 }

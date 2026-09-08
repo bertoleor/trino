@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 describe('T-C01 rate-limit Upstash slidingWindow behavioral', () => {
   it('rateLimitConfigs has correct tier values', async () => {
@@ -63,5 +63,34 @@ describe('T-C01 rate-limit Upstash slidingWindow behavioral', () => {
     const r = await checkRateLimit(`mem-fallback-${Date.now()}`, 'webhook');
     expect(r.success).toBe(true);
     expect(r.limit).toBe(60);
+  });
+
+  it('declares the Upstash-absent memory fallback explicitly', async () => {
+    const mod = await import('@/lib/rate-limit');
+    expect(typeof mod.isMemoryRateLimitFallback).toBe('function');
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    expect(mod.isMemoryRateLimitFallback()).toBe(true);
+  });
+
+  it('auth tier 5+1 lockout holds on the declared memory fallback (no Redis)', async () => {
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    process.env.ALLOW_MEMORY_RATE_LIMIT = 'true';
+    try {
+      const { checkRateLimit } = await import('@/lib/rate-limit');
+      const key = `auth-mem-${Date.now()}-${Math.random()}`;
+      for (let i = 0; i < 5; i++) {
+        const r = await checkRateLimit(key, 'auth');
+        expect(r.success).toBe(true);
+      }
+      const blocked = await checkRateLimit(key, 'auth');
+      expect(blocked.success).toBe(false);
+      expect(blocked.headers['Retry-After']).toBe('900');
+      expect(blocked.headers['X-RateLimit-Limit']).toBe('5');
+      expect(blocked.headers['X-RateLimit-Remaining']).toBe('0');
+    } finally {
+      delete process.env.ALLOW_MEMORY_RATE_LIMIT;
+    }
   });
 });

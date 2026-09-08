@@ -1,7 +1,10 @@
-import { notFound } from 'next/navigation';
+import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
+import Image from 'next/image';
 import type { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
 import { articleJsonLd } from '@/lib/seo/json-ld';
+import { createClient } from '@/lib/supabase/server';
+import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
 export const revalidate = 300;
@@ -42,6 +45,7 @@ export default async function CulturaDetail({
     .is('deleted_at', null)
     .single();
   if (!post) notFound();
+  const nonce = nonceProp((await headers()).get(NONCE_HEADER));
   const ld = articleJsonLd({
     headline: post.title,
     slug: post.slug,
@@ -51,12 +55,19 @@ export default async function CulturaDetail({
   });
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <h1 className="text-3xl font-bold lowercase">{post.title}</h1>
       <p className="mt-2 text-zinc-500">{post.excerpt}</p>
       {post.cover_image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={post.cover_image} alt={post.title} className="mt-6 w-full rounded-xl" />
+        <Image
+          src={post.cover_image}
+          alt={post.title}
+          width={1200}
+          height={630}
+          sizes="100vw"
+          priority
+          className="mt-6 w-full rounded-xl"
+        />
       ) : null}
       <div className="mt-6 prose lowercase">
         {post.body ? JSON.stringify(post.body) : 'sin contenido.'}

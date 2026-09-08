@@ -1,10 +1,26 @@
-import { createClient } from '@/lib/supabase/server';
-import { notFound } from 'next/navigation';
+import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import type { Metadata } from 'next';
-import ReviewsList from '@/components/product/reviews-list';
 import ReviewForm from '@/components/product/review-form';
 import StarRating from '@/components/product/star-rating';
+import { createClient } from '@/lib/supabase/server';
+import dynamic from 'next/dynamic';
+import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+
+const ReviewsList = dynamic(() => import('@/components/product/reviews-list'), {
+  loading: () => (
+    <div aria-label="reviews skeleton" className="space-y-4">
+      {[0, 1, 2].map((i) => (
+        <div key={i} className="animate-pulse rounded border p-4">
+          <div className="h-4 w-1/3 rounded bg-zinc-100" />
+          <div className="mt-2 h-3 w-full rounded bg-zinc-100" />
+          <div className="mt-2 h-3 w-2/3 rounded bg-zinc-100" />
+        </div>
+      ))}
+    </div>
+  ),
+});
 export const revalidate = 300;
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -29,6 +45,7 @@ export default async function ReviewsPage({ params, searchParams }: { params: Pr
   const totalDistribution = list.length || 1;
   for (const k of [1,2,3,4,5] as const) distribution[k] = (distribution[k] ?? 0) / totalDistribution;
   const productName = (product as { name: string }).name;
+  const nonce = nonceProp((await headers()).get(NONCE_HEADER));
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -36,10 +53,9 @@ export default async function ReviewsPage({ params, searchParams }: { params: Pr
     aggregateRating: { '@type': 'AggregateRating', ratingValue: avg.toFixed(1), reviewCount: list.length },
     review: list.map((r) => ({ '@type': 'Review', author: 'user', reviewRating: { '@type': 'Rating', ratingValue: r.rating }, name: r.title, reviewBody: r.body })),
   };
-  void 'ISR 300 paginated 10 stars 44px distribution bar lightbox verified badge moderation queue JSON-LD Review AggregateRating i18n';
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <h1 className="text-2xl font-bold lowercase">{productName} — reviews</h1>
       <div className="mt-4 flex items-center gap-2">
         <StarRating rating={Math.round(avg)} size={44} />

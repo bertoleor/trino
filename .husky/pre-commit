@@ -1,0 +1,4 @@
+#!/bin/sh
+# S0 tooling baseline: staged-only lint/format (keeps slices <=400 lines).
+# Runs via pnpm exec with npx fallback (pnpm binary broken in some envs).
+(pnpm exec lint-staged || npx lint-staged)

@@ -1,10 +1,12 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
 const MIG = path.join(ROOT, 'supabase/migrations/0022_client_warnings_fix.sql');
 const hasSupabase = !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
 async function healthcheckRetry(url: string, retries = 3): Promise<boolean> {
   for (let i = 0; i < retries; i++) {
@@ -35,7 +37,7 @@ describe('RLS two-role integration W-08 — A≠B 403 has_role DEFINER retry3', 
       expect(true).toBe(true);
       return;
     }
-    const ok = await healthcheckRetry(process.env.NEXT_PUBLIC_SUPABASE_URL!, 3);
+    const ok = await healthcheckRetry(SUPABASE_URL, 3);
     // if not reachable locally, still pass as skip (no docker in CI)
     expect(typeof ok).toBe('boolean');
   });
@@ -48,8 +50,8 @@ describe('RLS two-role integration W-08 — A≠B 403 has_role DEFINER retry3', 
       return;
     }
     const { createClient } = await import('@supabase/supabase-js');
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const url = SUPABASE_URL;
+    const anonKey = SUPABASE_ANON_KEY;
     const anon = createClient(url, anonKey);
     // anon should not read entitlements of others
     const { data, error } = await anon.from('entitlements').select('role').limit(1);
@@ -65,8 +67,8 @@ describe('RLS two-role integration W-08 — A≠B 403 has_role DEFINER retry3', 
       return;
     }
     const { createClient } = await import('@supabase/supabase-js');
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const url = SUPABASE_URL;
+    const anonKey = SUPABASE_ANON_KEY;
     const anon = createClient(url, anonKey);
     const { data, error } = await anon.rpc('has_role', { required: 'admin' });
     // anon has no uid → should be false or error, never true
