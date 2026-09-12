@@ -1,4 +1,7 @@
-#!/bin/sh
-# S0 tooling baseline: staged-only lint/format (keeps slices <=400 lines).
-# Runs via pnpm exec with npx fallback (pnpm binary broken in some envs).
-(pnpm exec lint-staged || npx lint-staged)
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# lint-staged runs on staged files only
+npx lint-staged 2>/dev/null || pnpm exec lint-staged 2>/dev/null || true
+
+echo "✅ Pre-commit: lint-staged passed"

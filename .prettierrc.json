@@ -1,17 +1,16 @@
 {
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
   "semi": true,
   "singleQuote": true,
-  "tabWidth": 2,
   "trailingComma": "es5",
-  "printWidth": 100,
+  "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "overrides": [
-    {
-      "files": "*.md",
-      "options": {
-        "proseWrap": "preserve"
-      }
-    }
-  ]
+  "proseWrap": "always",
+  "htmlWhitespaceSensitivity": "css",
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
+  "tailwindConfig": "./tailwind.config.ts",
+  "organizeImportsSkipDestructiveCodeActions": true
 }
