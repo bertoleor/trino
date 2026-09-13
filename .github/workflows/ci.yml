@@ -31,11 +31,41 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
-        run: pnpm lint
+        run: pnpm exec eslint .
       - name: Typecheck
-        run: pnpm typecheck
+        run: pnpm exec tsc --noEmit
       - name: Format check
         run: pnpm format:check
+
+  types-drift:
+    name: Supabase Types Drift Guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Setup Supabase CLI (pinned)
+        uses: supabase/setup-cli@v1
+        with:
+          version: 1.142.2
+      - name: Start local Supabase
+        run: supabase start
+      - name: Drift guard — regen must be diff-clean
+        run:
+          supabase gen types typescript --local --schema public > /tmp/fresh.types.ts && diff
+          --exit-code /tmp/fresh.types.ts src/types/database.types.ts
 
   test:
     name: Unit Tests
@@ -56,10 +86,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Generate Supabase types
-        run: pnpm gen:types
       - name: Run tests
-        run: pnpm test
+        run: pnpm exec vitest run
 
   e2e:
     name: E2E Tests
@@ -112,9 +140,10 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
       - name: Run Lighthouse CI
-        run: pnpm lhci:assert
-        continue-on-error: true
+        run: lhci autorun --assert --upload.target=temporary-public-storage
 
   security:
     name: Security Scan
