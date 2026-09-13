@@ -31,11 +31,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
-        run: pnpm exec eslint .
+        run: pnpm exec eslint . --max-warnings 0
       - name: Typecheck
         run: pnpm exec tsc --noEmit
       - name: Format check
-        run: pnpm format:check
+        run: pnpm exec prettier --check .
+      - name: Report working-tree drift
+        run: git diff --name-only
 
   types-drift:
     name: Supabase Types Drift Guard
