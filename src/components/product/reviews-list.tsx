@@ -1,4 +1,5 @@
 "use client";
+import { memo } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import Image from 'next/image';
 import StarRating from '@/components/product/star-rating';
@@ -24,7 +25,7 @@ const VirtualList = dynamic(
     ),
   },
 );
-export default function ReviewsList({ reviews, distribution, page, totalPages }: { reviews: Review[]; distribution?: Record<number, number>; page?: number; totalPages?: number }) {
+function ReviewsList({ reviews, distribution, page, totalPages }: { reviews: Review[]; distribution?: Record<number, number>; page?: number; totalPages?: number }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
   const renderVirtualItem = (r: Review): ReactNode => (
     <article className="rounded border p-4">
@@ -103,3 +104,4 @@ export default function ReviewsList({ reviews, distribution, page, totalPages }:
     </section>
   );
 }
+export default memo(ReviewsList);

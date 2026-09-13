@@ -1,5 +1,6 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -63,7 +64,20 @@ export default async function ProductoPage({
     <main className="mx-auto w-full max-w-7xl px-6 py-12">
       <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="aspect-square rounded-xl bg-zinc-100" />
+        {product.image_url ? (
+          <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-zinc-100">
+            <Image
+              src={product.image_url}
+              alt={product.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <div className="aspect-square rounded-xl bg-zinc-100" />
+        )}
         <div>
           <h1 className="text-3xl font-bold lowercase">{product.name}</h1>
           <p className="mt-4 text-zinc-600">{product.description}</p>

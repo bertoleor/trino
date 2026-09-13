@@ -1,4 +1,5 @@
 import { INTENCION, TIPO, TRADICION, parseFacets } from '@/lib/db/facets';
+import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { paginate } from '@/lib/db/pagination';
@@ -68,13 +69,26 @@ export default async function TiendaPage({
         {q ? ` — busqueda: ${q} (GIN search_vector)` : ''}
       </p>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((p) => (
+        {items.map((p, i) => (
           <Link
             key={p.id}
             href={`/producto/${p.slug}`}
             className="rounded-xl border p-4 transition hover:shadow-md"
           >
-            <div className="aspect-square rounded-lg bg-zinc-100" />
+            {p.image_url ? (
+              <div className="relative aspect-square w-full overflow-hidden rounded-lg">
+                <Image
+                  src={p.image_url}
+                  alt={p.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={i < 3}
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div className="aspect-square rounded-lg bg-zinc-100" />
+            )}
             <h3 className="mt-3 font-medium lowercase">{p.name}</h3>
             <p className="text-sm text-zinc-500">{p.description}</p>
           </Link>
