@@ -12,6 +12,17 @@ import { routing } from "@/i18n/routing";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
+// ORN-62 P3 RBAC depth: localePrefix is 'always', so every route (incl. /admin)
+// arrives locale-prefixed (/es-AR/admin, /en/admin...). Strip the prefix before
+// any startsWith gate, otherwise the editor/admin checks below never fire.
+export function stripLocalePrefix(pathname: string): string {
+  for (const locale of routing.locales) {
+    if (pathname === `/${locale}`) return '/';
+    if (pathname.startsWith(`/${locale}/`)) return pathname.slice(locale.length + 1);
+  }
+  return pathname;
+}
+
 function requiredRole(pathname: string, method: string): Role {
   // hierarchy super_admin(4) > admin(3) > editor(2) > viewer(1)
   if (pathname.includes("/admin/users") || pathname.includes("/admin/roles")) return "super_admin";
@@ -60,7 +71,9 @@ async function fetchEntitlementRoles(client: unknown, userId: string): Promise<E
 
 // eslint-disable-next-line complexity -- pre-existing 17, refactor deferred: auth-critical path, substantive hardening owned by T4; ticket: repo-cleanup-final/COMP-10
 export async function updateSession(request: NextRequest, nonce?: string) {
-  const isAdminCookie = request.nextUrl.pathname.startsWith("/admin");
+  const rawPathname = request.nextUrl.pathname;
+  const pathname = stripLocalePrefix(rawPathname);
+  const isAdminCookie = pathname.startsWith("/admin");
   let supabaseResponse = nextWithNonce(request, nonce);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- boot-validated public env via src/config/env.ts validateEnv (t-a03-env), substantive proxy edits owned by T4; ticket: repo-cleanup-final/COMP-17
   const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
@@ -77,14 +90,14 @@ export async function updateSession(request: NextRequest, nonce?: string) {
     },
   });
   const { data: { user } } = await supabase.auth.getUser();
-  const pathname = request.nextUrl.pathname;
+  // pathname/rawPathname: stripped locale prefix from above (ORN-62).
   const url = request.nextUrl.clone();
   const isAdminRoute = pathname.startsWith("/admin");
   const isAccountRoute = pathname.startsWith("/account");
   const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/signup");
   if (!user && (isAdminRoute || isAccountRoute)) {
     url.pathname = "/login";
-    url.searchParams.set("redirect", pathname);
+    url.searchParams.set("redirect", rawPathname);
     return NextResponse.redirect(url);
   }
   if (user && isAuthPage) {
