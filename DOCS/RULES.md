@@ -2,7 +2,7 @@
 
 > **BLOCKING CHECKLIST** — Every AI task MUST pass this file before writing code.
 > If any rule is violated, STOP and fix. No exceptions, no emojis, zero warnings.
-> Trace: `DOCS/DOCS/AGENT CONSTITUTION.MD` (154 rules, 36 sections) + 13 delta specs.
+> Trace: `docs/DOCS/agent-constitution.md` (154 rules, 36 sections) + 13 delta specs.
 
 ## 13 Categories — 154 Rules
 
