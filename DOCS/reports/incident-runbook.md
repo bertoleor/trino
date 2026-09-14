@@ -55,11 +55,9 @@ The scheduler is **split across three systems** — check the right one:
 | Bank cancel idempotent | pg_cron | migration `0008_cron.sql` | every 1h |
 | GitHub keepalive fallback | `curl /api/cron/keepalive` | `.github/workflows/keepalive.yml` | daily 04:00 UTC |
 
-> **Known defect:** `.github/workflows/keepalive.yml` contains a malformed
-> secret placeholder — `*** secrets.CRON_SECRET }}` (a broken `${{ }}`
-> reference). It will not authenticate until fixed. Track this as a
-> to-do; the Vercel cron + pg_cron paths are unaffected. (Open defect — do not
-> assume the GitHub fallback works.)
+> **Note:** the GitHub fallback authenticates with `${{ secrets.CRON_SECRET }}`
+> (verified byte-exact against the workflow file). The reference is valid and
+> the fallback works when `CRON_SECRET` is set and `SITE_URL` resolves.
 
 All cron endpoints require `CRON_SECRET` bearer auth and must return 200
 within 10 s (Vercel free tier).
@@ -141,9 +139,7 @@ Kill-switch trigger (from `DEPLOY.md`): 5% error rate over 2 min or p95 > 3 s.
 
 1. Write a post-mortem (timeline, root cause, fix, prevention) within 48 h.
 2. File it under `docs/reports/`.
-3. Update this runbook and/or `docs/DEPLOY.md` if the incident exposed a gap.
-4. Fix the tracked defect in `.github/workflows/keepalive.yml` (§3) if it
-   contributed.
+4. Update this runbook and/or `docs/DEPLOY.md` if the incident exposed a gap.
 
 ---
 

@@ -14,5 +14,5 @@ tsconfig.tsbuildinfo
 .vite-cache/
 .atl/
 
-.changeset/
+
 .husky/
