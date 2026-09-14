@@ -1,3 +1,4 @@
+import { cuitForDisplay, getMerchantIdentity } from '@/lib/merchant/identity';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
@@ -36,6 +37,7 @@ export default async function GarantiaPage({ params }: { params: Promise<{ local
     });
     policy = {};
   }
+  const { cuit } = await getMerchantIdentity();
   return (
     <main lang={locale} className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-2xl font-bold">Garantía — Ley 24.240 6 meses</h1>
@@ -45,7 +47,7 @@ export default async function GarantiaPage({ params }: { params: Promise<{ local
       <section className="mt-6 space-y-3 text-sm leading-relaxed">
         <p>
           Garantía legal mínima 6 meses (Ley 24.240). Falla de fabricación sin costo. 0800-666-1518
-          — CUIT 30-12345678-9 domicilio CABA.
+          — {cuitForDisplay(cuit)} domicilio CABA.
         </p>
         <p>
           Exclusiones: mal uso, desgaste normal. Ver por tipo en

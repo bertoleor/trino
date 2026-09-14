@@ -1,3 +1,4 @@
+import { cuitForDisplay, getMerchantIdentity } from '@/lib/merchant/identity';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
@@ -36,6 +37,7 @@ export default async function CambiosPage({ params }: { params: Promise<{ locale
     });
     policy = {};
   }
+  const { cuit } = await getMerchantIdentity();
   const global_settings = 'global_settings.return_policy_by_tipo';
   return (
     <main lang={locale} className="mx-auto max-w-3xl px-4 py-10">
@@ -49,7 +51,7 @@ export default async function CambiosPage({ params }: { params: Promise<{ locale
           Res.244/21). Botón de arrepentimiento disponible en footer.
         </p>
         <p>
-          Política por tipo: {JSON.stringify(policy)} — CUIT 30-12345678-9 — domicilio CABA
+          Política por tipo: {JSON.stringify(policy)} — {cuitForDisplay(cuit)} — domicilio CABA
           Argentina — 0800-666-1518 Defensa del Consumidor.
         </p>
         <p>

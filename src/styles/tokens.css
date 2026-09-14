@@ -10,8 +10,6 @@
   --space-2: 8px;
   --space-3: 16px;
   --space-4: 24px;
-  --font-geist-sans: var(--font-geist-sans);
-  --font-geist-mono: var(--font-geist-mono);
 }
 
 * { scrollbar-width: thin; }

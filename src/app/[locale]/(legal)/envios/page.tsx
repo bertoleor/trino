@@ -1,3 +1,4 @@
+import { cuitForDisplay, getMerchantIdentity } from '@/lib/merchant/identity';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
@@ -36,6 +37,7 @@ export default async function EnviosPage({ params }: { params: Promise<{ locale:
     });
     policy = {};
   }
+  const { cuit } = await getMerchantIdentity();
   return (
     <main lang={locale} className="mx-auto max-w-3xl px-4 py-10">
       <h1 className="text-2xl font-bold">Envíos — costo antes del pago Ley 24.240</h1>
@@ -45,7 +47,7 @@ export default async function EnviosPage({ params }: { params: Promise<{ locale:
       <section className="mt-6 space-y-3 text-sm leading-relaxed">
         <p>
           El costo de envío se calcula antes del paso de pago (ECOM-06) vía POST /api/shipping/rates
-          — 0800-666-1518 — CUIT 30-12345678-9 domicilio CABA.
+          — 0800-666-1518 — {cuitForDisplay(cuit)} domicilio CABA.
         </p>
         <p>
           Carriers: Andreani, Correo Argentino, OCA. Plazos 2-5 días hábiles. Tracking por email.
