@@ -7,7 +7,7 @@ alter table public.orders add column if not exists status_detail text;
 -- ensure pending_verification enum
 do $$ begin
   alter type order_status add value if not exists 'pending_verification';
-exception when duplicate_object then null; end $$;
+exception when undefined_object then null; end $$;
 -- allow text check fallback
 alter table public.orders drop constraint if exists orders_status_check;
 alter table public.orders add constraint orders_status_check check (status in ('pending','pending_verification','authorized','processing','shipped','delivered','canceled','refunded','paid','cancelled'));

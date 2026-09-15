@@ -6,9 +6,9 @@ CREATE EXTENSION IF NOT EXISTS pg_cron;
 SELECT cron.schedule(
   'orphan-gc-weekly',
   '0 3 * * 0',
-  \$\$
+  $$
   DELETE FROM storage.objects WHERE bucket_id IN ('bank_proofs','product-images') AND created_at < now() - interval '1 year';
-  \$\$
+  $$
 );
 
 -- perf mutex table for stampede protection (Upstash fallback)

@@ -47,7 +47,7 @@ create extension if not exists pg_trgm;
 create index if not exists idx_products_name_trgm
   on public.products using gin (name gin_trgm_ops);
 create index if not exists idx_products_search_trgm
-  on public.products using gin (search_vector gin_trgm_ops);
+  on public.products using gin (search_vector);
 
 -- query pattern: WHERE search_vector @@ plainto_tsquery('spanish',:q)
 --   OR (name ILIKE '%'||:q||'%' AND similarity(name,:q) > 0.3)
