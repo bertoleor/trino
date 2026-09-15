@@ -27,3 +27,14 @@ Proyecto: santisima-trinidad (main @ ebf2ac7). Stack Next 16 + React 19 + Supaba
 - pre_tool_call timeout en 1 write -> retry x1 OK (resiliencia aplicada).
 
 Todo UNVERIFIED. Cero notificaciones. Cero borrados.
+
+## Actualización 2026-09-15 turno noche (sdd/migraciones-verify)
+
+- DONE (este pase): fix 0020/0021/0022 verificado en disco (R-01..R-03),
+  sin drift en `supabase/migrations/` ni `src/`, subset migración 16/16 PASS,
+  suite unit 489/492 (3 rojos pre-existentes ajenos: t-lhci drift-guard,
+  t-prettier-guard 2 archivos, t-imports-guard 2 errores).
+- TODO nuevo (no bloqueante, diurno): los 3 rojos pre-existentes + espejo
+  Linear [TRINO] pendiente (MCP con timeout) + re-verificación en vivo del
+  deploy prod (IPv6 bloqueado desde esta red).
+- Evidencia: `sdd/migraciones-verify/verify.md`, log `E:/temp/trino-unit-full.log`.
