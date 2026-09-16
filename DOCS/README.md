@@ -21,7 +21,8 @@
 - `DEPLOY.md` — deploy. `LEGAL.md` / `TERMS.md` / `RULES.md` — legales y reglas.
 - `DOCS/` — briefs originales (marca, bauhaus, 3 planes de producto, constitution).
 - `legal/` — product specs, facturación AFIP/KeyCAE, pages coverage.
-- `PLANS/` — planes heredados. `reports/` — reportes (producto, identidad, runbook).
+- `PLANS/` — planes heredados (incluye `plan-accion-2026-09-12.md`, fases de producto
+  por decidir; origen del roadmap). `reports/` — reportes (producto, identidad, runbook).
 - `ROADMAP-NEXT-SDD.md` — roadmap.
 
 ## Convención
