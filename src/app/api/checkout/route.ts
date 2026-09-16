@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
+import { sendOrderConfirmation } from '@/lib/email/resend';
 import { toJson } from '@/lib/supabase/typed';
 
 // eslint-disable-next-line complexity -- pre-existing 15, refactor follow-up, ticket: warnings-pr-followup/COMP-2
@@ -39,6 +40,21 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
     if (error) throw error;
+    // Order confirmation email (test mode: sandbox recipient, never throws).
+    const customerEmail = typeof body.email === 'string' ? body.email : '';
+    const emailResult = await sendOrderConfirmation({
+      orderId: String(data.id ?? idempotencyKey ?? 'unknown'),
+      to: customerEmail,
+      totalCents: dbTotal,
+      itemCount: Array.isArray(body.line_items) ? body.line_items.length : undefined,
+    });
+    if (!emailResult.ok) {
+      logger.warn('order confirmation email not sent', {
+        route: 'api/checkout',
+        orderId: data.id,
+        reason: 'skipped' in emailResult ? emailResult.skipped : emailResult.error,
+      });
+    }
     return NextResponse.json({ status: 'ok', order: data }, { status: 201 });
   } catch (e) {
     try {

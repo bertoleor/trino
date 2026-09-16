@@ -4,7 +4,7 @@ import path from 'node:path'
 export default defineConfig({
   cacheDir: 'E:/sitios web E/santisima-trinidad/.vite-cache',
   test: {
-    include: ['tests/unit/**/*.test.{ts,tsx}', 'tests/integration/**/*.test.{ts,tsx}'],
+    include: ['tests/unit/**/*.test.{ts,tsx}', 'tests/integration/**/*.test.{ts,tsx}', 'src/**/*.test.{ts,tsx}'],
     environment: 'node',
     coverage: {
       provider: 'v8',
