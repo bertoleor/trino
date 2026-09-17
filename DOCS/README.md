@@ -10,6 +10,7 @@
 | `branding.md` | branding, voz, copy | `DOCS/marca.md`, reporte producto-marketing-estilo |
 | `identidad-visual.md` | identidad visual, tokens | `src/styles/tokens.css` (valores reales) |
 | `funciones.md` | funciones por capacidad | `src/app/`, `src/app/api/`, `src/lib/`, `openspec/specs/` |
+| `DATABASE.md` | modelo de datos, RLS, transiciones de pedido | `supabase/migrations/0001..0022`, OpenAPI prod |
 
 ## Resto de la carpeta
 
