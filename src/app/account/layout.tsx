@@ -1,11 +1,18 @@
-import Link from 'next/link'
-import { signOut } from '@/app/auth/actions'
+import { signOut } from '@/app/auth/actions';
+import { createClient } from '@/lib/supabase/server';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-export default function AccountLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export const dynamic = 'force-dynamic';
+
+export default async function AccountLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect('/login');
+
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-8 lg:flex-row lg:gap-8">
       <aside className="mb-6 flex lg:mb-0 lg:w-52 lg:flex-col">
@@ -23,5 +30,5 @@ export default function AccountLayout({
       </aside>
       <section className="flex-1">{children}</section>
     </div>
-  )
+  );
 }
