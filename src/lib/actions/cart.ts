@@ -1,20 +1,23 @@
 'use server';
 import { createClient } from '@/lib/supabase/server';
+import { getOrCreateAnonSessionId } from '@/lib/session/anon';
 import { revalidatePath } from 'next/cache';
 
 // Optimistic update with rollback toast; 44px touch target on the client.
-export async function addToCart(variantId: string, quantity: number, sessionId?: string) {
+export async function addToCart(variantId: string, quantity: number) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   const owner = user?.id ?? null;
-  if (!owner && !sessionId) return { error: 'session required', status: 401 };
+  // Anonymous cart owner is bound server-side from an httpOnly cookie; the
+  // client can never choose which cart it writes to (S-06, CWE-639 / A01).
+  const sessionId = owner ? null : await getOrCreateAnonSessionId();
   const { data, error } = await supabase.rpc('add_to_cart_serializable', {
     p_variant_id: variantId,
     p_qty: quantity,
     p_user_id: owner,
-    p_session_id: sessionId ?? null,
+    p_session_id: sessionId,
   });
   if (error?.message?.includes('conflict') || error?.code === '23505')
     return { error: 'conflict', status: 409 };
