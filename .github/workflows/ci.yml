@@ -21,7 +21,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -49,7 +48,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -65,9 +63,9 @@ jobs:
       - name: Start local Supabase
         run: supabase start
       - name: Drift guard — regen must be diff-clean
-        run:
-          supabase gen types typescript --local --schema public > /tmp/fresh.types.ts && diff
-          --exit-code /tmp/fresh.types.ts src/types/database.types.ts
+        run: |
+          supabase gen types typescript --local --schema public > /tmp/fresh.types.ts
+          diff --exit-code /tmp/fresh.types.ts src/types/database.types.ts
 
   test:
     name: Unit Tests
@@ -79,7 +77,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -103,7 +100,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -131,7 +127,6 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 12
           run_install: false
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -154,5 +149,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run npm audit
-        run: npm audit --audit-level=high || true
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run pnpm audit
+        run: pnpm audit --audit-level=high
