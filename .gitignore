@@ -22,3 +22,5 @@ supabase/.temp/
 .vercel
 .env*
 .eslintcache
+
+!.env.example
