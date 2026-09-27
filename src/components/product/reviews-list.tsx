@@ -1,9 +1,9 @@
 "use client";
-import { memo } from 'react';
 import type { ComponentType, ReactNode } from 'react';
 import Image from 'next/image';
 import StarRating from '@/components/product/star-rating';
 import dynamic from 'next/dynamic';
+import { memo } from 'react';
 import { useState } from 'react';
 type Review = { id: string; rating: number; title?: string; body?: string; images?: string[]; verified_purchase?: boolean; helpful?: number; created_at?: string };
 type VirtualListProps = {

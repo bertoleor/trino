@@ -7,6 +7,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import createIntlMiddleware from "next-intl/middleware";
 import { createServerClient } from "@supabase/ssr";
 import { hasRole } from "@/lib/auth/roles";
+import { logRbacDeny } from "@/lib/proxy/rbac-audit";
 import { logger } from "@/lib/logger";
 import { routing } from "@/i18n/routing";
 
@@ -44,19 +45,6 @@ async function checkHasRole(client: unknown, req: Role): Promise<boolean> {
 function isAuthTierPath(pathname: string): boolean {
   if (pathname.startsWith("/api/auth")) return true;
   return pathname.includes("/login") || pathname.includes("/signup");
-}
-
-async function logRbacDeny(client: unknown, userId: string, pathname: string, ip: string): Promise<void> {
-  try {
-    await toTypedSupabase(client).from("security_logs").insert({ event: "rbac_403", user_id: userId, ip, metadata: { path: pathname } });
-  } catch (err) {
-    logger.error("proxy_audit_security_logs_failed", { route: "proxy/rbac-deny", error: String(err) });
-  }
-  try {
-    await toTypedSupabase(client).from("audit_logs").insert({ table_name: "entitlements", record_id: null, action: "update", old_data: null, new_data: { denied: true, path: pathname }, user_id: userId });
-  } catch (err) {
-    logger.error("proxy_audit_audit_logs_failed", { route: "proxy/rbac-deny", error: String(err) });
-  }
 }
 
 type EntitlementRow = { role: string };

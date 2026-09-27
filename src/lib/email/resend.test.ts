@@ -6,6 +6,7 @@ vi.mock('resend', () => ({
   // Class (not arrow fn): resend.ts constructs with `new Resend(apiKey)`.
   Resend: class {
     emails = { send: sendMock };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- ctor arity mirrors real Resend(apiKey) contract
     constructor(_apiKey?: string) {}
   },
 }));

@@ -1,6 +1,6 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
-import type { Metadata } from 'next';
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
