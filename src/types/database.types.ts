@@ -541,4 +541,3 @@ export type Tables<
       ? R
       : never
     : never;
-

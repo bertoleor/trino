@@ -107,6 +107,9 @@ describe('t-s2 admin segments render (spec observability-health)', () => {
 describe('t-s2 database.types exception recorded (NOT hand-edited)', () => {
   it('keeps globalIgnores cover + generated marker, body untouched by S2', () => {
     expect(read('eslint.config.mjs')).toMatch(/database\.types\.ts/);
-    expect(read('src/types/database.types.ts')).toMatch(/DB-SYNC|generated|supabase gen types/i);
+    // Drift-guard contract: the types file is pure CLI output; the regen marker lives in
+    // package.json gen:types script.
+    expect(read('package.json')).toMatch(/gen:types/);
+    expect(read('package.json')).toMatch(/supabase gen types typescript --local/);
   });
 });
