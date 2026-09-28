@@ -1,5 +1,3 @@
-// Generated — do NOT hand-edit. Regen: `pnpm gen:types`
-// (supabase gen types typescript --local --schema public > src/types/database.types.ts).
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
@@ -410,7 +408,6 @@ export type Database = {
         Relationships: [];
       };
       entitlements: {
-        // role CHECK (entitlements_role_check): 'super_admin' | 'admin' | 'editor' | 'viewer'
         Row: {
           granted_at: string;
           id: string;
@@ -545,6 +542,3 @@ export type Tables<
       : never
     : never;
 
-// DB-SYNC: run `pnpm gen:types` after every migration (supabase gen types typescript --local --schema public)
-// Generated against migration 0022_client_warnings_fix.sql — entitlements 4-tier CHECK, has_role(), customer_360 VIEW.
-// Regenerate to remain diff-clean: `pnpm gen:types` then `git diff --exit-code src/types/database.types.ts`.
