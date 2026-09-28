@@ -12,7 +12,20 @@ const circuit = createCircuitBreaker({
 });
 export const TTL = 60;
 export const SWR = 300;
+// T-S01 (CWE-770): unbounded request variety (session-id x cp x hash) made
+// the in-memory fallback a memory-exhaustion vector. Bounded LRU-ish
+// eviction: once full, the oldest inserted entry is dropped first.
+export const MAX_MEM_ENTRIES = 1000;
+export const MAX_HASH_ITEMS = 25;
 const mem = new Map<string, { data: unknown; exp: number; swr: number }>();
+
+function evictIfNeeded() {
+  if (mem.size >= MAX_MEM_ENTRIES) {
+    // Map preserves insertion order: first key = oldest entry.
+    const oldest = mem.keys().next().value;
+    if (oldest !== undefined) mem.delete(oldest);
+  }
+}
 function getRedis(): Redis | null {
   if (!process.env.UPSTASH_REDIS_REST_URL) return null;
   if (!circuit.canExecute()) return null;
@@ -28,6 +41,8 @@ function getRedis(): Redis | null {
   }
 }
 export function shippingHash(postalCode: string, items: unknown[]): string {
+  // T-S01: bound hash cost — reject oversized arrays BEFORE stringify+sha256.
+  if (items.length > MAX_HASH_ITEMS) throw new Error('too many items to hash');
   const sorted = [...items].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
   const inner = crypto.createHash('sha256').update(JSON.stringify(sorted)).digest('hex');
   return crypto
@@ -52,6 +67,7 @@ export async function cacheGet(
 export async function cacheSet(key: string, data: unknown): Promise<void> {
   const r = getRedis();
   if (r) await r.set(key, JSON.stringify(data), { ex: TTL });
+  evictIfNeeded();
   mem.set(key, { data, exp: Date.now() + TTL * 1000, swr: Date.now() + SWR * 1000 });
 }
 export async function withJitterRetry<T>(fn: () => Promise<T>, retries = 5): Promise<T> {
