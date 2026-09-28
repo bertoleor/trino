@@ -28,7 +28,7 @@ on conflict (id) do nothing;
 
 -- seed auth identities (local dev only) — reviews.user_id is NOT NULL REFERENCES auth.users;
 -- the on_auth_user_created_profile trigger creates matching profiles idempotently.
-insert into auth.users (id, email, email_confirmed_at, raw_app_metadata, raw_user_meta_data) values
+insert into auth.users (id, email, email_confirmed_at, raw_app_meta_data, raw_user_meta_data) values
   ('00000000-0000-0000-0000-000000000101','seed-reviewer-1@trino.local', now(), '{"provider":"seed","providers":["seed"]}', '{"full_name":"Seed Reviewer 1"}'),
   ('00000000-0000-0000-0000-000000000102','seed-reviewer-2@trino.local', now(), '{"provider":"seed","providers":["seed"]}', '{"full_name":"Seed Reviewer 2"}')
 on conflict (id) do nothing;
