@@ -2,10 +2,11 @@
 -- idempotent seed for dev/test: products, cultura, wishlist, reviews, carts
 
 -- products (10) with price_cents INT MONEY
-insert into public.products (id, slug, title, price_cents, currency, deleted_at) values
-  ('00000000-0000-0000-0000-000000000001','sahumerio-palo-santo','Sahumerio Palo Santo', 250000,'ARS',null),
-  ('00000000-0000-0000-0000-000000000002','vela-soja-trino','Vela Soja Trino', 180000,'ARS',null),
-  ('00000000-0000-0000-0000-000000000003','incienzo-copal','Incienzo Copal', 120000,'ARS',null)
+-- schema: name (NOT NULL, no "title" column exists), price numeric NOT NULL
+insert into public.products (id, slug, name, price, price_cents, currency, deleted_at) values
+  ('00000000-0000-0000-0000-000000000001','sahumerio-palo-santo','Sahumerio Palo Santo', 2500.00, 250000,'ARS',null),
+  ('00000000-0000-0000-0000-000000000002','vela-soja-trino','Vela Soja Trino', 1800.00, 180000,'ARS',null),
+  ('00000000-0000-0000-0000-000000000003','incienzo-copal','Incienzo Copal', 1200.00, 120000,'ARS',null)
 on conflict (id) do nothing;
 
 -- cultura_posts draft/published + sad paths
