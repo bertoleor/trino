@@ -126,12 +126,12 @@ export default function CulturaCalendar({ initialPosts }: { initialPosts: Post[]
                 className={`rounded border p-3 text-sm ${statusColor[p.status] ?? 'bg-zinc-100'} cursor-grab`}
                 aria-label={`post ${p.slug} ${p.status}`}
               >
-                <p className="font-medium truncate">{p.title}</p>
+                <p className="truncate font-medium">{p.title}</p>
                 <p className="text-xs">
                   {p.status} {p.published_at ? new Date(p.published_at).toLocaleDateString() : ''} —{' '}
                   {p.locale}
                 </p>
-                <p className="text-xs truncate">{(p.tags ?? []).join(', ')}</p>
+                <p className="truncate text-xs">{(p.tags ?? []).join(', ')}</p>
               </div>
             ))}
           </div>

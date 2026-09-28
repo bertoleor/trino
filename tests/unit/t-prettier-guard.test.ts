@@ -1,7 +1,7 @@
+import { beforeAll, describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { beforeAll, describe, expect, it } from 'vitest';
 
 const ROOT = path.resolve(__dirname, '../..');
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8');

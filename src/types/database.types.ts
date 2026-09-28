@@ -125,11 +125,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "products_category_id_fkey";
-            columns: ["category_id"];
+            foreignKeyName: 'products_category_id_fkey';
+            columns: ['category_id'];
             isOneToOne: false;
-            referencedRelation: "categories";
-            referencedColumns: ["id"];
+            referencedRelation: 'categories';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -172,11 +172,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "product_variants_product_id_fkey";
-            columns: ["product_id"];
+            foreignKeyName: 'product_variants_product_id_fkey';
+            columns: ['product_id'];
             isOneToOne: false;
-            referencedRelation: "products";
-            referencedColumns: ["id"];
+            referencedRelation: 'products';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -210,18 +210,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "cart_items_variant_id_fkey";
-            columns: ["variant_id"];
+            foreignKeyName: 'cart_items_variant_id_fkey';
+            columns: ['variant_id'];
             isOneToOne: false;
-            referencedRelation: "product_variants";
-            referencedColumns: ["id"];
+            referencedRelation: 'product_variants';
+            referencedColumns: ['id'];
           },
           {
-            foreignKeyName: "cart_items_user_id_fkey";
-            columns: ["user_id"];
+            foreignKeyName: 'cart_items_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -252,11 +252,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "carts_user_id_fkey";
-            columns: ["user_id"];
+            foreignKeyName: 'carts_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -311,11 +311,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "orders_user_id_fkey";
-            columns: ["user_id"];
+            foreignKeyName: 'orders_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -358,18 +358,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "order_items_order_id_fkey";
-            columns: ["order_id"];
+            foreignKeyName: 'order_items_order_id_fkey';
+            columns: ['order_id'];
             isOneToOne: false;
-            referencedRelation: "orders";
-            referencedColumns: ["id"];
+            referencedRelation: 'orders';
+            referencedColumns: ['id'];
           },
           {
-            foreignKeyName: "order_items_variant_id_fkey";
-            columns: ["variant_id"];
+            foreignKeyName: 'order_items_variant_id_fkey';
+            columns: ['variant_id'];
             isOneToOne: false;
-            referencedRelation: "product_variants";
-            referencedColumns: ["id"];
+            referencedRelation: 'product_variants';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -431,11 +431,11 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "entitlements_user_id_fkey";
-            columns: ["user_id"];
+            foreignKeyName: 'entitlements_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -523,23 +523,22 @@ export type Database = {
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    keyof (Database['public']['Tables'] & Database['public']['Views']) | { schema: keyof Database },
+  TableName extends (PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+        Database[PublicTableNameOrOptions['schema']]['Views'])
+    : never) = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (Database[PublicTableNameOrOptions['schema']]['Tables'] &
+      Database[PublicTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R;
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-        Database["public"]["Views"])
-    ? (Database["public"]["Tables"] &
-        Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] &
+        Database['public']['Views'])
+    ? (Database['public']['Tables'] &
+        Database['public']['Views'])[PublicTableNameOrOptions] extends {
         Row: infer R;
       }
       ? R

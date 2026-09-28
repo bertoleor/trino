@@ -31,7 +31,9 @@ export const SocialProvider = {
   },
 };
 
-export async function getSocialStats(platform: SocialPlatform): Promise<{ platform: SocialPlatform; data: unknown; cached: boolean }> {
+export async function getSocialStats(
+  platform: SocialPlatform
+): Promise<{ platform: SocialPlatform; data: unknown; cached: boolean }> {
   const key = `social:${platform}`;
   const hit = mem.get(key);
   if (hit && hit.exp > Date.now()) return { platform, data: hit.data, cached: true };

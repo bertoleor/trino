@@ -10,7 +10,7 @@
   "endOfLine": "lf",
   "proseWrap": "always",
   "htmlWhitespaceSensitivity": "css",
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
-  "tailwindConfig": "./tailwind.config.ts",
-  "organizeImportsSkipDestructiveCodeActions": true
+  "plugins": [
+    "prettier-plugin-tailwindcss"
+  ]
 }

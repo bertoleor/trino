@@ -16,14 +16,27 @@ const NEVER_SCOPE = [
   'src/lib/rate-limit.ts',
 ];
 
+// security_logs/audit_logs catches moved to src/lib/proxy/rbac-audit.ts (CQ-03
+// 150-line extract); the deny path (Forbidden 403) stays in proxy.ts.
 const CATCH_SITES = [
-  { marker: 'has_role', log: 'proxy_has_role_failed', deny: 'return false' },
-  { marker: 'security_logs', log: 'proxy_audit_security_logs_failed', deny: 'Forbidden' },
-  { marker: 'audit_logs', log: 'proxy_audit_audit_logs_failed', deny: 'Forbidden' },
+  { marker: 'has_role', log: 'proxy_has_role_failed', deny: 'return false', file: 'src/proxy.ts' },
+  {
+    marker: 'security_logs',
+    log: 'proxy_audit_security_logs_failed',
+    deny: 'audit_logs',
+    file: 'src/lib/proxy/rbac-audit.ts',
+  },
+  {
+    marker: 'audit_logs',
+    log: 'proxy_audit_audit_logs_failed',
+    deny: "route: 'proxy/rbac-deny'",
+    file: 'src/lib/proxy/rbac-audit.ts',
+  },
   {
     marker: 'entitlements',
     log: 'proxy_entitlements_fallback_failed',
     deny: 'return NextResponse.json',
+    file: 'src/proxy.ts',
   },
 ];
 
@@ -41,23 +54,29 @@ describe('t4 as-never narrowing via TypedSupabase/isRecord boundary', () => {
 
 describe('t4 proxy fail-closed catches with logger (slice-B preserved)', () => {
   it('each of the 4 catches logs and keeps its deny path', () => {
-    const c = read('src/proxy.ts');
     const bad: string[] = [];
     for (const s of CATCH_SITES) {
+      const c = read(s.file);
       const at = c.indexOf(s.marker);
       const li = at === -1 ? -1 : c.indexOf(s.log, at);
       const di = li === -1 ? -1 : c.indexOf(s.deny, li);
       if (at === -1 || li === -1 || di === -1 || !c.slice(at, li).includes('catch'))
-        bad.push(s.marker);
+        bad.push(`${s.marker}@${s.file}`);
     }
     expect(bad).toEqual([]);
   });
   it('no empty catch blocks and no secrets in logged proxy errors', () => {
     const c = read('src/proxy.ts');
     expect(c).not.toMatch(/catch\s*\{\s*\}/);
-    const logged = c.split('\n').filter((l) => l.includes('logger.error'));
-    expect(logged.length).toBeGreaterThanOrEqual(4);
-    for (const l of logged) expect(l).not.toMatch(/SECRET|APIKEY|apikey|token/i);
+    // 2 of the 4 logger.error sites moved to src/lib/proxy/rbac-audit.ts (CQ-03
+    // extract); the combined deny-audit surface must keep >= 4 logged catches.
+    const loggedProxy = c.split('\n').filter((l) => l.includes('logger.error'));
+    const loggedAudit = read('src/lib/proxy/rbac-audit.ts')
+      .split('\n')
+      .filter((l) => l.includes('logger.error'));
+    expect(loggedProxy.length + loggedAudit.length).toBeGreaterThanOrEqual(4);
+    for (const l of [...loggedProxy, ...loggedAudit])
+      expect(l).not.toMatch(/SECRET|APIKEY|apikey|token/i);
   });
 });
 

@@ -4,7 +4,8 @@ import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
 const MIG = path.join(ROOT, 'supabase/migrations/0022_client_warnings_fix.sql');
-const hasSupabase = !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const hasSupabase =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '';
 
@@ -78,11 +79,14 @@ describe('RLS two-role integration W-08 — A≠B 403 has_role DEFINER retry3', 
 
   it('security_logs insert on 403 — audit trail exists', () => {
     const c = fs.readFileSync(MIG, 'utf8');
-    // proxy logs rbac_403 to security_logs + audit_logs
+    // proxy denies and calls logRbacDeny; the rbac_403 security_logs + audit_logs
+    // inserts live in src/lib/proxy/rbac-audit.ts (CQ-03 150-line extract).
     const proxy = fs.readFileSync(path.join(ROOT, 'src/proxy.ts'), 'utf8');
-    expect(proxy).toMatch(/security_logs/);
-    expect(proxy).toMatch(/audit_logs/);
-    expect(proxy).toMatch(/rbac_403/);
+    const audit = fs.readFileSync(path.join(ROOT, 'src/lib/proxy/rbac-audit.ts'), 'utf8');
+    expect(proxy).toMatch(/logRbacDeny/);
+    expect(audit).toMatch(/security_logs/);
+    expect(audit).toMatch(/audit_logs/);
+    expect(audit).toMatch(/rbac_403/);
     void c;
   });
 

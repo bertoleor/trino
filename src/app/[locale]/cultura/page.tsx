@@ -25,7 +25,11 @@ export default async function CulturaPage() {
       <h1 className="text-3xl font-bold lowercase">cultura.</h1>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((p, i) => (
-          <Link key={p.id} href={`/cultura/${p.slug}`} className="rounded-xl border p-4 hover:shadow-md">
+          <Link
+            key={p.id}
+            href={`/cultura/${p.slug}`}
+            className="rounded-xl border p-4 hover:shadow-md"
+          >
             {p.cover_image ? (
               <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                 <Image
@@ -46,7 +50,9 @@ export default async function CulturaPage() {
         ))}
       </div>
       {items.length === 0 ? <p className="mt-6 text-zinc-500">sin articulos.</p> : null}
-      <p className="mt-4 text-xs text-zinc-400">paginate 12 — ISR revalidate 300 — Skeleton Bauhaus</p>
+      <p className="mt-4 text-xs text-zinc-400">
+        paginate 12 — ISR revalidate 300 — Skeleton Bauhaus
+      </p>
     </main>
   );
 }

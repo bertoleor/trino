@@ -22,7 +22,9 @@ describe('T-D09b social graph TikTok Display IG Basic 200/h Meta 10k/d pg_cron U
       path.join(ROOT, 'supabase/migrations/0012_cultura_cron.sql'),
       path.join(ROOT, 'supabase/migrations/0008_cron.sql'),
     ];
-    const hasCron = cronPaths.some((p) => fs.existsSync(p) && fs.readFileSync(p, 'utf8').match(/social|graph|cron/i));
+    const hasCron = cronPaths.some(
+      (p) => fs.existsSync(p) && fs.readFileSync(p, 'utf8').match(/social|graph|cron/i)
+    );
     expect(hasCron || g.match(/cron/i)).toBeTruthy();
   });
   it('feed cached social-feed component', () => {

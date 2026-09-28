@@ -9,24 +9,29 @@ export async function logRbacDeny(
   client: unknown,
   userId: string,
   pathname: string,
-  ip: string,
+  ip: string
 ): Promise<void> {
   try {
     await toTypedSupabase(client)
       .from('security_logs')
       .insert({ event: 'rbac_403', user_id: userId, ip, metadata: { path: pathname } });
   } catch (err) {
-    logger.error('proxy_audit_security_logs_failed', { route: 'proxy/rbac-deny', error: String(err) });
+    logger.error('proxy_audit_security_logs_failed', {
+      route: 'proxy/rbac-deny',
+      error: String(err),
+    });
   }
   try {
-    await toTypedSupabase(client).from('audit_logs').insert({
-      table_name: 'entitlements',
-      record_id: null,
-      action: 'update',
-      old_data: null,
-      new_data: { denied: true, path: pathname },
-      user_id: userId,
-    });
+    await toTypedSupabase(client)
+      .from('audit_logs')
+      .insert({
+        table_name: 'entitlements',
+        record_id: null,
+        action: 'update',
+        old_data: null,
+        new_data: { denied: true, path: pathname },
+        user_id: userId,
+      });
   } catch (err) {
     logger.error('proxy_audit_audit_logs_failed', { route: 'proxy/rbac-deny', error: String(err) });
   }

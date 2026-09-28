@@ -25,14 +25,24 @@ describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
     const addEventListener = vi.fn();
     const removeEventListener = vi.fn();
     class FakeBC {
-      name: string; onmessage: any = null;
-      constructor(n: string) { this.name = n; }
-      postMessage = postMessage; close = close; addEventListener = addEventListener; removeEventListener = removeEventListener;
+      name: string;
+      onmessage: any = null;
+      constructor(n: string) {
+        this.name = n;
+      }
+      postMessage = postMessage;
+      close = close;
+      addEventListener = addEventListener;
+      removeEventListener = removeEventListener;
     }
     // @ts-ignore
     globalThis.BroadcastChannel = FakeBC;
-    // @ts-ignore
-    globalThis.window = { addEventListener: vi.fn(), removeEventListener: vi.fn(), localStorage: { getItem: vi.fn(), setItem: vi.fn(), removeItem: vi.fn() } };
+    // @ts-ignore -- window mock; Storage members intentionally omitted
+    globalThis.window = {
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      localStorage: { getItem: vi.fn(), setItem: vi.fn(), removeItem: vi.fn() },
+    } as unknown as Window & typeof globalThis;
     const { initAuthSync } = await import('@/lib/realtime/auth-sync');
     const cleanup = initAuthSync({ onLogout: vi.fn() });
     expect(typeof cleanup).toBe('function');
@@ -41,7 +51,12 @@ describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
 
   it('broadcastLogout posts via BroadcastChannel and storage fallback', async () => {
     const postMessage = vi.fn();
-    class FakeBC { constructor(_n: string){} postMessage = postMessage; close(){ } addEventListener(){} }
+    class FakeBC {
+      constructor(_n: string) {}
+      postMessage = postMessage;
+      close() {}
+      addEventListener() {}
+    }
     // @ts-ignore
     globalThis.BroadcastChannel = FakeBC;
     const setItem = vi.fn();
@@ -75,7 +90,9 @@ describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
     // @ts-ignore
     globalThis.window = {
       // @ts-ignore
-      addEventListener: (ev: string, cb: Function) => { listeners[ev] = cb; },
+      addEventListener: (ev: string, cb: Function) => {
+        listeners[ev] = cb;
+      },
       removeEventListener: vi.fn(),
     };
     // @ts-ignore
@@ -91,7 +108,13 @@ describe('auth-sync W-05 BroadcastChannel + storage fallback <1s', () => {
 
   it('cleanup removes listeners and closes channel', async () => {
     const close = vi.fn();
-    class FakeBC { constructor(_n:string){} close = close; postMessage(){} addEventListener(){} onmessage=null }
+    class FakeBC {
+      constructor(_n: string) {}
+      close = close;
+      postMessage() {}
+      addEventListener() {}
+      onmessage = null;
+    }
     // @ts-ignore
     globalThis.BroadcastChannel = FakeBC;
     // @ts-ignore

@@ -8,7 +8,10 @@ describe('T-S04 shipping hash jitter SWR behavioral', () => {
     expect(c).toMatch(/sha256|createHash/);
     expect(c).not.toMatch(/reduce.*\+.*weight/);
     const { computeShippingHash } = await import('@/lib/shipping/hash');
-    const h1 = computeShippingHash('1000', [{ weight: 10, product: 'A' }, { weight: 10, product: 'B' }]);
+    const h1 = computeShippingHash('1000', [
+      { weight: 10, product: 'A' },
+      { weight: 10, product: 'B' },
+    ]);
     const h2 = computeShippingHash('1000', [{ weight: 20, product: 'C' }]);
     expect(h1).not.toBe(h2);
     expect(h1).toMatch(/^[a-f0-9]{64}$/);
@@ -16,8 +19,14 @@ describe('T-S04 shipping hash jitter SWR behavioral', () => {
 
   it('shippingHash is order independent and postal sensitive', async () => {
     const { shippingHash } = await import('@/lib/shipping/cache');
-    const itemsA = [{ weight: 5, product: 'X' }, { weight: 10, product: 'Y' }] as unknown as never[];
-    const itemsB = [{ weight: 10, product: 'Y' }, { weight: 5, product: 'X' }] as unknown as never[];
+    const itemsA = [
+      { weight: 5, product: 'X' },
+      { weight: 10, product: 'Y' },
+    ] as unknown as never[];
+    const itemsB = [
+      { weight: 10, product: 'Y' },
+      { weight: 5, product: 'X' },
+    ] as unknown as never[];
     const hA = shippingHash('1425', itemsA);
     const hB = shippingHash('1425', itemsB);
     expect(hA).toBe(hB);

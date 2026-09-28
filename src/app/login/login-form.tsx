@@ -1,20 +1,17 @@
-'use client'
+'use client';
 
-import { type AuthState, login } from '@/app/auth/actions'
-import Link from 'next/link'
-import { useActionState } from 'react'
+import { type AuthState, login } from '@/app/auth/actions';
+import Link from 'next/link';
+import { useActionState } from 'react';
 
 export function LoginForm() {
-  const [state, formAction, pending] = useActionState<AuthState, FormData>(
-    login,
-    {}
-  )
+  const [state, formAction, pending] = useActionState<AuthState, FormData>(login, {});
 
   return (
     <>
       <h1 className="text-2xl font-bold">Iniciar sesión</h1>
       <p className="mt-1 text-sm text-zinc-600">
-        ¿No tenés cuenta?{" "}
+        ¿No tenés cuenta?{' '}
         <Link href="/signup" className="underline">
           Registrate
         </Link>
@@ -39,9 +36,7 @@ export function LoginForm() {
             className="rounded-md border border-zinc-300 px-3 py-2"
           />
         </label>
-        {state.error ? (
-          <p className="text-sm text-red-600">{state.error}</p>
-        ) : null}
+        {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
         <button
           type="submit"
           disabled={pending}
@@ -51,5 +46,5 @@ export function LoginForm() {
         </button>
       </form>
     </>
-  )
+  );
 }

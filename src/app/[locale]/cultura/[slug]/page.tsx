@@ -16,7 +16,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const supabase = await createClient();
-  const { data: post } = await supabase.from('cultura_posts').select('title, excerpt, cover_image').eq('slug', slug).single();
+  const { data: post } = await supabase
+    .from('cultura_posts')
+    .select('title, excerpt, cover_image')
+    .eq('slug', slug)
+    .single();
   const title = post?.title ?? slug;
   const description = post?.excerpt ?? title;
   const url = `https://trino.com.ar/${locale}/cultura/${slug}`;
@@ -26,7 +30,14 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical: url, languages },
-    openGraph: { title, description, url, images: post?.cover_image ? [{ url: post.cover_image }] : [], type: 'article', locale },
+    openGraph: {
+      title,
+      description,
+      url,
+      images: post?.cover_image ? [{ url: post.cover_image }] : [],
+      type: 'article',
+      locale,
+    },
   };
 }
 
@@ -55,7 +66,11 @@ export default async function CulturaDetail({
   });
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12">
-      <script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+      <script
+        type="application/ld+json"
+        nonce={nonce}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+      />
       <h1 className="text-3xl font-bold lowercase">{post.title}</h1>
       <p className="mt-2 text-zinc-500">{post.excerpt}</p>
       {post.cover_image ? (
@@ -69,10 +84,12 @@ export default async function CulturaDetail({
           className="mt-6 w-full rounded-xl"
         />
       ) : null}
-      <div className="mt-6 prose lowercase">
+      <div className="prose mt-6 lowercase">
         {post.body ? JSON.stringify(post.body) : 'sin contenido.'}
       </div>
-      <p className="mt-4 text-xs text-zinc-400">TipTap body — related carousel — Article JSON-LD — hreflang x4</p>
+      <p className="mt-4 text-xs text-zinc-400">
+        TipTap body — related carousel — Article JSON-LD — hreflang x4
+      </p>
     </main>
   );
 }

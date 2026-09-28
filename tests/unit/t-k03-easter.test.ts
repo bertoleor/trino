@@ -9,7 +9,9 @@ describe('T-K03 easter konami trino sigil', () => {
   it('konami sequence up up down down left right left right BA', () => {
     expect(fs.existsSync(konami)).toBe(true);
     const c = fs.readFileSync(konami, 'utf8');
-    expect(c).toMatch(/ArrowUp.*ArrowUp.*ArrowDown.*ArrowDown.*ArrowLeft.*ArrowRight.*ArrowLeft.*ArrowRight/i);
+    expect(c).toMatch(
+      /ArrowUp.*ArrowUp.*ArrowDown.*ArrowDown.*ArrowLeft.*ArrowRight.*ArrowLeft.*ArrowRight/i
+    );
     expect(c).toMatch(/KeyB| b|BA/i);
     expect(c).toMatch(/KeyA| a/i);
     expect(c).toMatch(/konami/i);

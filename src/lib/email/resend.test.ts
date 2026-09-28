@@ -6,7 +6,7 @@ vi.mock('resend', () => ({
   // Class (not arrow fn): resend.ts constructs with `new Resend(apiKey)`.
   Resend: class {
     emails = { send: sendMock };
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- ctor arity mirrors real Resend(apiKey) contract
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- ctor arity mirrors real Resend(apiKey) contract; ticket: trino-ci-green/fast-follow
     constructor(_apiKey?: string) {}
   },
 }));
@@ -43,9 +43,9 @@ describe('buildOrderEmailHtml', () => {
   });
 
   it('renders the preparing and shipped templates', () => {
-    expect(
-      buildOrderEmailHtml('preparing', { orderId: 'ord_2', to: 'a@b.c' })
-    ).toContain('being prepared');
+    expect(buildOrderEmailHtml('preparing', { orderId: 'ord_2', to: 'a@b.c' })).toContain(
+      'being prepared'
+    );
     expect(buildOrderEmailHtml('shipped', { orderId: 'ord_3', to: 'a@b.c' })).toContain(
       'on its way'
     );

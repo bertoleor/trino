@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
+import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export default async function AdminPage() {
-  const supabase = await createClient()
+  const supabase = await createClient();
 
   const { data: products } = await supabase
     .from('products')
     .select('id, name, slug, price, is_active, featured')
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: false });
 
   return (
     <div>
@@ -25,7 +25,7 @@ export default async function AdminPage() {
 
       <div className="mt-6 overflow-hidden rounded-lg border border-zinc-200">
         <table className="w-full text-left">
-          <thead className="bg-zinc-50 text-xs uppercase text-zinc-500">
+          <thead className="bg-zinc-50 text-xs text-zinc-500 uppercase">
             <tr>
               <th className="px-4 py-3">Nombre</th>
               <th className="px-4 py-3">Precio</th>
@@ -54,5 +54,5 @@ export default async function AdminPage() {
         </table>
       </div>
     </div>
-  )
+  );
 }

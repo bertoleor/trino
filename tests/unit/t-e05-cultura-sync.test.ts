@@ -16,9 +16,15 @@ describe('T-E05 cultura-sync auto-import TikTok/IG draft pg_cron 06:00 QStash Up
     expect(c).toMatch(/hash|dedup|Upstash/i);
   });
   it('cron 06:00 UTC + QStash CRON_SECRET', () => {
-    const mig = fs.readFileSync(path.join(ROOT, 'supabase/migrations/0012_cultura_cron.sql'), 'utf8');
+    const mig = fs.readFileSync(
+      path.join(ROOT, 'supabase/migrations/0012_cultura_cron.sql'),
+      'utf8'
+    );
     expect(mig).toMatch(/06:00|0 6 \* \* \*|cultura-sync/i);
-    const route = fs.readFileSync(path.join(ROOT, 'src/app/api/cron/cultura-sync/route.ts'), 'utf8');
+    const route = fs.readFileSync(
+      path.join(ROOT, 'src/app/api/cron/cultura-sync/route.ts'),
+      'utf8'
+    );
     expect(route).toMatch(/CRON_SECRET|authorization|Bearer/i);
     expect(route).toMatch(/syncCultura|QStash/i);
   });

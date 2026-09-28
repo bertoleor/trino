@@ -47,7 +47,9 @@ describe('T-A03 env.ts Zod fail-closed ENV-01', () => {
         NEXT_PUBLIC_SITE_URL: 'https://example.com',
         ALLOW_MEMORY_RATE_LIMIT: 'true',
       } as unknown as Record<string, string>)
-    ).toThrow(/TURNSTILE_SECRET_KEY.*SUPABASE_SERVICE_ROLE|SUPABASE_SERVICE_ROLE.*TURNSTILE_SECRET_KEY/s);
+    ).toThrow(
+      /TURNSTILE_SECRET_KEY.*SUPABASE_SERVICE_ROLE|SUPABASE_SERVICE_ROLE.*TURNSTILE_SECRET_KEY/s
+    );
   });
 
   it('validateEnv requires Upstash pair or the declared ALLOW_MEMORY_RATE_LIMIT fallback', async () => {
@@ -77,6 +79,8 @@ describe('T-A03 env.ts Zod fail-closed ENV-01', () => {
         NEXT_PUBLIC_SUPABASE_URL: undefined,
         NEXT_PUBLIC_SUPABASE_ANON_KEY: undefined,
       } as unknown as Record<string, string>)
-    ).toThrow(/NEXT_PUBLIC_SUPABASE_URL.*NEXT_PUBLIC_SUPABASE_ANON_KEY|NEXT_PUBLIC_SUPABASE_ANON_KEY.*NEXT_PUBLIC_SUPABASE_URL/s);
+    ).toThrow(
+      /NEXT_PUBLIC_SUPABASE_URL.*NEXT_PUBLIC_SUPABASE_ANON_KEY|NEXT_PUBLIC_SUPABASE_ANON_KEY.*NEXT_PUBLIC_SUPABASE_URL/s
+    );
   });
 });

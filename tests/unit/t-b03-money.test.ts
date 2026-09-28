@@ -77,13 +77,23 @@ describe('T-B03 money validations Decimal HALF_UP 1c', () => {
     const now = new Date('2026-06-15T12:00:00Z');
     expect(
       getEffectivePriceCents(
-        { priceCents: 10000, salePriceCents: 8000, saleStart: '2026-06-01T00:00:00Z', saleEnd: '2026-06-30T00:00:00Z' },
+        {
+          priceCents: 10000,
+          salePriceCents: 8000,
+          saleStart: '2026-06-01T00:00:00Z',
+          saleEnd: '2026-06-30T00:00:00Z',
+        },
         now
       )
     ).toBe(8000);
     expect(
       getEffectivePriceCents(
-        { priceCents: 10000, salePriceCents: 8000, saleStart: '2026-06-01T00:00:00Z', saleEnd: '2026-06-10T00:00:00Z' },
+        {
+          priceCents: 10000,
+          salePriceCents: 8000,
+          saleStart: '2026-06-01T00:00:00Z',
+          saleEnd: '2026-06-10T00:00:00Z',
+        },
         now
       )
     ).toBe(10000);

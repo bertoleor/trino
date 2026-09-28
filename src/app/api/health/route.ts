@@ -31,12 +31,18 @@ export async function GET() {
   const start = Date.now();
   const [db, cache] = await Promise.all([
     withTimeout(checkDb(), DB_TIMEOUT).catch(() => ({ ok: false, latency: DB_TIMEOUT })),
-    withTimeout(Promise.resolve({ ok: true, latency: 0 }), CACHE_TIMEOUT).catch(() => ({ ok: false, latency: CACHE_TIMEOUT })),
+    withTimeout(Promise.resolve({ ok: true, latency: 0 }), CACHE_TIMEOUT).catch(() => ({
+      ok: false,
+      latency: CACHE_TIMEOUT,
+    })),
   ]);
   const storage = { ok: true, latency: 0 };
   await withTimeout(Promise.resolve(), STORAGE_TIMEOUT).catch(() => {});
   const checks = { db, cache, storage, uptime: process.uptime() };
   const healthy = db.ok && cache.ok;
   const status = healthy ? 200 : 503;
-  return NextResponse.json({ status: healthy ? 'ok' : 'unhealthy', checks, elapsed: Date.now() - start }, { status });
+  return NextResponse.json(
+    { status: healthy ? 'ok' : 'unhealthy', checks, elapsed: Date.now() - start },
+    { status }
+  );
 }
