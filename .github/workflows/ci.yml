@@ -65,7 +65,7 @@ jobs:
       - name: Drift guard — regen must be diff-clean
         run: |
           supabase gen types typescript --local --schema public > /tmp/fresh.types.ts
-          diff --exit-code /tmp/fresh.types.ts src/types/database.types.ts
+          diff /tmp/fresh.types.ts src/types/database.types.ts
 
   test:
     name: Unit Tests
