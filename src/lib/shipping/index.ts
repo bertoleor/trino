@@ -1,8 +1,11 @@
 import { createCircuitBreaker } from '@/lib/circuit';
+import { evictOldestIfNeeded } from '@/lib/bounded-map';
 import { logger } from '@/lib/logger';
 
 export type ShippingItem = { weight: number; dims?: { w: number; h: number; d: number } };
 export type ShippingRate = { carrier: string; priceCents: number; etaDays: number };
+
+export { MAX_RATE_MEM_ENTRIES } from '@/lib/bounded-map';
 
 const FIXED_CENTS = 199900;
 const CACHE_TTL = 60;
@@ -69,6 +72,7 @@ export async function getShippingRates(opts: {
   for (const c of targets) {
     try {
       const rates = await c.getRates(opts.postalCode, opts.items, signal);
+      evictOldestIfNeeded(MEM);
       MEM.set(key, { data: rates, exp: Date.now() + CACHE_TTL * 1000 });
       return { source: c.name, rates, cache: 'MISS' };
     } catch (e) {
@@ -79,8 +83,19 @@ export async function getShippingRates(opts: {
     }
   }
   const fallback: ShippingRate[] = [{ carrier: 'fallback', priceCents: FIXED_CENTS, etaDays: 5 }];
+  evictOldestIfNeeded(MEM);
   MEM.set(key, { data: fallback, exp: Date.now() + CACHE_TTL * 1000 });
   return { source: 'fallback', rates: fallback, cache: 'MISS' };
 }
 
 export const SHIPPING_CACHE = { ttl: CACHE_TTL, swr: SWR, fixed: FIXED_CENTS };
+
+// T-S04 test observability: the module-level MEM is module-private; these let
+// the eviction suite (t-s04-mem-cache-bounds) reset and inspect it without
+// exposing the Map itself.
+export function clearShippingMem() {
+  MEM.clear();
+}
+export function shippingMemSize(): number {
+  return MEM.size;
+}

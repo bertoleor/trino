@@ -1,4 +1,7 @@
 import type { ShippingItem, ShippingRate } from '@/lib/shipping';
+import { evictOldestIfNeeded } from '@/lib/bounded-map';
+
+export { MAX_RATE_MEM_ENTRIES } from '@/lib/bounded-map';
 
 export const SHIPPING_INTERNATIONAL_ENABLED = process.env.SHIPPING_INTERNATIONAL_ENABLED === 'true';
 
@@ -44,21 +47,33 @@ export async function getInternationalRates(opts: {
     const fallback: ShippingRate[] = [
       { carrier: 'fallback', priceCents: FIXED_INTL_CENTS, etaDays: 14 },
     ];
+    evictOldestIfNeeded(MEM);
     MEM.set(key, { data: fallback, exp: Date.now() + CACHE_TTL * 1000 });
     return { source: 'fallback', rates: fallback, cache: 'MISS' };
   }
   const signal = opts.signal ?? AbortSignal.timeout(8000);
   try {
     const rates = await fetchDHL(opts.country, opts.postalCode, opts.items, signal);
+    evictOldestIfNeeded(MEM);
     MEM.set(key, { data: rates, exp: Date.now() + CACHE_TTL * 1000 });
     return { source: 'dhl-ecommerce', rates, cache: 'MISS' };
   } catch {
     const fallback: ShippingRate[] = [
       { carrier: 'fallback', priceCents: FIXED_INTL_CENTS, etaDays: 14 },
     ];
+    evictOldestIfNeeded(MEM);
     MEM.set(key, { data: fallback, exp: Date.now() + CACHE_TTL * 1000 });
     return { source: 'fallback', rates: fallback, cache: 'MISS' };
   }
 }
 
 export const INTL_FIXED = FIXED_INTL_CENTS;
+
+// T-S04 test observability: reset/inspect the module-private MEM without
+// exposing the Map itself (paired with t-s04-mem-cache-bounds).
+export function clearIntlMem() {
+  MEM.clear();
+}
+export function intlMemSize(): number {
+  return MEM.size;
+}
