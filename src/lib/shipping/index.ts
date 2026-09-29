@@ -1,5 +1,6 @@
 import { createCircuitBreaker } from '@/lib/circuit';
 import { logger } from '@/lib/logger';
+import { shippingHash } from '@/lib/shipping/cache';
 
 export type ShippingItem = { weight: number; dims?: { w: number; h: number; d: number } };
 export type ShippingRate = { carrier: string; priceCents: number; etaDays: number };
@@ -49,10 +50,6 @@ function cacheKey(session: string, postalCode: string, hash: string) {
   return `ship:${session}:${postalCode}:${hash}`;
 }
 
-function weightHash(items: ShippingItem[]) {
-  return String(items.reduce((a, b) => a + b.weight, 0));
-}
-
 export async function getShippingRates(opts: {
   sessionId: string;
   postalCode: string;
@@ -60,7 +57,13 @@ export async function getShippingRates(opts: {
   carrier?: string;
   signal?: AbortSignal;
 }): Promise<{ source: string; rates: ShippingRate[]; cache: string }> {
-  const hash = weightHash(opts.items);
+  // T-S03 (auditoría 34-auditor, S-03 MEDIUM, CWE-706/CWE-20): the cache key
+  // derived ONLY from the sum of item weights — distinct carts with equal
+  // total weight collided and one cart was served another cart's quote
+  // (wrong price/ETA or stale). Reuse the composition-sensitive sha256
+  // shippingHash from cache.ts (S-01/S-04 lineage) so the internal lib
+  // cache and the route-level cache key agree on identity.
+  const hash = shippingHash(opts.postalCode, opts.items);
   const key = cacheKey(opts.sessionId, opts.postalCode, hash);
   const hit = MEM.get(key);
   if (hit && hit.exp > Date.now()) return { source: 'cache', rates: hit.data, cache: 'HIT' };

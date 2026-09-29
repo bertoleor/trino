@@ -1,4 +1,5 @@
-import type { ShippingItem, ShippingRate } from '@/lib/shipping';
+import { type ShippingItem, type ShippingRate, assertShippingItems } from '@/lib/shipping';
+import { shippingHash } from '@/lib/shipping/cache';
 
 export const SHIPPING_INTERNATIONAL_ENABLED = process.env.SHIPPING_INTERNATIONAL_ENABLED === 'true';
 
@@ -8,10 +9,6 @@ const MEM = new Map<string, { data: ShippingRate[]; exp: number }>();
 
 function keyIntl(country: string, postalCode: string, hash: string) {
   return `ship:intl:${country}:${postalCode}:${hash}`;
-}
-
-function hashItems(items: ShippingItem[]) {
-  return String(items.reduce((a, b) => a + b.weight, 0));
 }
 
 async function fetchDHL(
@@ -36,7 +33,10 @@ export async function getInternationalRates(opts: {
   items: ShippingItem[];
   signal?: AbortSignal;
 }): Promise<{ source: string; rates: ShippingRate[]; cache: string }> {
-  const hash = hashItems(opts.items);
+  // T-S02: fail fast BEFORE hash/cache/DHL fetch (CWE-20/CWE-770) — same
+  // bound/shape contract as getShippingRates, shared schema, no drift.
+  const items = assertShippingItems(opts.items);
+  const hash = shippingHash(opts.postalCode, items);
   const key = keyIntl(opts.country, opts.postalCode, hash);
   const hit = MEM.get(key);
   if (hit && hit.exp > Date.now()) return { source: 'cache', rates: hit.data, cache: 'HIT' };
@@ -49,7 +49,7 @@ export async function getInternationalRates(opts: {
   }
   const signal = opts.signal ?? AbortSignal.timeout(8000);
   try {
-    const rates = await fetchDHL(opts.country, opts.postalCode, opts.items, signal);
+    const rates = await fetchDHL(opts.country, opts.postalCode, items, signal);
     MEM.set(key, { data: rates, exp: Date.now() + CACHE_TTL * 1000 });
     return { source: 'dhl-ecommerce', rates, cache: 'MISS' };
   } catch {
