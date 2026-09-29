@@ -1,6 +1,6 @@
 'use server';
-import { checkRateLimit } from '@/lib/rate-limit';
 import { getOrCreateCartSessionId, readCartSessionId } from '@/lib/cart/session';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
