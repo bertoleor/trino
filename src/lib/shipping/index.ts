@@ -1,9 +1,23 @@
 import { createCircuitBreaker } from '@/lib/circuit';
 import { logger } from '@/lib/logger';
 import { shippingHash } from '@/lib/shipping/cache';
+import { shippingItemsSchema } from '@/lib/validations/shipping';
 
 export type ShippingItem = { weight: number; dims?: { w: number; h: number; d: number } };
 export type ShippingRate = { carrier: string; priceCents: number; etaDays: number };
+
+// T-S02 (auditoría 34-auditor, CWE-20/CWE-770): `items` reached this lib
+// boundary unvalidated and unbounded — any non-route caller reintroduced
+// the DoS the route zod guard prevents. Fail fast on shape/size BEFORE
+// any carrier fetch, reusing the SAME schema the route uses (single
+// source of truth — bounds can't drift between layers).
+export function assertShippingItems(items: ShippingItem[]): ShippingItem[] {
+  const parsed = shippingItemsSchema.safeParse(items);
+  if (!parsed.success) {
+    throw new Error('invalid shipping items (bound or shape, T-S02)');
+  }
+  return parsed.data;
+}
 
 const FIXED_CENTS = 199900;
 const CACHE_TTL = 60;
@@ -57,13 +71,15 @@ export async function getShippingRates(opts: {
   carrier?: string;
   signal?: AbortSignal;
 }): Promise<{ source: string; rates: ShippingRate[]; cache: string }> {
+  // T-S02: fail fast BEFORE hash/cache/carrier fan-out (CWE-20/CWE-770).
+  const items = assertShippingItems(opts.items);
   // T-S03 (auditoría 34-auditor, S-03 MEDIUM, CWE-706/CWE-20): the cache key
   // derived ONLY from the sum of item weights — distinct carts with equal
   // total weight collided and one cart was served another cart's quote
   // (wrong price/ETA or stale). Reuse the composition-sensitive sha256
   // shippingHash from cache.ts (S-01/S-04 lineage) so the internal lib
   // cache and the route-level cache key agree on identity.
-  const hash = shippingHash(opts.postalCode, opts.items);
+  const hash = shippingHash(opts.postalCode, items);
   const key = cacheKey(opts.sessionId, opts.postalCode, hash);
   const hit = MEM.get(key);
   if (hit && hit.exp > Date.now()) return { source: 'cache', rates: hit.data, cache: 'HIT' };
@@ -71,7 +87,7 @@ export async function getShippingRates(opts: {
   const targets = opts.carrier ? carriers.filter((c) => c.name === opts.carrier) : carriers;
   for (const c of targets) {
     try {
-      const rates = await c.getRates(opts.postalCode, opts.items, signal);
+      const rates = await c.getRates(opts.postalCode, items, signal);
       MEM.set(key, { data: rates, exp: Date.now() + CACHE_TTL * 1000 });
       return { source: c.name, rates, cache: 'MISS' };
     } catch (e) {

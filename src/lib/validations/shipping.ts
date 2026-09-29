@@ -19,9 +19,14 @@ export const shippingItemSchema = z.object({
     .optional(),
 });
 
+// T-S02 (CWE-20): the bounded items array lives here ONCE — route AND lib
+// boundary (getShippingRates / getInternationalRates) reuse it so the
+// bound can never drift between validation and enforcement layers.
+export const shippingItemsSchema = z.array(shippingItemSchema).max(MAX_SHIPPING_ITEMS);
+
 export const shippingRatesRequestSchema = z.object({
   postalCode: z.string().min(1).max(MAX_POSTAL_CODE_LEN),
-  items: z.array(shippingItemSchema).max(MAX_SHIPPING_ITEMS).default([]),
+  items: shippingItemsSchema.default([]),
 });
 
 export type ShippingRatesRequest = z.infer<typeof shippingRatesRequestSchema>;

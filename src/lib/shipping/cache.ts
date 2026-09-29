@@ -1,3 +1,4 @@
+import { MAX_SHIPPING_ITEMS } from '@/lib/validations/shipping';
 import { Redis } from '@upstash/redis';
 import { createCircuitBreaker } from '@/lib/circuit';
 import crypto from 'node:crypto';
@@ -16,7 +17,10 @@ export const SWR = 300;
 // the in-memory fallback a memory-exhaustion vector. Bounded LRU-ish
 // eviction: once full, the oldest inserted entry is dropped first.
 export const MAX_MEM_ENTRIES = 1000;
-export const MAX_HASH_ITEMS = 25;
+// T-S02 (CWE-20): the items bound imports MAX_SHIPPING_ITEMS from the
+// route schema (top of file) — single source of truth. The old local
+// MAX_HASH_ITEMS could drift from the schema and break legit carts at
+// the hash layer or silently loosen the bound.
 const mem = new Map<string, { data: unknown; exp: number; swr: number }>();
 
 function evictIfNeeded() {
@@ -42,7 +46,7 @@ function getRedis(): Redis | null {
 }
 export function shippingHash(postalCode: string, items: unknown[]): string {
   // T-S01: bound hash cost — reject oversized arrays BEFORE stringify+sha256.
-  if (items.length > MAX_HASH_ITEMS) throw new Error('too many items to hash');
+  if (items.length > MAX_SHIPPING_ITEMS) throw new Error('too many items to hash');
   const sorted = [...items].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
   const inner = crypto.createHash('sha256').update(JSON.stringify(sorted)).digest('hex');
   return crypto
