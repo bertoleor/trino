@@ -1,4 +1,4 @@
-type State = "CLOSED" | "OPEN" | "HALF_OPEN";
+type State = 'CLOSED' | 'OPEN' | 'HALF_OPEN';
 
 interface Options {
   failureThreshold?: number;
@@ -13,27 +13,27 @@ export function createCircuitBreaker(opts: Options = {}) {
   const probeMs = opts.probeMs ?? 30 * 1000;
   const timeoutMs = opts.timeoutMs ?? 8 * 1000;
 
-  let state: State = "CLOSED";
+  let state: State = 'CLOSED';
   let failures = 0;
   let windowStart = Date.now();
   let openedAt = 0;
 
   function getState(): State {
-    if (state === "OPEN" && Date.now() - openedAt >= probeMs) {
-      state = "HALF_OPEN";
+    if (state === 'OPEN' && Date.now() - openedAt >= probeMs) {
+      state = 'HALF_OPEN';
     }
     return state;
   }
 
   function canExecute(): boolean {
     const s = getState();
-    return s === "CLOSED" || s === "HALF_OPEN";
+    return s === 'CLOSED' || s === 'HALF_OPEN';
   }
 
   function recordSuccess() {
     failures = 0;
     windowStart = Date.now();
-    state = "CLOSED";
+    state = 'CLOSED';
   }
 
   function recordFailure() {
@@ -41,12 +41,12 @@ export function createCircuitBreaker(opts: Options = {}) {
     if (now - windowStart > windowMs) {
       failures = 1;
       windowStart = now;
-      state = "CLOSED";
+      state = 'CLOSED';
       return;
     }
     failures += 1;
     if (failures >= failureThreshold) {
-      state = "OPEN";
+      state = 'OPEN';
       openedAt = now;
     }
   }
@@ -57,10 +57,13 @@ export function createCircuitBreaker(opts: Options = {}) {
     return p.finally(() => clearTimeout(id)) as Promise<T>;
   }
 
-  async function exec<T>(fn: (signal: AbortSignal) => Promise<T>, fallback?: T): Promise<T | { status: string }> {
+  async function exec<T>(
+    fn: (signal: AbortSignal) => Promise<T>,
+    fallback?: T
+  ): Promise<T | { status: string }> {
     if (!canExecute()) {
       if (fallback !== undefined) return fallback;
-      return { status: "pending_retry" } as unknown as T;
+      return { status: 'pending_retry' } as unknown as T;
     }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -71,13 +74,24 @@ export function createCircuitBreaker(opts: Options = {}) {
     } catch {
       recordFailure();
       if (fallback !== undefined) return fallback;
-      return { status: "pending_retry" } as unknown as T;
+      return { status: 'pending_retry' } as unknown as T;
     } finally {
       clearTimeout(timeout);
     }
   }
 
-  return { getState, canExecute, recordSuccess, recordFailure, exec, withTimeout, timeoutMs, failureThreshold, windowMs, probeMs };
+  return {
+    getState,
+    canExecute,
+    recordSuccess,
+    recordFailure,
+    exec,
+    withTimeout,
+    timeoutMs,
+    failureThreshold,
+    windowMs,
+    probeMs,
+  };
 }
 
 export async function withCircuitBreaker<T>(

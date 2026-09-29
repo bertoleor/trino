@@ -1,14 +1,11 @@
-'use client'
+'use client';
 
-import { type AuthState, signup } from '@/app/auth/actions'
-import Link from 'next/link'
-import { useActionState } from 'react'
+import { type AuthState, signup } from '@/app/auth/actions';
+import Link from 'next/link';
+import { useActionState } from 'react';
 
 export function SignupForm() {
-  const [state, formAction, pending] = useActionState<AuthState, FormData>(
-    signup,
-    {}
-  )
+  const [state, formAction, pending] = useActionState<AuthState, FormData>(signup, {});
 
   if (state.ok) {
     return (
@@ -19,14 +16,14 @@ export function SignupForm() {
           Ir a iniciar sesión
         </Link>
       </>
-    )
+    );
   }
 
   return (
     <>
       <h1 className="text-2xl font-bold">Crear cuenta</h1>
       <p className="mt-1 text-sm text-zinc-600">
-        ¿Ya tenés cuenta?{" "}
+        ¿Ya tenés cuenta?{' '}
         <Link href="/login" className="underline">
           Iniciá sesión
         </Link>
@@ -52,9 +49,7 @@ export function SignupForm() {
             className="rounded-md border border-zinc-300 px-3 py-2"
           />
         </label>
-        {state.error ? (
-          <p className="text-sm text-red-600">{state.error}</p>
-        ) : null}
+        {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
         <button
           type="submit"
           disabled={pending}
@@ -64,5 +59,5 @@ export function SignupForm() {
         </button>
       </form>
     </>
-  )
+  );
 }

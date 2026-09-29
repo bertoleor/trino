@@ -18,8 +18,13 @@ export function initPostHog(): boolean {
 }
 export function capture(event: string, props?: Record<string, unknown>): boolean {
   if (!hasAnalyticsConsent()) return false;
-  if (typeof window !== 'undefined' && (window as unknown as { posthog?: { capture: (e: string, p?: unknown) => void } }).posthog) {
-    (window as unknown as { posthog: { capture: (e: string, p?: unknown) => void } }).posthog.capture(event, props);
+  if (
+    typeof window !== 'undefined' &&
+    (window as unknown as { posthog?: { capture: (e: string, p?: unknown) => void } }).posthog
+  ) {
+    (
+      window as unknown as { posthog: { capture: (e: string, p?: unknown) => void } }
+    ).posthog.capture(event, props);
   }
   return true;
 }

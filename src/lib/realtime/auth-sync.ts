@@ -12,7 +12,8 @@ let storageHandler: ((e: StorageEvent) => void) | null = null;
 
 function getChannel(): BroadcastChannel | null {
   try {
-    const Ctor = (globalThis as unknown as { BroadcastChannel?: typeof BroadcastChannel }).BroadcastChannel;
+    const Ctor = (globalThis as unknown as { BroadcastChannel?: typeof BroadcastChannel })
+      .BroadcastChannel;
     if (!Ctor) return null;
     return new Ctor(AUTH_CHANNEL);
   } catch {
@@ -30,7 +31,10 @@ function safeLocalStorage() {
 
 function safeWindow() {
   try {
-    return (globalThis as unknown as { window?: Window & typeof globalThis }).window ?? (globalThis as unknown as Window);
+    return (
+      (globalThis as unknown as { window?: Window & typeof globalThis }).window ??
+      (globalThis as unknown as Window)
+    );
   } catch {
     return null;
   }
@@ -92,7 +96,11 @@ export function broadcastLogout(): void {
     const ch = getChannel();
     if (ch) {
       ch.postMessage(payload);
-      try { ch.close(); } catch { /* ignore */ }
+      try {
+        ch.close();
+      } catch {
+        /* ignore */
+      }
     }
   } catch {
     // BC unavailable
@@ -110,7 +118,11 @@ export function broadcastCart(payload: unknown): void {
     const ch = getChannel();
     if (ch) {
       ch.postMessage(msg);
-      try { ch.close(); } catch { /* ignore */ }
+      try {
+        ch.close();
+      } catch {
+        /* ignore */
+      }
     }
   } catch {
     // ignore

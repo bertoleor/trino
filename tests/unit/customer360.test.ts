@@ -10,7 +10,16 @@ describe('customer360 W-04 single-join LTV <1s no N+1', () => {
   });
 
   it('single round-trip — rpc called once, no N+1 loop', async () => {
-    const rpc = vi.fn().mockResolvedValue({ data: { id: 'u1', email: 'a@b.com', ltv_cents: 5000, last_login: '2024-01-01', cart_id: null }, error: null });
+    const rpc = vi.fn().mockResolvedValue({
+      data: {
+        id: 'u1',
+        email: 'a@b.com',
+        ltv_cents: 5000,
+        last_login: '2024-01-01',
+        cart_id: null,
+      },
+      error: null,
+    });
     const supabase: any = { rpc };
     const { getCustomer360 } = await import('@/lib/customer360');
     const res = await getCustomer360(supabase, 'u1');
@@ -20,7 +29,10 @@ describe('customer360 W-04 single-join LTV <1s no N+1', () => {
   });
 
   it('LTV sum only authorized..delivered — pending excluded (view)', async () => {
-    const rpc = vi.fn().mockResolvedValue({ data: { id: 'u1', email: 'a@b.com', ltv_cents: 3000, last_login: null, cart_id: 'c1' }, error: null });
+    const rpc = vi.fn().mockResolvedValue({
+      data: { id: 'u1', email: 'a@b.com', ltv_cents: 3000, last_login: null, cart_id: 'c1' },
+      error: null,
+    });
     const supabase: any = { rpc };
     const { getCustomer360, LTV_STATUSES } = await import('@/lib/customer360');
     expect(LTV_STATUSES).toEqual(['authorized', 'processing', 'shipped', 'delivered']);
@@ -31,7 +43,10 @@ describe('customer360 W-04 single-join LTV <1s no N+1', () => {
 
   it('fallback to customer_360 view when rpc fails', async () => {
     const rpc = vi.fn().mockResolvedValue({ data: null, error: { message: 'rpc miss' } });
-    const single = vi.fn().mockResolvedValue({ data: { id: 'u2', email: 'b@c.com', ltv_cents: 0, last_login: null, cart_id: null }, error: null });
+    const single = vi.fn().mockResolvedValue({
+      data: { id: 'u2', email: 'b@c.com', ltv_cents: 0, last_login: null, cart_id: null },
+      error: null,
+    });
     const eq = vi.fn().mockReturnValue({ single });
     const select = vi.fn().mockReturnValue({ eq });
     const supabase: any = { rpc, from: vi.fn().mockReturnValue({ select }) };
@@ -50,7 +65,10 @@ describe('customer360 W-04 single-join LTV <1s no N+1', () => {
   });
 
   it('emits duration metric p95<1s and warns if >1s', async () => {
-    const rpc = vi.fn().mockResolvedValue({ data: { id: 'u1', email: 'a@b.com', ltv_cents: 1, last_login: null, cart_id: null }, error: null });
+    const rpc = vi.fn().mockResolvedValue({
+      data: { id: 'u1', email: 'a@b.com', ltv_cents: 1, last_login: null, cart_id: null },
+      error: null,
+    });
     const supabase: any = { rpc };
     const { getCustomer360 } = await import('@/lib/customer360');
     const { logger } = await import('@/lib/logger');
@@ -65,7 +83,16 @@ describe('customer360 W-04 single-join LTV <1s no N+1', () => {
   });
 
   it('uses single join view customer_360 — no per-entity fetches', async () => {
-    const rpc = vi.fn().mockResolvedValue({ data: { id: 'u1', email: 'x@y.com', ltv_cents: 12345, last_login: '2024-06-01', cart_id: null }, error: null });
+    const rpc = vi.fn().mockResolvedValue({
+      data: {
+        id: 'u1',
+        email: 'x@y.com',
+        ltv_cents: 12345,
+        last_login: '2024-06-01',
+        cart_id: null,
+      },
+      error: null,
+    });
     const supabase: any = { rpc };
     const { getCustomer360 } = await import('@/lib/customer360');
     const res = await getCustomer360(supabase, 'u1');

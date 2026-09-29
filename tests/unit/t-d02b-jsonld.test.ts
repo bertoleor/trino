@@ -9,7 +9,15 @@ describe('T-D02b Product JSON-LD ARS OG hreflang x4', () => {
   it('exports product json-ld', async () => {
     const mod = await import('@/lib/seo/json-ld');
     expect(typeof mod.productJsonLd).toBe('function');
-    const ld = mod.productJsonLd({ name: 'Test', slug: 'test', priceCents: 10000, currency: 'ARS', image: 'https://example.com/img.jpg', description: 'desc', availability: 'InStock' });
+    const ld = mod.productJsonLd({
+      name: 'Test',
+      slug: 'test',
+      priceCents: 10000,
+      currency: 'ARS',
+      image: 'https://example.com/img.jpg',
+      description: 'desc',
+      availability: 'InStock',
+    });
     expect(ld['@type']).toMatch(/Product/i);
     expect(JSON.stringify(ld)).toMatch(/ARS|Offer/i);
   });

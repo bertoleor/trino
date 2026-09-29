@@ -52,7 +52,7 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="cookie consent"
-      className="fixed bottom-0 left-0 right-0 z-50 border-t bg-white p-4"
+      className="fixed right-0 bottom-0 left-0 z-50 border-t bg-white p-4"
     >
       <div className="mx-auto max-w-3xl space-y-3">
         <p className="text-sm">
@@ -82,7 +82,7 @@ export default function CookieConsent() {
         <div className="flex gap-2">
           <button
             onClick={() => save({ essential: true, analytics: false, marketing: false })}
-            className="rounded px-4 py-2 text-sm border"
+            className="rounded border px-4 py-2 text-sm"
           >
             Solo esenciales
           </button>

@@ -9,7 +9,8 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-[var(--primary)] text-white hover:opacity-90',
         secondary: 'bg-[var(--color-verde)] text-white hover:opacity-90',
-        outline: 'border border-[var(--primary)] bg-transparent hover:bg-[var(--primary)] hover:text-white',
+        outline:
+          'border border-[var(--primary)] bg-transparent hover:bg-[var(--primary)] hover:text-white',
         ghost: 'hover:bg-zinc-100',
       },
       size: { default: 'h-11', sm: 'h-9', lg: 'h-12', icon: 'h-11 w-11 p-0' },
@@ -19,12 +20,19 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
 }
 
-export function Button({ className, variant, size, isLoading, children, disabled, ...props }: ButtonProps) {
+export function Button({
+  className,
+  variant,
+  size,
+  isLoading,
+  children,
+  disabled,
+  ...props
+}: ButtonProps) {
   return (
     <button
       className={cn(buttonVariants({ variant, size }), className)}

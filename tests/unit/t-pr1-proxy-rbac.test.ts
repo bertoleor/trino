@@ -4,7 +4,9 @@ import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
 const P = path.join(ROOT, 'src/proxy.ts');
+const AUDIT = path.join(ROOT, 'src/lib/proxy/rbac-audit.ts');
 const read = () => fs.readFileSync(P, 'utf8');
+const readAudit = () => fs.readFileSync(AUDIT, 'utf8');
 
 describe('PR1 proxy RBAC hierarchy deny-default W-02', () => {
   it('imports hasRole or has_role and uses hierarchy', () => {
@@ -26,9 +28,13 @@ describe('PR1 proxy RBAC hierarchy deny-default W-02', () => {
   });
 
   it('logs to security_logs and audit_logs on 403 deny', () => {
-    const c = read();
-    expect(c).toMatch(/security_logs/);
-    expect(c).toMatch(/audit_logs/);
+    // RBAC deny logging extracted to src/lib/proxy/rbac-audit.ts (150-line budget CQ-03);
+    // proxy.ts must still import and invoke it on the deny path.
+    const proxy = read();
+    expect(proxy).toMatch(/logRbacDeny/);
+    const audit = readAudit();
+    expect(audit).toMatch(/security_logs/);
+    expect(audit).toMatch(/audit_logs/);
   });
 
   it('anon /admin still 302 redirect to /login', () => {

@@ -9,4 +9,7 @@ export const reviewSchema = z.object({
   turnstileToken: z.string().optional(),
 });
 export type ReviewInput = z.infer<typeof reviewSchema>;
-export const reviewModerationSchema = z.object({ id: z.string().uuid(), action: z.enum(['approve', 'reject']) });
+export const reviewModerationSchema = z.object({
+  id: z.string().uuid(),
+  action: z.enum(['approve', 'reject']),
+});

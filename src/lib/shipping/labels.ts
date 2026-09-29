@@ -36,7 +36,7 @@ function generateA4Page(order: OrderForLabel, idx: number, total: number): strin
 export async function createLabelsBatch(
   orders: OrderForLabel[],
   format: LabelFormat,
-  opts: CreateLabelsOpts = {},
+  opts: CreateLabelsOpts = {}
 ): Promise<{ groups: Map<string, string>; urls: string[]; total: number }> {
   const grouped = groupByPostalCode(orders);
   const concurrency = opts.concurrency ?? 10;
@@ -56,8 +56,8 @@ export async function createLabelsBatch(
               if (opts.onGenerate) await opts.onGenerate();
               if (format === 'ZPL') return generateZPL(order);
               return generateA4Page(order, idx, list.length);
-            }),
-          ),
+            })
+          )
         );
 
         let blob: string;
@@ -70,7 +70,7 @@ export async function createLabelsBatch(
           if (!blob.includes('Page')) blob += '\nPage 1';
         }
         groups.set(postal, blob);
-      }),
+      })
     );
   }
 

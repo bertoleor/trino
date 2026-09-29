@@ -3,7 +3,9 @@ export async function jitterRetry<T>(fn: () => Promise<T>, retries = 5): Promise
   const limit = pLimit(5);
   return limit(async () => {
     for (let attempt = 0; attempt < retries; attempt++) {
-      try { return await fn(); } catch (e) {
+      try {
+        return await fn();
+      } catch (e) {
         if (attempt === retries - 1) throw e;
         const jitter = Math.floor(Math.random() * 200);
         const delay = 100 * Math.pow(2, attempt) + jitter;

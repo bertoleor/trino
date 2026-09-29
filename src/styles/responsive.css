@@ -1,13 +1,47 @@
 /* T-K02 responsive mobile vs PC 8pt 44px touch pointer */
-:root { --bp-mobile: 375px; --bp-desktop: 1280px; }
-.mobile.bottom-nav { display: flex; flex-direction: column; gap: 8px; min-height: 44px; }
-.mobile .drawer { transform: translateY(0); transition: transform 0.3s ease; }
-.desktop.mega-menu { display: none; }
-@media (min-width: 768px) {
-  .desktop.mega-menu { display: flex; gap: 16px; }
-  .mobile.bottom-nav { display: none; }
+:root {
+  --bp-mobile: 375px;
+  --bp-desktop: 1280px;
 }
-@media (pointer: coarse) { button, a { min-height: 44px; } }
-@media (pointer: fine) { button:hover, a:hover { opacity: 0.9; } }
-.swipe { touch-action: pan-y; overscroll-behavior: contain; }
-.grid-8pt { display: grid; gap: 8px; }
+.mobile.bottom-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 44px;
+}
+.mobile .drawer {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+.desktop.mega-menu {
+  display: none;
+}
+@media (min-width: 768px) {
+  .desktop.mega-menu {
+    display: flex;
+    gap: 16px;
+  }
+  .mobile.bottom-nav {
+    display: none;
+  }
+}
+@media (pointer: coarse) {
+  button,
+  a {
+    min-height: 44px;
+  }
+}
+@media (pointer: fine) {
+  button:hover,
+  a:hover {
+    opacity: 0.9;
+  }
+}
+.swipe {
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+}
+.grid-8pt {
+  display: grid;
+  gap: 8px;
+}

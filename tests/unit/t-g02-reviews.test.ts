@@ -12,15 +12,36 @@ describe('T-G02 reviews validations+actions', () => {
   it('validations rating 1-5 title<=120 body<=2000 images presigned 5MB 3 max', async () => {
     const mod = await import('@/lib/validations/reviews');
     expect(mod.reviewSchema).toBeDefined();
-    const bad = mod.reviewSchema.safeParse({ product_id: '123e4567-e89b-12d3-a456-426614174000', rating: 6, title: 'ok', body: 'x' });
+    const bad = mod.reviewSchema.safeParse({
+      product_id: '123e4567-e89b-12d3-a456-426614174000',
+      rating: 6,
+      title: 'ok',
+      body: 'x',
+    });
     expect(bad.success).toBe(false);
     const longTitle = 'a'.repeat(121);
-    const bad2 = mod.reviewSchema.safeParse({ product_id: '123e4567-e89b-12d3-a456-426614174000', rating: 5, title: longTitle, body: 'x' });
+    const bad2 = mod.reviewSchema.safeParse({
+      product_id: '123e4567-e89b-12d3-a456-426614174000',
+      rating: 5,
+      title: longTitle,
+      body: 'x',
+    });
     expect(bad2.success).toBe(false);
     const longBody = 'a'.repeat(2001);
-    const bad3 = mod.reviewSchema.safeParse({ product_id: '123e4567-e89b-12d3-a456-426614174000', rating: 5, title: 'ok', body: longBody });
+    const bad3 = mod.reviewSchema.safeParse({
+      product_id: '123e4567-e89b-12d3-a456-426614174000',
+      rating: 5,
+      title: 'ok',
+      body: longBody,
+    });
     expect(bad3.success).toBe(false);
-    const ok = mod.reviewSchema.safeParse({ product_id: '123e4567-e89b-12d3-a456-426614174000', rating: 5, title: 'Great', body: 'Nice product', images: [] });
+    const ok = mod.reviewSchema.safeParse({
+      product_id: '123e4567-e89b-12d3-a456-426614174000',
+      rating: 5,
+      title: 'Great',
+      body: 'Nice product',
+      images: [],
+    });
     expect(ok.success).toBe(true);
   });
   it('actions verified_purchase delivered moderate 403 helpful Turnstile honeypot rate 3/h Upstash', () => {

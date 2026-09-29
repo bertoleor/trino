@@ -1,1 +1,7 @@
-export { calcCartTotal, calcSplitCents, toCents, fromCents, formatCents } from '@/lib/validations/money';
+export {
+  calcCartTotal,
+  calcSplitCents,
+  toCents,
+  fromCents,
+  formatCents,
+} from '@/lib/validations/money';

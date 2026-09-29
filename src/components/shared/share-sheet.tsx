@@ -48,7 +48,7 @@ export default function ShareSheet({ url, title, entity = 'product', locale = 'e
         <div
           role="dialog"
           aria-label="share sheet"
-          className="fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border bg-white p-4 md:absolute md:bottom-auto md:right-0 md:w-80 md:rounded-lg md:shadow-lg bottom-sheet popover desktop"
+          className="bottom-sheet popover desktop fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border bg-white p-4 md:absolute md:right-0 md:bottom-auto md:w-80 md:rounded-lg md:shadow-lg"
         >
           <div className="flex flex-col gap-2">
             <a

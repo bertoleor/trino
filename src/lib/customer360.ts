@@ -14,13 +14,19 @@ export type Customer360 = {
 type SupabaseLike = {
   rpc: (fn: string, params: Record<string, unknown>) => Promise<{ data: unknown; error: unknown }>;
   from?: (table: string) => {
-    select: (cols: string) => { eq: (col: string, val: string) => { single: () => Promise<{ data: unknown; error: unknown }> } };
+    select: (cols: string) => {
+      eq: (
+        col: string,
+        val: string
+      ) => { single: () => Promise<{ data: unknown; error: unknown }> };
+    };
   };
 };
 
 // eslint-disable-next-line complexity -- pre-existing 17, refactor deferred: RPC-plus-fallback branching, budget reserved for T4 resilience; ticket: repo-cleanup-final/COMP-11
 export async function getCustomer360(supabase: SupabaseLike, userId: string): Promise<Customer360> {
-  const start = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+  const start =
+    typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
   let data: Customer360 | null = null;
   let error: unknown = null;
 
@@ -42,11 +48,17 @@ export async function getCustomer360(supabase: SupabaseLike, userId: string): Pr
     }
   }
 
-  const end = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+  const end =
+    typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
   const durationMs = Math.round(end - start);
 
   if (error || !data) {
-    logger.info('customer360 fetch', { route: 'customer360', durationMs, userId, error: String(error) });
+    logger.info('customer360 fetch', {
+      route: 'customer360',
+      durationMs,
+      userId,
+      error: String(error),
+    });
     throw new Error(`Customer360 not found: ${userId}`);
   }
 

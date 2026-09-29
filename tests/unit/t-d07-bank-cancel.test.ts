@@ -7,7 +7,8 @@ describe('T-D07 72h bank cancel re-entry idempotent', () => {
     const lib = path.join(ROOT, 'src/lib/orders/bank-cancel.ts');
     const mig = path.join(ROOT, 'supabase/migrations/0008_cron.sql');
     const hasLib = fs.existsSync(lib);
-    const hasMig = fs.existsSync(mig) && fs.readFileSync(mig, 'utf8').match(/72|pending_verification/);
+    const hasMig =
+      fs.existsSync(mig) && fs.readFileSync(mig, 'utf8').match(/72|pending_verification/);
     expect(hasLib || hasMig).toBeTruthy();
   });
   it('idempotent cancel logic', async () => {
@@ -17,7 +18,9 @@ describe('T-D07 72h bank cancel re-entry idempotent', () => {
     expect(typeof m.shouldCancelPendingVerification).toBe('function');
     const old = new Date(Date.now() - 73 * 3600 * 1000).toISOString();
     expect(m.shouldCancelPendingVerification('pending_verification', old)).toBe(true);
-    expect(m.shouldCancelPendingVerification('pending_verification', new Date().toISOString())).toBe(false);
+    expect(
+      m.shouldCancelPendingVerification('pending_verification', new Date().toISOString())
+    ).toBe(false);
     expect(m.shouldCancelPendingVerification('authorized', old)).toBe(false);
   });
   it('re-entry idempotent 409/duplicate guard', () => {

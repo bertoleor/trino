@@ -1,28 +1,30 @@
+// Separate normalizer: strips symbol, unifies decimal separator to '.', handles sign.
+function toDecimalString(input: string): string {
+  let s = input.trim().replace(/\s+/g, '');
+  s = s.replace(/^(AR\$|\$)/i, '');
+  const hasDot = s.includes('.');
+  const hasComma = s.includes(',');
+  if (hasDot && hasComma) s = s.replace(/\./g, '').replace(',', '.');
+  else if (hasComma) s = s.replace(',', '.');
+  return s;
+}
+
 function parsePesos(input: number | string): number {
   if (typeof input === 'number') return input;
   if (typeof input !== 'string') {
     throw new TypeError(`formatPriceARS expects number|string, got ${typeof input}`);
   }
-  let s = input.trim().replace(/\s+/g, '');
-  if (s === '') throw new TypeError('formatPriceARS received empty string');
-  s = s.replace(/^(AR\$|\$)/i, '');
+  if (input.trim() === '') throw new TypeError('formatPriceARS received empty string');
+  const s = toDecimalString(input);
   if (s === '' || s === '-' || s === ',') {
     throw new TypeError(`formatPriceARS received non-numeric string: ${input}`);
   }
-  const hasDot = s.includes('.');
-  const hasComma = s.includes(',');
-  if (hasDot && hasComma) {
-    s = s.replace(/\./g, '').replace(',', '.');
-  } else if (hasComma) {
-    s = s.replace(',', '.');
-  }
   const neg = s.startsWith('-');
-  if (neg) s = s.slice(1);
-  if (!/^\d*\.?\d*$/.test(s)) {
+  const digits = neg ? s.slice(1) : s;
+  if (!/^\d*\.?\d*$/.test(digits)) {
     throw new TypeError(`formatPriceARS received non-numeric string: ${input}`);
   }
-  const n = Number((neg ? '-' : '') + s);
-  return n;
+  return Number((neg ? '-' : '') + digits);
 }
 
 export function formatPriceARS(value: number | string, locale = 'es-AR'): string {
