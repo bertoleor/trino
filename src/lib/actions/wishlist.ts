@@ -2,6 +2,7 @@
 import { checkRateLimit } from '@/lib/rate-limit';
 import { getOrCreateCartSessionId, readCartSessionId } from '@/lib/cart/session';
 import { createClient } from '@/lib/supabase/server';
+import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { wishlistSchema } from '@/lib/validations/wishlist';
 
@@ -10,6 +11,11 @@ import { wishlistSchema } from '@/lib/validations/wishlist';
 // — se resuelve server-side desde la cookie httpOnly trino_cart_sid (misma
 // cookie del carrito, lib/cart/session). Un caller no puede mergear ni
 // escribir en la wishlist anónima de otro.
+// T-S09 (CWE-799/CWE-770): la KEY del rate limiter jamás deriva de la cookie
+// de sesión (rotable por request => elusión total del 60/m). Autenticado:
+// user.id server-side. Anónimo: IP de x-forwarded-for — mismo trust model que
+// proxy.ts y /api/shipping/rates. La cookie sigue siendo el owner de los rows,
+// solo deja de ser la key del bucket.
 // eslint-disable-next-line complexity -- pre-existing 22, refactor follow-up, ticket: warnings-pr-followup/COMP-5
 export async function toggleWishlist(productId: string) {
   const parsed = wishlistSchema.safeParse({ product_id: productId });
@@ -18,11 +24,15 @@ export async function toggleWishlist(productId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // T-S09: bucket key no-rotatable. Se resuelve ANTES de tocar cookies — un
+  // 429 no debe gastar creación de cookie.
+  const hdrs = await headers();
+  const ip = hdrs.get('x-forwarded-for') ?? 'unknown';
+  const rlId = user ? `u:${user.id}` : `ip:${ip}`;
+  const rl = await checkRateLimit(`wishlist:${rlId}`, 'public');
+  if (!rl.success) return { error: 'rate limited 60/m Upstash', status: 429, headers: rl.headers };
   // Anónimo: identidad de cookie server-side (crea la cookie si no existe).
   const sessionId = user ? null : await getOrCreateCartSessionId();
-  const identifier = user?.id ?? sessionId ?? 'anon';
-  const rl = await checkRateLimit(`wishlist:${identifier}`, 'public');
-  if (!rl.success) return { error: 'rate limited 60/m Upstash', status: 429, headers: rl.headers };
   const owner = user?.id ?? null;
   if (owner) {
     const { data: existing } = await supabase
