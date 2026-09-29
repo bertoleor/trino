@@ -45,6 +45,31 @@ describe('A-01 auth actions source guards', () => {
     expect(w).toMatch(/turnstile\.render/);
   });
 
+  // A-01 review round 1, F2: the promise only resolved via the named global,
+  // but SCRIPT_SRC lacked &onload=<global> — api.js never invoked it and the
+  // first mount hung forever (login/signup bricked). This guard pins the
+  // official CF loading contract ("Using onload callback").
+  it('turnstile script src declares &onload=onA01TurnstileLoad (official CF contract)', () => {
+    const w = read('src/components/auth/turnstile-widget.tsx');
+    const src = w.match(
+      /SCRIPT_SRC\s*=\s*'(https:\/\/challenges\.cloudflare\.com\/turnstile\/v0\/api\.js[^']*)'/
+    )?.[1];
+    expect(src).toBeDefined();
+    expect(src).toMatch(/[?&]onload=onA01TurnstileLoad/);
+  });
+
+  // F1 remount half: a second mount (React key-bump after a failed attempt)
+  // must reuse the in-flight/loaded script instead of overwriting the waiter
+  // callback of the first mount. Single-flight at module scope.
+  it('turnstile loader is single-flight: a shared module-level promise, not per-call', () => {
+    const w = read('src/components/auth/turnstile-widget.tsx');
+    expect(w).toMatch(/let turnstileLoader: Promise<TurnstileApi> \| null = null/);
+    // in-flight promise is reused, not replaced per call
+    expect(w).toMatch(/if \(turnstileLoader\) return turnstileLoader/);
+    // a failed fetch frees the slot so a later mount can retry
+    expect(w).toMatch(/turnstileLoader = null/);
+  });
+
   it('CSP allows the Turnstile script and iframe origins (Cloudflare official directive)', () => {
     const csp = read('src/lib/security/csp.ts');
     expect(csp).toMatch(/script-src[^\n]*challenges\.cloudflare\.com/);

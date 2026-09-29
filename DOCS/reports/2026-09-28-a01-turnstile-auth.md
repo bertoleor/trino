@@ -1,6 +1,6 @@
 # TRINO A-01 — Turnstile fail-closed en login/signup (brute-force auth)
 
-> **Búsqueda:** keywords: `trino, a-01, turnstile, login, signup, brute-force, captcha, fail-closed, csp` · clasificación: `remediación-auditoría` · estado: canónico · actualizado: 2026-09-28
+> **Búsqueda:** keywords: `trino, a-01, turnstile, login, signup, brute-force, captcha, fail-closed, csp, onload, widget` · clasificación: `remediación-auditoría` · estado: canónico · actualizado: 2026-09-29
 
 **Fecha:** 2026-09-28 (verificado con `date`)
 **Ticket:** t_51c528c9 — [TRINO][A-01][HIGH] (parent t_15446fa4, auditoría Modo A 34-auditor)
@@ -56,3 +56,19 @@ Sin ambos, el login/signup queda bloqueado por diseño (fail-closed). Es la post
 ## Hotspot flag
 
 `src/app/auth/actions.ts` + `.env.example` + `t-a03-env.test.ts` — también tocados por PR #12 (abierto). Mi PR es stacked sobre él: merge PR #12 primero, este después.
+
+## Review round 1 (34-auditor, run 895) — defecto F1 y rework
+
+**Veredicto: REQUEST CHANGES.** Gate server-side aprobado con evidencia (14/14 tests A-01, fail-closed antes de signIn/signUp, CSP oficial, receipt cf4a9ca83e7e verificado). Pero el widget client tenía un defecto BLOCKER que el handoff no ejercitó en runtime:
+
+- **F1 [BLOCKER]** `turnstile-widget.tsx` — `loadTurnstile()` nunca resolvía: la promesa solo resolvía vía `window.onA01TurnstileLoad`, pero `SCRIPT_SRC` no declaraba `&onload=onA01TurnstileLoad` (mecanismo oficial CF), y api.js jamás invoca un global no declarado en `&onload=`. Evidencia empírica del reviewer (browser real vs api.js): sin el param, `turnstileGlobal:true` pero `callbackFired:false` tras 12s. Consecuencia: primer mount → promesa eterna → `turnstile.render` nunca corre → nunca hay token → `disabled={pending || !token}` deja Entrar/Registrarme deshabilitados para siempre. **Login y signup bricked en prod.** Defecto adicional detectado en rework: el branch "script ya existe" pisaba el callback del waiter anterior, rompiendo también remounts (key-bump tras intento fallido).
+- **F2 [REQ]** Sin regression guard que exigiera `&onload=` en el SRC.
+- **F3 [REQ]** Este reporte no registraba el defecto (trazabilidad).
+
+**Fix (commit de rework, rama `fix/a01-auth-turnstile`):**
+1. `SCRIPT_SRC` ahora declara `&onload=onA01TurnstileLoad` — el mecanismo oficial ("Using onload callback", developers.cloudflare.com/turnstile/get-started/client-side-rendering/).
+2. Loader single-flight: promesa compartida a nivel módulo (`turnstileLoader`) — un mount en vuelo no puede perder su waiter, los remounts reusan el script, y `onerror` libera el slot para retry. `window.turnstile` ya presente → resolve inmediato.
+3. Guards nuevos en `t-a01-auth-turnstile-guards.test.ts`: (a) SRC exige `&onload=onA01TurnstileLoad`; (b) single-flight (`turnstileLoader` module-level, reuse, free-on-error).
+4. **E2E smoke** `tests/e2e/a01-turnstile-onload.spec.ts`: extrae el `SCRIPT_SRC` real del componente, sirve una página con el mecanismo del widget y sitekey testing CF `1x00000000000000000000AA`, y contra **api.js real de Cloudflare** asevera la cadena completa: onload callback dispara → `turnstile.render` → token callback → submit habilitado. RED contra el código defectuoso (falla en el guard del SRC), GREEN con el fix (passed 16.9s). Es el repro A/B del reviewer automatizado y permanente.
+
+**Evidencia del rework:** unit RED 2 failed → GREEN 9/9; e2e RED (guard del SRC) → GREEN 1 passed vs api.js real.
