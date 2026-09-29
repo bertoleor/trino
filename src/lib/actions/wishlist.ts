@@ -1,18 +1,25 @@
 'use server';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { getOrCreateCartSessionId, readCartSessionId } from '@/lib/cart/session';
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { wishlistSchema } from '@/lib/validations/wishlist';
 
 // Optimistic toggle with rollback toast; 60/m Upstash rate limit, idempotent 409 on duplicates.
+// T-S07 (CWE-639 / OWASP A01): la identidad anónima NUNCA es client-supplied
+// — se resuelve server-side desde la cookie httpOnly trino_cart_sid (misma
+// cookie del carrito, lib/cart/session). Un caller no puede mergear ni
+// escribir en la wishlist anónima de otro.
 // eslint-disable-next-line complexity -- pre-existing 22, refactor follow-up, ticket: warnings-pr-followup/COMP-5
-export async function toggleWishlist(productId: string, sessionId?: string) {
+export async function toggleWishlist(productId: string) {
   const parsed = wishlistSchema.safeParse({ product_id: productId });
   if (!parsed.success) return { error: parsed.error.flatten(), status: 422 };
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  // Anónimo: identidad de cookie server-side (crea la cookie si no existe).
+  const sessionId = user ? null : await getOrCreateCartSessionId();
   const identifier = user?.id ?? sessionId ?? 'anon';
   const rl = await checkRateLimit(`wishlist:${identifier}`, 'public');
   if (!rl.success) return { error: 'rate limited 60/m Upstash', status: 429, headers: rl.headers };
@@ -59,12 +66,15 @@ export async function toggleWishlist(productId: string, sessionId?: string) {
   revalidatePath('/wishlist');
   return { status: 201, action: 'added' };
 }
-export async function mergeWishlist(sessionId: string) {
+export async function mergeWishlist() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { error: 'auth required', status: 401 };
+  // T-S07: la session anónima se lee de la cookie del caller, no del body.
+  const sessionId = await readCartSessionId();
+  if (!sessionId) return { status: 200 }; // nada que mergear
   const { data: anonRows } = await supabase
     .from('wishlists')
     .select('product_id')
@@ -80,12 +90,15 @@ export async function mergeWishlist(sessionId: string) {
   revalidatePath('/wishlist');
   return { status: 200, merged: anonRows.length };
 }
-export async function getWishlist(sessionId?: string) {
+export async function getWishlist() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (user) return supabase.from('wishlists').select('id, product_id').eq('user_id', user.id);
+  // T-S07: lectura anónima también por cookie server-side (read-only, sin
+  // crear cookie) — sin ella: lista vacía legítima para first-time visitors.
+  const sessionId = await readCartSessionId();
   if (sessionId)
     return supabase.from('wishlists').select('id, product_id').eq('session_id', sessionId);
   return { data: [], error: null };

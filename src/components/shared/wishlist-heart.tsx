@@ -1,14 +1,14 @@
 'use client';
 import { useOptimistic, useState, useTransition } from 'react';
 import { toggleWishlist } from '@/lib/actions/wishlist';
+// T-S07: sin prop de identidad anónima — la resuelve el server desde la
+// cookie httpOnly trino_cart_sid (CWE-639).
 export default function WishlistHeart({
   productId,
   initial,
-  sessionId,
 }: {
   productId: string;
   initial?: boolean;
-  sessionId?: string;
 }) {
   const [liked, setLiked] = useState(Boolean(initial));
   const [optimisticLiked, addOptimistic] = useOptimistic(liked, (_s, v: boolean) => v);
@@ -18,7 +18,7 @@ export default function WishlistHeart({
     addOptimistic(next);
     setLiked(next);
     startTransition(async () => {
-      const res = await toggleWishlist(productId, sessionId);
+      const res = await toggleWishlist(productId);
       if ((res as { status: number }).status >= 400) {
         setLiked(!next);
         addOptimistic(!next);
