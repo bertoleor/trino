@@ -72,3 +72,14 @@ Sin ambos, el login/signup queda bloqueado por diseño (fail-closed). Es la post
 4. **E2E smoke** `tests/e2e/a01-turnstile-onload.spec.ts`: extrae el `SCRIPT_SRC` real del componente, sirve una página con el mecanismo del widget y sitekey testing CF `1x00000000000000000000AA`, y contra **api.js real de Cloudflare** asevera la cadena completa: onload callback dispara → `turnstile.render` → token callback → submit habilitado. RED contra el código defectuoso (falla en el guard del SRC), GREEN con el fix (passed 16.9s). Es el repro A/B del reviewer automatizado y permanente.
 
 **Evidencia del rework:** unit RED 2 failed → GREEN 9/9; e2e RED (guard del SRC) → GREEN 1 passed vs api.js real.
+
+## Rework round 2 — verificación final (2026-09-29)
+
+- Commit: `b3ebcff` (rama `fix/a01-auth-turnstile`, stacked; base 399f740 = head PR al momento del rework). +162/−11, 4 files: widget, guards, e2e spec nuevo, este reporte.
+- Suite completa: **561/561 vitest passed** (`--maxWorkers=1`, 339s) — 101 files.
+- E2E playwright: **4/4 passed** (a01-turnstile-onload + auth-sync × 3) — el smoke contra api.js real de Cloudflare pasó 2 veces (21.2s, 16.9s).
+- `npx tsc --noEmit` → 0 errores; `npx eslint <4 files>` → 0; `prettier --check <4 files>` → clean.
+- gitleaks commit b3ebcff → **no leaks**.
+- RDD: assess → Risk: **high** (hot_path auth), transición del motor: stop `rdd_disabled` (runtime hermes no elegible) → receipt MVP `receipt-78a51052c30a.json` firmado sobre el staging frozen (4 files), copiado a `.rdd/` del checkout principal.
+- PR #14 head actualizado a b3ebcff, **MERGEABLE**, Vercel deploy en curso. CI de GitHub Actions roto a nivel repo (PR #12 lo repara; merge PR #12 → luego este).
+- Decisiones de rework: (1) e2e smoke = repro A/B del reviewer automatizado, self-contained via route-fulfill + api.js real de CF + sitekey testing `1x00000000000000000000AA` — no requiere server de Next ni jsdom (evita tocar el lockfile, conflicto abierto con PR #12); (2) unit jsdom del loader descartado por lo mismo; (3) loader single-flight a nivel módulo cubre tanto primer mount como remounts por key-bump.
