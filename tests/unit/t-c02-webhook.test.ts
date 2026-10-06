@@ -62,7 +62,10 @@ describe('T-C02 webhooks/mercadopago HMAC behavioral', () => {
     const payload = JSON.stringify({ id: 'evt-bad', type: 'payment' });
     const req = new NextRequest('http://localhost/api/webhooks/mercadopago', {
       method: 'POST',
-      headers: { 'x-signature': 't=123,v1=badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbad' },
+      headers: {
+        'x-signature':
+          't=123,v1=badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbad',
+      },
       body: payload,
     });
     const res = await POST(req);

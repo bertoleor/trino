@@ -1,6 +1,16 @@
-"use client";
+'use client';
 import { memo } from 'react';
-function StarRating({ rating = 0, size = 44, interactive, onChange }: { rating?: number; size?: number; interactive?: boolean; onChange?: (n: number) => void }) {
+function StarRating({
+  rating = 0,
+  size = 44,
+  interactive,
+  onChange,
+}: {
+  rating?: number;
+  size?: number;
+  interactive?: boolean;
+  onChange?: (n: number) => void;
+}) {
   const stars = [1, 2, 3, 4, 5];
   return (
     <div role="img" aria-label={`rating ${rating} of 5`} className="flex items-center gap-1">

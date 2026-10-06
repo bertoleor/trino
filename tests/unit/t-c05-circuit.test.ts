@@ -28,7 +28,12 @@ describe('T-C05 circuit Abort 8s 3/60 ->30s probe RESILIENCIA', () => {
   });
   it('circuit transitions CLOSED->OPEN->HALF_OPEN correctly', async () => {
     const { createCircuitBreaker } = await import('@/lib/circuit');
-    const cb = createCircuitBreaker({ failureThreshold: 3, windowMs: 60000, probeMs: 30000, timeoutMs: 8000 });
+    const cb = createCircuitBreaker({
+      failureThreshold: 3,
+      windowMs: 60000,
+      probeMs: 30000,
+      timeoutMs: 8000,
+    });
     expect(cb.getState()).toBe('CLOSED');
     cb.recordFailure();
     cb.recordFailure();

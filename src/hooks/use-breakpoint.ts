@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 
 export type Breakpoint = 'mobile' | 'tablet' | 'desktop';
@@ -11,7 +11,7 @@ function getBreakpoint(width: number): Breakpoint {
 
 export function useBreakpoint(): Breakpoint {
   const [bp, setBp] = useState<Breakpoint>(() =>
-    typeof window !== 'undefined' ? getBreakpoint(window.innerWidth) : 'desktop',
+    typeof window !== 'undefined' ? getBreakpoint(window.innerWidth) : 'desktop'
   );
   useEffect(() => {
     function onResize() {

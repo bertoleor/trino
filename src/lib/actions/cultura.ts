@@ -8,7 +8,8 @@ async function requireAdmin() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user || user.app_metadata?.role !== 'admin') return { ok: false, status: 403 as const, supabase };
+  if (!user || user.app_metadata?.role !== 'admin')
+    return { ok: false, status: 403 as const, supabase };
   const isAdmin = await supabase.rpc('is_admin').then((r) => r.data);
   if (!isAdmin) return { ok: false, status: 403 as const, supabase };
   return { ok: true, status: 200 as const, supabase };
@@ -34,7 +35,12 @@ export async function updateCultura(id: string, input: unknown) {
   if (!parsed.success) return { error: parsed.error.flatten(), status: 422 };
   const admin = await requireAdmin();
   if (!admin.ok) return { error: 'forbidden', status: 403 };
-  const { data, error } = await admin.supabase.from('cultura_posts').update(parsed.data).eq('id', id).select().single();
+  const { data, error } = await admin.supabase
+    .from('cultura_posts')
+    .update(parsed.data)
+    .eq('id', id)
+    .select()
+    .single();
   if (error) return { error: error.message, status: 422 };
   revalidatePath('/cultura');
   return { data, status: 200 };
@@ -57,7 +63,10 @@ export async function publishCultura(id: string) {
 export async function deleteCultura(id: string) {
   const admin = await requireAdmin();
   if (!admin.ok) return { error: 'forbidden', status: 403 };
-  const { error } = await admin.supabase.from('cultura_posts').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+  const { error } = await admin.supabase
+    .from('cultura_posts')
+    .update({ deleted_at: new Date().toISOString() })
+    .eq('id', id);
   if (error) return { error: error.message, status: 422 };
   revalidatePath('/cultura');
   return { status: 200 };

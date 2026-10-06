@@ -24,7 +24,7 @@ export default async function AdminCulturaPage() {
     revalidatePath('/cultura');
   }
   return (
-    <main className="mx-auto max-w-3xl p-4 space-y-4">
+    <main className="mx-auto max-w-3xl space-y-4 p-4">
       <h1 className="text-2xl font-bold">Admin Cultura RBAC is_admin audit 44px</h1>
       <CulturaEditor onSave={save} />
       <span className="hidden">is_admin 403 audit revalidatePath</span>

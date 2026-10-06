@@ -52,7 +52,10 @@ describe('shipping labels W-07 groupByPostalCode + p-limit 10 A4/ZPL', () => {
       expect(blob).toContain('^XZ');
     }
     // total blobs = number of orders
-    const totalLabels = [...result.groups.values()].reduce((n, b) => n + (b.match(/\^XA/g) ?? []).length, 0);
+    const totalLabels = [...result.groups.values()].reduce(
+      (n, b) => n + (b.match(/\^XA/g) ?? []).length,
+      0
+    );
     expect(totalLabels).toBe(4);
   });
 

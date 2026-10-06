@@ -24,7 +24,9 @@ describe('PR1 next.config private vs public cache split W-03', () => {
 
   it('headers() returns private for /admin vs public for /tienda', async () => {
     const mod = await import('@/..\\next.config.ts'.replace(/\\/g, '/'));
-    const cfg = (mod.default ?? mod) as unknown as { headers: () => Promise<{ source: string; headers: { key: string; value: string }[] }[]> };
+    const cfg = (mod.default ?? mod) as unknown as {
+      headers: () => Promise<{ source: string; headers: { key: string; value: string }[] }[]>;
+    };
     const headers = await cfg.headers();
     const find = (source: string) => headers.find((h) => h.source.includes(source));
     const admin = find('/admin');
@@ -32,7 +34,9 @@ describe('PR1 next.config private vs public cache split W-03', () => {
     const api = find('/api');
     const tienda = find('/tienda');
     expect(admin).toBeDefined();
-    expect(admin?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private.*no-cache.*no-store/i);
+    expect(admin?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(
+      /private.*no-cache.*no-store/i
+    );
     expect(account?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private/);
     expect(api?.headers.find((h) => h.key === 'Cache-Control')?.value).toMatch(/private/);
     expect(tienda).toBeDefined();
@@ -41,7 +45,9 @@ describe('PR1 next.config private vs public cache split W-03', () => {
 
   it('does not cache private routes via CDN — private no-store required', async () => {
     const mod = await import('@/..\\next.config.ts'.replace(/\\/g, '/'));
-    const cfg = (mod.default ?? mod) as unknown as { headers: () => Promise<{ source: string; headers: { key: string; value: string }[] }[]> };
+    const cfg = (mod.default ?? mod) as unknown as {
+      headers: () => Promise<{ source: string; headers: { key: string; value: string }[] }[]>;
+    };
     const headers = await cfg.headers();
     const admin = headers.find((h) => h.source.includes('/admin'));
     const val = admin?.headers.find((h) => h.key === 'Cache-Control')?.value ?? '';

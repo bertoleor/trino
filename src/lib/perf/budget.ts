@@ -15,7 +15,8 @@ export function assertBudget(metric: BudgetKey, value: number): boolean {
 export function checkBudgets(metrics: Partial<Record<BudgetKey, number>>) {
   const failures: string[] = [];
   for (const [k, v] of Object.entries(metrics)) {
-    if (v !== undefined && !assertBudget(k as BudgetKey, v)) failures.push(`${k} ${v} > ${PERF_BUDGET[k as BudgetKey]}`);
+    if (v !== undefined && !assertBudget(k as BudgetKey, v))
+      failures.push(`${k} ${v} > ${PERF_BUDGET[k as BudgetKey]}`);
   }
   return { ok: failures.length === 0, failures };
 }

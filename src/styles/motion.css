@@ -5,7 +5,9 @@
   will-change: clip-path, transform;
 }
 @keyframes grid-wipe {
-  to { clip-path: inset(0 0 0 0); }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 .motion-mask-reveal {
   mask-image: linear-gradient(to right, black 0%, transparent 100%);
@@ -14,11 +16,25 @@
   will-change: mask-position, transform;
 }
 @keyframes mask-reveal {
-  from { mask-position: 100% 0; }
-  to { mask-position: 0 0; }
+  from {
+    mask-position: 100% 0;
+  }
+  to {
+    mask-position: 0 0;
+  }
 }
-.motion-shape-morph { transition: transform 0.5s ease, border-radius 0.5s ease; will-change: transform; }
+.motion-shape-morph {
+  transition:
+    transform 0.5s ease,
+    border-radius 0.5s ease;
+  will-change: transform;
+}
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 /* CLS-safe: no layout shift, only clip-path/mask/transform, CLS<0.1 */

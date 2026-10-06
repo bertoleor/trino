@@ -13,6 +13,8 @@ export function paginate(opts: { page?: number; perPage?: number } = {}) {
 
 export function parsePagination(sp: URLSearchParams) {
   const page = Number(sp.get('page') ?? sp.get('p') ?? 1);
-  const perPage = Number(sp.get('per_page') ?? sp.get('perPage') ?? sp.get('limit') ?? DEFAULT_PER_PAGE);
+  const perPage = Number(
+    sp.get('per_page') ?? sp.get('perPage') ?? sp.get('limit') ?? DEFAULT_PER_PAGE
+  );
   return paginate({ page, perPage });
 }

@@ -1,18 +1,18 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export default async function AccountPage() {
-  const supabase = await createClient()
+  const supabase = await createClient();
   const {
     data: { user },
-  } = await supabase.auth.getUser()
+  } = await supabase.auth.getUser();
 
   const { data: profile } = await supabase
     .from('profiles')
     .select('full_name, email, role, phone')
     .eq('id', user?.id ?? '')
-    .single()
+    .single();
 
   return (
     <div>
@@ -32,5 +32,5 @@ export default async function AccountPage() {
         </div>
       </dl>
     </div>
-  )
+  );
 }

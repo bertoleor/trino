@@ -31,7 +31,7 @@ export default async function Home() {
               >
                 <div className="aspect-square w-full rounded-lg bg-zinc-100" />
                 <h3 className="mt-3 font-medium">{product.name}</h3>
-                <p className="mt-1 text-sm text-zinc-500 line-clamp-2">{product.description}</p>
+                <p className="mt-1 line-clamp-2 text-sm text-zinc-500">{product.description}</p>
                 <p className="mt-2 font-semibold">${product.price}</p>
               </Link>
             ))}

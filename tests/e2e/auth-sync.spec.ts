@@ -35,15 +35,37 @@ test.describe('auth-sync E2E W-05 cross-tab logout <1s', () => {
     const pageB = await context.newPage();
 
     for (const p of [pageA, pageB]) {
-      await p.route('**/*', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: HTML }));
+      await p.route('**/*', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/html', body: HTML })
+      );
       await p.goto('http://localhost:3000/');
     }
 
-    await expect.poll(async () => pageB.evaluate(() => (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut), { timeout: 2000 }).toBe(false);
+    await expect
+      .poll(
+        async () =>
+          pageB.evaluate(
+            () =>
+              (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut
+          ),
+        { timeout: 2000 }
+      )
+      .toBe(false);
 
     const t0 = Date.now();
-    await pageA.evaluate(() => (window as unknown as { __broadcastLogout: () => void }).__broadcastLogout());
-    await expect.poll(async () => pageB.evaluate(() => (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut), { timeout: 1000 }).toBe(true);
+    await pageA.evaluate(() =>
+      (window as unknown as { __broadcastLogout: () => void }).__broadcastLogout()
+    );
+    await expect
+      .poll(
+        async () =>
+          pageB.evaluate(
+            () =>
+              (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut
+          ),
+        { timeout: 1000 }
+      )
+      .toBe(true);
     const elapsed = Date.now() - t0;
     expect(elapsed).toBeLessThan(1000);
 
@@ -55,20 +77,38 @@ test.describe('auth-sync E2E W-05 cross-tab logout <1s', () => {
     const pageA = await context.newPage();
     const pageB = await context.newPage();
 
-    const fallbackHTML = HTML.replace('try{ ch=new BroadcastChannel', 'try{ throw new Error("block"); ch=new BroadcastChannel');
+    const fallbackHTML = HTML.replace(
+      'try{ ch=new BroadcastChannel',
+      'try{ throw new Error("block"); ch=new BroadcastChannel'
+    );
     for (const p of [pageA, pageB]) {
-      await p.route('**/*', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: fallbackHTML }));
+      await p.route('**/*', (route) =>
+        route.fulfill({ status: 200, contentType: 'text/html', body: fallbackHTML })
+      );
       await p.goto('http://localhost:3000/');
     }
 
-    await pageA.evaluate(() => (window as unknown as { __broadcastLogout: () => void }).__broadcastLogout());
+    await pageA.evaluate(() =>
+      (window as unknown as { __broadcastLogout: () => void }).__broadcastLogout()
+    );
     // storage event fires in other tab; playwright isolated storage per context shares via same origin?
     await pageB.evaluate((k) => {
       // simulate storage event manually since localStorage is per-page isolated in playwright
-      window.dispatchEvent(new StorageEvent('storage', { key: k, newValue: String(Date.now()) } as StorageEventInit));
+      window.dispatchEvent(
+        new StorageEvent('storage', { key: k, newValue: String(Date.now()) } as StorageEventInit)
+      );
     }, 'auth:logout');
 
-    await expect.poll(async () => pageB.evaluate(() => (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut), { timeout: 1000 }).toBe(true);
+    await expect
+      .poll(
+        async () =>
+          pageB.evaluate(
+            () =>
+              (window as unknown as { __authState: { loggedOut: boolean } }).__authState.loggedOut
+          ),
+        { timeout: 1000 }
+      )
+      .toBe(true);
 
     await context.close();
   });

@@ -56,7 +56,9 @@ const NONNULL_JUSTIFIED: Array<{ file: string; ticket: string; lines: number }> 
   { file: 'src/lib/supabase/client.ts', ticket: 'repo-cleanup-final/COMP-15', lines: 2 },
   { file: 'src/lib/supabase/server.ts', ticket: 'repo-cleanup-final/COMP-15', lines: 2 },
   { file: 'src/lib/rate-limit.ts', ticket: 'repo-cleanup-final/COMP-16', lines: 2 },
-  { file: 'src/proxy.ts', ticket: 'repo-cleanup-final/COMP-17', lines: 2 },
+  // 3 sites post prettier-100 re-wrap: the createServerClient env pair needed
+  // one disable per line (URL/ANON_KEY), plus the rows[0] reduce site.
+  { file: 'src/proxy.ts', ticket: 'repo-cleanup-final/COMP-17', lines: 3 },
 ];
 
 // Files whose non-null sites MUST be remediated in code (no ticket disable).

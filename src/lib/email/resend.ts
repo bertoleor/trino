@@ -12,9 +12,7 @@ export interface OrderEmailInput {
 }
 
 export type EmailResult =
-  | { ok: true; id: string }
-  | { ok: false; skipped: string }
-  | { ok: false; error: string };
+  { ok: true; id: string } | { ok: false; skipped: string } | { ok: false; error: string };
 
 const TEST_RECIPIENT_FALLBACK = 'delivered@resend.dev';
 const FROM_FALLBACK = 'onboarding@resend.dev';
@@ -68,13 +66,15 @@ export function buildOrderEmailHtml(status: OrderEmailStatus, input: OrderEmailI
       : '';
   const items =
     input.itemCount !== undefined ? `<p>Items: <strong>${input.itemCount}</strong></p>` : '';
-  return `<!doctype html><html lang="en"><body style="font-family: sans-serif; color: #1a1a1a;">`
-    + `<h1>${copy.heading}</h1>`
-    + `<p>Order <strong>${input.orderId}</strong></p>`
-    + `<p>${copy.body}</p>`
-    + summary
-    + items
-    + `</body></html>`;
+  return (
+    `<!doctype html><html lang="en"><body style="font-family: sans-serif; color: #1a1a1a;">` +
+    `<h1>${copy.heading}</h1>` +
+    `<p>Order <strong>${input.orderId}</strong></p>` +
+    `<p>${copy.body}</p>` +
+    summary +
+    items +
+    `</body></html>`
+  );
 }
 
 function idempotencyKeyFor(orderId: string, status: OrderEmailStatus): string {

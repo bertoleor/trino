@@ -12,9 +12,23 @@ describe('T-E02 cultura validations+actions Zod triple', () => {
   it('validations Zod triple slug/title/excerpt/body/cover/tags', async () => {
     const mod = await import('@/lib/validations/cultura');
     expect(mod.culturaSchema).toBeDefined();
-    const r = mod.culturaSchema.safeParse({ slug: 'ab', title: 't', locale: 'es-AR', status: 'draft' });
+    const r = mod.culturaSchema.safeParse({
+      slug: 'ab',
+      title: 't',
+      locale: 'es-AR',
+      status: 'draft',
+    });
     expect(r.success).toBe(false);
-    const ok = mod.culturaSchema.safeParse({ slug: 'mi-post', title: 'Titulo valido', excerpt: 'excerpt', body: {}, locale: 'es-AR', status: 'draft', tags: ['tag1'], related_product_ids: [] });
+    const ok = mod.culturaSchema.safeParse({
+      slug: 'mi-post',
+      title: 'Titulo valido',
+      excerpt: 'excerpt',
+      body: {},
+      locale: 'es-AR',
+      status: 'draft',
+      tags: ['tag1'],
+      related_product_ids: [],
+    });
     expect(ok.success).toBe(true);
   });
   it('actions is_admin 403 revalidatePath FTS soft-delete', () => {

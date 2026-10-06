@@ -11,7 +11,8 @@ function sign(payload: string, secret: string, t: string): string {
 describe('T-S03 HMAC t=v1 RLS Strict behavioral', () => {
   it('parseSignature extracts t and v1 correctly', async () => {
     const { parseSignature } = await import('@/app/api/webhooks/mercadopago/route');
-    const header = 't=1710000000,v1=abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890';
+    const header =
+      't=1710000000,v1=abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890';
     const p = parseSignature(header);
     expect(p).not.toBeNull();
     expect(p?.t).toBe('1710000000');
@@ -58,15 +59,20 @@ describe('T-S03 HMAC t=v1 RLS Strict behavioral', () => {
     expect(c).toMatch(/SameSite.*Strict|Strict.*SameSite/);
     expect(c).toMatch(/\/admin/);
     // behavioral helper mirroring proxy logic
-    const sameSite = (path: string): 'Strict' | 'Lax' => (path.startsWith('/admin') ? 'Strict' : 'Lax');
+    const sameSite = (path: string): 'Strict' | 'Lax' =>
+      path.startsWith('/admin') ? 'Strict' : 'Lax';
     expect(sameSite('/admin/products')).toBe('Strict');
     expect(sameSite('/account')).toBe('Lax');
     expect(sameSite('/api/webhooks')).toBe('Lax');
   });
 
   it('proxy inserts security_logs on 429/403 paths', () => {
-    const c = fs.readFileSync('src/proxy.ts', 'utf8');
-    expect(c).toMatch(/security_logs/);
-    expect(c).toMatch(/rate_limit_429|turnstile_403/);
+    // RBAC 403 audit insert lives in src/lib/proxy/rbac-audit.ts (CQ-03 extract);
+    // proxy.ts still owns the 429/turnstile enqueue + the deny calls.
+    const proxy = fs.readFileSync('src/proxy.ts', 'utf8');
+    const audit = fs.readFileSync('src/lib/proxy/rbac-audit.ts', 'utf8');
+    expect(audit).toMatch(/security_logs/);
+    expect(proxy).toMatch(/logRbacDeny/);
+    expect(proxy).toMatch(/rate_limit_429|turnstile_403/);
   });
 });
