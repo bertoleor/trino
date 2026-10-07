@@ -25,6 +25,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'validation', issues: parsed.error.issues }, { status: 422 });
   }
   const { orderId, contentType } = parsed.data;
+  // P-08 (CWE-639 / OWASP A01): el orderId es client-supplied — sin este
+  // check cualquier user autenticado firmaba un upload URL para un order
+  // ajeno. Ownership server-side contra orders.user_id; 404 fail-close no
+  // revela existencia del order.
+  const { data: owned } = await supabase
+    .from('orders')
+    .select('id')
+    .eq('id', orderId)
+    .eq('user_id', user.id)
+    .maybeSingle();
+  if (!owned) return NextResponse.json({ error: 'order not found' }, { status: 404 });
   const size = Number(req.headers.get('x-file-size') ?? MAX_BYTES);
   if (size > MAX_BYTES) return NextResponse.json({ error: 'file too large 10MB' }, { status: 422 });
   const uuid = crypto.randomUUID();
