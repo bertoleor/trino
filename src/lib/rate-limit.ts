@@ -2,7 +2,7 @@ import type { Duration } from '@upstash/ratelimit';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-type Tier = 'auth' | 'public' | 'authed' | 'webhook' | 'admin' | 'shipping';
+type Tier = 'auth' | 'public' | 'authed' | 'webhook' | 'admin' | 'shipping' | 'checkout';
 
 type RateLimitConfig = { requests: number; window: Duration; label: string };
 
@@ -14,6 +14,9 @@ export const rateLimitConfigs: Record<Tier, RateLimitConfig> = {
   admin: { requests: 10, window: '60 m', label: '10/h' },
   // T-S01: carrier fan-out endpoint — stricter budget than generic public
   shipping: { requests: 20, window: '60 s', label: '20/m' },
+  // T-P06: order-creation write path — authed customers only, 5 orders/min
+  // bounds forged-order spam and email fan-out per IP.
+  checkout: { requests: 5, window: '60 s', label: '5/m' },
 };
 
 const memoryStore = new Map<string, { count: number; reset: number }>();
