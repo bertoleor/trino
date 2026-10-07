@@ -17,12 +17,12 @@ on conflict (id) do update
 -- can only write/read/delete inside their own folder. No anon policy (fail-closed).
 drop policy if exists "reviews_owner_upload" on storage.objects;
 create policy "reviews_owner_upload" on storage.objects for insert to authenticated
-  with check (bucket_id = 'reviews' and storage.foldername(name)[1] = auth.uid()::text);
+  with check (bucket_id = 'reviews' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "reviews_owner_read" on storage.objects;
 create policy "reviews_owner_read" on storage.objects for select to authenticated
-  using (bucket_id = 'reviews' and storage.foldername(name)[1] = auth.uid()::text);
+  using (bucket_id = 'reviews' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "reviews_owner_delete" on storage.objects;
 create policy "reviews_owner_delete" on storage.objects for delete to authenticated
-  using (bucket_id = 'reviews' and storage.foldername(name)[1] = auth.uid()::text);
+  using (bucket_id = 'reviews' and (storage.foldername(name))[1] = auth.uid()::text);

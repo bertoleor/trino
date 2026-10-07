@@ -1,10 +1,31 @@
 'use server';
+import { enqueueSecurityAudit, verifyTurnstile } from '@/lib/proxy/turnstile';
 import { reviewModerationSchema, reviewSchema } from '@/lib/validations/reviews';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { createClient } from '@/lib/supabase/server';
+import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
 // Turnstile + honeypot spam guard; 3/h Upstash rate limit; verified_purchase via delivered orders.
+
+// A-02 (audit, CWE-799 / OWASP A07:2021): Server Actions post to the page URL
+// and cannot set custom headers, so the old proxy path gate (includes('/reviews'))
+// read a header that never arrives — it 403-blocked every real submission while
+// verifying nothing. Real verification lives INSIDE the action, fail-closed,
+// mirroring A-01's auth actions. moderateReview/toggleHelpful stay on
+// auth + is_admin + rate-limit tiers: admin-only / idempotent counters, no
+// anonymous-write surface to gate.
+async function verifyReviewTurnstile(token: string): Promise<boolean> {
+  const ok = await verifyTurnstile(token);
+  if (!ok) {
+    const hdrs = await headers();
+    const ip = hdrs.get('x-forwarded-for') ?? 'unknown';
+    const path = hdrs.get('x-matched-path') ?? '/reviews';
+    enqueueSecurityAudit('turnstile_403', { ip, path }, process.env.NEXT_PUBLIC_SITE_URL);
+  }
+  return ok;
+}
+
 // eslint-disable-next-line complexity -- pre-existing 16, refactor follow-up, ticket: warnings-pr-followup/COMP-4
 export async function createReview(
   input: unknown,
@@ -14,6 +35,9 @@ export async function createReview(
   const parsed = reviewSchema.safeParse(input);
   if (!parsed.success) return { error: parsed.error.flatten(), status: 422 };
   if (parsed.data.honeypot) return { error: 'spam', status: 422 };
+  // Fail-closed: no/invalid token => no auth, no rate-limit spend, no insert.
+  const turnstileOk = await verifyReviewTurnstile(opts?.turnstileToken ?? '');
+  if (!turnstileOk) return { error: 'turnstile failed', status: 403 };
   const supabase = await createClient();
   const {
     data: { user },
