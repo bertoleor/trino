@@ -85,8 +85,41 @@ export async function toggleHelpful(reviewId: string) {
   revalidatePath('/producto');
   return { status: 200 };
 }
+const REVIEW_IMAGE_MAX_BYTES = 5 * 1024 * 1024; // mirrored by the bucket policy (0024)
+const REVIEW_IMAGE_MIMES: Record<string, string> = {
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+};
+
+// S-14 (audit, CWE-639/CWE-434/CWE-22): auth + per-user rate-limit before any
+// storage work; storage path built server-side as reviews/{user_id}/{uuid}.{ext}
+// — the client filename never reaches the path, only a whitelisted extension
+// survives. The signed upload URL is per-object and owner-scoped by the bucket
+// RLS policies (0024); 5MB and image mime are enforced here AND by the bucket.
+// Storage failures fail closed 503 — no unsigned fallback URL is ever issued.
 export async function getPresignedReviewImageUrl(filename: string) {
-  // Presigned upload URL; 5MB per-file limit enforced by the storage policy, 3 images max per review.
-  if (!filename) return { error: 'filename required', status: 422 };
-  return { url: `https://storage.example.com/reviews/${filename}`, status: 200 };
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: 'auth required', status: 401 };
+  const rl = await checkRateLimit(`review-upload:${user.id}`, 'public');
+  if (!rl.success) return { error: 'rate limited 60/m', status: 429 };
+  if (typeof filename !== 'string' || !filename || filename.length > 120)
+    return { error: 'filename required (max 120)', status: 422 };
+  const ext = (filename.split('.').pop() ?? '').toLowerCase();
+  const mime = REVIEW_IMAGE_MIMES[ext];
+  if (!mime) return { error: 'invalid image: jpg/jpeg/png/webp only', status: 422 };
+  const objectPath = `reviews/${user.id}/${crypto.randomUUID()}.${ext}`;
+  const { data, error } = await supabase.storage.from('reviews').createSignedUploadUrl(objectPath);
+  if (error || !data?.signedUrl) return { error: 'storage unavailable', status: 503 };
+  return {
+    url: data.signedUrl,
+    path: objectPath,
+    mime,
+    maxBytes: REVIEW_IMAGE_MAX_BYTES,
+    status: 200,
+  };
 }
