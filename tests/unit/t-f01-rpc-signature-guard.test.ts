@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
-const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
 // T-F01 (drift RPC↔migración 0019, ticket t_d340fda1): la app llamaba
 // add_to_cart_serializable(p_variant_id, p_qty, p_user_id, p_session_id) pero
@@ -36,7 +35,8 @@ function extractRpcCalls(): RpcCall[] {
   const calls: RpcCall[] = [];
   const walk = (dir: string) => {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name === 'node_modules' || entry.name === '.next' || entry.name.startsWith('.')) continue;
+      if (entry.name === 'node_modules' || entry.name === '.next' || entry.name.startsWith('.'))
+        continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         walk(full);
@@ -72,8 +72,7 @@ function extractRpcCalls(): RpcCall[] {
 function declaredSignatures(): Map<string, Set<string>> {
   const dir = path.join(ROOT, 'supabase/migrations');
   const sigs = new Map<string, Set<string>>();
-  const re =
-    /create\s+(?:or\s+replace\s+)?function\s+(?:public\.)?([\w$]+)\s*\(([^)]*)\)/gi;
+  const re = /create\s+(?:or\s+replace\s+)?function\s+(?:public\.)?([\w$]+)\s*\(([^)]*)\)/gi;
   for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.sql'))) {
     const sql = fs.readFileSync(path.join(dir, f), 'utf8');
     let m: RegExpExecArray | null;
@@ -100,14 +99,14 @@ describe('T-F01 RPC↔migration signature guard (drift 0019)', () => {
   it('cart call sites pass exactly the args that the migration declares', () => {
     const add = calls.find((c) => c.fn === 'add_to_cart_serializable');
     expect(add, 'addToCart debe seguir llamando al RPC').toBeTruthy();
-    expect(add!.args.sort()).toEqual(['p_qty', 'p_session_id', 'p_user_id', 'p_variant_id']);
+    expect(add?.args.sort()).toEqual(['p_qty', 'p_session_id', 'p_user_id', 'p_variant_id']);
     expect(sigs.get('add_to_cart_serializable')).toEqual(
       new Set(['variant_id', 'qty', 'user_id', 'session_id'])
     );
 
     const merge = calls.find((c) => c.fn === 'merge_cart_serializable');
     expect(merge, 'mergeCart debe seguir llamando al RPC').toBeTruthy();
-    expect(merge!.args.sort()).toEqual(['p_session_id', 'p_user_id']);
+    expect(merge?.args.sort()).toEqual(['p_session_id', 'p_user_id']);
     expect(sigs.get('merge_cart_serializable')).toEqual(new Set(['session_id', 'user_id']));
   });
 
