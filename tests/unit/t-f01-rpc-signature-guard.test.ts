@@ -13,14 +13,13 @@ const ROOT = path.resolve(__dirname, '../..');
 // set de args. Sirve para todos los RPC del repo, no solo cart.
 //
 // RPCs con drift conocido trackeados en tickets propios (al cerrar cada
-// ticket, sacar de esta allowlist para que el guard los vuelva a exigir):
-//   - keepalive_ping           → t_e160af44 (F-03, P2)
-//   - heartbeat_select_one     → t_e160af44 (F-03, P2)
+// ticket, sacar de esta allowlist para que el guard los vuelva a exigir).
+// Histórico (todos resueltos, allowlist vacía):
+//   - increment_helpful      → t_74844aea (F-02, resuelto por 0025)
+//   - keepalive_ping         → t_e160af44 (F-03, resuelto por 0026)
+//   - heartbeat_select_one   → t_e160af44 (F-03, resuelto por 0026)
 
-const ALLOWLIST: Record<string, string> = {
-  keepalive_ping: 't_e160af44',
-  heartbeat_select_one: 't_e160af44',
-};
+const ALLOWLIST: Record<string, string> = {};
 
 interface RpcCall {
   file: string;
