@@ -91,10 +91,13 @@ function declaredSignatures(): Map<string, Set<string>> {
 }
 
 describe('T-F01 RPC↔migration signature guard (drift 0019)', () => {
-  it('cart call sites pass exactly the args that the migration declares', () => {
-    const sigs = declaredSignatures();
-    const calls = extractRpcCalls();
+  // Walk de src/ + parse de 24 migraciones tarda >5s en Windows/pnpm — se
+  // extrae UNA vez a module scope y cada `it` reusa los resultados. Sin
+  // esto, el testTimeout default (5s) mata el primer it de este archivo.
+  const sigs = declaredSignatures();
+  const calls = extractRpcCalls();
 
+  it('cart call sites pass exactly the args that the migration declares', () => {
     const add = calls.find((c) => c.fn === 'add_to_cart_serializable');
     expect(add, 'addToCart debe seguir llamando al RPC').toBeTruthy();
     expect(add!.args.sort()).toEqual(['p_qty', 'p_session_id', 'p_user_id', 'p_variant_id']);
@@ -109,8 +112,6 @@ describe('T-F01 RPC↔migration signature guard (drift 0019)', () => {
   });
 
   it('every .rpc() call site has a matching declaration in supabase/migrations', () => {
-    const sigs = declaredSignatures();
-    const calls = extractRpcCalls();
     expect(calls.length).toBeGreaterThan(10); // sanity: el extractor no se quedó en cero
     const missing = calls.filter((c) => !sigs.has(c.fn) && !(c.fn in ALLOWLIST));
     expect(
@@ -120,8 +121,6 @@ describe('T-F01 RPC↔migration signature guard (drift 0019)', () => {
   });
 
   it('every .rpc() call site passes exactly the declared args (no extras, no missing)', () => {
-    const sigs = declaredSignatures();
-    const calls = extractRpcCalls();
     const drift: string[] = [];
     for (const c of calls) {
       if (c.fn in ALLOWLIST) continue;
