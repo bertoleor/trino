@@ -14,12 +14,10 @@ const ROOT = path.resolve(__dirname, '../..');
 //
 // RPCs con drift conocido trackeados en tickets propios (al cerrar cada
 // ticket, sacar de esta allowlist para que el guard los vuelva a exigir):
-//   - increment_helpful        → t_74844aea (F-02, P3)
 //   - keepalive_ping           → t_e160af44 (F-03, P2)
 //   - heartbeat_select_one     → t_e160af44 (F-03, P2)
 
 const ALLOWLIST: Record<string, string> = {
-  increment_helpful: 't_74844aea',
   keepalive_ping: 't_e160af44',
   heartbeat_select_one: 't_e160af44',
 };
