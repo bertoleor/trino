@@ -46,7 +46,7 @@ function extractRpcCalls(): RpcCall[] {
       const re = /\.rpc\(\s*['"]([\w$]+)['"]\s*(?:,\s*\{([\s\S]*?)\}\s*)?\)/g;
       let m: RegExpExecArray | null;
       while ((m = re.exec(src)) !== null) {
-        const fn = m[1];
+        const fn = m[1]!;
         const argsBlock = m[2] ?? '';
         // keys del object literal: `p_x: valor` / `p_x:valor` / `"p_x": v`
         const args = [...argsBlock.matchAll(/[\w$]+\s*(?=\s*:)/g)].map((a) => a[0]);
@@ -74,12 +74,12 @@ function declaredSignatures(): Map<string, Set<string>> {
     const sql = fs.readFileSync(path.join(dir, f), 'utf8');
     let m: RegExpExecArray | null;
     while ((m = re.exec(sql)) !== null) {
-      const fn = m[1].toLowerCase();
-      const params = m[2]
+      const fn = m[1]!.toLowerCase();
+      const params = m[2]!
         .split(',')
         .map((s) => s.trim())
         .filter(Boolean)
-        .map((s) => s.split(/\s+/)[0].replace(/^p_/, ''));
+        .map((s) => s.split(/\s+/)[0]!.replace(/^p_/, ''));
       sigs.set(fn, new Set(params));
     }
   }
