@@ -3,6 +3,10 @@ import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 import { routing } from '@/i18n/routing';
+
+// Fetches via the cookie-bound supabase server client (session-aware), so it
+// cannot be prerendered; force-dynamic keeps the static export from attempting it.
+export const dynamic = 'force-dynamic';
 export async function generateMetadata({
   params,
 }: {
