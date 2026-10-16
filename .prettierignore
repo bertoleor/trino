@@ -39,3 +39,4 @@ opencode.json
 pnpm-workspace.yaml
 postcss.config.mjs
 messages/**
+src/types/database.types.ts

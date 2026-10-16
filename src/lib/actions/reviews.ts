@@ -1,10 +1,31 @@
 'use server';
+import { enqueueSecurityAudit, verifyTurnstile } from '@/lib/proxy/turnstile';
 import { reviewModerationSchema, reviewSchema } from '@/lib/validations/reviews';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { createClient } from '@/lib/supabase/server';
+import { headers } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
 // Turnstile + honeypot spam guard; 3/h Upstash rate limit; verified_purchase via delivered orders.
+
+// A-02 (audit, CWE-799 / OWASP A07:2021): Server Actions post to the page URL
+// and cannot set custom headers, so the old proxy path gate (includes('/reviews'))
+// read a header that never arrives — it 403-blocked every real submission while
+// verifying nothing. Real verification lives INSIDE the action, fail-closed,
+// mirroring A-01's auth actions. moderateReview/toggleHelpful stay on
+// auth + is_admin + rate-limit tiers: admin-only / idempotent counters, no
+// anonymous-write surface to gate.
+async function verifyReviewTurnstile(token: string): Promise<boolean> {
+  const ok = await verifyTurnstile(token);
+  if (!ok) {
+    const hdrs = await headers();
+    const ip = hdrs.get('x-forwarded-for') ?? 'unknown';
+    const path = hdrs.get('x-matched-path') ?? '/reviews';
+    enqueueSecurityAudit('turnstile_403', { ip, path }, process.env.NEXT_PUBLIC_SITE_URL);
+  }
+  return ok;
+}
+
 // eslint-disable-next-line complexity -- pre-existing 16, refactor follow-up, ticket: warnings-pr-followup/COMP-4
 export async function createReview(
   input: unknown,
@@ -14,6 +35,9 @@ export async function createReview(
   const parsed = reviewSchema.safeParse(input);
   if (!parsed.success) return { error: parsed.error.flatten(), status: 422 };
   if (parsed.data.honeypot) return { error: 'spam', status: 422 };
+  // Fail-closed: no/invalid token => no auth, no rate-limit spend, no insert.
+  const turnstileOk = await verifyReviewTurnstile(opts?.turnstileToken ?? '');
+  if (!turnstileOk) return { error: 'turnstile failed', status: 403 };
   const supabase = await createClient();
   const {
     data: { user },
@@ -85,8 +109,41 @@ export async function toggleHelpful(reviewId: string) {
   revalidatePath('/producto');
   return { status: 200 };
 }
+const REVIEW_IMAGE_MAX_BYTES = 5 * 1024 * 1024; // mirrored by the bucket policy (0024)
+const REVIEW_IMAGE_MIMES: Record<string, string> = {
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  png: 'image/png',
+  webp: 'image/webp',
+};
+
+// S-14 (audit, CWE-639/CWE-434/CWE-22): auth + per-user rate-limit before any
+// storage work; storage path built server-side as reviews/{user_id}/{uuid}.{ext}
+// — the client filename never reaches the path, only a whitelisted extension
+// survives. The signed upload URL is per-object and owner-scoped by the bucket
+// RLS policies (0024); 5MB and image mime are enforced here AND by the bucket.
+// Storage failures fail closed 503 — no unsigned fallback URL is ever issued.
 export async function getPresignedReviewImageUrl(filename: string) {
-  // Presigned upload URL; 5MB per-file limit enforced by the storage policy, 3 images max per review.
-  if (!filename) return { error: 'filename required', status: 422 };
-  return { url: `https://storage.example.com/reviews/${filename}`, status: 200 };
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: 'auth required', status: 401 };
+  const rl = await checkRateLimit(`review-upload:${user.id}`, 'public');
+  if (!rl.success) return { error: 'rate limited 60/m', status: 429 };
+  if (typeof filename !== 'string' || !filename || filename.length > 120)
+    return { error: 'filename required (max 120)', status: 422 };
+  const ext = (filename.split('.').pop() ?? '').toLowerCase();
+  const mime = REVIEW_IMAGE_MIMES[ext];
+  if (!mime) return { error: 'invalid image: jpg/jpeg/png/webp only', status: 422 };
+  const objectPath = `reviews/${user.id}/${crypto.randomUUID()}.${ext}`;
+  const { data, error } = await supabase.storage.from('reviews').createSignedUploadUrl(objectPath);
+  if (error || !data?.signedUrl) return { error: 'storage unavailable', status: 503 };
+  return {
+    url: data.signedUrl,
+    path: objectPath,
+    mime,
+    maxBytes: REVIEW_IMAGE_MAX_BYTES,
+    status: 200,
+  };
 }

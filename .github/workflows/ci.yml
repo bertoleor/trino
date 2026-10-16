@@ -59,13 +59,20 @@ jobs:
       - name: Setup Supabase CLI (pinned)
         uses: supabase/setup-cli@v1
         with:
-          version: 1.142.2
+          version: 2.117.0
       - name: Start local Supabase
         run: supabase start
       - name: Drift guard — regen must be diff-clean
         run: |
-          supabase gen types typescript --local --schema public > /tmp/fresh.types.ts
-          diff --exit-code /tmp/fresh.types.ts src/types/database.types.ts
+          supabase gen types typescript --local --schema public > src/types/database.types.ts
+          git diff --exit-code src/types/database.types.ts
+      - name: Upload regenerated types (artifact for drift PRs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fresh-types
+          path: src/types/database.types.ts
+          retention-days: 7
 
   test:
     name: Unit Tests
