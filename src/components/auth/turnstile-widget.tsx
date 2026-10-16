@@ -8,7 +8,13 @@ import { useCallback, useEffect, useRef } from 'react';
 // then validates via siteverify. CSP origins allowed in src/lib/security/csp.ts.
 
 const SCRIPT_ID = 'cf-turnstile-script';
-const SCRIPT_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+// A-01 review round 1 (F1): the loader promise resolves via the named
+// global below, so the src MUST declare &onload=onA01TurnstileLoad — the
+// official Cloudflare mechanism ("Using onload callback"). api.js never
+// calls an undeclared global; without the param the first mount hangs
+// forever and login/signup are bricked.
+const SCRIPT_SRC =
+  'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onA01TurnstileLoad';
 
 type TurnstileApi = {
   render: (el: HTMLElement, opts: Record<string, unknown>) => string;
@@ -23,27 +29,37 @@ declare global {
   }
 }
 
+// Single-flight: one in-flight/loaded script shared by every mount. The old
+// per-call waiter overwrite broke remounts (React key-bump after a failed
+// attempt) — the second mount replaced the first mount's callback before
+// api.js ever fired it. A module-level promise can't lose a waiter.
+let turnstileLoader: Promise<TurnstileApi> | null = null;
+
 /** Loads the official api.js once (idempotent) and resolves when turnstile is ready. */
 function loadTurnstile(): Promise<TurnstileApi> {
   if (typeof window === 'undefined') return Promise.reject(new Error('SSR'));
   if (window.turnstile) return Promise.resolve(window.turnstile);
-  return new Promise((resolve, reject) => {
+  if (turnstileLoader) return turnstileLoader;
+  turnstileLoader = new Promise<TurnstileApi>((resolve, reject) => {
     const prev = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null;
-    if (prev) {
-      window.onA01TurnstileLoad = () =>
-        window.turnstile ? resolve(window.turnstile) : reject(new Error('turnstile missing'));
-      return;
-    }
+    // api.js invokes this global when &onload= points at it (see SCRIPT_SRC).
+    window.onA01TurnstileLoad = () => {
+      if (window.turnstile) resolve(window.turnstile);
+      else reject(new Error('turnstile missing after onload'));
+    };
+    if (prev) return; // script already injected (maybe by a previous mount) — wait for the global
     const script = document.createElement('script');
     script.id = SCRIPT_ID;
     script.src = SCRIPT_SRC;
     script.async = true;
     script.defer = true;
-    window.onA01TurnstileLoad = () =>
-      window.turnstile ? resolve(window.turnstile) : reject(new Error('turnstile missing'));
-    script.onerror = () => reject(new Error('turnstile script failed to load'));
+    script.onerror = () => {
+      turnstileLoader = null; // allow a later mount to retry the fetch
+      reject(new Error('turnstile script failed to load'));
+    };
     document.head.appendChild(script);
   });
+  return turnstileLoader;
 }
 
 export function TurnstileWidget({
