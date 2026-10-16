@@ -7,7 +7,10 @@ const CSP_HEADER = 'Content-Security-Policy';
 export function buildCspWithNonce(nonce: string): string {
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'`,
+    // Turnstile widget: official Cloudflare CSP directives (script + iframe origins).
+    // Source: developers.cloudflare.com/turnstile/reference/content-security-policy/
+    `script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com`,
+    'frame-src https://challenges.cloudflare.com',
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https:",
     "font-src 'self' data:",

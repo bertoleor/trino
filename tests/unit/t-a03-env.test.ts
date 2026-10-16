@@ -32,6 +32,7 @@ describe('T-A03 env.ts Zod fail-closed ENV-01', () => {
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'anon-key-123',
       NEXT_PUBLIC_SITE_URL: 'https://example.com',
       TURNSTILE_SECRET_KEY: 'turnstile-secret',
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: 'sitekey-123',
       SUPABASE_SERVICE_ROLE: 'service-role-key',
       ALLOW_MEMORY_RATE_LIMIT: 'true',
     } as unknown as Record<string, string>);
@@ -59,6 +60,7 @@ describe('T-A03 env.ts Zod fail-closed ENV-01', () => {
       NEXT_PUBLIC_SUPABASE_ANON_KEY: 'anon-key-123',
       NEXT_PUBLIC_SITE_URL: 'https://example.com',
       TURNSTILE_SECRET_KEY: 'turnstile-secret',
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: 'sitekey-123',
       SUPABASE_SERVICE_ROLE: 'service-role-key',
     } as unknown as Record<string, string>;
     expect(() => mod.validateEnv(base)).toThrow(/UPSTASH|ALLOW_MEMORY_RATE_LIMIT/);

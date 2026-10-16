@@ -80,7 +80,10 @@ describe('t-s3 cron fail-closed + proxy void guards', () => {
   it('proxy.ts slice-B security logic is preserved', () => {
     const src = readFileSync('src/proxy.ts', 'utf8');
     expect(src).toContain('isAuthTierPath');
-    expect(src).toContain('verifyTurnstile');
+    // A-02: turnstile verification moved INSIDE the Server Actions (auth +
+    // reviews); the proxy header gate was dead code that 403-blocked real
+    // submissions — it must not come back.
+    expect(src).not.toContain('verifyTurnstile');
     expect(src).toContain('applyNonceCsp');
     expect(src).toContain('checkRateLimit');
     expect(src).toContain('logRbacDeny');

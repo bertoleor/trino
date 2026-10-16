@@ -2,13 +2,12 @@
 import { useOptimistic, useState, useTransition } from 'react';
 import WishlistHeart from '@/components/shared/wishlist-heart';
 import { toggleWishlist } from '@/lib/actions/wishlist';
+// T-S07: sin prop de identidad anónima — cookie httpOnly server-side.
 export default function WishlistButton({
   productId,
-  sessionId,
   initial,
 }: {
   productId: string;
-  sessionId?: string;
   initial?: boolean;
 }) {
   const [active, setActive] = useState(Boolean(initial));
@@ -25,7 +24,7 @@ export default function WishlistButton({
     setActive(next);
     showToast(next ? 'added to wishlist toast optimistic' : 'removed toast');
     startTransition(async () => {
-      const r = await toggleWishlist(productId, sessionId);
+      const r = await toggleWishlist(productId);
       if ((r as { status: number }).status === 409) showToast('duplicate 409');
       if ((r as { status: number }).status >= 400 && (r as { status: number }).status !== 409) {
         setActive(!next);
@@ -36,7 +35,7 @@ export default function WishlistButton({
   }
   return (
     <div className="inline-flex items-center gap-2">
-      <WishlistHeart productId={productId} initial={optimistic} sessionId={sessionId} />
+      <WishlistHeart productId={productId} initial={optimistic} />
       <button
         onClick={handle}
         disabled={pending}

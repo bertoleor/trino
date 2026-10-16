@@ -1,7 +1,7 @@
 /* eslint-disable max-lines -- prettier printWidth 100 re-wrap expands this file beyond the 150-line budget; auth/rate-limit/i18n middleware chain; substantive hardening owned by T4; ticket: trino-ci-green/fast-follow */
 import { type NextRequest, NextResponse } from 'next/server';
 import { applyNonceCsp, nextWithNonce, nonceForRequest } from '@/lib/security/csp';
-import { enqueueSecurityAudit, verifyTurnstile } from '@/lib/proxy/turnstile';
+import { enqueueSecurityAudit } from '@/lib/proxy/turnstile';
 import { isRecord, toTypedSupabase } from '@/lib/supabase/typed';
 import type { Role } from '@/lib/auth/roles';
 import { checkRateLimit } from '@/lib/rate-limit';
@@ -151,28 +151,8 @@ export async function updateSession(request: NextRequest, nonce?: string) {
 
 // eslint-disable-next-line complexity -- pre-existing 20, refactor deferred: auth-critical path, substantive hardening owned by T4; ticket: repo-cleanup-final/COMP-9
 export async function proxy(request: NextRequest) {
-  const honeypot = request.headers.get('x-honeypot') ?? request.nextUrl.searchParams.get('hp');
+  const honeypot = request.nextUrl.searchParams.get('hp');
   if (honeypot) return NextResponse.json({ error: 'bot detected honeypot' }, { status: 400 });
-  if (request.method === 'POST') {
-    const token = request.headers.get('cf-turnstile-response') ?? '';
-    const needsTurnstile =
-      request.nextUrl.pathname.startsWith('/api/contact') ||
-      request.nextUrl.pathname.includes('/reviews');
-    if (needsTurnstile) {
-      const ok = await verifyTurnstile(token);
-      if (!ok) {
-        enqueueSecurityAudit(
-          'turnstile_403',
-          {
-            ip: request.headers.get('x-forwarded-for') ?? 'unknown',
-            path: request.nextUrl.pathname,
-          },
-          request.nextUrl.origin
-        );
-        return NextResponse.json({ error: 'turnstile failed' }, { status: 403 });
-      }
-    }
-  }
   const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
   const path = request.nextUrl.pathname;
   const tier = path.startsWith('/api/webhooks')

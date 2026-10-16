@@ -6,6 +6,10 @@ const envSchema = z
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
     NEXT_PUBLIC_SITE_URL: z.string().url().default('http://localhost:3000'),
     SUPABASE_SERVICE_ROLE: z.string().min(1),
+    // A-01: login/signup verify Turnstile fail-closed; the sitekey pairs with
+    // TURNSTILE_SECRET_KEY — missing sitekey bricks the widget (and thus auth),
+    // so it must fail loud at boot, not silent at runtime.
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1),
     TURNSTILE_SECRET_KEY: z.string().min(1),
     UPSTASH_REDIS_REST_URL: z.string().url().optional(),
     UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),

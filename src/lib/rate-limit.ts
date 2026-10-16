@@ -2,7 +2,7 @@ import type { Duration } from '@upstash/ratelimit';
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-type Tier = 'auth' | 'public' | 'authed' | 'webhook' | 'admin';
+type Tier = 'auth' | 'public' | 'authed' | 'webhook' | 'admin' | 'shipping' | 'social';
 
 type RateLimitConfig = { requests: number; window: Duration; label: string };
 
@@ -12,6 +12,12 @@ export const rateLimitConfigs: Record<Tier, RateLimitConfig> = {
   authed: { requests: 600, window: '60 s', label: '600/m' },
   webhook: { requests: 60, window: '60 s', label: 'webhook 1MB' },
   admin: { requests: 10, window: '60 m', label: '10/h' },
+  // T-S01: carrier fan-out endpoint — stricter budget than generic public
+  shipping: { requests: 20, window: '60 s', label: '20/m' },
+  // T-S12 (CWE-770): /api/social/stats global per-platform budget, aligned with
+  // SOCIAL_RATE_LIMITS (200/h per provider) — protects the provider token quota
+  // from IP rotation / cold-instance cache misses the per-IP proxy tier can't see.
+  social: { requests: 200, window: '60 m', label: '200/h' },
 };
 
 const memoryStore = new Map<string, { count: number; reset: number }>();
