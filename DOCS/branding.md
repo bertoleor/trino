@@ -37,10 +37,16 @@
 - Moderación de reseñas con el mismo criterio: no debates religiosos en
   comentarios de producto.
 
+## Decisiones resueltas del dueño
+
+- Home (2026-09-14, ORN-178): **hero geométrico GANA** — figura recortada sobre arco
+  de medio punto en mostaza/celeste + bloques de categoría con forma geométrica de
+  fondo (círculo, arco, media luna). "Título gigante 'TRINO' + carrousel horizontal"
+  sigue RECHAZADO por el CEO (nota en `marca.md` §2) — no implementar.
+  Implementado en `feat/hero-geometrico-home`.
+
 ## Decisiones pendientes del dueño
 
-- Home: al CEO **no le convence** título gigante "TRINO" + carrousel
-  horizontal (nota en `marca.md` §2). No implementar ese hero sin firma.
 - Lanzar con 3-4 tradiciones bien curadas, no las nueve genéricas.
 - Política de devoluciones por tipo de producto (usado vs. sin abrir) antes
   de habilitar checkout.

@@ -1,0 +1,1 @@
+export const HERO_FACETS = ['velas', 'tarot-oraculos', 'inciensos-resinas'] as const;

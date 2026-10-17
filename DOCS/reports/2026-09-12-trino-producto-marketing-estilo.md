@@ -99,7 +99,7 @@ Resolución práctica: filtros combinables en buscador y listado (PLP), el usuar
 "La forma sigue a la función" = UX moderna. La Bauhaus nació del misticismo (Kandinsky, Itten: colores que vibran en el alma, rituales de purificación). trino. rescata esa etapa: geometría y espíritu como una sola cosa. Trasladó a "Geometría y Espíritu" (sección "Nuestra Propuesta"): lo esotérico asociado al exceso y al caos es lo opuesto a esta marca — la verdadera espiritualidad aporta claridad.
 
 ### 3.2 Reglas de composición por pantalla
-- **Home:** hero con figura (vela, mazo de tarot) sobre forma geométrica (arco de medio punto en mostaza o celeste), no fotos rectangulares. Cada bloque de categoría con forma geométrica propia de fondo (círculo, arco, media luna). Pendiente de decisión del dueño: evitar título gigante "TRINO" + carrousel horizontal en home (no le convence al CEO — marcado en marca.md).
+- **Home:** hero con figura (vela, mazo de tarot) sobre forma geométrica (arco de medio punto en mostaza o celeste), no fotos rectangulares. Cada bloque de categoría con forma geométrica propia de fondo (círculo, arco, media luna). RESUELTA (owner 2026-09-14, ORN-178): hero geométrico confirmado; título gigante "TRINO" + carrousel horizontal queda RECHAZADO por el CEO (marcado en marca.md §2). Implementado en `feat/hero-geometrico-home`.
 - **PLP:** foto vertical (3:4 o 4:5), bordes redondeados, fondo con color blocking — los 4 colores de acento rotando por categoría (ritmo visual sin caos). Badges de oferta SIEMPRE mostaza + grafito, minúscula ("30% off.", "nuevo."), nunca rojo/verde genérico.
 - **Botones:** píldora (`border-radius: 50px`), minúscula, negrita gruesa. Terracota = acción principal ("agregar al carrito."), verde = secundaria ("ver más.", "guardar.").
 - **Íconos y formas decorativas:** arcos y círculos como recurso recurrente (separadores, marcos de imagen, fondos de banner) — es lo que hace reconocible al Neo-Bauhaus frente al new-age genérico con degradés y estrellas.
@@ -127,7 +127,7 @@ La marca apunta a un e-commerce esotérico que hoy NADIE resuelve con buen dise�
 ## 4. Pendientes / decisiones abiertas para el dueño
 
 1. Categorías finales de lanzamiento: 3-4 tradiciones bien curadas (no nueve genéricas).
-2. Decidir home: hero con figura geométrica (recomendado) vs. título gigante + carrousel (el CEO no lo quiere).
+2. RESUELTA (2026-09-14, ORN-178): hero con figura geométrica GANA — título gigante + carrousel rechazado por el CEO. Implementado en `feat/hero-geometrico-home` (arco de medio punto mostaza/celeste + categorías con círculo/arco/media luna).
 3. Política de devoluciones por tipo de producto (usado vs. sin abrir) antes de habilitar checkout.
 4. Contenido educativo (glosario, calendario lunar) en MVP o fase 2 — recomendado en MVP por el peso SEO.
 5. Certificación de origen de piedras (minería ética) como diferencial futuro; mientras tanto, no prometer lo que no se sostiene.

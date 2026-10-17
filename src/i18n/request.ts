@@ -12,8 +12,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const admin = (await import(`../../messages/${locale}/admin.json`)).default;
   const errors = (await import(`../../messages/${locale}/errors.json`)).default;
   const emails = (await import(`../../messages/${locale}/emails.json`)).default;
+  const home = (await import(`../../messages/${locale}/home.json`)).default;
   return {
     locale,
-    messages: { common, auth, checkout, admin, errors, emails },
+    messages: { common, auth, checkout, admin, errors, emails, home },
   };
 });

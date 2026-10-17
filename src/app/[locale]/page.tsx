@@ -1,22 +1,15 @@
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/server';
+import { getTranslations } from 'next-intl/server';
+import { getFeaturedProducts } from '@/lib/db/server';
+import Hero from '@/components/home/hero';
 
-export const dynamic = 'force-dynamic';
-
-export default async function Home() {
-  const supabase = await createClient();
-  const { data: products } = await supabase
-    .from('products')
-    .select('id, name, slug, description, price, image_url, category_id')
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-    .limit(12);
+export default async function Home({ params }: { params: { locale: string } }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
+  const products = await getFeaturedProducts();
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-12">
-      <section className="mb-12 text-center">
-        <h1 className="text-4xl font-bold">Santísima Trinidad</h1>
-        <p className="mt-2 text-zinc-600">Artículos religiosos para tu fe y tu hogar</p>
-      </section>
+      <Hero t={t} />
       <section>
         <h2 className="text-2xl font-semibold">Productos</h2>
         {!products || products.length === 0 ? (
@@ -34,7 +27,7 @@ export default async function Home() {
                 <p className="mt-1 line-clamp-2 text-sm text-zinc-500">{product.description}</p>
                 <p className="mt-2 font-semibold">${product.price}</p>
               </Link>
-            ))}
+            ))
           </div>
         )}
       </section>
