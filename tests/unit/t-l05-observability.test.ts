@@ -33,7 +33,9 @@ describe('T-L05 sitemap health live/ready OTel boundary', () => {
     expect(fs.existsSync('src/components/shared/error-boundary.tsx')).toBe(true);
     const c = fs.readFileSync('src/components/shared/error-boundary.tsx', 'utf8');
     expect(c).toMatch(/logger|ErrorBoundary|componentDidCatch/);
-    expect(fs.existsSync('src/app/error.tsx') || fs.existsSync('src/app/[locale]/error.tsx')).toBe(true);
+    expect(fs.existsSync('src/app/error.tsx') || fs.existsSync('src/app/[locale]/error.tsx')).toBe(
+      true
+    );
     expect(fs.existsSync('src/app/global-error.tsx')).toBe(true);
   });
 });

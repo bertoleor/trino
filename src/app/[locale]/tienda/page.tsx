@@ -65,7 +65,8 @@ export default async function TiendaPage({
         ))}
       </section>
       <p className="mt-4 text-sm text-zinc-500">
-        pagina {page} — {perPage} por pagina — {facets.tipo.length + facets.tradicion.length + facets.intencion.length} filtros
+        pagina {page} — {perPage} por pagina —{' '}
+        {facets.tipo.length + facets.tradicion.length + facets.intencion.length} filtros
         {q ? ` — busqueda: ${q} (GIN search_vector)` : ''}
       </p>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

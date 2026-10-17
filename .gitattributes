@@ -1,0 +1,19 @@
+# Normalize all text files to LF in repo AND working tree.
+# Rationale: prettier endOfLine 'lf' + CI runs on Linux; Windows autocrlf=true
+# was re-materializing CRLF working copies that made `prettier --check .` fail
+# locally while CI passed. One canonical line ending everywhere.
+* text=auto eol=lf
+
+# Windows-only helpers stay CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary

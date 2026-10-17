@@ -22,3 +22,8 @@ supabase/.temp/
 .vercel
 .env*
 .eslintcache
+
+!.env.example
+
+# rdd receipts (local)
+.rdd/

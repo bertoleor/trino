@@ -18,12 +18,28 @@ describe('T-D01 pagination 25/100 PERF-01', () => {
   });
   it('paginate clamps and returns offset/limit', async () => {
     const { paginate, parsePagination } = await import('@/lib/db/pagination');
-    expect(paginate({ page: 1, perPage: 25 })).toEqual({ limit: 25, offset: 0, page: 1, perPage: 25 });
-    expect(paginate({ page: 2, perPage: 25 })).toEqual({ limit: 25, offset: 25, page: 2, perPage: 25 });
+    expect(paginate({ page: 1, perPage: 25 })).toEqual({
+      limit: 25,
+      offset: 0,
+      page: 1,
+      perPage: 25,
+    });
+    expect(paginate({ page: 2, perPage: 25 })).toEqual({
+      limit: 25,
+      offset: 25,
+      page: 2,
+      perPage: 25,
+    });
     expect(paginate({ page: 0, perPage: 200 }).perPage).toBe(100);
     expect(paginate({ page: -1, perPage: 5 }).page).toBe(1);
-    expect(parsePagination(new URLSearchParams('page=2&per_page=10'))).toMatchObject({ page: 2, perPage: 10 });
-    expect(parsePagination(new URLSearchParams('page=abc'))).toMatchObject({ page: 1, perPage: 25 });
+    expect(parsePagination(new URLSearchParams('page=2&per_page=10'))).toMatchObject({
+      page: 2,
+      perPage: 10,
+    });
+    expect(parsePagination(new URLSearchParams('page=abc'))).toMatchObject({
+      page: 1,
+      perPage: 25,
+    });
   });
   it('enforces max 100 and min 1', async () => {
     const { paginate } = await import('@/lib/db/pagination');

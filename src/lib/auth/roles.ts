@@ -8,7 +8,7 @@ export const ROLE_RANK: Record<Role, number> = {
 };
 
 function rankOf(role: string): number {
-  return (ROLE_RANK[role as Role] ?? 0);
+  return ROLE_RANK[role as Role] ?? 0;
 }
 
 export function hasRole(userRole: Role, required: Role): boolean {

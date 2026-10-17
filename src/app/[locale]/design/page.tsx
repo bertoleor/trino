@@ -11,7 +11,9 @@ export default function DesignPage() {
       <p className="mt-2 text-zinc-600">Hidden showcase — not linked in navigation.</p>
       <section className="mt-8 grid gap-6">
         <Card>
-          <CardHeader><CardTitle>Buttons — pill 9999, 44px</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>Buttons — pill 9999, 44px</CardTitle>
+          </CardHeader>
           <CardContent className="flex flex-wrap gap-3">
             <Button>agregar al carrito.</Button>
             <Button variant="secondary">ver más.</Button>
@@ -20,7 +22,9 @@ export default function DesignPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader><CardTitle>Badges & Inputs</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>Badges & Inputs</CardTitle>
+          </CardHeader>
           <CardContent className="flex flex-wrap gap-3">
             <Badge>30% off.</Badge>
             <Badge variant="success">nuevo.</Badge>
@@ -28,7 +32,9 @@ export default function DesignPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader><CardTitle>Skeletons — exact geometry</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle>Skeletons — exact geometry</CardTitle>
+          </CardHeader>
           <CardContent className="grid grid-cols-3 gap-4">
             <ProductCardSkeleton />
             <ProductCardSkeleton />

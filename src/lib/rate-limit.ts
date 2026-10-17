@@ -1,17 +1,23 @@
-import type { Duration } from "@upstash/ratelimit";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
+import type { Duration } from '@upstash/ratelimit';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
-type Tier = "auth" | "public" | "authed" | "webhook" | "admin";
+type Tier = 'auth' | 'public' | 'authed' | 'webhook' | 'admin' | 'shipping' | 'social';
 
 type RateLimitConfig = { requests: number; window: Duration; label: string };
 
 export const rateLimitConfigs: Record<Tier, RateLimitConfig> = {
-  auth: { requests: 5, window: "15 m", label: "5/15m" },
-  public: { requests: 60, window: "60 s", label: "60/m" },
-  authed: { requests: 600, window: "60 s", label: "600/m" },
-  webhook: { requests: 60, window: "60 s", label: "webhook 1MB" },
-  admin: { requests: 10, window: "60 m", label: "10/h" },
+  auth: { requests: 5, window: '15 m', label: '5/15m' },
+  public: { requests: 60, window: '60 s', label: '60/m' },
+  authed: { requests: 600, window: '60 s', label: '600/m' },
+  webhook: { requests: 60, window: '60 s', label: 'webhook 1MB' },
+  admin: { requests: 10, window: '60 m', label: '10/h' },
+  // T-S01: carrier fan-out endpoint — stricter budget than generic public
+  shipping: { requests: 20, window: '60 s', label: '20/m' },
+  // T-S12 (CWE-770): /api/social/stats global per-platform budget, aligned with
+  // SOCIAL_RATE_LIMITS (200/h per provider) — protects the provider token quota
+  // from IP rotation / cold-instance cache misses the per-IP proxy tier can't see.
+  social: { requests: 200, window: '60 m', label: '200/h' },
 };
 
 const memoryStore = new Map<string, { count: number; reset: number }>();
@@ -31,8 +37,8 @@ function memoryCheck(key: string, limit: number, windowMs: number) {
 }
 
 function getWindowMs(window: string): number {
-  if (window === "15 m") return 15 * 60 * 1000;
-  if (window === "60 m") return 60 * 60 * 1000;
+  if (window === '15 m') return 15 * 60 * 1000;
+  if (window === '60 m') return 60 * 60 * 1000;
   return 60 * 1000;
 }
 
@@ -74,8 +80,14 @@ function getLimiter(tier: Tier): Ratelimit | null {
 
 export async function checkRateLimit(
   identifier: string,
-  tier: Tier = "public"
-): Promise<{ success: boolean; remaining: number; reset: number; limit: number; headers: Record<string, string> }> {
+  tier: Tier = 'public'
+): Promise<{
+  success: boolean;
+  remaining: number;
+  reset: number;
+  limit: number;
+  headers: Record<string, string>;
+}> {
   const cfg = rateLimitConfigs[tier];
   const windowMs = getWindowMs(cfg.window);
   let result: { success: boolean; remaining: number; reset: number; limit: number };
@@ -90,22 +102,27 @@ export async function checkRateLimit(
   } else {
     result = memoryCheck(`${tier}:${identifier}`, cfg.requests, windowMs);
   }
-  const retryAfter = result.success ? "0" : String(Math.ceil((result.reset - Date.now()) / 1000));
+  const retryAfter = result.success ? '0' : String(Math.ceil((result.reset - Date.now()) / 1000));
   const headers: Record<string, string> = {
-    "X-RateLimit-Limit": String(result.limit),
-    "X-RateLimit-Remaining": String(result.remaining),
-    "X-RateLimit-Reset": String(result.reset),
-    "Retry-After": retryAfter,
+    'X-RateLimit-Limit': String(result.limit),
+    'X-RateLimit-Remaining': String(result.remaining),
+    'X-RateLimit-Reset': String(result.reset),
+    'Retry-After': retryAfter,
   };
-  if (!result.success) headers["Retry-After"] = String(15 * 60);
+  if (!result.success) headers['Retry-After'] = String(15 * 60);
   return { ...result, headers };
 }
 
-export function rateLimitHeaders(result: { limit: number; remaining: number; reset: number; success: boolean }) {
+export function rateLimitHeaders(result: {
+  limit: number;
+  remaining: number;
+  reset: number;
+  success: boolean;
+}) {
   return {
-    "X-RateLimit-Limit": String(result.limit),
-    "X-RateLimit-Remaining": String(result.remaining),
-    "X-RateLimit-Reset": String(result.reset),
-    "Retry-After": result.success ? "0" : "900",
+    'X-RateLimit-Limit': String(result.limit),
+    'X-RateLimit-Remaining': String(result.remaining),
+    'X-RateLimit-Reset': String(result.reset),
+    'Retry-After': result.success ? '0' : '900',
   };
 }

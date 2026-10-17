@@ -14,7 +14,11 @@ describe('T-D03b international 4th carrier DHL flag', () => {
   });
   it('fallback flat customs when disabled', async () => {
     const m = await import('@/lib/shipping/carriers/international');
-    const r = await m.getInternationalRates({ postalCode: '1000', country: 'US', items: [{ weight: 1 }] });
+    const r = await m.getInternationalRates({
+      postalCode: '1000',
+      country: 'US',
+      items: [{ weight: 1 }],
+    });
     expect(r.source).toBe('fallback');
     expect(r.rates[0]?.carrier).toBe('fallback');
     expect(r.rates[0]?.priceCents).toBeGreaterThan(0);

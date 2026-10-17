@@ -133,7 +133,7 @@ describe('T-C04 slice B (S-2/S-3): auth tier + hardened audit path', () => {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ event: 'turnstile_403' }),
-        }) as never,
+        }) as never
       );
       expect(res.status).toBe(401);
     } finally {
@@ -149,7 +149,7 @@ describe('T-C04 slice B (S-2/S-3): auth tier + hardened audit path', () => {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ event: 'turnstile_403' }),
-      }) as never,
+      }) as never
     );
     expect(res.status).toBe(503);
   });

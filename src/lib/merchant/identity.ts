@@ -72,11 +72,7 @@ export async function getMerchantIdentity(): Promise<MerchantIdentity> {
   try {
     const supabase = await createClient();
     const columns = COLUMN_TO_ENV.map(([, col]) => col).join(',');
-    const { data } = await supabase
-      .from('global_settings')
-      .select(columns)
-      .limit(1)
-      .maybeSingle();
+    const { data } = await supabase.from('global_settings').select(columns).limit(1).maybeSingle();
     row = data as Record<string, unknown> | null;
   } catch (e) {
     logger.warn('merchant identity fallback to env vars', {
@@ -90,10 +86,7 @@ export async function getMerchantIdentity(): Promise<MerchantIdentity> {
   for (const [key, col, envName] of COLUMN_TO_ENV) {
     const dbValue = row?.[col];
     const envValue = process.env[envName];
-    merged[key] = firstNonEmpty(
-      typeof dbValue === 'string' ? dbValue : '',
-      envValue,
-    );
+    merged[key] = firstNonEmpty(typeof dbValue === 'string' ? dbValue : '', envValue);
   }
 
   return safeIdentity(merged);

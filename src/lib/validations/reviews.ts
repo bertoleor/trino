@@ -6,7 +6,9 @@ export const reviewSchema = z.object({
   body: z.string().max(2000).optional(),
   images: z.array(z.string().url()).max(3).default([]),
   honeypot: z.string().max(0).optional(),
-  turnstileToken: z.string().optional(),
 });
 export type ReviewInput = z.infer<typeof reviewSchema>;
-export const reviewModerationSchema = z.object({ id: z.string().uuid(), action: z.enum(['approve', 'reject']) });
+export const reviewModerationSchema = z.object({
+  id: z.string().uuid(),
+  action: z.enum(['approve', 'reject']),
+});

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 
 type Item = { id: string; platform: string; text: string };
@@ -13,7 +13,13 @@ export default function SocialFeed({ platform = 'instagram' }: { platform?: stri
       .then((j) => {
         if (!alive) return;
         setCached(Boolean(j.cached));
-        setItems([{ id: '1', platform, text: `feed cached=${j.cached} followers ${JSON.stringify(j.data)}` }]);
+        setItems([
+          {
+            id: '1',
+            platform,
+            text: `feed cached=${j.cached} followers ${JSON.stringify(j.data)}`,
+          },
+        ]);
       })
       .catch(() => {
         if (!alive) return;

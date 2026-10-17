@@ -14,7 +14,10 @@ describe('T-C06 CORS-WH POST-only + pinDeps', () => {
     expect(c).toMatch(/1\s*\*\s*1024|1048576/i);
   });
   it('next.config cors or webhook headers POST only HMAC-only isolated', () => {
-    const wh = fs.readFileSync(path.join(ROOT, 'src/app/api/webhooks/mercadopago/route.ts'), 'utf8');
+    const wh = fs.readFileSync(
+      path.join(ROOT, 'src/app/api/webhooks/mercadopago/route.ts'),
+      'utf8'
+    );
     expect(wh).toMatch(/hmac|signature/i);
     const nextCfg = fs.readFileSync(path.join(ROOT, 'next.config.ts'), 'utf8');
     expect(nextCfg).toBeDefined();

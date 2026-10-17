@@ -7,7 +7,9 @@ const calc = path.join(ROOT, 'src/lib/shipping/calc.ts');
 describe('T-D03 shipping Strategy 60/300 ECOM-06 circuit', () => {
   it('shipping files exist', () => {
     expect(fs.existsSync(strat)).toBe(true);
-    expect(fs.existsSync(calc) || fs.existsSync(path.join(ROOT, 'src/lib/shipping/rates.ts'))).toBe(true);
+    expect(fs.existsSync(calc) || fs.existsSync(path.join(ROOT, 'src/lib/shipping/rates.ts'))).toBe(
+      true
+    );
   });
   it('exports Strategy with cache 60/300', async () => {
     const mod = await import('@/lib/shipping');

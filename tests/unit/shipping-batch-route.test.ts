@@ -19,7 +19,10 @@ describe('shipping batch SSE W-07 POST ReadableStream progress per10 done groupe
   it('route requires editor role isEditorOrAbove requireRole', async () => {
     const fs = await import('node:fs');
     const path = await import('node:path');
-    const content = fs.readFileSync(path.resolve('src/app/api/admin/shipping/batch/route.ts'), 'utf8');
+    const content = fs.readFileSync(
+      path.resolve('src/app/api/admin/shipping/batch/route.ts'),
+      'utf8'
+    );
     expect(content).toMatch(/isEditorOrAbove|requireRole|hasRole/);
     expect(content).toMatch(/editor/);
     expect(content).toMatch(/403|Forbidden/);
@@ -51,7 +54,11 @@ describe('shipping batch SSE W-07 POST ReadableStream progress per10 done groupe
           }),
         } as unknown as never;
       }
-      return { select: vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({ data: [], error: null }) }) } as unknown as never;
+      return {
+        select: vi
+          .fn()
+          .mockReturnValue({ eq: vi.fn().mockResolvedValue({ data: [], error: null }) }),
+      } as unknown as never;
     });
 
     vi.doMock('@/lib/supabase/server', () => ({
@@ -105,7 +112,11 @@ describe('shipping batch SSE W-07 POST ReadableStream progress per10 done groupe
           }),
         } as unknown as never;
       }
-      return { select: vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({ data: [], error: null }) }) } as unknown as never;
+      return {
+        select: vi
+          .fn()
+          .mockReturnValue({ eq: vi.fn().mockResolvedValue({ data: [], error: null }) }),
+      } as unknown as never;
     });
 
     vi.doMock('@/lib/supabase/server', () => ({

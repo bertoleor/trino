@@ -14,7 +14,10 @@ describe('T-H03 bulk publish duplicate SEO reading time version history', () => 
     expect(mod.culturaBulkSchema).toBeDefined();
     const bad = mod.culturaBulkSchema.safeParse({ ids: [], action: 'publish' });
     expect(bad.success).toBe(false);
-    const ok = mod.culturaBulkSchema.safeParse({ ids: ['123e4567-e89b-12d3-a456-426614174000'], action: 'publish' });
+    const ok = mod.culturaBulkSchema.safeParse({
+      ids: ['123e4567-e89b-12d3-a456-426614174000'],
+      action: 'publish',
+    });
     expect(ok.success).toBe(true);
   });
   it('actions bulk publish unpublish archive delete duplicate SEO score reading time version jsonb', () => {

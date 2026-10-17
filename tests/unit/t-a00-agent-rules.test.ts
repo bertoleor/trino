@@ -37,8 +37,8 @@ describe('T-A00 AGENT_RULES mandatory checklist', () => {
     expect(content).toMatch(/CONST|CONSTITUTION/i);
   });
 
-  it('docs/RULES.md mirror exists and traces 10 specs', () => {
-    const p = path.join(ROOT, 'docs/RULES.md');
+  it('DOCS/RULES.md mirror exists and traces 10 specs', () => {
+    const p = path.join(ROOT, 'DOCS/RULES.md');
     expect(fs.existsSync(p)).toBe(true);
     const content = fs.readFileSync(p, 'utf8');
     expect(content.length).toBeGreaterThan(200);

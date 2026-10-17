@@ -1,15 +1,11 @@
-import { createClient } from '@/lib/supabase/server'
-import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server';
+import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const { slug } = await params
-  const supabase = await createClient()
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const supabase = await createClient();
 
   const { data: product } = await supabase
     .from('products')
@@ -17,9 +13,9 @@ export default async function ProductPage({
       'id, name, description, price, image_url, category_id, product_variants(id, name, sku, price, stock)'
     )
     .eq('slug', slug)
-    .single()
+    .single();
 
-  if (!product) notFound()
+  if (!product) notFound();
 
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 py-12">
@@ -54,5 +50,5 @@ export default async function ProductPage({
         </div>
       </div>
     </main>
-  )
+  );
 }

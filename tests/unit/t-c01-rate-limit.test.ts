@@ -48,11 +48,21 @@ describe('T-C01 rate-limit Upstash slidingWindow behavioral', () => {
 
   it('rateLimitHeaders helper returns correct shape', async () => {
     const { rateLimitHeaders } = await import('@/lib/rate-limit');
-    const h = rateLimitHeaders({ limit: 60, remaining: 10, reset: Date.now() + 60000, success: true });
+    const h = rateLimitHeaders({
+      limit: 60,
+      remaining: 10,
+      reset: Date.now() + 60000,
+      success: true,
+    });
     expect(h['X-RateLimit-Limit']).toBe('60');
     expect(h['X-RateLimit-Remaining']).toBe('10');
     expect(h['Retry-After']).toBe('0');
-    const h2 = rateLimitHeaders({ limit: 5, remaining: 0, reset: Date.now() + 900000, success: false });
+    const h2 = rateLimitHeaders({
+      limit: 5,
+      remaining: 0,
+      reset: Date.now() + 900000,
+      success: false,
+    });
     expect(h2['Retry-After']).toBe('900');
   });
 

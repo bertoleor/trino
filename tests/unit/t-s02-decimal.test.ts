@@ -55,11 +55,21 @@ describe('T-S02 Decimal.js p-limit @dnd-kit behavioral', () => {
     const { calcCartTotal } = await import('@/lib/validations/money');
     for (let i = 0; i < 100; i++) {
       const price = 199990 + (i % 7);
-      const r = calcCartTotal({ items: [{ priceCents: price, quantity: 1 }], shippingCents: 0, discountPercent: 21, taxPercent: 0 });
+      const r = calcCartTotal({
+        items: [{ priceCents: price, quantity: 1 }],
+        shippingCents: 0,
+        discountPercent: 21,
+        taxPercent: 0,
+      });
       const expectedDiscount = Math.round((price * 21) / 100);
       expect(r.discountCents).toBe(expectedDiscount);
     }
-    const snap = calcCartTotal({ items: [{ priceCents: 199990, quantity: 2 }], shippingCents: 150000, discountPercent: 10, taxPercent: 21 });
+    const snap = calcCartTotal({
+      items: [{ priceCents: 199990, quantity: 2 }],
+      shippingCents: 150000,
+      discountPercent: 10,
+      taxPercent: 21,
+    });
     expect(snap.totalCents).toBe(617078);
     expect(snap.taxCents).toBe(107096);
     expect(snap.discountedSubtotalCents).toBe(359982);
@@ -67,7 +77,12 @@ describe('T-S02 Decimal.js p-limit @dnd-kit behavioral', () => {
 
   it('calcCartTotal tax on discounted subtotal order', async () => {
     const { calcCartTotal } = await import('@/lib/validations/money');
-    const r = calcCartTotal({ items: [{ priceCents: 10000, quantity: 1 }], shippingCents: 5000, discountPercent: 10, taxPercent: 21 });
+    const r = calcCartTotal({
+      items: [{ priceCents: 10000, quantity: 1 }],
+      shippingCents: 5000,
+      discountPercent: 10,
+      taxPercent: 21,
+    });
     expect(r.discountedSubtotalCents).toBe(9000);
     expect(r.taxCents).toBe(2940);
     expect(r.totalCents).toBe(16940);

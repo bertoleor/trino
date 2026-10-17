@@ -15,7 +15,7 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
   directa).
 - `.agent/skills/` — SKILL.md específicos (supabase, nextjs-16, playwright, tailwind-4,
   deploy-to-vercel).
-- `openspec/AGENT_RULES.md` — reglas de cambio (proposal → design → specs → tasks → verify).
+- `openspec/AGENT_RULES.md` — legacy read-only (reglas del ciclo SDD retirado; cambios por ODD feature doc).
 
 ## Fuentes de verdad por tema
 
@@ -23,14 +23,14 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
 - **Proyecto de producto (planes/fases):** `docs/DOCS/*` + `plan-accion-2026-09-12.md`.
 - **Legal/privacidad:** `docs/LEGAL.md`, `docs/TERMS.md`, `docs/RULES.md`, `docs/legal/`.
 - **Catálogo/contenido:** `docs/catalog/` (CSV templates + README).
-- **Especificaciones vigentes:** `openspec/specs/` (16 specs) — fuente de verdad funcional.
+- **Especificaciones legacy:** `openspec/specs/` — referencia read-only; cada cambio nuevo vive en su feature doc ODD.
 - **Deploy/ops:** `docs/DEPLOY.md`, `SECURITY.md`, `lighthouserc.json`.
 - **i18n:** `messages/{es-AR,en,fr,pt-BR}/` — es-AR default, key drift es riesgo.
 - **SQL / data model:** `supabase/migrations/` (0001→0022) + `src/types/database.types.ts`.
 
 ## Convenciones de cambio
 
-- Cada cambio funcional sigue `openspec/AGENT_RULES.md` (openspec) y/o `sdd/` para protocolo.
+- Cada cambio funcional va por ODD (feature doc + work-units); `openspec/` queda como referencia legacy read-only.
 - Tests obligatorios: unit (`vitest`, TEMP=E:/temp) + e2e (`playwright`). Correr antes de commit.
 - Gates: `pnpm typecheck` + `pnpm lint` (lint-staged+husky) verde. `lhci` en CI.
 - Cambios versionados vía changesets (`pnpm changeset` → `.changeset/`).

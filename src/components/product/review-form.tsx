@@ -1,8 +1,15 @@
 'use client';
 import StarRating from '@/components/product/star-rating';
 import { createReview } from '@/lib/actions/reviews';
+import { TurnstileWidget } from '@/components/auth/turnstile-widget';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+
+// A-02: the TurnstileWidget produces the cf-turnstile-response token that
+// createReview verifies fail-closed via siteverify (see src/lib/actions/reviews.ts).
+// Tokens are single-use: after a successful submit we clear the token and
+// remount the widget (key bump) so the next review gets a fresh challenge.
+
 export default function ReviewForm({ productId }: { productId: string; locale: string }) {
   const t = useTranslations('common');
   const [rating, setRating] = useState(0);
@@ -10,6 +17,8 @@ export default function ReviewForm({ productId }: { productId: string; locale: s
   const [body, setBody] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [honeypot, setHoneypot] = useState('');
+  const [token, setToken] = useState('');
+  const [widgetKey, setWidgetKey] = useState(0);
   const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState('');
   async function onSubmit(e: React.FormEvent) {
@@ -18,7 +27,7 @@ export default function ReviewForm({ productId }: { productId: string; locale: s
     setPending(true);
     const res = await createReview(
       { product_id: productId, rating, title, body, images },
-      { honeypot, turnstileToken: 'dummy-turnstile' }
+      { honeypot, turnstileToken: token }
     );
     setPending(false);
     if ((res as { status: number }).status === 201) {
@@ -26,6 +35,9 @@ export default function ReviewForm({ productId }: { productId: string; locale: s
       setTitle('');
       setBody('');
       setRating(0);
+      // Single-use token consumed: force a fresh Turnstile challenge.
+      setToken('');
+      setWidgetKey((k) => k + 1);
     } else setMsg((res as { error: string }).error ?? 'error');
   }
   return (
@@ -76,14 +88,19 @@ export default function ReviewForm({ productId }: { productId: string; locale: s
         tabIndex={-1}
         autoComplete="off"
       />
-      <input type="hidden" value="turnstile-token" aria-label="Turnstile" />
+      <TurnstileWidget
+        key={widgetKey}
+        onVerify={setToken}
+        onExpire={() => setToken('')}
+        onError={() => setToken('')}
+      />
       <button
         type="submit"
-        disabled={pending || rating < 1}
+        disabled={pending || !token || rating < 1}
         className="rounded-full bg-black px-6 py-2 text-white disabled:opacity-50"
         style={{ minHeight: 44 }}
       >
-        {pending ? '...' : 'Enviar reseña'} Turnstile honeypot 44px
+        {pending ? '...' : 'Enviar reseña'}
       </button>
       {msg && (
         <p role="status" className="text-sm">

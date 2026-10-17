@@ -1,7 +1,10 @@
 import WishlistHeart from '@/components/shared/wishlist-heart';
 import { createClient } from '@/lib/supabase/server';
 import { getTranslations } from 'next-intl/server';
-export const revalidate = 300;
+// Session-bound page: renders the signed-in user's wishlist from the auth cookie.
+// force-dynamic replaces the revalidate=300 ISR config, which could never cache
+// per-user output and crashed the static export (cookies() during prerender).
+export const dynamic = 'force-dynamic';
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return { title: `Wishlist ${locale}` };
