@@ -10,9 +10,9 @@ jobs:
     steps:
       - name: Keepalive heartbeat SELECT 1
         run: |
-          curl -fsS -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
-            "${{ secrets.SITE_URL }}/api/cron/keepalive" || \
-          curl -fsS "${{ secrets.SITE_URL }}/api/cron/keepalive?secret=${{ secrets.CRON_SECRET }}"
+          url="${{ vars.VERCEL_URL || secrets.SITE_URL }}"
+          curl -fsS -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "$url/api/cron/keepalive" || \
+          curl -fsS "$url/api/cron/keepalive?secret=${{ secrets.CRON_SECRET }}"
           echo "heartbeat ok SELECT 1 pg_cron fallback"
       - name: Verify pg_cron logs
         run: echo "pg_cron heartbeat every 6h via supabase/migrations/0010_keepalive.sql select 1 as heartbeat"
