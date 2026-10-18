@@ -30,12 +30,12 @@ URL/anon/service-role, Upstash Redis REST, Resend/MercadoPago, `CRON_SECRET`. Ve
 - `ARCHITECTURE.md` — arquitectura técnica (límites, caps, observabilidad, cron)
 - `SECURITY.md` — política de seguridad + reporte de vulnerabilidades
 - `CHANGELOG.md` — historial de releases (vía changesets, `.changeset/`)
-- `DOCS/` — deploy, legal, ADRs, roadmap, planes, reglas de enforcement
-- `DOCS/DOCS/` — brief de marca (`marca.md`, `bahaus y neo bahaus.md`) + 3 planes de producto
+- `docs/` — deploy, legal, ADRs, roadmap, planes, reglas de enforcement
+- `docs/DOCS/` — brief de marca (`marca.md`, `bahaus y neo bahaus.md`) + 3 planes de producto
   (tienda / backoffice / cuenta) + `AGENT CONSTITUTION.MD` (154 reglas)
-- `DOCS/legal/` — product specs, facturación (AFIP/KeyCAE), pages coverage
-- `DOCS/adr/` — architecture decision records (stack, i18n, money)
-- `DOCS/audits/` — informes de auditoría (baseline, gaps, docs)
+- `docs/legal/` — product specs, facturación (AFIP/KeyCAE), pages coverage
+- `docs/adr/` — architecture decision records (stack, i18n, money)
+- `docs/audits/` — informes de auditoría (baseline, gaps, docs)
 - `openspec/specs/` — **16 caps** (ecom-engine, payments, i18n-routing, money-arithmetic,
   security-resilience, concurrency-inventory, admin-backoffice, performance-scalability,
   observability-health, shipping-carriers, cultura-blog, wishlist, reviews, build-tooling-freshness,

@@ -11,7 +11,7 @@ tooling-config, change-hygiene). Deploy Vercel, dominios `santisima-trinidad.com
 
 - **UI**: tokens Bauhaus `--primary #D95D39`, pill 9999, `--space` 4/8/16/24, Geist, target touch
   44px, grid 8pt, axe. Neo-Bauhaus de marca (paleta terracota/verde/mostaza/celeste — heredar, no
-  inventar colores; ver `DOCS/DOCS/marca.md`).
+  inventar colores; ver `docs/DOCS/marca.md`).
 - **ErrorBoundary** a 2 niveles (root + segment), flag `<1s` OFF por defecto, kill-switch por env.
 - **State**: Server Actions + Zod + `is_admin()` RLS + `revalidatePath`. Cero escrituras de DB desde
   cliente.
@@ -43,4 +43,4 @@ OTel + Sentry en `instrumentation.ts`, `/health` (2s/1s/2s → 503), `audit_logs
 ## Cost Zero
 
 MercadoPago zero-PAN, pg_cron + Upstash 10k/d, QStash 500/d, Resend 100/d, Vercel 100GB Brotli
-swr 300. Todo dentro de cap. Ver `DOCS/DEPLOY.md` + `DOCS/ROADMAP-NEXT-SDD.md`.
+swr 300. Todo dentro de cap. Ver `docs/DEPLOY.md` + `docs/ROADMAP-NEXT-SDD.md`.
