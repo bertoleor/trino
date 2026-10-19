@@ -1,7 +1,40 @@
 #!/usr/bin/env sh
+# Robust pre-commit hook: gitleaks + lint-staged
+# Follows the pattern from khal and santisima-trinidad as per decision.
+# No fixed timeout cap: under host load it kills the hook with exit 124 (a false "leak");
+# the stash hang is already mitigated by --no-stash. See kanban t_2535124d.
+
+if command -v gitleaks >/dev/null 2>&1; then
+  if [ -f .gitleaks.toml ]; then
+    gitleaks protect --staged --redact --no-banner --config .gitleaks.toml < /dev/null
+  else
+    gitleaks protect --staged --redact --no-banner < /dev/null
+  fi
+  exit_code=$?
+  if [ $exit_code -eq 0 ]; then
+    echo "gitleaks: no leaks found"
+  else
+    echo "gitleaks falló (exit $exit_code) — leak real o crash del binario (caps de timeout removidos, ver kanban t_2535124d)" >&2
+    exit $exit_code
+  fi
+else
+  echo "gitleaks no instalado — skip local (cubierto por CI)" >&2
+  echo "Instalá gitleaks: scoop install gitleaks" >&2
+fi
+
 . "$(dirname -- "$0")/_/husky.sh"
 
-# lint-staged runs on staged files only
-npx lint-staged 2>/dev/null || pnpm exec lint-staged 2>/dev/null || true
+# lint-staged: solo archivos staged; --no-stash evita el cuelgue histórico del stash.
+if [ -x node_modules/.bin/lint-staged ]; then
+  node_modules/.bin/lint-staged --no-stash < /dev/null
+  exit_code=$?
+  if [ $exit_code -ne 0 ]; then
+    echo "lint-staged falló" >&2
+    exit $exit_code
+  fi
+else
+  echo "lint-staged no instalado en node_modules — corré pnpm install." >&2
+  exit 1
+fi
 
 echo "✅ Pre-commit: lint-staged passed"
