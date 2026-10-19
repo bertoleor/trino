@@ -34,7 +34,7 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
 - Tests obligatorios: unit (`vitest`, TEMP=E:/temp) + e2e (`playwright`). Correr antes de commit.
 - Gates: `pnpm typecheck` + `pnpm lint` (lint-staged+husky) verde. `lhci` en CI.
 - Cambios versionados vía changesets (`pnpm changeset` → `.changeset/`).
-- **Nunca inventar tokens/colores** — usar `docs/DOCS/marca.md` + bahaus (`--primary #D95D39`).
+- **Nunca inventar tokens/colores** — usar `docs/marca.md` + bahaus (`--primary #D95D39`).
 
 ## Verificación
 
@@ -43,6 +43,15 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
 - Antes de declarar "hecho": `tsc --noEmit`, `vitest run`, gates de CI verdes.
 
 ## Docs
+
+### Set infaltables de flota (v2) — rutas canónicas
+
+- **Raíz:** `README.md` · `AGENTS.md` · `SECURITY.md` · `CONTRIBUTING.md` · `CHANGELOG.md` · `ARCHITECTURE.md` · `LICENSE`
+- **`docs/`:** `docs/DESIGN.md` · `docs/API.md` · `docs/DATABASE.md` · `docs/marca.md` · `docs/plan-accion-YYYY-MM-DD.md` · `docs/runbooks/`
+- Convención: `E:/Hermes/docs/sistema/docs-infaltables-proyectos.md`
+- Pendientes (audit 19-writer 2026-10-19): `LICENSE` (ORN-219) · `docs/DATABASE.md` (ORN-221, gap B3) · `docs/runbooks/` (ORN-217) · mover `plan-accion-*.md` de raíz a `docs/` (ORN-218) · dir `DOCS`→`docs` (ORN-224)
+
+### Resto de la docs
 
 Canónicos en `docs/` — `docs/audits/` (reportes), `docs/adr/` (decisiones), `docs/reports/`,
 `docs/plans/`, `docs/ciclo-no-tecnico/`. No dejar `.md` sueltos en raíz sin mover a `docs/` (o
