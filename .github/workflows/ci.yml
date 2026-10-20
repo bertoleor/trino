@@ -68,7 +68,7 @@ jobs:
           git diff --exit-code src/types/database.types.ts
       - name: Upload regenerated types (artifact for drift PRs)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fresh-types
           path: src/types/database.types.ts
