@@ -40,7 +40,7 @@ describe('T-S03 HMAC t=v1 RLS Strict behavioral', () => {
   });
 
   it('wishlists RLS fix removes open policy and uses auth.uid', () => {
-    const p = 'supabase/migrations/0023_wishlist_rls_fix.sql';
+    const p = 'supabase/migrations/20261007000000_wishlist_rls_fix.sql';
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).not.toMatch(/for all using \(true\)/i);
