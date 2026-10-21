@@ -72,8 +72,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'ids required' }, { status: 400 });
     }
 
-    // Build orders: try DB fetch, fallback synthetic postal_code
-    let orders: OrderForLabel[] = [];
+    // Build orders from DB only — P-11 fail-closed (CWE-20/770): nunca se
+    // fabrican orders ni códigos postales. Fetch fallado/null → 503; ids que
+    // no existen → done.missing; order sin postal_code → done.skipped.
+    let rows: {
+      id: string;
+      postal_code?: string | null;
+      shipping_address?: { postal_code?: string } | null;
+    }[];
 
     try {
       const supabase2 = supabase as unknown as {
@@ -87,28 +93,40 @@ export async function POST(req: Request) {
         .from('orders')
         .select('id, postal_code, shipping_address')
         .in('id', ids)) as unknown as {
-        data:
-          | { id: string; postal_code?: string; shipping_address?: { postal_code?: string } }[]
-          | null;
+        data: unknown[] | null;
       };
       // normalize supabase response shape (may be via eq/in chaining)
       const data = (result as unknown as { data?: unknown[] })?.data as
-        { id: string; postal_code?: string; shipping_address?: { postal_code?: string } }[] | null;
-      if (data && data.length > 0) {
-        orders = data.map((r) => ({
-          id: r.id,
-          postal_code: r.postal_code ?? r.shipping_address?.postal_code ?? '1425',
-        }));
+        | {
+            id: string;
+            postal_code?: string | null;
+            shipping_address?: { postal_code?: string } | null;
+          }[]
+        | null;
+      if (!data) {
+        // data === null: el fetch no devolvió filas confiables — fail-closed.
+        return NextResponse.json({ error: 'orders_fetch_failed' }, { status: 503 });
       }
+      rows = data;
     } catch {
-      // fallback below
+      return NextResponse.json({ error: 'orders_fetch_failed' }, { status: 503 });
+    }
+
+    const missing = ids.filter((id) => !rows.some((r) => r.id === id));
+    const orders: OrderForLabel[] = [];
+    const skipped: string[] = [];
+    for (const r of rows) {
+      const cp = String(r.postal_code ?? r.shipping_address?.postal_code ?? '').trim();
+      if (!cp) {
+        // Sin postal_code real no existe etiqueta correcta — no se inventa.
+        skipped.push(r.id);
+        continue;
+      }
+      orders.push({ id: r.id, postal_code: cp });
     }
 
     if (orders.length === 0) {
-      orders = ids.map((id, idx) => ({
-        id,
-        postal_code: idx % 2 === 0 ? '1425' : '1426',
-      }));
+      return NextResponse.json({ error: 'no_valid_orders', missing, skipped }, { status: 404 });
     }
 
     // Verify grouping uses postal_code and concurrency p-limit
@@ -146,7 +164,7 @@ export async function POST(req: Request) {
         // grouped urls ensure postal_code groups preserved
         const urls = batch.urls;
 
-        send('done', { urls, groups: [...batch.groups.keys()], total, groupCount });
+        send('done', { urls, groups: [...batch.groups.keys()], total, groupCount, missing, skipped });
         controller.close();
       },
     });
