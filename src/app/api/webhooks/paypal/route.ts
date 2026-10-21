@@ -188,12 +188,10 @@ async function acknowledgeEvent(id: string, body: Record<string, unknown>): Prom
     if (insertError && insertError.code === '23505')
       return NextResponse.json({ status: 'already_processed' }, { status: 200 });
     if (insertError) {
-      await supabase
-        .from('failed_webhooks_log')
-        .insert({
-          payload: toJson(body),
-          error: `processed_events insert failed: ${insertError.message}`,
-        });
+      await supabase.from('failed_webhooks_log').insert({
+        payload: toJson(body),
+        error: `processed_events insert failed: ${insertError.message}`,
+      });
       return NextResponse.json({ status: 'ok_dlq' }, { status: 200 });
     }
     return NextResponse.json({ status: 'ok paypal' }, { status: 200 });
