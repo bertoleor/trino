@@ -1,5 +1,7 @@
 import { checkPriceIntegrity, recomputeTotal } from '@/lib/checkout/price-integrity';
 import { checkoutRequestSchema, orderStatusForProvider } from '@/lib/validations/checkout';
+import { decideIdempotencyClaim, isUniqueViolation } from '@/lib/checkout/idempotency';
+import type { IdempotencyClaimError } from '@/lib/checkout/idempotency';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/rate-limit';
@@ -21,7 +23,7 @@ const MAX_BODY_BYTES = 32 * 1024;
 // Guards below fail fast, in order: rate limit -> auth -> body cap -> zod,
 // all BEFORE any idempotency/price/order DB work.
 
-// eslint-disable-next-line complexity -- pre-existing 15, P-06 guard stack adds rate-limit/auth/cap/zod branches; refactor follow-up owned by this ticket; ticket: warnings-pr-followup/COMP-2
+// eslint-disable-next-line complexity -- pre-existing 15, P-06 guard stack adds rate-limit/auth/cap/zod branches, P-04 idempotency claim adds lost/failed/dup branches; refactor follow-up owned by this ticket; ticket: warnings-pr-followup/COMP-2
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for') ?? '127.0.0.1';
   const rl = await checkRateLimit(`checkout:${ip}`, 'checkout');
@@ -52,13 +54,44 @@ export async function POST(req: NextRequest) {
   const check = checkPriceIntegrity(dbTotal, parsed.data.total_cents);
   if (!check.ok) return NextResponse.json({ error: 'price_mismatch', code: 422 }, { status: 422 });
   if (idempotencyKey) {
-    const { data: existing } = await supabase
+    // T-P04 (auditoría 34-auditor, P-04 HIGH, CWE-362/CWE-799): the INSERT is
+    // the atomic claim — the idempotency_keys PK (migration 0020) is the race
+    // barrier. The SELECT is only a replay fast-path; the INSERT result
+    // decides, and a lost race (23505) responds idempotently instead of
+    // double-processing like the old unchecked fire-and-forget claim.
+    const { data: existingKey } = await supabase
       .from('idempotency_keys')
       .select('key')
       .eq('key', idempotencyKey)
       .maybeSingle();
-    if (existing) return NextResponse.json({ status: 'already_processed' }, { status: 200 });
-    await supabase.from('idempotency_keys').insert({ key: idempotencyKey }).select();
+    let claimError: IdempotencyClaimError | null = null;
+    if (!existingKey) {
+      const { error } = await supabase.from('idempotency_keys').insert({ key: idempotencyKey });
+      claimError = error ?? null;
+    }
+    const claim = decideIdempotencyClaim(Boolean(existingKey), claimError);
+    if (claim === 'failed') {
+      // Fail-closed: without a won claim we cannot guarantee at-most-once.
+      logger.error('checkout idempotency claim failed', {
+        route: 'api/checkout',
+        code: claimError?.code ?? null,
+      });
+      return NextResponse.json({ error: 'idempotency claim failed' }, { status: 500 });
+    }
+    if (claim === 'lost') {
+      // Replay (or lost race): respond idempotently with the existing order
+      // of THIS session user (own-orders RLS policy backs the select).
+      const { data: existingOrder } = await supabase
+        .from('orders')
+        .select('id,status,total_cents,payment_provider,idempotency_key')
+        .eq('idempotency_key', idempotencyKey)
+        .eq('user_id', user.id)
+        .maybeSingle();
+      return NextResponse.json(
+        { status: 'already_processed', order: existingOrder ?? null },
+        { status: 200 }
+      );
+    }
   }
   const status = orderStatusForProvider(parsed.data.payment_provider);
   try {
@@ -91,6 +124,35 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ status: 'ok', order: data }, { status: 201 });
   } catch (e) {
+    if (isUniqueViolation(e)) {
+      // T-P04 defense-in-depth: orders.idempotency_key UNIQUE (migration 0020)
+      // fired — an order for this key already exists (constraint drift; the
+      // claim barrier should make this unreachable). Idempotent replay, never
+      // 500/DLQ, and never free the key.
+      const { data: existingOrder } = await supabase
+        .from('orders')
+        .select('id,status,total_cents,payment_provider,idempotency_key')
+        .eq('idempotency_key', idempotencyKey)
+        .eq('user_id', user.id)
+        .maybeSingle();
+      return NextResponse.json(
+        { status: 'already_processed', order: existingOrder ?? null },
+        { status: 200 }
+      );
+    }
+    // T-P04 compensation: the order insert failed for a non-duplicate reason —
+    // release the claim so a client retry with the same key is not stuck as
+    // already_processed with no order behind it.
+    if (idempotencyKey) {
+      try {
+        await supabase.from('idempotency_keys').delete().eq('key', idempotencyKey);
+      } catch (releaseError) {
+        logger.error('checkout idempotency claim release failed', {
+          route: 'api/checkout',
+          error: String(releaseError),
+        });
+      }
+    }
     try {
       await supabase
         .from('failed_webhooks_log')
