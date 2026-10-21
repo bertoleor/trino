@@ -10,6 +10,7 @@
 | `branding.md` | branding, voz, copy | `DOCS/marca.md`, reporte producto-marketing-estilo |
 | `identidad-visual.md` | identidad visual, tokens | `src/styles/tokens.css` (valores reales) |
 | `funciones.md` | funciones por capacidad | `src/app/`, `src/app/api/`, `src/lib/`, `openspec/specs/` |
+| `DATABASE.md` | modelo de datos, migraciones, RLS | `supabase/migrations/` (repo) + catálogos pg en prod (Management API, 2026-10-20) |
 
 ## Resto de la carpeta
 
@@ -37,5 +38,6 @@ si un dato cambia en código, se actualiza el baseline que lo cita.
 | `overview.md` / `stack.md` / `setup.md` / `branding.md` / `identidad-visual.md` / `funciones.md` | ✅ verificado (fuentes en tabla de arriba) |
 | `docs/adr/0001-0003` | ✅ `accepted` (sin banner UNVERIFIED) |
 | `README.md` / `ARCHITECTURE.md` / `CHANGELOG.md` (raíz) | ✅ verificados |
+| `DATABASE.md` | ✅ verificado 2026-10-20 (rework B3 round 3: repo main + prod, comandos citados por sección) |
 | `docs/audits/2026-09-12-*` + `ciclo-no-tecnico/00-indice.md` | histórico: conservan el banner UNVERIFIED de su fecha — no reescribir |
-| Queda pendiente | ver detalle en `docs/audits/2026-09-14-docs-auditoria-y-faltante.md` (B3 DATABASE, E-higiene, D2 roadmap) |
+| Queda pendiente | ver detalle en `docs/audits/2026-09-14-docs-auditoria-y-faltante.md` (E-higiene, D2 roadmap) |
