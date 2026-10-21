@@ -88,7 +88,8 @@ describe('T-C02 webhooks/mercadopago HMAC behavioral', () => {
   it('POST 200 when HMAC valid', async () => {
     const { POST } = await import('@/app/api/webhooks/mercadopago/route');
     const payload = JSON.stringify({ id: 'evt-ok-200', type: 'payment' });
-    const header = sign(payload, SECRET, '1710000000');
+    // fresh timestamp: since P-03 the ±300s replay window is enforced
+    const header = sign(payload, SECRET, String(Math.floor(Date.now() / 1000)));
     const req = new NextRequest('http://localhost/api/webhooks/mercadopago', {
       method: 'POST',
       headers: { 'x-signature': header },
@@ -103,7 +104,7 @@ describe('T-C02 webhooks/mercadopago HMAC behavioral', () => {
   it('POST 200 dedup on duplicate event id', async () => {
     const { POST } = await import('@/app/api/webhooks/mercadopago/route');
     const payload = JSON.stringify({ id: 'evt-dup', type: 'payment' });
-    const header = sign(payload, SECRET, '1710000001');
+    const header = sign(payload, SECRET, String(Math.floor(Date.now() / 1000)));
     const mk = () =>
       new NextRequest('http://localhost/api/webhooks/mercadopago', {
         method: 'POST',
@@ -121,7 +122,8 @@ describe('T-C02 webhooks/mercadopago HMAC behavioral', () => {
   it('verifyHmac direct behavioral vectors', async () => {
     const { verifyHmac, parseSignature } = await import('@/app/api/webhooks/mercadopago/route');
     const payload = '{"id":"v1"}';
-    const t = '1700000000';
+    // fresh timestamp: since P-03 stale envelopes are rejected (±300s window)
+    const t = String(Math.floor(Date.now() / 1000));
     const good = sign(payload, SECRET, t);
     expect(parseSignature(good)?.v1).toHaveLength(64);
     expect(verifyHmac(payload, good, SECRET)).toBe(true);

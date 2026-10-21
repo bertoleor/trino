@@ -23,19 +23,20 @@ describe('T-S03 HMAC t=v1 RLS Strict behavioral', () => {
     const { verifyHmac } = await import('@/app/api/webhooks/mercadopago/route');
     const payload = '{"id":"evt-sec-1"}';
     const secret = 'sec_abc';
-    const good = sign(payload, secret, '999');
+    const good = sign(payload, secret, String(Math.floor(Date.now() / 1000)));
     expect(verifyHmac(payload, good, secret)).toBe(true);
     expect(verifyHmac(payload, 't=999,v1=short', secret)).toBe(false);
     expect(verifyHmac(payload, good, 'other')).toBe(false);
   });
 
-  it('verifyHmac handles header without t prefix fallback', async () => {
+  it('verifyHmac rejects a signature without t (audit P-03: unbounded replay)', async () => {
     const { verifyHmac } = await import('@/app/api/webhooks/mercadopago/route');
     const payload = 'hello';
     const secret = 's';
-    // fallback when no t=, verifyHmac uses whole header as v1 and payload as toSign
+    // the old fallback accepted a bare-payload HMAC with no freshness bound;
+    // P-03 makes the 't' timestamp mandatory, so this shape must be rejected
     const hex = crypto.createHmac('sha256', secret).update(payload).digest('hex');
-    expect(verifyHmac(payload, hex, secret)).toBe(true);
+    expect(verifyHmac(payload, hex, secret)).toBe(false);
     expect(verifyHmac(payload, 'badhex', secret)).toBe(false);
   });
 

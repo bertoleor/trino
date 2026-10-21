@@ -14,10 +14,23 @@ export function parseSignature(header: string): { t: string; v1: string } | null
   if (!v1) return null;
   return { t, v1 };
 }
+// T-P03 (CWE-294/384, audit 2026-09-17): the 't' timestamp used to be parsed
+// but never checked against clock skew, so a captured request bearing a valid
+// signature replayed forever (processed_events dedup only blocks exact
+// duplicate event ids); a 't'-less bare-payload signature was accepted with
+// no freshness bound at all. Now 't' is mandatory, must be an integer unix
+// second timestamp, and must sit inside a ±300s window of server time —
+// same contract as the Stripe route (T-P01).
+export const MERCADOPAGO_SIG_TOLERANCE_SECONDS = 300;
+
 export function verifyHmac(payload: string, signature: string, secret: string): boolean {
   const parsed = parseSignature(signature);
   if (!parsed) return false;
-  const toSign = parsed.t ? `${parsed.t}.${payload}` : payload;
+  if (!/^\d+$/.test(parsed.t)) return false;
+  const timestamp = Number(parsed.t);
+  const now = Math.floor(Date.now() / 1000);
+  if (Math.abs(now - timestamp) > MERCADOPAGO_SIG_TOLERANCE_SECONDS) return false;
+  const toSign = `${parsed.t}.${payload}`;
   const expected = crypto.createHmac('sha256', secret).update(toSign).digest('hex');
   const a = Buffer.from(expected, 'utf8');
   const b = Buffer.from(parsed.v1, 'utf8');
