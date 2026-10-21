@@ -7,8 +7,11 @@ const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
 // T3 RED-first guard: 6 live complexity sites get per-site ticket-justified
 // disables (zero behavior change; auth-critical proxy paths are T4-owned for
-// substantive hardening). Precedent: warnings-pr-followup COMP-1…8 (pinned by
+// substantive hardening). Precedent: warnings-pr-followup COMP-1…7 (pinned by
 // t-warnings-followup — reused, never re-ticketed, no double-ticketing).
+// COMP-8 (paypal webhook route) was retired by the P-02 remediation: the
+// route was refactored under the complexity limit and no longer carries a
+// disable, so it is not a reused site anymore.
 type Site = { file: string; ticket: string; value: number; anchor: RegExp };
 const COMPLEXITY_SITES: Site[] = [
   {
@@ -111,7 +114,7 @@ describe('t3 complexity per-site disables (ticket-justified, no refactor)', () =
     }
     expect(bad).toEqual([]);
   });
-  it('8 prior COMP tickets are reused untouched (no double-ticketing)', () => {
+  it('7 prior COMP tickets are reused untouched (no double-ticketing)', () => {
     const all = [
       'src/app/api/admin/shipping/batch/route.ts',
       'src/app/api/checkout/route.ts',
@@ -120,10 +123,9 @@ describe('t3 complexity per-site disables (ticket-justified, no refactor)', () =
       'src/lib/actions/wishlist.ts',
       'src/lib/validations/money.ts',
       'src/app/api/webhooks/stripe/route.ts',
-      'src/app/api/webhooks/paypal/route.ts',
     ];
     const hits = all.filter((f) => read(f).includes('warnings-pr-followup/COMP-'));
-    expect(hits).toHaveLength(8);
+    expect(hits).toHaveLength(7);
   });
 });
 

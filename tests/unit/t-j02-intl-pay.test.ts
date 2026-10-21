@@ -39,11 +39,17 @@ describe('T-J02 intl pay Stripe PayPal router HMAC DLQ', () => {
     expect(c).toMatch(/failed_webhooks_log/);
     expect(c).toMatch(/1.*1024.*1024|1048576|MAX_BYTES/i);
   });
-  it('paypal webhook HMAC timingSafeEqual idempotency DLQ 1MB', () => {
+  it('paypal webhook transmission-sig via verify-webhook-signature API idempotency DLQ 1MB', () => {
     expect(fs.existsSync(pwh)).toBe(true);
     const c = fs.readFileSync(pwh, 'utf8');
-    expect(c).toMatch(/timingSafeEqual/);
     expect(c).toMatch(/paypal/i);
+    // P-02 (CWE-347): PayPal signs webhooks with a cert-based transmission
+    // scheme — verification relays the transmission headers to PayPal's
+    // verify-webhook-signature API. The old HMAC shared secret is GONE.
+    expect(c).toMatch(/verify-webhook-signature/);
+    expect(c).toMatch(/paypal-transmission-sig/);
+    expect(c).toMatch(/verification_status/);
+    expect(c).not.toMatch(/createHmac/);
     expect(c).toMatch(/processed_events/);
     expect(c).toMatch(/failed_webhooks_log/);
     expect(c).toMatch(/1.*1024.*1024|1048576|MAX_BYTES/i);

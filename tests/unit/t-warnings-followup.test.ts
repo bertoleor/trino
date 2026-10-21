@@ -6,8 +6,11 @@ const ROOT = path.resolve(__dirname, '../..');
 const read = (p: string) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 
 // warnings-pr-followup RED-first guards:
-// 1. Eight pre-existing complexity warnings get per-site ticket-justified disables
+// 1. Pre-existing complexity warnings get per-site ticket-justified disables
 //    (zero behavior change; keeps CI --max-warnings 0 green).
+//    COMP-8 (paypal webhook route) was RETIRED by the P-02 remediation — the
+//    route was refactored under the complexity limit and no longer carries a
+//    disable, so it is no longer a flagged site.
 // 2. cron/fx `rows as never` narrows via the shared TypedSupabase/isRecord boundary.
 const COMPLEXITY_SITES: Array<{
   file: string;
@@ -55,12 +58,6 @@ const COMPLEXITY_SITES: Array<{
     file: 'src/app/api/webhooks/stripe/route.ts',
     ticket: 'warnings-pr-followup/COMP-7',
     value: 13,
-    anchor: /export async function POST/,
-  },
-  {
-    file: 'src/app/api/webhooks/paypal/route.ts',
-    ticket: 'warnings-pr-followup/COMP-8',
-    value: 14,
     anchor: /export async function POST/,
   },
 ];
