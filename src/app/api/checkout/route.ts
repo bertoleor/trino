@@ -13,8 +13,13 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body?.line_items || typeof body.total_cents !== 'number')
     return NextResponse.json({ error: 'invalid payload' }, { status: 400 });
-  const dbTotal = await recomputeTotal(body.line_items as { product_id: string; qty: number }[]);
-  const check = checkPriceIntegrity(dbTotal, body.total_cents as number);
+  // P-07: recomputeTotal validates line_items (qty 1..99, ≤25 items, known
+  // product ids) and fails closed — an invalid cart never reaches the price
+  // comparison or any write. Only a validated server total is persisted.
+  const recomputed = await recomputeTotal(body.line_items);
+  if (!recomputed.ok)
+    return NextResponse.json({ error: recomputed.error }, { status: recomputed.code });
+  const check = checkPriceIntegrity(recomputed.total, body.total_cents as number);
   if (!check.ok) return NextResponse.json({ error: 'price_mismatch', code: 422 }, { status: 422 });
   const supabase = await createClient();
   if (idempotencyKey) {
@@ -33,7 +38,7 @@ export async function POST(req: NextRequest) {
       .from('orders')
       .insert({
         status,
-        total_cents: dbTotal,
+        total_cents: recomputed.total,
         storage_path: body.storage_path ?? null,
         idempotency_key: idempotencyKey || null,
       })
@@ -45,7 +50,7 @@ export async function POST(req: NextRequest) {
     const emailResult = await sendOrderConfirmation({
       orderId: String(data.id ?? idempotencyKey ?? 'unknown'),
       to: customerEmail,
-      totalCents: dbTotal,
+      totalCents: recomputed.total,
       itemCount: Array.isArray(body.line_items) ? body.line_items.length : undefined,
     });
     if (!emailResult.ok) {
