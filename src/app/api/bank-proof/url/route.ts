@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
 const MAX_BYTES = 10 * 1024 * 1024;
@@ -43,11 +44,16 @@ export async function POST(req: NextRequest) {
   const path = `bank_proofs/${orderId}/${uuid}.${ext}`;
   const { data, error } = await supabase.storage.from('bank_proofs').createSignedUploadUrl(path);
   if (error) {
-    const fallbackUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/upload/sign/bank_proofs/${path}`;
-    return NextResponse.json(
-      { url: fallbackUrl, path, expiresIn: 3600, elapsed: Date.now() - start },
-      { status: 200 }
-    );
+    // P-09 (CWE-284 / OWASP A01): fail-closed. Si Storage no firma, NO se
+    // degrada a una URL de upload no firmada — exponía el path del objeto y
+    // evadía la autorización + expiry de la signed URL. 503 y el caller
+    // reintentó; sin url/path/token en el body.
+    logger.error('bank_proof signed upload url failed', {
+      route: 'api/bank-proof/url',
+      orderId,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return NextResponse.json({ error: 'storage_unavailable' }, { status: 503 });
   }
   return NextResponse.json(
     { url: data.signedUrl, path, token: data.token, elapsed: Date.now() - start },
