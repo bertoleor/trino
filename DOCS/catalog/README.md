@@ -9,52 +9,55 @@ Trino no usa una categoría única. Cada producto vive en **3 facetas combinable
 
 ## 1. Las 3 Facetas
 
-### `tipo` — Por tipo de producto (10 valores — filtro principal PLP)
+### `category` — Por categoría de producto (5 valores — filtro principal PLP)
 
-| # | Valor CSV (`tipo`) | Label visible (es-AR) | Ejemplo |
+|| # | Valor CSV (`category`) | Label visible (es-AR) | Ejemplo |
 |---|---|---|---|
-| 1 | `tarot-oraculos` | Tarot y oráculos | Rider-Waite, Lenormand |
-| 2 | `velas` | Velas | Vela soja 200g, cirio altar |
-| 3 | `inciensos-resinas` | Inciensos y resinas | Palo santo, salvia, copal |
-| 4 | `cristales-piedras` | Cristales y piedras | Cuarzo rosa, amatista |
-| 5 | `amuletos-talismanes` | Amuletos y talismanes | Ojo turco, runas |
-| 6 | `aceites-esencias` | Aceites y esencias | Lavanda, copal oil |
-| 7 | `altares-rituales` | Altares y elementos rituales | Altar madera, cuenco |
-| 8 | `libros-guias` | Libros y guías | Guía tarot, grimorio |
-| 9 | `joyeria-simbolica` | Joyería simbólica | Anillo sigilo, collar luna |
-| 10 | `sets-regalo` | Sets de regalo | Kit protección hogar, primer altar |
+| 1 | `ojos` | Ojos | Sombras, delineadores, máscaras |
+| 2 | `labios` | Labios | Labiales, batones, gloss |
+| 3 | `rostro` | Rostro | Polvos, bronceadores, correctores |
+| 4 | `manicure` | Manicure | Esmaltes, quitaesmalte, herramientas |
+| 5 | `pestañas` | Pestañas | Máscaras, pestañas postizas, rímel |
 
-> **Regla CSV:** exactamente **un** `tipo` por producto (obligatorio). Si es un set que combina varias cosas, usar `sets-regalo` y detallar en `tags` los componentes.
+> **Regla CSV:** exactamente **un** `category` por producto (obligatorio). Define la familia principal del producto.
 
-### `tradicion` — Por tradición/creencia (9 valores — filtro transversal, no excluyente)
+### `subcategory` — Por subtipo dentro de la categoría (7 valores — filtro transversal, no excluyente)
 
-| # | Valor CSV (`tradicion`) | Label visible |
+|| # | Valor CSV (`subcategory`) | Label visible |
 |---|---|---|
-| 1 | `tarot-astrologia` | Tarot y astrología |
-| 2 | `wicca-paganismo` | Wicca y paganismo |
-| 3 | `budismo` | Budismo |
-| 4 | `santeria-afro` | Santería y religiones afro |
-| 5 | `feng-shui` | Feng Shui |
-| 6 | `cristaloterapia` | Cristaloterapia |
-| 7 | `chamanismo` | Chamanismo |
-| 8 | `misticismo-cristiano` | Misticismo cristiano popular |
-| 9 | `espiritualidad-general` | Espiritualidad general / sin tradición |
+| 1 | `sombras` | Sombras de ojos |
+| 2 | `delineadores` | Delineadores |
+| 3 | `máscaras` | Máscaras de pestañas |
+| 4 | `labiales` | Labiales y batones |
+| 5 | `gloss` | Gloss y brillo labial |
+| 6 | `esmaltes` | Esmaltes de uñas |
+| 7 | `herramientas` | Herramientas de belleza |
 
-> **Regla CSV:** exactamente **un** `tradicion` principal por producto. Si el producto sirve a varias tradiciones, poner la **primaria** en `tradicion` y las secundarias en `tags` (ej. `tags: wicca,budismo`). Filtro PLP hace `WHERE tradicion = X OR tags @> array[X]` (GIN).
+> **Regla CSV:** exactamente **un** `subcategory` principal por producto. Si el producto sirve a varios subtipos, poner la **primaria** en `subcategory` y las secundarias en `tags` (ej. `tags: sombras,highlight`).
 
-### `intencion` — Por intención de uso (7 valores — el más usado, ideal para home/quiz)
+### `brand` — Marca del producto (obligatorio)
 
-| # | Valor CSV (`intencion`) | Label visible | Cuándo usar |
-|---|---|---|---|
-| 1 | `amor` | amor | Ritos de vínculo, autoestima |
-| 2 | `proteccion` | protección | Limpias de hogar, amuletos |
-| 3 | `abundancia` | abundancia | Prosperidad, trabajo, dinero |
-| 4 | `limpieza-energetica` | limpieza energética | Sahumos, resinas, sales |
-| 5 | `sueno-descanso` | sueño y descanso | Lavanda, luna, calmantes |
-| 6 | `conexion-espiritual` | conexión espiritual | Meditación, altar, oráculo |
-| 7 | `duelo-sanacion` | duelo y sanación | Acompañamiento, cierre ciclos |
+> **Regla CSV:** nombre de marca registrado. `zod.string().min(2).max(50)`. Ejemplos: `trino., L'Oréal, Maybelline, etc.` . El campo `trino.` indica productos de la marca propia.
 
-> **Regla CSV:** exactamente **un** `intencion` principal. Secundarias a `tags`. El quiz "elegí tu camino" (marca.md §5) usa `intencion` para recomendar.
+### `shade` — Tono/color del producto (obligatorio para maquillaje)
+
+> **Regla CSV:** hex code de la paleta trino. `880d1e, dd2d4a, f26a8d, f49cbb, cbeef3`. Define el tono específico del producto. Ejemplos: `880d1e` (Crushed Berry - berry oscuro), `dd2d4a` (Raspberry - rosa intenso), etc.
+
+> **Formato:** hex sin `#`, 6 caracteres alfanuméricos. Validación: `z.string().regex(/^[0-9a-f]{6}$/i)`.
+
+### `finish` — Acabado/textura del producto
+
+|| # | Valor CSV (`finish`) | Descripción |
+|---|---|---|
+| 1 | `mate` | Acabado mate, no reflectante |
+| 2 | `satin` | Acabado satén, ligero brillo |
+| 3 | `gloss` | Acabado gloss, alto brillo |
+| 4 | `shimmer` | Con destellos / glitter sutil |
+| 5 | `metálico` | Acabado metálico |
+
+> **Regla CSV:** uno o más valores separados por `,` (ej. `mate,shimmer`).
+
+> **Validación:** `tags` style con `pg_trgm` para tolerance a typo (DB-07).
 
 ---
 

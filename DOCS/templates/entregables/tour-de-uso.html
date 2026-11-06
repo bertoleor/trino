@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recorrido de uso · TRINO · Panel Tienda Maquillaje</title>
+<!--
+  ============================================================
+  TEMPLATE: TOUR DE USO (POST) - TRINO
+  Adaptado para: Tienda digital de maquillaje e insumos
+  Paleta: #880d1e, #dd2d4a, #f26a8d, #f49cbb, #cbeef3
+
+  Sustituye al video: siempre vigente, buscable, no se re-graba.
+
+  CÓMO USARLO (la flota):
+  1. Duplicar por cliente. NUNCA editar el original.
+  2. Cambiar las variables de marca en :root.
+  3. Reemplazar los pasos [EDITAR] con los del panel real
+     (uno por cosa que el equipo hace una vez por semana).
+  4. Poner las capturas en cada zona de imagen.
+  ============================================================
+-->
+<style>
+  :root {
+    --accent: #F26A8D; --accent-ink: #0E0E0C;
+    --bg-dark: #0E0E0C; --paper: #F49CBB;
+    --ink: #171712; --ink-soft: #6B6960; --line: #DEDCD3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper); color: var(--ink);
+    line-height: 1.55; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: 'Clash Display', 'Satoshi', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+
+  /* ---- header ---- */
+  header {
+    background: var(--bg-dark); color: var(--paper);
+    padding: clamp(22px, 5vw, 48px) clamp(20px, 6vw, 64px);
+  }
+  header .who { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  header h1 { font-size: clamp(30px, 6vw, 52px); line-height: 1.05; margin-top: 10px; max-width: 22ch; }
+  header p { color: #A9A79D; max-width: 56ch; margin-top: 12px; font-size: 15px; }
+
+  /* ---- progreso ---- */
+  .progress {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg-dark); color: var(--paper);
+    padding: 12px clamp(20px, 6vw, 64px) 16px;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+  .progress .bar { height: 3px; background: rgba(255,255,255,.14); margin-top: 10px; }
+  .progress .bar i { display: block; height: 100%; background: var(--accent); width: 16%; transition: width .4s cubic-bezier(.22,1,.36,1); }
+  @media (prefers-reduced-motion: reduce) { .progress .bar i { transition: none; } }
+  .progress .label { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #A9A79D; display: flex; justify-content: space-between; }
+
+  /* ---- pasos ---- */
+  main { max-width: 780px; margin: 0 auto; padding: clamp(20px, 5vw, 56px) clamp(20px, 6vw, 40px); }
+  .step { display: none; }
+  .step.active { display: block; animation: enter .45s cubic-bezier(.22,1,.36,1); }
+  @media (prefers-reduced-motion: reduce) { .step.active { animation: none; } }
+  @keyframes enter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .step .n { font-family: 'Clash Display', sans-serif; font-size: clamp(84px, 16vw, 150px); line-height: .9; color: transparent; -webkit-text-stroke: 1px var(--line); user-select: none; }
+  .step h2 { font-size: clamp(25px, 5vw, 38px); line-height: 1.1; margin: 6px 0 20px; max-width: 20ch; }
+  .info { border-top: 1px solid var(--line); margin-top: 8px; }
+  .info > div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .info .k { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .info .v { font-size: 16.5px; }
+  @media (min-width: 720px) { .info > div { grid-template-columns: 130px 1fr; align-items: baseline; } }
+  .shot {
+    margin-top: 22px; border: 1px solid var(--line); background: #fff;
+    aspect-ratio: 16 / 10; display: grid; place-items: center;
+    color: var(--ink-soft); font-size: 13.5px; padding: 16px; text-align: center;
+  }
+  .tip {
+    margin-top: 18px; background: var(--bg-dark); color: var(--paper);
+    padding: 18px 20px; font-size: 14.5px;
+  }
+  .tip b { color: var(--accent); font-weight: 600; }
+
+  /* ---- navegación ---- */
+  nav {
+    max-width: 780px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 40px) 60px;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .btn {
+    appearance: none; border: 0; cursor: pointer; font-family: inherit;
+    padding: 15px 24px; font-size: 15px; font-weight: 600;
+  }
+  .btn.next { background: var(--accent); color: var(--accent-ink); margin-left: auto; }
+  .btn.prev { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .btn[disabled] { opacity: .35; cursor: default; }
+  .final .btn.next { background: var(--bg-dark); color: var(--paper); }
+
+  footer { max-width: 780px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 40px) 48px; font-size: 12px; color: var(--ink-soft); }
+
+  /* ---- print: todo visible ---- */
+  @media print {
+    .step { display: block !important; page-break-inside: avoid; border-bottom: 1px solid #000; padding: 24px 0; }
+    .progress, nav { display: none; }
+    header { padding: 24px; }
+    .tip { background: #fff; color: #000; border: 1px solid #000; }
+    .tip b { color: #000; }
+  }
+</style>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=satoshi@500,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+  <div class="who">TRINO · Recorrido de uso</div>
+  <h1 class="display">Su panel, explicado en 6 pasos.</h1>
+  <p>Guarde este archivo o el link: el recorrido queda siempre disponible para usted y para cualquier persona del equipo que lo necesite. Nadie tiene que memorizar nada.</p>
+</header>
+
+<div class="progress" aria-hidden="true">
+  <div class="label"><span id="pcur">Paso 1</span><span id="ptot">de 6</span></div>
+  <div class="bar"><i id="pbar"></i></div>
+</div>
+
+<main>
+
+  <!-- PASO 1 -->
+  <article class="step" data-step="1">
+    <span class="n" aria-hidden="true">01</span>
+    <h2 class="display">Entrar al panel</h2>
+    <div class="info">
+      <div><span class="k">Dónde</span><span class="v">[EDITAR: url del panel, ej. admin.trino.vercel.app]</span></div>
+      <div><span class="k">Cómo</span><span class="v">Su mail y su contraseña. [EDITAR: dónde se guardan / botón "olvidé mi contraseña"]</span></div>
+      <div><span class="k">Qué ve al entrar</span><span class="v">El catálogo del día: productos, stock y pedidos pendientes.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: pantalla de inicio del panel ]</div>
+    <div class="tip"><b>Tip:</b> [EDITAR: atajo práctico, ej. "guarde el link en la pantalla de inicio del teléfono: queda como una app".]</div>
+  </article>
+
+  <!-- PASO 2 -->
+  <article class="step" data-step="2">
+    <span class="n" aria-hidden="true">02</span>
+    <h2 class="display">Ver el catálogo del día</h2>
+    <div class="info">
+      <div><span class="k">Dónde</span><span class="v">[EDITAR: sección/se pestaña]</span></div>
+      <div><span class="k">Qué hace</span><span class="v">Cada producto muestra nombre, tono, precio y stock disponible.</span></div>
+      <div><span class="k">Por qué importa</span><span class="v">Con el catálogo visible, nadie queda sin poder ofrecer el producto correcto.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: catálogo con productos del día ]</div>
+    <div class="tip"><b>Tip:</b> [EDITAR: ej. "los productos de hoy aparecen arriba; los de la semana, en la solapa Semana".]</div>
+  </article>
+
+  <!-- PASO 3 -->
+  <article class="step" data-step="3">
+    <span class="n" aria-hidden="true">03</span>
+    <h2 class="display">Confirmar o cancelar un pedido</h2>
+    <div class="info">
+      <div><span class="k">Dónde</span><span class="v">[EDITAR: sobre el pedido, botón ...]</span></div>
+      <div><span class="k">Confirmar</span><span class="v">Un toque y la clienta recibe la confirmación automática.</span></div>
+      <div><span class="k">Cancelar</span><span class="v">Un toque, motivo opcional, y el producto queda libre para otra clienta.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: pedido abierto con las opciones ]</div>
+    <div class="tip"><b>Tip:</b> [EDITAR: ej. "cancele desde el panel y no por mensaje: el producto se libera solo".]</div>
+  </article>
+
+  <!-- PASO 4 -->
+  <article class="step" data-step="4">
+    <span class="n" aria-hidden="true">04</span>
+    <h2 class="display">Cambiar precios y productos</h2>
+    <div class="info">
+      <div><span class="k">Dónde</span><span class="v">[EDITAR: sección Productos]</span></div>
+      <div><span class="k">Qué hace</span><span class="v">Editar nombre, tono, precio y stock de cada producto. Agregar uno nuevo o pausar uno que no se ofrece más.</span></div>
+      <div><span class="k">Qué pasa después</span><span class="v">La tienda de la clienta muestra el cambio al instante: no hay que avisar a nadie.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: lista de productos con precio editable ]</div>
+    <div class="tip"><b>Tip:</b> [EDITAR: ej. "cambie el precio en un lugar solo; la tienda y el pedido usan siempre el mismo".]</div>
+  </article>
+
+  <!-- PASO 5 -->
+  <article class="step" data-step="5">
+    <span class="n" aria-hidden="true">05</span>
+    <h2 class="display">Bloquear productos y descansos</h2>
+    <div class="info">
+      <div><span class="k">Dónde</span><span class="v">[EDITAR: sección Stock]</span></div>
+      <div><span class="k">Qué hace</span><span class="v">Marcar productos en los que no hay stock o en los que no se aceptan pedidos: agotado, feriado, sin reposición.</span></div>
+      <div><span class="k">Qué pasa después</span><span class="v">Ninguna clienta puede comprar ese producto. Sin llamadas aclarando.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: lista de productos con stock bloqueado ]</div>
+    <div class="tip"><b>Tip:</b> [EDITAR: ej. "bloquee un producto agotado una vez y no lo vuelva a tocar hasta que llegue nuevo stock".]</div>
+  </article>
+
+  <!-- PASO 6 (final) -->
+  <article class="step final" data-step="6">
+    <span class="n" aria-hidden="true">06</span>
+    <h2 class="display">Si algo no funciona</h2>
+    <div class="info">
+      <div><span class="k">Primero</span><span class="v">Revise el runbook: la guía "qué hacer si pasa X" que acompaña este recorrido. Resuelve las 9 de cada 10 dudas.</span></div>
+      <div><span class="k">Si sigue</span><span class="v">Escríbame directo: [EDITAR: email]. Durante los primeros 30 días, todo lo que esté roto se arregla sin cargo.</span></div>
+      <div><span class="k">Ideas nuevas</span><span class="v">Cualquier cosa que quiera que el sistema haga distinto, se cotiza aparte. Su propuesta explica la diferencia.</span></div>
+    </div>
+    <div class="shot">[ CAPTURA: página de ayuda o el mail de soporte abierto ]</div>
+    <div class="tip"><b>Con esto ya maneja el 100% de lo cotidiano.</b> Bienvenida a su panel.</div>
+  </article>
+
+</main>
+
+<nav aria-label="Navegación del recorrido">
+  <button class="btn prev" id="prev" disabled>Anterior</button>
+  <button class="btn next" id="next">Siguiente</button>
+</nav>
+
+<footer>
+  TRINO · [EDITAR: email] · +54 9 11 7364 3504 · Instagram: [EDITAR]
+  · Template adaptado para tienda digital de maquillaje
+</footer>
+
+<script>
+  // Navegación mínima, sin dependencias
+  var steps = [].slice.call(document.querySelectorAll('.step'));
+  var i = 0, prev = document.getElementById('prev'), next = document.getElementById('next');
+  var bar = document.getElementById('pbar'), cur = document.getElementById('pcur');
+  document.getElementById('ptot').textContent = 'de ' + steps.length;
+  function render() {
+    steps.forEach(function(s, k){ s.classList.toggle('active', k === i); });
+    prev.disabled = (i === 0);
+    next.textContent = (i === steps.length - 1) ? 'Volver al inicio' : 'Siguiente';
+    if (i === steps.length - 1) { next.onclick = function(){ go(0); }; }
+    bar.style.width = (((i + 1) / steps.length) * 100) + '%';
+    cur.textContent = 'Paso ' + (i + 1);
+  }
+  function go(n) { i = Math.max(0, Math.min(steps.length - 1, n)); render(); window.scrollTo({top: 0}); }
+  prev.onclick = function(){ go(i - 1); };
+  next.onclick = function(){ go(i + 1); };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') go(i + 1);
+    if (e.key === 'ArrowLeft') go(i - 1);
+  });
+  render();
+</script>
+</body>
+</html>

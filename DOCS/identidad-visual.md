@@ -7,13 +7,14 @@
 
 ## Paleta (design tokens reales)
 
-| Token | Valor en código | Uso |
-|---|---|---|
-| `--primary` | `#D95D39` (terracota) | CTAs, botones de compra |
+|| Token | Valor en código | Uso |
+|---|---|---|---|
+| `--primary` | `#DD2D4A` (Raspberry) | CTAs, botones de compra |
 | `--primary-foreground` | `#FFFFFF` | Texto sobre primario |
-| `--color-verde` | `#2B4731` | Botones secundarios, ritual/naturaleza |
-| `--color-mostaza` | `#E6AF2E` | Badges, alertas, descuentos |
-| `--color-celeste` | `#7A9E9F` | Decorativo: arcos, formas orgánicas |
+| `--color-rosa-intenso` | `#F26A8D` (Bubblegum Pink) | Botones secundarios, highlights |
+| `--color-acento` | `#880D1E` (Crushed Berry) | Badges, alertas, acentos oscuros |
+| `--color-rosa-pastel` | `#F49CBB` (Pink Mist) | Fondos suaves, áreas de soporte |
+| `--color-celeste-suave` | `#CBEef3` (Light Cyan) | Decorativo: arcos, formas orgánicas |
 | `--text-grafito` | `#212529` | Texto — reemplaza al negro puro en todo el sitio |
 | Fondo principal | `#FFFFFF` | `--bg-blanco` (en `body`) |
 | Fondo secundario | `#FDFBF7` | `--bg-crema` (definido en marca; verificar que exista como token antes de usar) |

@@ -63,6 +63,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Forbidden', required: 'editor' }, { status: 403 });
     }
 
+    const MAX_IDS = 100;
+
     const body = (await req.json().catch(() => null)) as { ids?: string[]; format?: string } | null;
     const maybeIds = body?.ids;
     const ids = Array.isArray(maybeIds) ? maybeIds : [];
@@ -70,6 +72,10 @@ export async function POST(req: Request) {
 
     if (ids.length === 0) {
       return NextResponse.json({ error: 'ids required' }, { status: 400 });
+    }
+
+    if (ids.length > MAX_IDS) {
+      return NextResponse.json({ error: `max ${MAX_IDS} ids allowed` }, { status: 400 });
     }
 
     // Build orders: try DB fetch, fallback synthetic postal_code

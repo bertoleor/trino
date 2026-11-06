@@ -16,8 +16,8 @@ describe('T-A08b design system Bauhaus', () => {
     expect(c).toMatch(/prefers-reduced-motion/);
   });
 
-  it('src/components/ui/design-system.md exists', () => {
-    const p = path.join(ROOT, 'src/components/ui/design-system.md');
+  it('docs/DESIGN.md exists', () => {
+    const p = path.join(ROOT, 'docs/DESIGN.md');
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/Bauhaus|trino/i);

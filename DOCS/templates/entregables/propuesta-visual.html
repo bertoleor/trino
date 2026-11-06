@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta · TRINO · Tienda Digital Maquillaje</title>
+<!--
+  ============================================================
+  TEMPLATE: PROPUESTA VISUAL (PRE) - TRINO
+  Adaptado para: Tienda digital de maquillaje e insumos
+  Paleta: #880d1e, #dd2d4a, #f26a8d, #f49cbb, #cbeef3
+
+  CÓMO USARLO (la flota):
+  1. Duplicar por cliente interno. NUNCA editar el original.
+  2. Cambiar las 4 variables de marca en :root (debajo).
+  3. Reemplazar cada bloque [EDITAR].
+  4. El cliente aprueba por vista previa; después exportar a PDF
+     (Ctrl+P → guardar como PDF; el CSS print está listo).
+  Fonts: Clash Display + Satoshi (Fontshare, licencia comercial libre).
+  ============================================================
+-->
+<style>
+  :root {
+    /* ====== MARCA DEL CLIENTE (cambiar solo esto) ====== */
+    --accent: #F26A8D;        /* acento trino - rosa choque */
+    --accent-ink: #0E0E0C;    /* texto sobre el acento */
+    --bg-dark: #0E0E0C;       /* portada */
+    --paper: #F49CBB;         /* fondo del cuerpo */
+    --ink: #171712;           /* texto principal */
+    --ink-soft: #6B6960;      /* texto secundario */
+    --line: #DEDCD3;          /* líneas/divisores */
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    font-family: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: 'Clash Display', 'Satoshi', Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+  a { color: inherit; }
+
+  /* ---------- PORTADA (oscura, editorial) ---------- */
+  .cover {
+    background: var(--bg-dark);
+    color: var(--paper);
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(24px, 6vw, 72px);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after { /* firma glass de la casa: una franja de vidrio sutil */
+    content: "";
+    position: absolute; right: -12%; top: 18%;
+    width: 46%; height: 64%;
+    background: linear-gradient(120deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 24px 60px rgba(0,0,0,.35);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    transform: rotate(6deg);
+    pointer-events: none;
+    z-index: -1; /* DETRAS del texto: profundidad sin cortar legibilidad */
+  }
+  @media (max-width: 719px) {
+    .cover::after { right: -22%; top: 4%; width: 78%; height: 30%; } /* arriba, como cielo de vidrio */
+  }
+  @media (prefers-reduced-transparency: reduce) { .cover::after { display: none; } }
+  .cover .studio {
+    font-size: 13px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .cover h1 {
+    font-size: clamp(44px, 11vw, 96px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 12ch;
+  }
+  .cover h1 em { font-style: normal; color: var(--accent); }
+  .cover .meta { display: flex; gap: 32px; flex-wrap: wrap; font-size: 13px; color: #A9A79D; }
+  .cover .meta b { display: block; color: var(--paper); font-weight: 500; margin-top: 4px; font-size: 15px; }
+
+  /* ---------- CUERPO ---------- */
+  main { max-width: 880px; margin: 0 auto; padding: clamp(24px, 6vw, 72px); }
+  section { padding: clamp(36px, 7vw, 72px) 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+  .num { /* número de sección gigante casi invisible, textura editorial */
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(72px, 14vw, 128px);
+    line-height: .9; color: transparent;
+    -webkit-text-stroke: 1px var(--line);
+    display: block; margin-bottom: 8px; user-select: none;
+  }
+  h2 { font-size: clamp(26px, 5vw, 40px); line-height: 1.1; margin-bottom: 18px; max-width: 20ch; }
+  .lead { font-size: clamp(17px, 2.6vw, 20px); max-width: 60ch; color: var(--ink); }
+  p + p { margin-top: 14px; }
+  .muted { color: var(--ink-soft); }
+
+  /* brief: 3 datos en fila (asimétrico, no tarjetas) */
+  .brief { display: grid; gap: 0; margin-top: 32px; }
+  .brief > div { padding: 18px 0; border-top: 1px solid var(--line); display: flex; gap: 16px; align-items: baseline; }
+  .brief .k { min-width: 120px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+  .brief .v { font-size: 17px; }
+
+  /* mockup zone */
+  .mock {
+    margin-top: 28px; border: 1px solid var(--line); background: #fff;
+    padding: clamp(16px, 4vw, 40px); position: relative;
+  }
+  .mock::before { content: "VISTA PREVIA APROBADA"; position: absolute; top: 12px; right: 14px; font-size: 10px; letter-spacing: .18em; color: var(--ink-soft); }
+  .mock .ph {
+    aspect-ratio: 4 / 3; display: grid; place-items: center; text-align: center;
+    color: var(--ink-soft); font-size: 14px; padding: 20px;
+  }
+  .note { font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
+
+  /* tablas de alcance */
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin-top: 20px; }
+  th { text-align: left; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); padding: 10px 8px 10px 0; border-bottom: 1px solid var(--ink); }
+  td { padding: 13px 8px 13px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 600; width: 42%; }
+  .no-list { list-style: none; margin-top: 8px; }
+  .no-list li { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; gap: 12px; }
+  .no-list li::before { content: "·"; color: var(--ink-soft); }
+
+  /* inversión: tabla editorial, no tarjetas iguales */
+  .money td:last-child { text-align: right; font-family: 'Clash Display', sans-serif; font-size: 17px; white-space: nowrap; }
+  .total td { border-bottom: none; border-top: 2px solid var(--ink); font-weight: 600; }
+  .total td:last-child { font-size: 22px; }
+  .terms { font-size: 13.5px; color: var(--ink-soft); margin-top: 14px; }
+
+  /* abono: bloque con acento sólido (el único elemento de color del cuerpo) */
+  .retainer {
+    margin-top: 24px; background: var(--bg-dark); color: var(--paper);
+    padding: clamp(20px, 5vw, 36px); display: grid; gap: 14px;
+  }
+  .retainer h3 { font-family: 'Clash Display', sans-serif; font-size: clamp(20px, 4vw, 26px); }
+  .retainer .price { font-family: 'Clash Display', sans-serif; font-size: clamp(30px, 6vw, 44px); color: var(--accent); }
+  .retainer ul { list-style: none; display: grid; gap: 8px; font-size: 14.5px; color: #C9C7BD; }
+  .retainer ul li::before { content: "+ "; color: var(--accent); }
+
+  /* próximo paso */
+  .cta { margin-top: 28px; display: inline-block; background: var(--accent); color: var(--accent-ink); padding: 16px 28px; font-weight: 600; text-decoration: none; font-size: 15px; }
+  footer { max-width: 880px; margin: 0 auto; padding: 0 clamp(24px,6vw,72px) 56px; font-size: 12px; color: var(--ink-soft); }
+  footer .sep { border-top: 1px solid var(--line); margin-bottom: 18px; }
+
+  /* ---------- RESPONSIVE (mobile-first: solo mejoras hacia arriba) ---------- */
+  @media (min-width: 720px) {
+    .brief > div { grid-template-columns: 120px 1fr; display: grid; }
+  }
+
+  /* ---------- PRINT / PDF ---------- */
+  @media print {
+    .cover { min-height: auto; padding: 40px; }
+    .cover::after { display: none; }
+    body { background: #fff; font-size: 12.5px; }
+    main { max-width: 100%; }
+    section { page-break-inside: avoid; padding: 24px 0; }
+    .retainer { background: #fff; color: #000; border: 2px solid #000; }
+    .retainer .price { color: #000; }
+    .retainer ul li { color: #333; }
+    .cta { background: #000; color: #fff; }
+    footer { padding-bottom: 24px; }
+  }
+</style>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=satoshi@500,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<header class="cover">
+  <div class="studio">TRINO · Propuesta de proyecto</div>
+  <div>
+    <p class="muted" style="color:#A9A79D; max-width:44ch; margin-bottom:22px;">
+      Tienda digital de maquillaje e insumos en línea. [EDITAR: una frase que nombre la oportunidad del cliente en sus palabras.]
+    </p>
+    <h1 class="display">Maquillaje <em>en un toque</em>, belleza al instante.</h1>
+  </div>
+  <div class="meta">
+    <div>Cliente<b>TRINO</b></div>
+    <div>Proyecto<tienda digital maquillaje + panel</ti></div>
+    <div>Fecha<b>6 de noviembre, 2026</b></div>
+    <div>Vigencia<b>15 días</b></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ 01 · OPORTUNIDAD ============ -->
+  <section id="oportunidad">
+    <span class="num" aria-hidden="true">01</span>
+    <h2 class="display">La oportunidad</h2>
+    <p class="lead">
+      Cada compra que se pierde por falta de flujo es una venta que se escapa. [EDITAR: descripción del problema del cliente, en una o dos frases, con sus palabras.]
+    </p>
+    <div class="brief">
+      <div><span class="k">Su clienta</span><span class="v">Mujeres 20 a 45 que compran desde el celular y esperan catálogo visual. [EDITAR]</span></div>
+      <div><span class="k">La acción</span><span class="v">Elegir producto, agregar al carrito y confirmar compra en menos de dos minutos. [EDITAR]</span></div>
+      <div><span class="k">El resultado</span><span class="v">Menos carritos abandonados, catálogo visual atractivo, pedidos concretados. [EDITAR]</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 02 · PROPUESTA VISUAL ============ -->
+  <section id="propuesta">
+    <span class="num" aria-hidden="true">02</span>
+    <h2 class="display">La propuesta visual</h2>
+    <p class="lead muted">
+      La pantalla que verá su clientas al entrar. Diseño a medida con la identidad TRINO, pensado primero para el teléfono.
+    </p>
+    <div class="mock">
+      <div class="ph">
+        [ AQUÍ VA LA MAQUETA APROBADA ]
+        <br><br>
+        Reemplazar este bloque por la imagen de la pantalla principal
+        (PNG del preview aprobado, mobile y desktop).
+      </div>
+    </div>
+    <p class="note">Antes de escribir una sola línea de código, usted aprueba esta vista previa. Lo que ve es lo que recibe.</p>
+  </section>
+
+  <!-- ============ 03 · QUÉ INCLUYE ============ -->
+  <section id="incluye">
+    <span class="num" aria-hidden="true">03</span>
+    <h2 class="display">Qué incluye</h2>
+    <p class="lead muted">Cada punto de esta lista es un entregable con fecha. No prometemos páginas, prometemos resultados verificables.</p>
+    <table>
+      <tr><th>Entregable</th><th>Qué significa para usted</th></tr>
+      <tr><td>Diseño a medida, mobile primero</td><td>Su tienda se usa desde el teléfono de su clienta. Nada de plantilla genérica.</td></tr>
+      <tr><td>Catálogo de productos con filtros</td><td>Productos organizados por categoría, marca, tono y finish. Fácil búsqueda y filtrado.</td></tr>
+      <tr><td>Carrito de compras en línea</td><td>La clienta selecciona productos y confirma compra. Sin llamadas, sin mensajes perdidos.</td></tr>
+      <tr><td>Panel de administración</td><td>Usted ve el catálogo, gestiona precios, ve pedidos y gestiona inventario desde un lugar.</td></tr>
+      <tr><td>Diseño con su marca</td><td>Colores TRINO (#880d1e, #dd2d4a, #f26a8d, #f49cbb, #cbeef3), fotos y estilo. La ficha de estilo queda documentada y entregada.</td></tr>
+      <tr><td>Optimización para búsquedas</td><td>Lo esencial para que el salón aparezca cuando alguien busca maquillaje en su zona.</td></tr>
+      <tr><td>Recorrido de uso interactivo</td><td>Una guía paso a paso, siempre disponible, para que cualquier persona del equipo aprenda a usar el panel.</td></tr>
+      <tr><td>Capacitación de inicio</td><td>Una sesión en vivo, grabada, para que el equipo maneje el sistema el primer día.</td></tr>
+      <tr><td>Garantía de 30 días</td><td>Si algo de lo entregado no funciona, se arregla sin costo. Punto.</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ 04 · QUÉ NO INCLUYE ============ -->
+  <section id="no-incluye">
+    <span class="num" aria-hidden="true">04</span>
+    <h2 class="display">Qué no incluye</h2>
+    <p class="lead muted">Para que nunca haya malentendidos. Lo que no está acá se cotiza aparte, sin sorpresas para nadie.</p>
+    <ul class="no-list">
+      <li>Sesión de fotos del producto (si las necesita, la ayudamos a organizarla; se cotiza aparte)</li>
+      <li>Redacción completa de descripciones de productos</li>
+      <li>Publicidad pagada (Google Ads, Meta Ads)</li>
+      <li>Cambios de diseño nuevos después de las rondas de ajuste incluidas</li>
+      <li>Dominio propio y hosting a partir del segundo año [EDITAR según cada caso]</li>
+    </ul>
+  </section>
+
+  <!-- ============ 05 · INVERSIÓN ============ -->
+  <section id="inversion">
+    <span class="num" aria-hidden="true">05</span>
+    <h2 class="display">La inversión</h2>
+    <p class="lead muted">Desglose honesto por etapa. Cada etapa se entrega y se aprueba antes de seguir.</p>
+    <table class="money">
+      <tr><th>Etapa</th><th style="text-align:right">Monto</th></tr>
+      <tr><td>Diseño de la propuesta visual y aprobación</td><td>[EDITAR]</td></tr>
+      <tr><td>Desarrollo de la tienda en línea + panel</td><td>[EDITAR]</td></tr>
+      <tr><td>Catálogo de productos y puesta a punto</td><td>[EDITAR]</td></tr>
+      <tr><td>Capacitación, recorrido de uso y garantía 30 días</td><td>[EDITAR]</td></tr>
+      <tr class="total"><td>Inversión total</td><td>[EDITAR]</td></tr>
+    </table>
+    <p class="terms">50% para comenzar, 50% contra entrega y firma de conformidad. La garantía de 30 días corre desde el lanzamiento.</p>
+  </section>
+
+  <!-- ============ 06 · ACOMPAÑAMIENTO ============ -->
+  <section id="abono">
+    <span class="num" aria-hidden="true">06</span>
+    <h2 class="display">Después del lanzamiento</h2>
+    <p class="lead muted">Una tienda viva rinde más que una tienda entregada. Por eso el acompañamiento se ofrece desde esta propuesta, no meses después.</p>
+    <div class="retainer">
+      <h3>Abono mensual de mantenimiento</h3>
+      <div class="price">[EDITAR] / mes</div>
+      <ul>
+        <li>Actualizaciones de seguridad y mejoras continuas</li>
+        <li>Respaldo diario de la información</li>
+        <li>Soporte para dudas y ajustes menores</li>
+        <li>Revisión mensual: todo funcionando, todo rápido</li>
+      </ul>
+    </div>
+    <p class="note">Sin permanencia mínima. Se pausa o se cancela cuando usted lo decida.</p>
+  </section>
+
+  <!-- ============ 07 · PRÓXIMO PASO ============ -->
+  <section id="paso">
+    <span class="num" aria-hidden="true">07</span>
+    <h2 class="display">El próximo paso</h2>
+    <p class="lead">
+      Si esta propuesta refleja lo que su tienda necesita, responda con su conformidad.
+      El calendario de trabajo se coordina en 48 horas y la primera vista previa llega
+      en la primera semana.
+    </p>
+    <a class="cta" href="mailto:[EDITAR: email]">Confirmar la propuesta por mail</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="sep"></div>
+  TRINO · [EDITAR: email] · +54 9 11 7364 3504 · Instagram: [EDITAR] · Propuesta válida por 15 días ·
+  Template adaptado para tienda digital de maquillaje
+</footer>
+
+</body>
+</html>

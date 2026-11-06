@@ -30,5 +30,17 @@ jscpd-report/
 zap-report/
 *.sarif
 
+# local scratch artifacts
+body.txt
+headers.txt
+validate.cjs
+test.cjs
+validate.lf
+*.rej
+.worktrees/
+
 # rdd receipts (local)
 .rdd/
+
+# python bytecode
+__pycache*/

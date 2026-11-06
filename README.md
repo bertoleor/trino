@@ -30,7 +30,7 @@ URL/anon/service-role, Upstash Redis REST, Resend/MercadoPago, `CRON_SECRET`. Ve
 - `ARCHITECTURE.md` — arquitectura técnica (límites, caps, observabilidad, cron)
 - `SECURITY.md` — política de seguridad + reporte de vulnerabilidades
 - `CHANGELOG.md` — historial de releases (vía changesets, `.changeset/`)
-- Set infaltables v2 (rutas canónicas): `ARCHITECTURE.md` · `SECURITY.md` · `CONTRIBUTING.md` · `AGENTS.md` · `DOCS/DESIGN.md` · `DOCS/API.md` · `DOCS/marca.md` — rutas completas y pendientes en `AGENTS.md` §Docs
+- Set infaltables v2 (rutas canónicas): [AGENTS.md](AGENTS.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [CHANGELOG.md](CHANGELOG.md) · [DESIGN.md](DOCS/DESIGN.md) · [API.md](DOCS/API.md) · [marca.md](DOCS/marca.md) — rutas completas y pendientes en `AGENTS.md` §Docs
 - `DOCS/` — deploy, legal, ADRs, roadmap, planes, reglas de enforcement
 - `DOCS/DOCS/` — bahaus + 3 planes de producto
   (tienda / backoffice / cuenta) + `AGENT CONSTITUTION.MD` (154 reglas) — brief de marca en [`DOCS/marca.md`](DOCS/marca.md)
