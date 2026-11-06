@@ -1,0 +1,68 @@
+name: Sonar
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '20 3 * * 4'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sonar-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sonarcloud:
+    name: SonarCloud analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - name: Guard (SONAR_TOKEN not configured)
+        if: env.SONAR_TOKEN == ''
+        run: |
+          echo "::warning::SONAR_TOKEN not set - SonarCloud binding pending. Configure org + token, then rerun."
+          echo "SONAR_AVAILABLE=false" >> "$GITHUB_ENV"
+
+      - name: Checkout (full history)
+        if: env.SONAR_TOKEN != ''
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        if: env.SONAR_TOKEN != ''
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Setup Node
+        if: env.SONAR_TOKEN != ''
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        if: env.SONAR_TOKEN != ''
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests with coverage (feeds Sonar lcov)
+        if: env.SONAR_TOKEN != ''
+        run: pnpm test:coverage
+
+      - name: SonarCloud Scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=bertoleor_trino
+            -Dsonar.organization=bertoleor-github
+            -Dsonar.inclusions=src/**
+            -Dsonar.exclusions=**/node_modules/**,**/.next/**,**/coverage/**,**/*.test.*,tests/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info

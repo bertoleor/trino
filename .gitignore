@@ -25,5 +25,10 @@ supabase/.temp/
 
 !.env.example
 
+# audit tooling output
+jscpd-report/
+zap-report/
+*.sarif
+
 # rdd receipts (local)
 .rdd/

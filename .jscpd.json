@@ -1,0 +1,17 @@
+{
+  "min-tokens": 100,
+  "min-lines": 10,
+  "threshold": 10,
+  "reporters": ["consoleFull", "html", "json"],
+  "output": "./jscpd-report",
+  "silent": true,
+  "ignore": [
+    "**/node_modules/**",
+    "**/.next/**",
+    "**/coverage/**",
+    "**/tests/**",
+    "**/*.test.*",
+    "**/__snapshots__/**",
+    "**/messages/**"
+  ]
+}

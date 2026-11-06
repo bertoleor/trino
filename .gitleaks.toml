@@ -1,0 +1,24 @@
+title = "TRINO gitleaks config"
+description = "Extends gitleaks defaults with TRINO-specific allowlists"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Housekeeping: fixtures, locks, generated artifacts, placeholder files"
+paths = [
+  '''\.env\.example$''',
+  '''(^|/)pnpm-lock\.yaml$''',
+  '''(^|/)package(-)?lock\.json$''',
+  '''(^|/)test-results/''',
+  '''(^|/)playwright-report/''',
+  '''(^|/)coverage/''',
+  '''(^|/)jscpd-report/''',
+  '''(^|/)zap-report/''',
+  '''(^|/)supabase/seed\.sql$''',
+  '''tests/unit/t-c04-proxy\.test\.ts$''',
+]
+
+[allowlist.rulesets]
+description = "Fast-fail guard"
+regexes = ['''(?i)^(placeholder|dummy|example|your[_-])''']

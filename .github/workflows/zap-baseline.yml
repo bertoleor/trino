@@ -1,0 +1,70 @@
+name: ZAP Baseline
+
+on:
+  schedule:
+    - cron: '0 5 2,16 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: zap-baseline
+  cancel-in-progress: true
+
+jobs:
+  zap:
+    name: DAST baseline (public pages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Prepare env for build
+        run: test -f .env || cp .env.example .env
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Start server
+        run: nohup pnpm start --port 3000 > server.log 2>&1 &
+
+      - name: Wait for server
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000/ -o /dev/null && break
+            sleep 2
+          done
+          curl -sf http://localhost:3000/ -o /dev/null || (cat server.log; exit 1)
+
+      - name: ZAP Baseline Scan (reporting mode)
+        run: |
+          docker run --rm --network host \
+            -v "$PWD/zap:/zap/wrk:rw" \
+            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+              -t http://localhost:3000 \
+              -a -I \
+              -r zap-report.html \
+              -m 600 \
+              -g /zap/wrk/zap_gen.conf || true
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline-report
+          path: |
+            zap/zap-report.html
+            zap/zap_gen.conf
+          retention-days: 14
