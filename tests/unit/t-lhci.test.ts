@@ -51,7 +51,7 @@ describe('T-lhci lighthouse CI gate', () => {
     const c = fs.readFileSync(CI, 'utf8');
     expect(c).toMatch(/tsc --noEmit/);
     expect(c).toMatch(/eslint/);
-    expect(c).toMatch(/test:coverage/);
+    expect(c).toMatch(/vitest run/);
     expect(c).toMatch(/pnpm build/);
   });
 
