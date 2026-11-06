@@ -4,7 +4,7 @@ description = "Extends gitleaks defaults with TRINO-specific allowlists"
 [extend]
 useDefault = true
 
-[allowlist]
+[[allowlists]]
 description = "Housekeeping: fixtures, locks, generated artifacts, placeholder files"
 paths = [
   '''\.env\.example$''',
@@ -19,6 +19,6 @@ paths = [
   '''tests/unit/t-c04-proxy\.test\.ts$''',
 ]
 
-[allowlist.rulesets]
-description = "Fast-fail guard"
+[[allowlists]]
+description = "Fast-fail guard: placeholder-looking secrets"
 regexes = ['''(?i)^(placeholder|dummy|example|your[_-])''']
