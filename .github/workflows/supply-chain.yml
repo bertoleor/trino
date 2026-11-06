@@ -27,7 +27,9 @@ jobs:
 
       - name: Install OSV-Scanner
         run: |
-          curl -sSfL https://raw.githubusercontent.com/google/osv-scanner/main/install.sh | sh -s -- -b /usr/local/bin
+          curl -sSfL -o /usr/local/bin/osv-scanner https://github.com/google/osv-scanner/releases/download/v2.7.0/osv-scanner_linux_amd64
+          chmod +x /usr/local/bin/osv-scanner
+          osv-scanner --version
 
       - name: Scan lockfiles and manifests (reporting mode)
         run: |
