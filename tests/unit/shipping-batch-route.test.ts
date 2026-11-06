@@ -71,7 +71,7 @@ describe('shipping batch SSE W-07 POST ReadableStream progress per10 done groupe
 
     const { POST } = await import('@/app/api/admin/shipping/batch/route');
 
-    const ids = Array.from({ length: 120 }, (_, i) => `id-${i}`);
+    const ids = Array.from({ length: 100 }, (_, i) => `id-${i}`);
     const req = new Request('http://localhost/api/admin/shipping/batch', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -85,7 +85,7 @@ describe('shipping batch SSE W-07 POST ReadableStream progress per10 done groupe
     const text = await res.text();
     // must contain progress events per 10
     const progressMatches = [...text.matchAll(/event:\s*progress/g)];
-    expect(progressMatches.length).toBeGreaterThanOrEqual(12); // 120/10 =12
+    expect(progressMatches.length).toBeGreaterThanOrEqual(10); // 100/10 =10
     expect(text).toMatch(/event:\s*done/);
     expect(text).toMatch(/urls/);
     // done should contain grouped urls

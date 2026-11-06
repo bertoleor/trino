@@ -1,0 +1,97 @@
+name: Bench
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Target URL (must be client-owned, e.g. Vercel preview)'
+        required: true
+        default: 'http://localhost:3000'
+      duration:
+        description: 'Duration per probe (Go duration string, e.g. 30s)'
+        required: true
+        default: '30s'
+      connections:
+        description: 'Concurrency (kept LOW: smoke, no real load)'
+        required: true
+        default: '20'
+      rate:
+        description: 'Requests per second cap (e.g. 100; empty = no cap)'
+        required: false
+        default: '100'
+
+concurrency:
+  group: bench
+  cancel-in-progress: true
+
+jobs:
+  bench:
+    name: Performance smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Install autocannon
+        run: npm install -g autocannon
+
+      - name: Install k6
+        uses: grafana/setup-k6-action@v1
+
+      - name: Try install bombardier (best effort)
+        run: |
+          set +e
+          curl -sSLf https://github.com/codesenberg/bombardier/releases/download/v1.2.6/bombardier-linux-amd64 -o bombardier
+          chmod +x bombardier
+          ./bombardier --version || echo "bombardier unavailable - skipped"
+
+      - name: autocannon probe
+        run: |
+          autocannon -c ${{ inputs.connections }} \
+            -d ${{ inputs.duration || '30s' }} \
+            -r ${{ inputs.rate || '100' }} \
+            --json -o autocannon.json ${{ inputs.url }} || true
+
+      - name: k6 smoke probe
+        run: |
+          cat > k6-smoke.js <<'EOF'
+          import http from 'k6/http'
+          import { sleep } from 'k6'
+          export const options = {
+            vus: __ENV.VUS,
+            duration: __ENV.DURATION,
+            rps: Number(__ENV.RPS) || 100,
+          }
+          export default function () {
+            http.get(__ENV.TARGET)
+            sleep(0.1)
+          }
+          EOF
+          VUS=${{ inputs.connections }} DURATION=${{ inputs.duration || '30s' }} \
+            RPS=${{ inputs.rate || '100' }} TARGET=${{ inputs.url }} k6 run k6-smoke.js || true
+
+      - name: Summarize
+        run: |
+          {
+            echo "## Bench smoke (low RPS)"
+            echo "- URL: ${{ inputs.url }}"
+            echo "- connections: ${{ inputs.connections }}"
+            echo "- duration: ${{ inputs.duration || '30s' }}"
+            echo "- rate cap: ${{ inputs.rate || '100' }}"
+            echo "- bombardier: $(./bombardier --version 2>/dev/null || echo 'n/a')"
+            echo "- artifacts: autocannon.json (raw result), k6-smoke.js (script)"
+          } >> "$GITHUB_STEP_SUMMARY"
+          true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-results
+          path: autocannon.json
+          retention-days: 14

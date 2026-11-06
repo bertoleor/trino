@@ -1,4 +1,5 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
+import { formatArs } from '@/lib/money/fx';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
@@ -46,7 +47,7 @@ export default async function ProductoPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const supabase = await createClient();
   const { data: product } = await supabase
     .from('products')
@@ -90,7 +91,7 @@ export default async function ProductoPage({
         <div>
           <h1 className="text-3xl font-bold lowercase">{product.name}</h1>
           <p className="mt-4 text-zinc-600">{product.description}</p>
-          <p className="mt-6 text-2xl font-semibold">ARS {(priceCents / 100).toFixed(2)}</p>
+          <p className="mt-6 text-2xl font-semibold">{formatArs(priceCents, locale)}</p>
           <button className="mt-8 min-h-[44px] w-full rounded-full bg-zinc-900 px-6 py-3 text-white sm:w-auto">
             agregar al carrito.
           </button>

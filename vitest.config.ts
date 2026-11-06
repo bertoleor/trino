@@ -8,7 +8,7 @@ export default defineConfig({
     environment: 'node',
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'json-summary', 'lcov'],
       // PR10 hotfix: lowered from 90 critical / 80 global to incremental (current 43.97% lines 37% funcs 35% branches)
       // archived: 90 80 thresholds → now 30-40 for incremental gate, critical files also 30
       thresholds: {

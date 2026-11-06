@@ -1,3 +1,4 @@
+import { formatPriceARS } from '@/lib/money/format-price-ars';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 

@@ -6,7 +6,7 @@ const ROOT = path.resolve(__dirname, '../..');
 
 describe('T-A09 deploy vercel cron keepalive', () => {
   it('DOCS/DEPLOY.md exists with .com.ar/.com CNAME SSL', () => {
-    const p = path.join(ROOT, 'DOCS/DEPLOY.md');
+    const p = path.join(ROOT, 'docs/DEPLOY.md');
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/com\.ar|\.com/);
@@ -29,7 +29,7 @@ describe('T-A09 deploy vercel cron keepalive', () => {
   });
 
   it('DEPLOY md mentions Vercel Cron and pg_cron heartbeat', () => {
-    const c = fs.readFileSync(path.join(ROOT, 'DOCS/DEPLOY.md'), 'utf8');
+    const c = fs.readFileSync(path.join(ROOT, 'docs/DEPLOY.md'), 'utf8');
     expect(c).toMatch(/Vercel Cron|pg_cron/);
   });
 });

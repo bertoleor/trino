@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre de credenciales · TRINO · Tienda Digital Maquillaje</title>
+<!--
+  ============================================================
+  TEMPLATE: SOBRE DE CREDENCIALES (POST) - TRINO
+  Adaptado para: Tienda digital de maquillaje e insumos
+  Paleta: #880d1e, #dd2d4a, #f26a8d, #f49cbb, #cbeef3
+
+  CÓMO USARLO (la flota):
+  1. Duplicar por uso interno. NUNCA editar el original.
+  2. Cambiar variables de marca en :root.
+  3. Reemplazar las filas [EDITAR] con los accesos reales.
+  4. Cero JS: imprimible, guardable, a prueba de todo.
+  ============================================================
+-->
+<style>
+  :root {
+    --accent: #F26A8D; --accent-ink: #0E0E0C;
+    --bg-dark: #0E0E0C; --paper: #F49CBB;
+    --ink: #171712; --ink-soft: #6B6960; --line: #DEDCD3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Satoshi', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--paper); color: var(--ink);
+    line-height: 1.55; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display { font-family: 'Clash Display', 'Satoshi', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+
+  header {
+    background: var(--bg-dark); color: var(--paper);
+    padding: clamp(22px, 5vw, 48px) clamp(20px, 6vw, 64px);
+  }
+  header .who { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  header h1 { font-size: clamp(30px, 6vw, 52px); line-height: 1.05; margin-top: 10px; max-width: 22ch; }
+  header p { color: #A9A79D; max-width: 58ch; margin-top: 12px; font-size: 15px; }
+  .warn-strip {
+    background: var(--accent); color: var(--accent-ink);
+    padding: 14px clamp(20px, 6vw, 64px); font-size: 14px; font-weight: 600;
+  }
+
+  main { max-width: 800px; margin: 0 auto; padding: clamp(20px, 5vw, 56px) clamp(20px, 6vw, 40px); }
+  section { padding: clamp(28px, 6vw, 48px) 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+  .num { font-family: 'Clash Display', sans-serif; font-size: clamp(64px, 12vw, 110px); line-height: .9; color: transparent; -webkit-text-stroke: 1px var(--line); user-select: none; }
+  h2 { font-size: clamp(24px, 5vw, 34px); line-height: 1.1; margin: 6px 0 16px; max-width: 22ch; }
+  .lead { max-width: 58ch; color: var(--ink); margin-bottom: 18px; }
+  .muted { color: var(--ink-soft); }
+
+  /* glosario criollo */
+  .glos { border-top: 1px solid var(--line); }
+  .glos > div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .glos .k { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+  .glos .v { font-size: 16px; }
+  @media (min-width: 720px) { .glos > div { grid-template-columns: 160px 1fr; align-items: baseline; } }
+
+  /* tabla de accesos */
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin-top: 16px; }
+  th { text-align: left; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); padding: 10px 8px 10px 0; border-bottom: 1px solid var(--ink); }
+  td { padding: 12px 8px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 600; }
+  .vence { color: var(--ink); font-weight: 600; }
+  .vence.baja { color: var(--ink-soft); font-weight: 400; }
+  .code { font-family: 'Satoshi', monospace; background: #fff; border: 1px solid var(--line); padding: 2px 6px; font-size: 13px; white-space: nowrap; }
+
+  /* calendario de vencimientos: bloque con acento */
+  .fechas {
+    margin-top: 20px; background: var(--bg-dark); color: var(--paper);
+    padding: clamp(18px, 4vw, 28px);
+  }
+  .fechas h3 { font-family: 'Clash Display', sans-serif; font-size: clamp(19px, 4vw, 24px); margin-bottom: 12px; }
+  .fechas .row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.12); font-size: 15px; flex-wrap: wrap; }
+  .fechas .row:last-child { border-bottom: 0; }
+  .fechas .cuando { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .fechas p.nota { margin-top: 14px; font-size: 13.5px; color: #A9A79D; }
+
+  /* protocolo */
+  .proto { list-style: none; counter-reset: paso; margin-top: 8px; }
+  .proto li { counter-increment: paso; padding: 12px 0 12px 44px; position: relative; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+  .proto li::before { content: counter(paso); position: absolute; left: 0; top: 11px; font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 17px; }
+  .urgente { margin-top: 18px; background: var(--bg-dark); color: var(--paper); padding: 18px 20px; font-size: 14.5px; }
+  .urgente b { color: var(--accent); }
+
+  footer { max-width: 800px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 40px) 48px; font-size: 12px; color: var(--ink-soft); }
+  footer .sep { border-top: 1px solid var(--line); margin-bottom: 18px; }
+
+  @media print {
+    header, .fechas, .urgente { background: #fff; color: #000; border: 1px solid #000; }
+    .fechas .cuando, .urgente b { color: #000; }
+    .warn-strip { background: #fff; color: #000; border-top: 2px solid #000; border-bottom: 2px solid #000; }
+    body { background: #fff; font-size: 12.5px; }
+    section { page-break-inside: avoid; }
+  }
+</style>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,500&f[]=satoshi@500,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="who">TRINO · Sobre de credenciales</div>
+  <h1 class="display">Todo lo que su sistema necesita para seguir vivo.</h1>
+  <p>Este sobre es el mapa completo de los accesos de su tienda: qué es cada cosa, quién la maneja, cuándo vence y qué hacer si algo pasa. Imprímalo o guárdelo donde guarda los papeles del local.</p>
+</header>
+
+<div class="warn-strip">Este documento NO contiene contraseñas: las recibió por canal seguro al momento de la entrega. Acá va el mapa. Las claves, aparte.</div>
+
+<main>
+
+  <!-- 01 · GLOSARIO -->
+  <section id="glosario">
+    <span class="num" aria-hidden="true">01</span>
+    <h2 class="display">Qué es cada cosa (en criollo)</h2>
+    <p class="lead muted">Cuatro palabras que suenan técnicas y son simples:</p>
+    <div class="glos">
+      <div><span class="k">El dominio</span><span class="v">La dirección de su tienda en internet: lo que se escribe para encontrarla. Se paga por año. Si no se renueva, la web desaparece de la calle.</span></div>
+      <div><span class="k">El hosting</span><span class="v">El local físico donde vive su tienda. Se paga por año. Sin hosting no hay página que mostrar.</span></div>
+      <div><span class="k">El panel</span><span class="v">Su oficina privada: agenda, precios, horarios, servicios. Entra solo con su mail y su clave. [EDITAR: nombre del panel]</span></div>
+      <div><span class="k">La casilla de mail</span><span class="v">El correo del salón (el que recibe reservas y avisos). Si se llena, los avisos se pierden.</span></div>
+    </div>
+  </section>
+
+  <!-- 02 · ACCESOS -->
+  <section id="accesos">
+    <span class="num" aria-hidden="true">02</span>
+    <h2 class="display">Sus accesos</h2>
+    <p class="lead muted">Un renglón por acceso. Los usuarios van acá; las contraseñas, por canal seguro.</p>
+    <table>
+      <tr><th>Acceso</th><th>Para qué sirve</th><th>Usuario</th><th>Vence</th></tr>
+      <tr>
+        <td>Panel de administración</td>
+        <td>Manejar agenda, precios, horarios, servicios.</td>
+        <td><span class="code">[EDITAR: mail del panel]</span></td>
+        <td class="vence baja">no vence</td>
+      </tr>
+      <tr>
+        <td>Dominio de la web</td>
+        <td>La dirección anual de su sitio. El pago mantiene la dirección viva.</td>
+        <td><span class="code">[EDITAR: proveedor]</span></td>
+        <td class="vence">[EDITAR: fecha anual]</td>
+      </tr>
+      <tr>
+        <td>Hosting del sitio</td>
+        <td>El lugar donde vive la web y el panel.</td>
+        <td><span class="code">[EDITAR: proveedor]</span></td>
+        <td class="vence">[EDITAR: fecha anual]</td>
+      </tr>
+      <tr>
+        <td>Casilla de correo</td>
+        <td>Recibir reservas y avisos automáticos.</td>
+        <td><span class="code">[EDITAR: dirección]</span></td>
+        <td class="vence baja">no vence</td>
+      </tr>
+      <tr>
+        <td>[EDITAR: Google Business / Maps, si se configuró]</td>
+        <td>Aparecer en el mapa cuando alguien busca maquillaje en su zona.</td>
+        <td><span class="code">[EDITAR]</span></td>
+        <td class="vence baja">no vence</td>
+      </tr>
+      <tr>
+        <td>[EDITAR: Instagram / redes, si se administran]</td>
+        <td>Publicar novedades y responder consultas.</td>
+        <td><span class="code">[EDITAR]</span></td>
+        <td class="vence baja">no vence</td>
+      </tr>
+    </table>
+    <p class="muted" style="font-size: 13.5px; margin-top: 12px;">Si un acceso no está en esta tabla, es porque no existe en su proyecto. Tabla completa, sin letra chica.</p>
+  </section>
+
+  <!-- 03 · VENCIMIENTOS -->
+  <section id="vencimientos">
+    <span class="num" aria-hidden="true">03</span>
+    <h2 class="display">Los vencimientos que sostienen todo</h2>
+    <p class="lead muted">Su tienda depende de pagos anuales. Marcados en su calendario para que nunca la agarren desprevenidas.</p>
+    <div class="fechas">
+      <h3>Calendario de renovaciones</h3>
+      <div class="row"><span>Dominio: la dirección de su web</span><span class="cuando">[EDITAR: mes y día]</span></div>
+      <div class="row"><span>Hosting: el lugar donde vive</span><span class="cuando">[EDITAR: mes y día]</span></div>
+      <p class="nota">Yo le aviso por mail 30 días antes de cada vencimiento. Si cambia su mail, actualícelo conmigo para no perder el aviso.</p>
+    </div>
+  </section>
+
+  <!-- 04 · PROTOCOLO -->
+  <section id="protocolo">
+    <span class="num" aria-hidden="true">04</span>
+    <h2 class="display">Cómo se cuida una clave</h2>
+    <p class="lead muted">Cuatro reglas simples que evitan el 99% de los problemas.</p>
+    <ol class="proto">
+      <li>Las claves se dicen de viva voz o por el canal seguro que ya usamos, nunca por mensaje de chat.</li>
+      <li>Solo las manejan las personas que usted decide. Cada persona con acceso es alguien que puede cambiar su agenda.</li>
+      <li>Si alguien del salón se va, se cambia la clave ese mismo día. Me escribe y lo hacemos juntas.</li>
+      <li>Ante la duda, escriba: ninguna pregunta de seguridad es una pregunta tonta.</li>
+    </ol>
+    <div class="urgente">
+      <b>Si sospecha que alguien tiene sus claves:</b> escríbame de inmediato a [EDITAR: email] con asunto CLAVES. Lo primero que hago es cerrar los accesos y dejar todo en cero hasta que recuperemos el control. Es rápido y no se pierde información.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="sep"></div>
+  TRINO · [EDITAR: email] · +54 9 11 7364 3504 · Instagram: [EDITAR]
+  · Las contraseñas de este sobre se entregaron por canal seguro · Template adaptado para tienda digital de maquillaje
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+'use client';
+// NOTE: no hooks here on purpose. Next 16.4 prerenders the global-error boundary
+// and a useEffect in it trips a client-dispatcher bug ("Cannot read properties of
+// null (reading 'useContext')"). The previous useEffect only fed logger spies
+// (emit() returns the entry, ships nothing), so dropping it loses no behavior.
+export default function GlobalError({ error, reset }: { error: Error; reset: () => void }) {
+  return (
+    <html>
+      <body>
+        <div role="alert" className="p-8">
+          <h2>Error critico</h2>
+          <button onClick={reset} className="min-h-[44px] rounded bg-black px-6 text-white">
+            reintentar
+          </button>
+        </div>
+      </body>
+    </html>
+  );
+}

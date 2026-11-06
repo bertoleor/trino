@@ -92,8 +92,33 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run tests
-        run: pnpm exec vitest run
+      - name: Run tests with coverage
+        run: pnpm exec vitest run --coverage
+      - name: Coverage summary
+        run: |
+          node -e "
+            const s = require('./coverage/coverage-summary.json');
+            const t = s.total;
+            const rows = ['lines', 'functions', 'branches', 'statements']
+              .map((k) => '| ' + k + ' | ' + t[k].pct + ' |')
+              .join('\n');
+            const out = '## Coverage\n| metric | pct |\n|---|---|\n' + rows + '\n';
+            require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
+          "
+
+  duplication:
+    name: Code Duplication (jscpd)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - name: Run jscpd (reporting mode)
+        run: npx --yes jscpd@4.0.5 src --config .jscpd.json || true
 
   e2e:
     name: E2E Tests

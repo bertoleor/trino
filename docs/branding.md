@@ -6,15 +6,15 @@
 
 ## Identidad
 
-| Elemento | Definición |
+|| Elemento | Definición |
 |---|---|
-| Nombre oficial | **trino.** — siempre minúscula, con punto final |
-| Rubro | Esotérico multi-creencia (tarot, velas, inciensos, cristales, amuletos, altares, aceites, libros) |
+| Nombre oficial | **TRINO.** — siempre mayúscula, con punto final |
+| Rubro | Tienda digital de maquillaje e insumos (labios, ojos, rostro, herramientas) |
 | Redes | @holatrino (IG / TikTok) |
 | Email | holatrino@gmail.com |
 | Dominio futuro | trino.com.ar |
-| Estilo | Neo-Bauhaus: geometría pura, color blocking, arcos y círculos |
-| Voz | Minúscula siempre, cálida, cercana; nunca dogmática ni new-age genérica |
+| Estilo | Neo-Bauhaus actualizado: geometría pura, color blocking, arcos y círculos, paleta rosa/lila/celeste |
+| Voz | Minúscula siempre, segunda persona cálida; adaptada a rubro belleza: "tu tono", "elegí tu tono" |
 
 ## Voz y copy — reglas firmes
 

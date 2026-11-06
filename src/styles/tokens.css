@@ -1,9 +1,10 @@
 :root {
-  --primary: #d95d39;
+  --primary: #dd2d4a;
   --primary-foreground: #ffffff;
-  --color-verde: #2b4731;
-  --color-mostaza: #e6af2e;
-  --color-celeste: #7a9e9f;
+  --color-rosa-intenso: #f26a8d;
+  --color-acento: #880d1e;
+  --color-rosa-pastel: #f49cbb;
+  --color-celeste-suave: #cbeef3;
   --text-grafito: #212529;
   --pill: 9999px;
   --space-1: 4px;

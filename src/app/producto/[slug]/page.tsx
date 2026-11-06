@@ -1,3 +1,4 @@
+import { formatPriceARS } from '@/lib/money/format-price-ars';
 import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 
@@ -24,7 +25,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div>
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <p className="mt-4 text-zinc-600">{product.description}</p>
-          <p className="mt-6 text-2xl font-semibold">${product.price}</p>
+          <p className="mt-6 text-2xl font-semibold">{formatPriceARS(product.price)}</p>
 
           {product.product_variants && product.product_variants.length > 0 ? (
             <ul className="mt-6 space-y-2">
@@ -37,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     {v.name} · <span className="text-zinc-500">{v.sku}</span>
                   </span>
                   <span>
-                    ${v.price} · {v.stock > 0 ? `${v.stock} en stock` : 'Agotado'}
+                    {formatPriceARS(v.price)} · {v.stock > 0 ? `${v.stock} en stock` : 'Agotado'}
                   </span>
                 </li>
               ))}

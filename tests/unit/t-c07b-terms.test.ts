@@ -14,8 +14,8 @@ describe('T-C07b terms + defensa-consumidor + TERMS Ley24.240 IVA incluido factu
     ).toBe(true);
   });
   it('DOCS/TERMS.md exists with Ley 24.240 IVA factura', () => {
-    expect(fs.existsSync(path.join(ROOT, 'DOCS/TERMS.md'))).toBe(true);
-    const c = fs.readFileSync(path.join(ROOT, 'DOCS/TERMS.md'), 'utf8');
+    expect(fs.existsSync(path.join(ROOT, 'docs/TERMS.md'))).toBe(true);
+    const c = fs.readFileSync(path.join(ROOT, 'docs/TERMS.md'), 'utf8');
     expect(c).toMatch(/24\.240|Ley/i);
     expect(c).toMatch(/IVA\s+incluido/i);
     expect(c).toMatch(/factura.*C\/B|factura/i);
@@ -38,7 +38,7 @@ describe('T-C07b terms + defensa-consumidor + TERMS Ley24.240 IVA incluido factu
     );
   });
   it('soft delete + anonymize 1yr mentioned', () => {
-    const c = fs.readFileSync(path.join(ROOT, 'DOCS/TERMS.md'), 'utf8');
+    const c = fs.readFileSync(path.join(ROOT, 'docs/TERMS.md'), 'utf8');
     expect(c).toMatch(/soft.*delete|DELETE|anonym/i);
     expect(c).toMatch(/1\s*a|365|12\s*mes/i);
   });
