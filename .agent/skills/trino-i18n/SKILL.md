@@ -12,7 +12,7 @@ metadata:
 
 # trino. i18n
 
-Trace: I18N-01..03, I18N-COMM-01..03, ARCH-02, marca.md §8.4.
+Trace: I18N-01..03, I18N-COMM-01..03, ARCH-02 (el trace `marca.md §8.4` quedó cancelado con los docs de marca viejos).
 
 **Locales**: `es-AR` (default), `en`, `fr`, `pt-BR`. Cultural — not literal — translation.
 

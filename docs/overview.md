@@ -1,22 +1,24 @@
 # trino. — overview (qué es)
 
-> Canónico baseline. Verificado contra `README.md`, `ARCHITECTURE.md`,
-> `docs/DOCS/marca.md`, `src/app/`. Solo documentación, cero código.
+> Canónico baseline. Verificado contra `README.md`, `ARCHITECTURE.md` y
+> `src/app/`. Solo documentación, cero código. La identidad visual la define
+> `docs/brand/` (manual importado el 2026-11-23); los docs de marca viejos
+> quedaron cancelados.
 
 ## Qué es
 
-**trino.** (siempre minúscula, con punto final) es un e-commerce high-end de
-productos esotéricos multi-creencia: tarot y oráculos, velas, inciensos y
-resinas, cristales y piedras, amuletos y talismanes, aceites y esencias,
-altares y elementos rituales, libros y guías, joyería simbólica, sets de
-regalo.
+**trino.** (siempre minúscula, con punto final) es una tienda digital de
+belleza: maquillaje, skincare e insumos para ojos, labios, rostro, manicure y
+pestañas. Posicionamiento vigente confirmado el 2026-11-23: **"Belleza que hace
+ruido."** · "Todo para crear tu versión más vos." Público principal Gen Z;
+público secundario profesionales de belleza (maquilladoras, manicuristas,
+lashistas).
 
-Diferencial frente al e-commerce esotérico genérico (degradés, estrellas,
-new-age recargado): estética **Neo-Bauhaus** — geometría pura, color
-blocking, formas orgánicas simples (arcos, círculos) — y **curaduría
-respetuosa multi-creencia**: ninguna tradición se presenta como superior a
-otra; cada producto vinculado a una tradición lleva contexto de origen
-cultural/religioso real.
+Diferencial frente al e-commerce de belleza genérico: identidad **pop,
+atrevida y social-first** — bloques de color, dameros, rayas, formas orgánicas
+y tipografía redondeada de alto peso — con foco en ayuda real para elegir
+(gama/tono/acabado), no solo estética. La voz es directa, cómplice, expresiva
+y útil, en segunda persona. Fuente: `docs/brand/manual-marca.md`.
 
 ## Dominios y contacto
 
@@ -28,22 +30,18 @@ cultural/religioso real.
 | Email | holatrino@gmail.com |
 | Locales | es-AR (default), en, fr, pt-BR (`messages/`, 4 carpetas) |
 
-##Triple entrada del catálogo
+## Catálogo (modelo objetivo)
 
-El usuario navega por tres ejes combinables como **filtros**, no como tres
-menús separados:
+Cinco categorías — ojos · labios · rostro · manicure · pestañas — con
+subcategorías y atributos de `brand`, `shade` (hex del tono) y `finish`.
+Fuente: `docs/estructura-catalogo-trino.md` y
+`supabase/migrations/0027_makeup_products.sql`.
 
-1. **Por tipo de producto** — tarot · velas · inciensos · cristales ·
-   amuletos · aceites · altares · libros · joyería · sets.
-2. **Por tradición/creencia** (transversal, no excluyente) — tarot y
-   astrología · wicca y paganismo · budismo · santería y religiones afro ·
-   feng shui · cristaloterapia · chamanismo · misticismo cristiano popular ·
-   espiritualidad general.
-3. **Por intención** (el filtro más usado) — amor · protección · abundancia ·
-   limpieza energética · sueño y descanso · conexión espiritual · duelo y
-   sanación.
-
-Fuente: `docs/DOCS/marca.md` §3, `docs/reports/2026-09-12-trino-producto-marketing-estilo.md` §1.1.
+> **Deuda técnica conocida:** el runtime todavía consulta la tabla `products`
+> con las facetas heredadas `tipo`/`tradicion`/`intencion`
+> (`src/lib/db/facets.ts`, `src/app/[locale]/tienda/page.tsx`). Es código
+> pendiente de migrar, no el modelo de producto objetivo. No agregar facetas
+> esotéricas nuevas.
 
 ## Rutas principales (verificadas en `src/app/`)
 
@@ -70,7 +68,6 @@ Branch `main`. Tests unit + integración + e2e. Releases con changesets
 
 - `docs/stack.md` — framework y stack verificado.
 - `docs/setup.md` — cómo se arma (install → dev → build → deploy).
-- `docs/branding.md` — marca, voz, copy.
-- `docs/identidad-visual.md` — tokens y reglas visuales verificadas en código.
+- `docs/brand/` — manual de marca vigente (tokens, voz, logos, AA); `docs/identidad-visual.md` es su índice corto. `branding.md` quedó cancelado.
 - `docs/funciones.md` — funciones por capacidad, con evidencia en `src/`.
 - `docs/README.md` — índice de esta carpeta.

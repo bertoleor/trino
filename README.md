@@ -1,8 +1,9 @@
 # santisima-trinidad — trino.
 
-E-commerce high-end de productos esotéricos multi-creencia (tarot, velas, inciensos, cristales,
-amuletos). Next.js 16 + React 19 + Supabase (RLS) + Upstash Redis + next-intl (4 locales). Deploy en
-Vercel. Marca **trino.** (minúscula, con punto final).
+Tienda digital de belleza — maquillaje, skincare e insumos (ojos, labios, rostro, manicure,
+pestañas). Next.js 16 + React 19 + Supabase (RLS) + Upstash Redis + next-intl (4 locales). Deploy en
+Vercel. Marca **trino.** (minúscula, con punto final); el resto del copy usa mayúscula inicial
+oracional. Identidad visual canónica en `docs/brand/`.
 
 ## Quickstart
 
@@ -30,10 +31,11 @@ URL/anon/service-role, Upstash Redis REST, Resend/MercadoPago, `CRON_SECRET`. Ve
 - `ARCHITECTURE.md` — arquitectura técnica (límites, caps, observabilidad, cron)
 - `SECURITY.md` — política de seguridad + reporte de vulnerabilidades
 - `CHANGELOG.md` — historial de releases (vía changesets, `.changeset/`)
-- Set infaltables v2 (rutas canónicas): [AGENTS.md](AGENTS.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [CHANGELOG.md](CHANGELOG.md) · [DESIGN.md](docs/DESIGN.md) · [API.md](docs/API.md) · [marca.md](docs/marca.md) — rutas completas y pendientes en `AGENTS.md` §Docs
+- Set infaltables v2 (rutas canónicas): [AGENTS.md](AGENTS.md) · [ARCHITECTURE.md](ARCHITECTURE.md) · [SECURITY.md](SECURITY.md) · [CONTRIBUTING.md](CONTRIBUTING.md) · [CHANGELOG.md](CHANGELOG.md) · [DESIGN.md](docs/DESIGN.md) · [API.md](docs/API.md) — rutas completas y pendientes en `AGENTS.md` §Docs
 - `docs/` — deploy, legal, ADRs, roadmap, planes, reglas de enforcement
-- `docs/DOCS/` — brief de marca (`marca.md`, `bahaus y neo bahaus.md`) + 3 planes de producto
-  (tienda / backoffice / cuenta) + `AGENT CONSTITUTION.MD` (154 reglas)
+- `docs/brand/` — manual de marca vigente: tokens, logos, voz, matriz AA y checklist.
+- `docs/DOCS/` — 3 planes de producto (tienda / backoffice / cuenta) + `AGENT CONSTITUTION.MD` (154 reglas).
+  Los docs de marca y bauhaus fueron cancelados el 2026-11-23.
 - `docs/legal/` — product specs, facturación (AFIP/KeyCAE), pages coverage
 - `docs/adr/` — architecture decision records (stack, i18n, money)
 - `docs/audits/` — informes de auditoría (baseline, gaps, docs)

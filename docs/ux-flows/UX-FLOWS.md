@@ -49,8 +49,8 @@
 ## Clickable Prototype Links
 | From Screen | Element | To Screen |
 |-------------|---------|-----------|
-| tienda.html | [Incienso de Sándalo] link | producto-detalle.html |
-| tienda.html | [Velas Aromáticas] link | producto-detalle.html |
+| tienda.html | [Labial mate berry] link | producto-detalle.html |
+| tienda.html | [Sombras quad] link | producto-detalle.html |
 | tienda.html | [Estatuilla de la Virgen] link | producto-detalle.html |
 | producto-detalle.html | [Agregar al carrito] button | carrito.html |
 | carrito.html | [Proceder a checkout] button | checkout-envio.html |

@@ -1,6 +1,6 @@
-# Términos y Condiciones — Santísima Trinidad
+# Términos y Condiciones — trino. (Santísima Trinidad)
 
-Última actualización: 2026-09-03. Ley 24.240 de Defensa del Consumidor — República Argentina.
+Última actualización: 2026-11-23. Ley 24.240 de Defensa del Consumidor — República Argentina.
 
 ## Precios e IVA incluido
 Todos los precios publicados incluyen IVA (21%). No se adicionan cargos ocultos. Se emite factura C o B según condición fiscal. El precio final se confirma en checkout validado desde DB (cents ARS).
@@ -12,7 +12,7 @@ Factura C/B electrónica se emite al confirmar pago y se envía por email. Conse
 CABA, Argentina — legal@santisimatrinidad.com.ar.
 
 ## Envíos y devoluciones
-Ver política de envíos. Derecho de arrepentimiento 10 días Ley 24.240 art. 34. Producto debe estar sin uso.
+Ver política de envíos. Derecho de arrepentimiento 10 días Ley 24.240 art. 34. Producto debe estar sin uso y en su empaque original; se aplican excepciones por higiene en productos cosméticos abiertos o usados, según la política por categoría pendiente de aprobación.
 
 ## Derecho al olvido / DELETE y anonimización
 Podés solicitar eliminación de cuenta y datos personales (DELETE). Aplicamos soft delete inmediato + anonimización a 1 año (365 días). Escribí a privacidad@santisimatrinidad.com.ar. Procesamos en 72h.
@@ -20,8 +20,8 @@ Podés solicitar eliminación de cuenta y datos personales (DELETE). Aplicamos s
 ## Defensa del Consumidor
 Para reclamos: https://www.argentina.gob.ar/produccion/defensadelconsumidor o teléfono 0800-666-1518. Ley 24.240 — Información y reclamos.
 
-## Disclaimer esotérico
-Ver docs/LEGAL.md DOC-01: contenido esotérico solo entretenimiento.
+## Uso de productos cosméticos
+Ver `docs/LEGAL.md` DOC-01: uso externo, suspender ante irritación, sin propiedades terapéuticas.
 
 ## Jurisdicción
 Tribunales de CABA, Argentina.

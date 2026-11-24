@@ -9,9 +9,9 @@ tooling-config, change-hygiene). Deploy Vercel, dominios `santisima-trinidad.com
 
 ## Boundaries & Design
 
-- **UI**: tokens Bauhaus `--primary #D95D39`, pill 9999, `--space` 4/8/16/24, Geist, target touch
-  44px, grid 8pt, axe. Neo-Bauhaus de marca (paleta terracota/verde/mostaza/celeste — heredar, no
-  inventar colores; ver `docs/DOCS/marca.md`).
+- **UI**: tokens y tipografía desde `docs/brand/` (manual vigente importado el 2026-11-23).
+  No inventar colores ni tipografías. Los docs de marca anteriores quedaron cancelados.
+  Mantener target touch 44px, grid 8pt y axe. `src/styles/tokens.css` pendiente de portar.
 - **ErrorBoundary** a 2 niveles (root + segment), flag `<1s` OFF por defecto, kill-switch por env.
 - **State**: Server Actions + Zod + `is_admin()` RLS + `revalidatePath`. Cero escrituras de DB desde
   cliente.

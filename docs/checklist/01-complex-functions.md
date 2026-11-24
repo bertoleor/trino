@@ -35,7 +35,7 @@ Rich editing for `cultura_posts.body` (JSONB) + product `description` (TipTap) w
 | T-E04 | `src/app/[locale]/admin/cultura/page.tsx` | ≤130 |
 | T-E04 | `src/components/admin/cultura-editor.tsx` | TipTap + Dropzone + tags + related picker + preview |
 | T-E02 | `src/lib/validations/cultura.ts` + `src/lib/actions/cultura.ts` | Zod + Server Actions (ARCH-05 triple check) + `revalidatePath` |
-| T-A08 | `src/components/ui/*` (editor toolbar = pills + Bauhaus tokens) | ≤100 |
+| T-A08 | `src/components/ui/*` (editor toolbar = pills con tokens canónicos) | ≤100 |
 | T-E01 | `supabase/migrations/0011_cultura.sql` | `body jsonb`, `search_vector tsvector GIN` |
 | T-H03 | `src/lib/actions/cultura-bulk.ts` (bulk, SEO score, reading time, version history `jsonb versions[]`) | ≤90 |
 
@@ -164,7 +164,7 @@ alternates: { languages: { 'es-AR': '/es-AR/producto/slug', en: '/en/product/slu
 
 ### Acceptance
 
-- [ ] `/es-AR/producto/vela-soja-lavanda-200g` view-source contains `application/ld+json` Product with `priceCurrency ARS` and `500` SKUs appear in `/sitemap.xml` with 4× `xhtml:link` each.
+- [ ] `/es-AR/producto/<slug-real>` view-source contains `application/ld+json` Product with `priceCurrency ARS` and `500` SKUs appear in `/sitemap.xml` with 4× `xhtml:link` each.
 - [ ] Lighthouse CI `pnpm build && lhci autorun` → perf ≥90, LCP <2.5s, CLS <0.1, INP <200ms (T-D01c budget).
 - [ ] OG image renders per locale (4 screenshots).
 
@@ -222,7 +222,7 @@ Countdown: `useEffect tick 1s` + SSR initial `timeLeft = launch_date - now` (avo
 
 | Alternative | Why not |
 |---|---|
-| **FullCalendar / react-big-calendar** | Heavy (80–150kB), opinionated styles clashing with Neo-Bauhaus pills. dnd-kit free gives drag primitives without calendar dogma; we render our own month grid (4/8px spacing, Bauhaus tokens). |
+| **FullCalendar / react-big-calendar** | Heavy (80–150kB), opinionated styles that clash with the brand system. dnd-kit gives drag primitives without calendar dogma; we render our own month grid (4/8px spacing, canonical tokens). |
 | **Upstash Workflow for scheduling** | Overkill for date reschedule; `pg_cron` polls `published_at` index (GIN+btree) free. QStash reserved for email/external webhooks (RES-03) |
 
 ### Risks
@@ -412,7 +412,7 @@ Admin panel as **installable PWA**: Add to Home Screen prompt on Android/iOS, of
 | T-D09b | `src/components/shared/social-feed.tsx` (offline fallback placeholder) |
 | OBS-02 | Health module (shows `navigator.onLine` + service worker state) |
 
-### Manifest (trino. Bauhaus tokens)
+### Manifest (tokens canónicos de trino.)
 
 ```json
 // public/manifest.json
@@ -487,7 +487,7 @@ button.onclick = async () => { deferredPrompt?.prompt(); const {outcome}=await d
 
 - `dest: 'public'`, `register: true`, `skipWaiting: true` + `clientsClaim: true` for immediate activation (avoid stale SW trap).
 - `disable: true` in development (else cache poisons HMR).
-- `fallbacks.document: '/_offline'` — a dedicated Next page (`src/app/_offline/page.tsx`) with Bauhaus illustration + "Sin conexión — tus últimos pedidos están cacheados".
+- `fallbacks.document: '/_offline'` — a dedicated Next page (`src/app/_offline/page.tsx`) with brand illustration + "Sin conexión — tus últimos pedidos están cacheados".
 - `scope: '/'` for whole site or `'/admin'` to isolate; `cacheStartUrl: true` caches `start_url`.
 - `buildExcludes: [/chunks\/images\/.*/, /\.map$/]` to keep SW small.
 - Icons: 192, 512 `maskable` required for Android install prompt criteria.
@@ -552,5 +552,5 @@ button.onclick = async () => { deferredPrompt?.prompt(); const {outcome}=await d
 - Context7: Supabase Realtime `/supabase/realtime` — Broadcast/Presence/Postgres Changes, `phx_join`
 - Context7: next-pwa `/shadowwalker/next-pwa` — `withPWA({dest:'public', register:true, skipWaiting:true, fallbacks:{document:'/_offline'}})`
 - `openspec/changes/archive/2026-09-04-ecommerce-high-end-constitution/tasks.md` — T-A08b/T-D02b/T-E04/T-H01/T-H02/T-D09b/T-D09c/T-C05b
-- `DOCS/DOCS/marca.md` §2/§7 (Neo-Bauhaus pills 50px, lowercase) + `openspec/AGENT_RULES.md` 154r
+- `openspec/AGENT_RULES.md` 154r (las reglas visuales de `DOCS/DOCS/marca.md` §2/§7 fueron canceladas el 2026-11-23; fuente vigente: `docs/brand/`)
 - Vercel/Resend/Upstash/Supabase/PostHog free tiers (2026-09)

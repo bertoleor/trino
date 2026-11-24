@@ -71,12 +71,11 @@ Tables MUST transform to **cards** or `overflow-x-auto` with a **frozen Actions 
 Rich content uses **TipTap** with presigned uploads. `global_settings` / `pages` MUST back all
 CMS/legal copy — never hardcoded.
 
-## White-Label Theming (`marca.md` / Plan backoffice §1)
+## White-Label Theming (Plan backoffice §1)
 
-- Brand colors as **CSS variables** read from `global_settings/tenants`, injected at `:root`:
-  `--bg-blanco #FFFFFF`, `--bg-crema #FDFBF7`, `--text-grafito #212529`,
-  `--color-terracota #D95D39`, `--color-verde #2B4731`, `--color-mostaza #E6AF2E`,
-  `--color-celeste #7A9E9F`.
+- Brand colors as **CSS variables** read from `global_settings/tenants`, injected at `:root`.
+  Token names and values come from `docs/brand/trino-tokens.css` (canonical manual); the old
+  `marca.md` palette was cancelled. Do not hardcode hex values in this skill.
 - Tenant switches a hex in DB → next session loads re-theme, **no code change**.
 - `manifest.json` dynamic via `GET /api/manifest?tenant=id`.
 
@@ -88,8 +87,9 @@ CMS/legal copy — never hardcoded.
 
 ## RMA + Stock Re-entry
 
-Orders beyond `pending→…` MUST allow **RMA/devolución per-category policy** (`marca.md §8.2`) with
-**stock re-entry** (Plan §5.1).
+Orders beyond `pending→…` MUST allow **RMA/devolución per-category policy** with
+**stock re-entry** (Plan §5.1). The draft that lived in `marca.md` was cancelled with the old
+brand docs; reincorporate the rule from the new source of truth before implementing it.
 
 ## Coupons / Campaigns
 

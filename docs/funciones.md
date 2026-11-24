@@ -5,8 +5,10 @@
 
 ## Tienda (ecom-engine)
 
-- PLP `/tienda` con filtros combinables (tipo / tradición / intención),
-  paginación 25/100, ISR 300, CSP estática (`next.config.ts`).
+- PLP `/tienda` con filtros combinables, paginación 25/100, ISR 300, CSP
+  estática (`next.config.ts`). Modelo objetivo: categoría (5) × subcategoría ×
+  marca × tono × acabado. El runtime aún usa las facetas heredadas
+  `tipo`/`tradicion`/`intencion` (`src/lib/db/facets.ts`) — deuda migratoria.
 - PDP `/producto/[slug]` + `/reviews`: ficha completa (especificaciones,
   variantes, "cómo se usa"), calculadora de envío por CP, precios
   mayorista/minorista por tipo de cliente.
@@ -31,9 +33,10 @@
   (`src/app/api/admin/shipping/batch/`), carriers en
   `src/lib/shipping/carriers/`.
 - `SHIPPING_INTERNATIONAL_ENABLED=false` → fallback flat.
-- Reglas especiales por producto (inciensos/resinas/velas combustibles) y
-  devoluciones por categoría (ritual usado no se devuelve) — pendientes de
-  firma del dueño (ver `docs/branding.md`).
+- Devoluciones por categoría: productos cosméticos abiertos o usados no se
+  devuelven por higiene — pendiente de firma del dueño (el borrador vivía en
+  `docs/branding.md`, cancelado el 2026-11-23; reincorporarlo al manual nuevo
+  antes de implementarlo).
 
 ## Cuenta y backoffice (admin-backoffice)
 
@@ -51,8 +54,9 @@
 
 - Blog/glosario `/cultura` + `[slug]` con `search_vector` GIN; sync diario
   06:00 con dedup hash (`src/app/api/cron/cultura-sync/`).
-- Calendario ritual/lunar, quiz "elegí tu camino", feed @holatrino embebido
-  — canal SEO orgánico principal del rubro (no fase 3).
+- Calendario de lanzamientos/temporadas, quiz "encontrá tu tono", feed
+  @holatrino embebido — canal SEO orgánico del rubro, pendiente de ratificar
+  su forma definitiva contra `docs/brand/`.
 - Reviews 1..5 con cola de moderación (`openspec/specs/reviews/`).
 
 ## Transversales
@@ -66,12 +70,12 @@
 | Social stats | `src/app/api/social/stats/`, `src/lib/social/` |
 | Easter eggs (`EASTER_ENABLED=true`) | `src/lib/easter/`, `src/app/[locale]/admin/easter/` |
 | Bank proof | `src/app/api/bank-proof/url/` |
-| Motion Bauhaus (grid-wipe, mask-reveal, shape-morph) | `src/styles/motion.css`, `src/lib/motion/` |
+| Motion de marca (reveals, transiciones de forma) | `src/styles/motion.css`, `src/lib/motion/` |
 | Tooling / change hygiene | `openspec/specs/{build-tooling-freshness,tooling-config,change-hygiene}/` |
 
-## Específicas del rubro (plan de marca §6)
+## Específicas del rubro (pendiente de ratificar contra `docs/brand/`)
 
 - Sets/kits curados por ocasión con lógica propia de armado.
-- Suscripción "caja ritual mensual" (opcional, evaluar demanda).
-- "Envoltorio ritual" / nota personalizada en checkout.
-- Notificaciones opt-in ligadas al calendario ("hoy es luna llena").
+- Suscripción "caja de belleza mensual" (opcional, evaluar demanda).
+- Nota personalizada en checkout y unboxing como experiencia.
+- Notificaciones opt-in ligadas a lanzamientos y temporadas.

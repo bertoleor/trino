@@ -1,15 +1,21 @@
 # trino. — Estructura de Catálogo de Productos
 
+> **Parcialmente vigente (2026-11-23).** La estructura de categorías de belleza (5 categorías,
+> subcategorías, `brand`, `shade`, `finish`) sigue siendo la referencia del catálogo.
+> Los ejemplos de hex de paleta de marca quedaron cancelados: la identidad visual la define
+> `docs/brand/`. El campo `shade` describe el tono del producto, no el color de la marca.
+
 ## Entregable al Cliente
 **Fecha:** 23 de octubre de 2026  
-**Proyecto:** trino. — Pivot de esotérico a tienda de maquillaje  
+**Proyecto:** trino. — catálogo de maquillaje e insumos
+
 **Alcance:** Reestructuración completa del CSV y modelo de datos Supabase
 
 ---
 
 ## 1. Resumen de la Reestructuración
 
-trino. ha migado de una estructura de 3 facetas esotéricas a un catálogo profesional de maquillaje con:
+trino. define un catálogo profesional de maquillaje con:
 
 - **Antes:** 3 facetas combinables (tipo/tradición/intencion) — 10+9+7 valores = 190+ combinaciones posible
 - **Después:** 5 categorías × 7 subcategorías × atributos completos (marca, shade, finish)
@@ -67,13 +73,13 @@ Cada registro en `makeup_products` debe tener:
 | `category_makeup` | text | enum check | `ojos` | `labios` | `rostro` | `manicure` | `pestañas` |
 | `subcategory` | text | enum check | `sombras` | `delineadores` | `máscaras` | `labiales` | `gloss` | `esmaltes` | `herramientas` |
 | `brand` | text | min 2, max 50 chars | Marca registrada | `trino.`, `L'Oréal`, `Maybelline` |
-| `shade` | text | regex `/^[0-9a-f]{6}$/` | Hex sin # | `880d1e`, `dd2d4a`, `f26a8d` |
+| `shade` | text | regex `/^[0-9a-f]{6}$/` | Hex sin # | `8A2E4B`, `C4416B`, `f26a8d` |
 | `finish` | text | enum check | `mate` | `satin` | `gloss` | `shimmer` | `metálico` |
 
 **Ejemplo completo:**
 
 ```csv
-rs666-black primer,primer facial mate,149900,ARS,,-1,,-1,PRI-MAT-001,30,5x3x1,products/primer-rs666/01.webp|products/primer-rs666/02.webp,rostro,matte,RS666,880d1e,mate,es-AR,published
+rs666-black primer,primer facial mate,149900,ARS,,-1,,-1,PRI-MAT-001,30,5x3x1,products/primer-rs666/01.webp|products/primer-rs666/02.webp,rostro,matte,RS666,8A2E4B,mate,es-AR,published
 ```
 
 ---
@@ -120,10 +126,10 @@ slug,title,excerpt,price_cents,currency,sale_price_cents,sale_start,sale_end,sto
 | # | slug | title | category | subcategory | brand | shade | finish | price_cents |
 |---|------|-------|----------|-------------|-------|-------|--------|-------------|
 | 1 | `rs666-black-primer` | Primer facial mate | rostro | matte | RS666 | `cbef3` | mate | 149900 |
-| 2 | `shadow-quad-crushed` | Cuadrante sombras 4 tonos | ojos | sombras | trino. | `880d1e` | mate/shimmer | 129900 |
-| 3 | `liquid-lipstick-matte` | Liquid lipstick matte berry | labios | labiales | trino. | `880d1e` | mate | 249900 |
-| 4 | `mascara-volumen-extremo` | Máscara volumen extremo | pestañas | máscaras | trino. | `dd2d4a` | shimmer | 349900 |
-| 5 | `esmalte-gel-crushed` | Esmalte gel crushed berry | manicure | esmaltes | trino. | `880d1e` | mate | 199900 |
+| 2 | `shadow-quad-crushed` | Cuadrante sombras 4 tonos | ojos | sombras | trino. | `8A2E4B` | mate/shimmer | 129900 |
+| 3 | `liquid-lipstick-matte` | Liquid lipstick matte berry | labios | labiales | trino. | `8A2E4B` | mate | 249900 |
+| 4 | `mascara-volumen-extremo` | Máscara volumen extremo | pestañas | máscaras | trino. | `C4416B` | shimmer | 349900 |
+| 5 | `esmalte-gel-crushed` | Esmalte gel crushed berry | manicure | esmaltes | trino. | `8A2E4B` | mate | 199900 |
 
 ---
 
@@ -188,9 +194,9 @@ AND is_active = true;
 ### Búsqueda por Tono (Shade)
 
 ```sql
--- Todos los tonos "Raspberry" (#DD2D4A)
-SELECT * FROM public.makeup_products 
-WHERE shade = 'dd2d4a' 
+-- Todos los tonos "Raspberry" (#C4416B)
+SELECT * FROM public.makeup_products
+WHERE shade = 'C4416B'
 AND is_active = true;
 ```
 
@@ -263,8 +269,8 @@ SELECT * FROM products WHERE search_vector @@ plainto_tsquery('spanish','labial'
 
 Entregable entregado al cliente:
 
-1. ✅ `docs/deliverable-cliente-transformacion.md` — Resumen ejecutivo técnico
-2. ✅ `docs/paleta-colores-trino.md` — Guía completa de la paleta de colores
+1. ✅ `docs/overview.md` — Resumen ejecutivo técnico
+2. ✅ `docs/brand/` — Manual de marca y tokens canónicos
 3. ✅ `docs/estructura-catalogo-trino.md` — Esta documentación
 4. ✅ `supabase/migrations/0027_makeup_products.sql` — Migración BD completa
 5. ✅ `odd/tasks/trino-maquillaje-transformacion.md` — Tracking ODD de 7 tareas

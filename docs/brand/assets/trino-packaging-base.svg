@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#FFF8E8"/>
+  <g transform="translate(110 110)" stroke="#17141B" stroke-width="4">
+    <rect width="720" height="520" fill="#FF5A36"/><rect x="720" width="220" height="520" fill="#FF75AE"/>
+    <path d="M775 0v520M830 0v520M885 0v520" stroke="#3155F5" stroke-width="28"/>
+    <rect x="60" y="70" width="450" height="110" fill="#FFF8E8"/><text x="90" y="145" font-family="Fredoka" font-size="70" font-weight="700" fill="#17141B" stroke="none">trino.</text>
+    <text x="60" y="285" font-family="Fredoka" font-size="52" font-weight="700" fill="#17141B" stroke="none">NOMBRE DEL PRODUCTO</text>
+    <text x="60" y="340" font-family="DM Sans" font-size="25" fill="#17141B" stroke="none">Variante · beneficio principal</text>
+    <text x="60" y="455" font-family="DM Sans" font-size="20" font-weight="700" fill="#17141B" stroke="none">CONT. NETO / INFORMACIÓN LEGAL → REVERSO</text>
+  </g>
+  <text x="110" y="710" font-family="DM Sans" font-size="22" font-weight="700" fill="#17141B">ÁREA SEGURA: 60 px · SANGRADO: DEFINIR CON IMPRENTA · CMYK: VALIDAR PRUEBA DE COLOR</text>
+  <metadata>Plantilla conceptual. Adaptar troquel, sangrado y requisitos regulatorios con proveedor.</metadata>
+</svg>

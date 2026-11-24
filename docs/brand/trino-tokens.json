@@ -1,0 +1,53 @@
+{
+  "color": {
+    "text": {
+      "primary": "#17141B",
+      "inverse": "#FFF8E8"
+    },
+    "surface": {
+      "base": "#FFF8E8",
+      "strong": "#17141B",
+      "brand": "#FF75AE",
+      "info": "#3155F5",
+      "success": "#21BFA6",
+      "warning": "#FFD84A",
+      "error": "#FF5A36"
+    },
+    "action": {
+      "primary": "#17141B",
+      "primaryText": "#FFF8E8",
+      "focus": "#3155F5"
+    }
+  },
+  "typography": {
+    "display": "Fredoka, sans-serif",
+    "body": "DM Sans, sans-serif",
+    "scale": {
+      "display": "clamp(4.5rem, 11vw, 11.125rem)",
+      "h1": "clamp(3.25rem, 7vw, 7rem)",
+      "body": "1rem",
+      "caption": "0.75rem"
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "40px",
+    "section": "clamp(80px, 10vw, 150px)"
+  },
+  "border": {
+    "width": "2px",
+    "radius": {
+      "control": "999px",
+      "card": "0px"
+    }
+  },
+  "motion": {
+    "feedback": "160ms",
+    "enter": "280ms",
+    "scene": "420ms",
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)"
+  }
+}

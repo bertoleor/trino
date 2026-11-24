@@ -4,11 +4,11 @@
 
 | Doc | Responde a | Fuente verificada |
 |---|---|---|
-| `overview.md` | qué es trino. | `README.md`, `ARCHITECTURE.md`, `marca.md`, `src/app/` |
+| `overview.md` | qué es trino. | `README.md`, `ARCHITECTURE.md`, `src/app/` |
 | `stack.md` | framework / stack | `package.json`, `next.config.ts`, `src/config/env.ts` |
 | `setup.md` | cómo se arma | `package.json` scripts, `src/config/env.ts`, `vercel.json` |
-| `branding.md` | branding, voz, copy | `DOCS/marca.md`, reporte producto-marketing-estilo |
-| `identidad-visual.md` | identidad visual, tokens | `src/styles/tokens.css` (valores reales) |
+| `identidad-visual.md` | identidad visual, tokens | `docs/brand/` (manual vigente, 2026-11-23) |
+| `brand/` | manual de marca canónico (tokens, voz, logos, AA) | Figma Make + descargables oficiales |
 | `funciones.md` | funciones por capacidad | `src/app/`, `src/app/api/`, `src/lib/`, `openspec/specs/` |
 
 ## Resto de la carpeta
@@ -19,7 +19,8 @@
 - `checklist/` — checklist de funciones complejas.
 - `ciclo-no-tecnico/` — briefs por rol no técnico.
 - `DEPLOY.md` — deploy. `LEGAL.md` / `TERMS.md` / `RULES.md` — legales y reglas.
-- `DOCS/` — briefs originales (marca, bauhaus, 3 planes de producto, constitution).
+- `DOCS/` — briefs originales (constitución y 3 planes de producto). Los docs de marca
+  y estética anteriores fueron retirados.
 - `legal/` — product specs, facturación AFIP/KeyCAE, pages coverage.
 - `PLANS/` — planes heredados. `reports/` — reportes (producto, identidad, runbook).
 - `ROADMAP-NEXT-SDD.md` — roadmap.
@@ -34,7 +35,7 @@ si un dato cambia en código, se actualiza el baseline que lo cita.
 
 | Doc | Estado |
 |---|---|
-| `overview.md` / `stack.md` / `setup.md` / `branding.md` / `identidad-visual.md` / `funciones.md` | ✅ verificado (fuentes en tabla de arriba) |
+| `overview.md` / `stack.md` / `setup.md` / `identidad-visual.md` / `funciones.md` | ✅ verificado (fuentes en tabla de arriba); `branding.md` y `marca.md` cancelados el 2026-11-23 |
 | `docs/adr/0001-0003` | ✅ `accepted` (sin banner UNVERIFIED) |
 | `README.md` / `ARCHITECTURE.md` / `CHANGELOG.md` (raíz) | ✅ verificados |
 | `docs/audits/2026-09-12-*` + `ciclo-no-tecnico/00-indice.md` | histórico: conservan el banner UNVERIFIED de su fecha — no reescribir |

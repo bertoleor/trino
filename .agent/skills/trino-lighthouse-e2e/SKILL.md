@@ -73,7 +73,8 @@ A run below 0.9 on performance **fails the build**. Report uploaded as a CI arti
   failed check), plus `/api/health/live` and `/api/health/ready`.
 - ErrorBoundary wraps root layout + `/checkout`, `/admin/*`, data-fetching components (global
   fallback full reload, local inline).
-- Every touched route needs error/loading contract (`error.tsx`/`loading.tsx` Bauhaus skeleton).
+- Every touched route needs error/loading contract (`error.tsx`/`loading.tsx` skeleton using
+  canonical tokens from `docs/brand/`).
 
 ## Test thresholds (vitest)
 

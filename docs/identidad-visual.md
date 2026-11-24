@@ -1,61 +1,60 @@
 # trino. — identidad visual (tokens y reglas)
 
-> Canónico baseline. **Verificado contra `src/styles/tokens.css`** (valores
-> reales en código). Origen conceptual: `docs/DOCS/marca.md` §1-2 y
-> `docs/DOCS/bahaus-y-neo-bahaus.md`. Regla de oro: heredar, nunca inventar
-> colores nuevos.
+> Fuente canónica: [`docs/brand/`](brand/README.md) — manual importado el 2026-11-23.
+> Este archivo es el índice corto; la especificación completa está en
+> [`docs/brand/manual-marca.md`](brand/manual-marca.md).
+> Los documentos de marca anteriores fueron cancelados y retirados del repositorio.
 
-## Paleta (design tokens reales)
+## Paleta
 
-|| Token | Valor en código | Uso |
-|---|---|---|---|
-| `--primary` | `#DD2D4A` (Raspberry) | CTAs, botones de compra |
-| `--primary-foreground` | `#FFFFFF` | Texto sobre primario |
-| `--color-rosa-intenso` | `#F26A8D` (Bubblegum Pink) | Botones secundarios, highlights |
-| `--color-acento` | `#880D1E` (Crushed Berry) | Badges, alertas, acentos oscuros |
-| `--color-rosa-pastel` | `#F49CBB` (Pink Mist) | Fondos suaves, áreas de soporte |
-| `--color-celeste-suave` | `#CBEef3` (Light Cyan) | Decorativo: arcos, formas orgánicas |
-| `--text-grafito` | `#212529` | Texto — reemplaza al negro puro en todo el sitio |
-| Fondo principal | `#FFFFFF` | `--bg-blanco` (en `body`) |
-| Fondo secundario | `#FDFBF7` | `--bg-crema` (definido en marca; verificar que exista como token antes de usar) |
+| Token | Valor | Uso |
+|---|---|---|
+| `--ink` | `#17141B` | texto, superficie fuerte, acción primaria |
+| `--cream` | `#FFF8E8` | superficie base, texto inverso |
+| `--pink` | `#FF75AE` | color pop protagonista |
+| `--orange` | `#FF5A36` | energía, acción, error |
+| `--lilac` | `#A98AF5` | fondos editoriales |
+| `--aqua` | `#21BFA6` | frescura, éxito |
+| `--lemon` | `#FFD84A` | señalización, advertencia |
+| `--cobalt` | `#3155F5` | contraste digital, foco |
+
+Tokens semánticos: `--text-primary`, `--text-inverse`, `--surface-base`, `--surface-strong`,
+`--surface-brand`, `--surface-info`, `--surface-success`, `--surface-warning`, `--surface-error`,
+`--action-primary`, `--action-primary-text`, `--focus-ring`.
+
+**No inventar colores.** Fuente exacta: `docs/brand/trino-tokens.css` y `trino-tokens.json`.
 
 ## Tipografía
 
-- Títulos: `--font-chunky` (Poppins / Clash Display / Montserrat),
-  minúscula, peso 900.
-- Lectura: `--font-lectura` (Inter / Roboto / Lato).
-- Base real en código: `body { font-family: var(--font-geist-sans) }`,
-  `html { font-size: 16px }`. Si se migra a chunky/lectura, hacerlo vía
-  tokens, no por overrides sueltos.
+- Display: Fredoka Semibold/Bold.
+- Texto y UI: DM Sans Regular/Medium/Bold.
+- Escala: display `clamp(4.5rem, 11vw, 11.125rem)` · h1 `clamp(3.25rem, 7vw, 7rem)` ·
+  body `1rem` · caption `0.75rem`.
 
-## Espaciado, forma y touch
+## Forma y movimiento
 
-- Escala `--space-1/2/3/4`: 4 / 8 / 16 / 24 (grid 8pt).
-- Botón píldora: `--pill: 9999px`, minúscula, negrita gruesa.
-- Target touch mínimo **44px** (`button, a { min-height: 44px }`,
-  `@media (pointer: coarse)` en `responsive.css`).
+- Radio: control `999px`, card `0px`. Borde `2px`.
+- Espaciado: 4 / 8 / 16 / 24 / 40px; sección `clamp(80px, 10vw, 150px)`.
+- Movimiento: 160ms / 280ms / 420ms con `cubic-bezier(0.2, 0.8, 0.2, 1)`.
+- Patrones: damero, rayas, ondas y puntos (SVG en `docs/brand/assets/`). Máximo dos por composición.
 
-## Reglas de composición Neo-Bauhaus
+## Reglas de voz
 
-- **Home:** hero con figura recortada (vela, mazo) sobre forma geométrica
-  (arco mostaza/celeste), no fotos rectangulares. Cada bloque de categoría
-  con su forma de fondo (círculo, arco, media luna).
-- **PLP:** foto vertical (3:4 o 4:5), bordes redondeados, color blocking con
-  los 4 acentos rotando por categoría.
-- **Badges:** siempre mostaza + grafito, minúscula ("30% off.", "nuevo.",
-  "últimas unidades."). Nunca rojo/verde genérico.
-- **Botones:** terracota = acción principal ("agregar al carrito."),
-  verde = secundaria ("ver más.", "guardar.").
-- **Decoración:** arcos y círculos recurrentes (separadores, marcos,
-  banners). Nada de degradés/estrellas new-age.
-- **Motion** (`src/styles/motion.css`): grid-wipe, mask-reveal,
-  shape-morph solo con clip-path/mask/transform (CLS<0.1);
-  `prefers-reduced-motion` desactiva animaciones.
+- `trino.` siempre minúsculo con punto. El resto del copy con mayúscula inicial oracional.
+- Directa, cómplice, expresiva y útil; segunda persona. Sin `text-transform: lowercase` global.
 
-## Filosofía (texto de referencia para "nuestra propuesta")
+## Accesibilidad
 
-La Bauhaus nació del misticismo (Itten, Kandinsky: colores que vibran en el
-alma). trino. rescata esa etapa: geometría y espíritu como una sola cosa.
-Lo esotérico asociado al exceso y al caos es lo opuesto a esta marca — la
-verdadera espiritualidad aporta claridad. ("La forma sigue a la función" =
-UX moderna: si quitás un elemento y el sitio se entiende igual, sobraba.)
+Pares AA aprobados para texto (texto / fondo): Ink/Cream, Ink/Pop Pink, Ink/Tangerine,
+Ink/Lilac, Ink/Aqua, Ink/Lemon y Cream/Cobalt. Prohibidos para texto: Cream/Tangerine,
+Cream/Pop Pink y duplas entre colores pop. Ver `docs/brand/checklist-aprobacion.md`.
+
+## Reglas técnicas conservadas
+
+Target touch mínimo 44px, grid 8pt, axe y i18n en 4 locales (`es-AR`, `en`, `fr`, `pt-BR`).
+Se verifican en `src/styles/`, tests unitarios y e2e.
+
+## Pendiente de migración
+
+`src/styles/tokens.css` sigue con los valores anteriores. La portación a Tailwind v4 se hará
+cuando se importen las pantallas HTML de Stitch; este doc solo establish la fuente de verdad.

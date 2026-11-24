@@ -1,16 +1,58 @@
+/*
+ * Tokens canónicos: docs/brand/trino-tokens.css
+ * Los alias `--primary`, `--color-*`, `--text-grafito` y `--pill` se conservan
+ * por compatibilidad con componentes existentes. No crear alias nuevos:
+ * usar los tokens canónicos en código nuevo.
+ */
 :root {
-  --primary: #dd2d4a;
-  --primary-foreground: #ffffff;
-  --color-rosa-intenso: #f26a8d;
-  --color-acento: #880d1e;
-  --color-rosa-pastel: #f49cbb;
-  --color-celeste-suave: #cbeef3;
-  --text-grafito: #212529;
-  --pill: 9999px;
+  /* Marca */
+  --ink: #17141b;
+  --cream: #fff8e8;
+  --pink: #ff75ae;
+  --orange: #ff5a36;
+  --lilac: #a98af5;
+  --aqua: #21bfa6;
+  --lemon: #ffd84a;
+  --cobalt: #3155f5;
+
+  /* Semánticos */
+  --text-primary: #17141b;
+  --text-inverse: #fff8e8;
+  --surface-base: #fff8e8;
+  --surface-strong: #17141b;
+  --surface-brand: #ff75ae;
+  --surface-info: #3155f5;
+  --surface-success: #21bfa6;
+  --surface-warning: #ffd84a;
+  --surface-error: #ff5a36;
+  --action-primary: #17141b;
+  --action-primary-text: #fff8e8;
+  --focus-ring: #3155f5;
+
+  /* Tipografía y movimiento */
+  --font-display: 'Fredoka', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --motion-feedback: 160ms;
+  --motion-enter: 280ms;
+  --motion-scene: 420ms;
+  --ease-brand: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Espaciado */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
   --space-4: 24px;
+  --space-5: 40px;
+
+  /* Alias heredados -> tokens canónicos */
+  --primary: #17141b;
+  --primary-foreground: #fff8e8;
+  --color-rosa-intenso: #ff75ae;
+  --color-acento: #ff5a36;
+  --color-rosa-pastel: #a98af5;
+  --color-celeste-suave: #21bfa6;
+  --text-grafito: #17141b;
+  --pill: 999px;
 }
 
 * {
@@ -20,9 +62,9 @@ html {
   font-size: 16px;
 }
 body {
-  color: var(--text-grafito);
-  background: #ffffff;
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  color: var(--text-primary);
+  background: var(--surface-base);
+  font-family: 'DM Sans', var(--font-geist-sans), system-ui, sans-serif;
 }
 
 button,

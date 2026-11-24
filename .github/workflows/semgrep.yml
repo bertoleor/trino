@@ -18,20 +18,29 @@ concurrency:
 
 jobs:
   semgrep:
-    name: Semgrep SAST
+    name: Semgrep Security + Quality
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    container:
-      image: semgrep/semgrep:latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Semgrep (reporting mode, findings do not fail the job yet)
+      - name: Run Semgrep security mode
         continue-on-error: true
-        run: semgrep scan --config p/security-audit --config p/typescript --config p/secrets --sarif --output semgrep.sarif
+        run: semgrep scan --config p/security-audit --config p/typescript --config p/secrets --sarif --output semgrep-security.sarif || true
 
-      - name: Upload SARIF to Security tab
+      - name: Run Semgrep quality mode
+        continue-on-error: true
+        run: semgrep scan --config p/code-quality --config p/bug-prone --config p/typescript --sarif --output semgrep-quality.sarif || true
+
+      - name: Upload Security SARIF to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: semgrep.sarif
+          sarif_file: semgrep-security.sarif
+          category: security
+
+      - name: Upload Quality SARIF to Code tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep-quality.sarif
+          category: code-quality

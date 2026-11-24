@@ -1,35 +1,37 @@
-# trino. Design System — Bauhaus
+# trino. — Design System
 
-Inspired by Bauhaus "form follows function" + trino. Neo-Bauhaus palette.
-Geometric, minimal, high-end esoteric.
+> **Fuente canónica:** `docs/brand/` — manual de marca importado el 2026-11-23 y pantallas
+> HTML de Stitch (a incorporar). Este archivo es solo el índice técnico.
+> Las decisiones visuales anteriores (paleta rosa/lila/celeste, Neo-Bauhaus, esoterismo)
+> fueron canceladas. No usar sus valores en código nuevo.
 
 ## Tokens
 
-- `--primary` #D95D39 (terracota) — CTAs
-- `--color-verde` #2B4731 — secondary
-- `--color-mostaza` #E6AF2E — badges/discounts
-- `--color-celeste` #7A9E9F — decorative arcs
-- `--text-grafito` #212529 — replaces pure black
-- `--bg-crema` #FDFBF7 — secondary bg
-- `--pill` 9999px — all buttons pill
-- `--space` 4/8/16/24 — 8pt grid
-- Geist Sans/Mono, 44px min target, fluid clamp typography
-- Motion: hardware-accelerated opacity/transform only, respects `prefers-reduced-motion`
+Los tokens exactos viven en `docs/brand/trino-tokens.css` y `docs/brand/trino-tokens.json`.
+No redefinirlos aquí ni inventar colores.
 
-## Components
+- Marca: Ink `#17141B`, Cream `#FFF8E8`.
+- Pops: Pink `#FF75AE`, Orange `#FF5A36`, Lilac `#A98AF5`, Aqua `#21BFA6`,
+  Lemon `#FFD84A`, Cobalt `#3155F5`.
+- Tipografía: Fredoka (display) + DM Sans (texto y UI).
+- Radio: control `999px`, card `0px`. Borde `2px`.
+- Movimiento: 160 / 280 / 420 ms con `cubic-bezier(0.2, 0.8, 0.2, 1)`.
+- Patrones: damero, rayas, ondas y puntos — SVG en `docs/brand/assets/`.
 
-- `Button` pill 50px, 44px min, focus-visible ring, disabled aria
-- `Badge` mostaza/grafito pill
-- `Input` pill 44px, focus ring primary
-- `Card` rounded-2xl border, shadow-sm
-- `Skeleton` exact geometry, animate-pulse
+## Reglas vigentes
 
-## Rules
+- `trino.` siempre minúsculo con punto; el resto del copy con mayúscula inicial oracional.
+  No aplicar `text-transform: lowercase` global.
+- Mobile-first, objetivos táctiles mínimos de 44 px, grid de 8 pt.
+- Contraste AA: pares aprobados en `docs/brand/checklist-aprobacion.md`.
+- `prefers-reduced-motion`: animaciones de opacidad/transformación aceleradas por GPU.
+- Skeleton con la geometría exacta del contenido; un botón primario por pantalla.
+- Tailwind v4 estricto: solo valores de tokens, sin arbitrary values.
 
-- Mobile-first, 44x44 targets via padding
-- One primary button per screen
-- Skeletons match content geometry
-- Tailwind strict — no arbitrary values outside tokens
-- Hidden `/[locale]/design` page showcases system
+## Estado de la portación
 
-Trace: UX-01..09, CQ-09, marca.md, bahaus.md
+`src/styles/tokens.css` todavía contiene los valores anteriores. La sustitución por los tokens
+de `docs/brand/` y el armado de componentes se hacen con las pantallas Stitch, sin reiniciar
+el proyecto. Backend, RLS/RBAC, pagos, i18n en 4 locales, tests y CI se conservan.
+
+Trace: UX-01..09 · `docs/brand/manual-marca.md`

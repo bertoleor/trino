@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#FF75AE"/>
+  <circle cx="1000" cy="1820" r="420" fill="#3155F5" stroke="#17141B" stroke-width="8"/>
+  <circle cx="690" cy="1740" r="270" fill="#FFD84A" stroke="#17141B" stroke-width="8"/>
+  <text x="80" y="110" fill="#17141B" font-family="DM Sans, sans-serif" font-size="28" font-weight="700" letter-spacing="3">NUEVO DROP</text>
+  <text x="80" y="650" fill="#17141B" font-family="Fredoka, sans-serif" font-size="154" font-weight="700">
+    <tspan x="80" dy="0">DESLIZÁ</tspan><tspan x="80" dy="129.35999999999999">Y DESCUBRÍ.</tspan>
+  </text>
+  <rect x="80" y="1770" width="360" height="70" rx="35" fill="#FFF8E8" stroke="#17141B" stroke-width="5"/>
+  <text x="112" y="1816" fill="#17141B" font-family="DM Sans, sans-serif" font-size="24" font-weight="700">CTA / EDITAR MENSAJE →</text>
+  <text x="885" y="105" fill="#17141B" font-family="Fredoka, sans-serif" font-size="38" font-weight="700">trino.</text>
+  <metadata>Template: Story lanzamiento. Reemplazar copys y producto. Mantener zonas seguras de 80 px.</metadata>
+</svg>

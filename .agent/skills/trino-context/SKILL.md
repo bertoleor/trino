@@ -1,7 +1,7 @@
 ---
 name: trino-context
 description: >
-  Domain context and decisions for trino., the ARS-only esoteric e-commerce site. Trigger: When
+  Domain context and decisions for trino., the ARS-only beauty e-commerce site (makeup, skincare).
   starting any task in santisima-trinidad, need the product identity, stack, or recorded
   architecture decisions.
 license: Apache-2.0
@@ -14,12 +14,20 @@ metadata:
 
 ## Identity & Brand
 
-- Storefront brand is **`trino.`** — Neo-Bauhaus _"forma sigue a función"_. Every visual element
-  must carry functional purpose. No decorative-only UI.
-- Brand values: terracota/verde/mostaza/celeste palette, pills `border-radius:50px`, lowercase
-  `text-transform`, geometric Bauhaus shapes for hero/category blocks.
-- Triple taxonomy per `marca.md §3`: `type` (tarot, velas...), `tradition` (wicca, budismo...),
-  `intention` (amor, protección...). Filters MUST be combinable (intersect), never separate menus.
+- Storefront brand is **`trino.`** — every visual element must carry functional purpose.
+  No decorative-only UI.
+- Visual identity: the canonical manual lives in `docs/brand/` (imported 2026-11-23), together
+  with the HTML screens exported from Google Stitch. All earlier brand/branding docs were
+  cancelled. Do NOT infer palette, typography or component shapes from archived docs or
+  legacy specs.
+- Brand name `trino.` is always lowercase with a trailing dot; the rest of the copy uses
+  sentence case. Do NOT apply a global `text-transform: lowercase` (that rule was cancelled).
+- Category: beauty / makeup / skincare. Target catalog taxonomy: `category` (ojos, labios, rostro,
+  manicure, pestañas) × `subcategory` × `brand` × `shade` × `finish` — see
+  `docs/estructura-catalogo-trino.md` and `supabase/migrations/0027_makeup_products.sql`.
+- Legacy runtime still queries `products` with `tipo`/`tradicion`/`intencion` facets
+  (`src/lib/db/facets.ts`, `src/app/[locale]/tienda/page.tsx`). That is technical debt pending
+  migration, NOT the target product model. Do not add new esoteric facets or copy.
 
 ## Stack (verified from package.json / configs)
 

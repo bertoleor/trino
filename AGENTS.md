@@ -5,8 +5,10 @@
 
 ## Identidad y estilo
 
-E-commerce high-end (ritual/espiritual) — Next.js 16 App Router + Supabase Postgres RLS + Upstash
-Redis. Regla de voz: **minúscula siempre, segunda persona** (sin mayúsculas en oraciones completas).
+E-commerce high-end — Next.js 16 App Router + Supabase Postgres RLS + Upstash Redis.
+Identidad y voz: `docs/brand/` — `trino.` minúsculo con punto; el resto del copy con mayúscula
+inicial oracional; voz directa, cómplice, expresiva y útil, segunda persona. La identidad anterior
+(ritual/espiritual, minúscula total) quedó cancelada el 2026-11-23.
 Artefactos técnicos en inglés; respuestas de producto/equipo en español rioplatense con voseo.
 
 ## Cargar antes de trabajar
@@ -34,7 +36,7 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
 - Tests obligatorios: unit (`vitest`, TEMP=E:/temp) + e2e (`playwright`). Correr antes de commit.
 - Gates: `pnpm typecheck` + `pnpm lint` (lint-staged+husky) verde. `lhci` en CI.
 - Cambios versionados vía changesets (`pnpm changeset` → `.changeset/`).
-- **Nunca inventar tokens/colores** — usar `docs/marca.md` + bahaus (`--primary #D95D39`).
+- **Nunca inventar tokens/colores** — usar `docs/brand/trino-tokens.css` y `docs/brand/trino-tokens.json`. Los docs de marca anteriores fueron cancelados el 2026-11-23.
 
 ## Verificación
 
@@ -47,7 +49,7 @@ Artefactos técnicos en inglés; respuestas de producto/equipo en español riopl
 ### Set infaltables de flota (v2) — rutas canónicas
 
 - **Raíz:** `README.md` · `AGENTS.md` · `SECURITY.md` · `CONTRIBUTING.md` · `CHANGELOG.md` · `ARCHITECTURE.md` · `LICENSE`
-- **`docs/`:** `docs/DESIGN.md` · `docs/API.md` · `docs/DATABASE.md` · `docs/marca.md` · `docs/plan-accion-YYYY-MM-DD.md` · `docs/runbooks/`
+- **`docs/`:** `docs/brand/` · `docs/DESIGN.md` · `docs/API.md` · `docs/DATABASE.md` · `docs/plan-accion-YYYY-MM-DD.md` · `docs/runbooks/`
 - Convención: `E:/Hermes/docs/sistema/docs-infaltables-proyectos.md`
 - Pendientes (audit 19-writer 2026-10-19): `LICENSE` (ORN-219) · `docs/DATABASE.md` (ORN-221, gap B3) · `docs/runbooks/` (ORN-217) · mover `plan-accion-*.md` de raíz a `docs/` (ORN-218) · dir `DOCS`→`docs` (ORN-224)
 

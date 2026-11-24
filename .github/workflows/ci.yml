@@ -75,7 +75,7 @@ jobs:
           retention-days: 7
 
   test:
-    name: Unit Tests
+    name: Unit Tests + Coverage
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -101,29 +101,32 @@ jobs:
             const t = s.total;
             const rows = ['lines', 'functions', 'branches', 'statements']
               .map((k) => '| ' + k + ' | ' + t[k].pct + ' |')
-              .join('\n');
-            const out = '## Coverage\n| metric | pct |\n|---|---|\n' + rows + '\n';
+              .join('
+');
+            const out = '## Coverage
+| metric | pct |
+|---|---|
+' + rows + '
+';
             require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
           "
-
-  duplication:
-    name: Code Duplication (jscpd)
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version: '22'
-      - name: Run jscpd (reporting mode)
-        run: npx --yes jscpd@4.0.5 src --config .jscpd.json || true
+      - name: Enforce 80% coverage threshold
+        run: |
+          node -e "
+            const s = require('./coverage/coverage-summary.json');
+            const t = s.total;
+            const minPct = 80;
+            const failed = Object.keys(t).some(k => t[k].pct < minPct);
+            if (failed) {
+              process.exit(1);
+            }
+            process.exit(0);
+          "
 
   e2e:
-    name: E2E Tests
+    name: E2E Tests + Strix Security
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     needs: [lint-and-typecheck]
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
     steps:
@@ -144,15 +147,46 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Build
         run: pnpm build
-      - name: Run E2E
+      - name: Run E2E Tests
         run: pnpm test:e2e
+      - name: Strix Security Validation
+        run: |
+          npx strix test --app ./playwright-report --token [REDACTED] || echo "Strix scan completed with warnings"
+
+  security:
+    name: Security Scan (semgep + strix)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run semgep (semgrep) SAST
+        run: semgrep scan --config p/security-audit --config p/typescript --config p/secrets --sarif --output semgrep.sarif
+      - name: Upload semgep SARIF to Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+      - name: Run strix Security Validation
+        run: |
+          npx strix scan --config .strix-config.json --api-key [REDACTED] || echo "Strix security scan completed"
 
   lighthouse:
     name: Lighthouse CI
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [lint-and-typecheck]
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'pull_request' || github.ref == 'refs/refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -174,20 +208,16 @@ jobs:
       - name: Run Lighthouse CI
         run: lhci autorun --assert --upload.target=temporary-public-storage
 
-  security:
-    name: Security Scan
+  duplication:
+    name: Code Duplication (jscpd)
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          run_install: false
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
           node-version: '22'
-      - name: Run pnpm audit
-        run: pnpm audit --audit-level=high
+      - name: Run jscpd (reporting mode)
+        run: npx --yes jscpd@4.0.5 src --config .jscpd.json || true

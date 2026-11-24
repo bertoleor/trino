@@ -2,7 +2,7 @@
 name: trino-ecom-engine
 description: >
   The trino. commerce engine: anon cart + merge, order ENUM state machine, price integrity,
-  abandoned carts, esoteric taxonomy, consent, fuzzy search. Trigger: When implementing cart,
+  abandoned carts, beauty catalog taxonomy, consent, fuzzy search. Trigger: When implementing cart,
   orders, catalog filters, abandoned-cart jobs, search, or catalog consent flows.
 license: Apache-2.0
 metadata:
@@ -54,11 +54,15 @@ Strict ENUM, server-validated transitions:
   dispatched via **QStash→Resend** in **recipient locale**.
 - Admin "Abandoned Carts" view MUST list them.
 
-## Esoteric Taxonomy & Consent (ECOM-06/07, PRIV-01)
+## Catalog Taxonomy & Consent (ECOM-06/07, PRIV-01)
 
-- Triple taxonomy filters MUST be **combinable**, one round-trip intersect, not separate menus.
-- Tradition-linked products SHOULD include origin/context block + disclaimer where legally advisable
-  (`marca.md §4`).
+- Target taxonomy: category (ojos, labios, rostro, manicure, pestañas) × subcategory × brand ×
+  shade × finish — combinable filters, one round-trip intersect, not separate menus.
+  Source: `docs/estructura-catalogo-trino.md` + `supabase/migrations/0027_makeup_products.sql`.
+- Runtime still queries legacy `tipo`/`tradicion`/`intencion` facets
+  (`src/lib/db/facets.ts`, PLP). Treat as migration debt: do NOT add new legacy facets.
+- Cosmetic products MUST show usage precautions and composition/origin where applicable.
+  Final legal wording still needs owner/legal review.
 - Consent banner MUST gate analytics/marketing cookies with **granular categories** (PRIV-01).
 - Search MUST support fuzzy/typo via **FTS + pg_trgm** (DB-07). See `trino-context` / performance
   search notes.

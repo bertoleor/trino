@@ -1,25 +1,34 @@
-# PRD — trino. — e-commerce esotérico multi-creencia (PRD mínimo)
+# PRD — trino. — tienda digital de belleza (PRD mínimo)
 
 > Parte de: [[INDICE-SISTEMA]] · Relacionados: [[PRD-TEMPLATE]], [[2026-10-16-revision-p17-1-prds]]
 
 > Proyecto: trino. (santisima-trinidad) · Autor: 19-writer (Technical Writer) · Fecha: 2026-10-18
 > Estado: DRAFT
+> **Aviso 2026-11-23:** quedan canceladas las decisiones de diseño visual **y** el
+> posicionamiento esotérico de este borrador. Las citas a `marca.md`, `bahaus`, la
+> paleta Neo-Bauhaus, la taxonomía triple y el disclaimer esotérico son referencias
+> históricas, no vigentes. El rubro es **belleza** (maquillaje, skincare e insumos);
+> la identidad visual la define `docs/brand/` y las pantallas HTML de Stitch.
+> Los requisitos de ingeniería (checkout, i18n, legales, pagos, RLS) se conservan.
 > Links: t_330b3a36 (P17-1 rework, parent t_99bc1b88) · auditoría `E:/Hermes/docs/audits/2026-10-16-revision-p17-1-prds.md` · ADRs `docs/adr/0001-stack-next-supabase-upstash.md`, `docs/adr/0002-i18n-locales.md`, `docs/adr/0003-money-decimal.md`
 
-> **Búsqueda:** keywords: `trino, prd, ecommerce-esoterico, multi-creencia, neo-bauhaus, triple-entrada, checkout-invitado, i18n-4-locales` · clasificación: `prd` · estado: `draft` · actualizado: 2026-10-18
+> **Búsqueda:** keywords: `trino, prd, ecommerce-belleza, maquillaje, skincare, checkout-invitado, i18n-4-locales` · clasificación: `prd` · estado: `draft` · actualizado: 2026-11-23
 
 > Generado desde material verificado del repo: `README.md`, `docs/overview.md`, `docs/DOCS/marca.md`, `docs/DOCS/plan-tienda-ecommerce-2026.md`, `docs/legal/01-product-specs-requirements.md`, `docs/ux-flows/use-cases.md`, `docs/ROADMAP-NEXT-SDD.md`. Es un documento de producto (DRAFT, requiere aprobación del owner): no cambia código por sí mismo; cada sección cita su fuente.
 
 ## 1. Problema
 
-Comprar productos esotéricos online en Argentina obliga a elegir entre sitios "new age" genéricos (degradés, estrellas, sin curaduría ni contexto) y marketplaces donde un mazo de tarot compite con cualquier importación. Quien busca una vela para un ritual específico, un cristal con origen verificable o un elemento de santería con contexto cultural real, no puede filtrar por **intención** ni por **tradición** — y el segmento premium del rubro no tiene oferta. Duela a dos: al comprador esotérico (no encuentra lo que su práctica necesita) y a la marca (curaduría multi-creencia respetuosa no existe como propuesta). Fuentes: `docs/overview.md` §Qué es, `docs/DOCS/marca.md` §2-§4.
+Comprar maquillaje y skincare online en Argentina obliga a elegir entre marketplaces donde un producto compite por precio sin ayuda para elegir tono, acabado o compatibilidad, y tiendas genéricas con poca curaduría. Quien busca un tono específico no puede filtrar con claridad por **categoría**, **subcategoría**, **marca**, **tono** y **acabado**. Fuente: `docs/brand/manual-marca.md` y `docs/estructura-catalogo-trino.md`.
+
+> El párrafo original de octubre de 2026 (productos esotéricos, intención/tradición) fue
+> reemplazado; se recupera del historial de git si se necesita como registro.
 
 ## 2. Contexto
 
-- **trino. en una línea:** e-commerce high-end de productos esotéricos multi-creencia (tarot y oráculos, velas, inciensos y resinas, cristales, amuletos, aceites, altares, libros, joyería simbólica, sets de regalo) con estética Neo-Bauhaus y curaduría respetuosa multi-creencia. (`docs/overview.md`)
-- **Usuarios objetivo:** practicantes y curiosos serios de 20-45 años que navegan por **intención** (amor, protección, abundancia, limpieza energética, sueño, conexión espiritual, duelo) y por **tradición** (tarot/astrología, wicca, budismo, santería y religiones afro, feng shui, cristaloterapia, chamanismo, misticismo cristiano popular, espiritualidad general); compradores de regalo ritual (sets curados); móvil-first, gama baja con red 3G/4G. (`docs/DOCS/marca.md` §3, `docs/DOCS/plan-tienda-ecommerce-2026.md` §0)
+- **trino. en una línea:** tienda digital de belleza — maquillaje, skincare e insumos — con identidad pop, directa y social-first. "Belleza que hace ruido." (`docs/brand/manual-marca.md`, `docs/overview.md`)
+- **Usuarios objetivo:** público Gen Z (principal) y profesionales de belleza — maquilladoras, manicuristas, lashistas (secundario); móvil-first. Navegan por categoría, tono y acabado. (`docs/brand/manual-marca.md`)
 - **Estado del repo:** `main` activo. Next.js 16 · React 19 · TS 5 · Tailwind 4 · shadcn/ui · Zod 4 · next-intl (es-AR default, en, fr, pt-BR) · Supabase SSR + RLS two-role · Upstash Redis (rate limit + cache) · decimal.js · Vitest 4 + Playwright · pnpm · deploy Vercel. 24 migraciones SQL, 16 caps en `openspec/specs/`. (`README.md`, `docs/stack.md`)
-- **Marca:** trino. (siempre minúscula, con punto final) · dominios santisima-trinidad.com.ar + .com · @holatrino (IG/TikTok) · paleta Neo-Bauhaus como tokens únicos. (`docs/overview.md`, `docs/DOCS/marca.md` §1)
+- **Marca:** trino. (siempre minúscula, con punto final; el resto del copy con mayúscula inicial oracional) · dominios santisima-trinidad.com.ar + .com · @holatrino (IG/TikTok) · tokens en `docs/brand/`.
 - **Antecedentes:** P17 generó 8 PRDs placeholder (FAIL, auditoría 2026-10-16); el de trino además quedó varado en `feat/a-08-account-auth-guard`. Este PRD lo regenera con contenido real y lo asienta en `main` junto con la unificación `docs/` (case-rename de `DOCS/`).
 
 ## 3. Scope explícito (tienda mínima)
@@ -28,8 +37,8 @@ Funnel mínimo (caso de uso núcleo):
 
 ```
 1. Descubrimiento (SEO cultura/glosario, redes @holatrino)
-   → 2. PLP con filtros combinables: tipo / tradición / intención
-   → 3. PDP: contexto de origen cultural, precio IVA incluido, envío por CP, reseñas
+   → 2. PLP con filtros combinables: categoría / subcategoría / marca / tono / acabado
+   → 3. PDP: tono y acabado, precio IVA incluido, envío por CP, reseñas
    → 4. Carrito sin cuenta → checkout invitado (envío → pago → confirmación)
    → 5. Pago MercadoPago → confirmación + email transaccional (Resend)
    → 6. Cuenta opcional al final: wishlist, historial de órdenes (UC-001..006)
@@ -37,7 +46,7 @@ Funnel mínimo (caso de uso núcleo):
 
 Lo que SÍ entra (verificado en `src/app/[locale]/` y planes citados):
 
-- **Catálogo con triple entrada** — tipo (10) / tradición (9) / intención (7) como **filtros combinables**, no tres menús. (`docs/overview.md` §Triple entrada, `docs/DOCS/marca.md` §3, enums Zod `tipo/tradicion/intencion`)
+- **Catálogo por atributos** — categoría (5) × subcategoría × marca × tono × acabado como filtros combinables. (`docs/estructura-catalogo-trino.md`, `supabase/migrations/0027_makeup_products.sql`). El runtime aún usa `tipo`/`tradicion`/`intencion`: deuda a migrar.
 - **Storefront** — Home + PLP (grilla vertical 3:4/4:5, color blocking rotando 4 acentos, badges mostaza) + PDP (galería, variantes, tabs, relacionados, calculadora de envío por CP). (`docs/DOCS/plan-tienda-ecommerce-2026.md` §2-§4, `docs/DOCS/marca.md` §2)
 - **Carrito + checkout invitado** — carrito persiste sin cuenta; pasos cortos con resumen sticky; validación en tiempo real; cuenta opcional al final. (plan tienda §5, `docs/ux-flows/use-cases.md`)
 - **Pagos** — MercadoPago (tarjeta / transferencia / MP) según UC-003; precios INT cents ARS; total recomputado server-side. (`README.md` §Env, `openspec/specs/payments`)
@@ -45,23 +54,23 @@ Lo que SÍ entra (verificado en `src/app/[locale]/` y planes citados):
 - **Cultura/blog + SEO** — contenido editorial y glosario como canal de adquisición del rubro; JSON-LD Product, sitemap, hreflang x4. (`docs/DOCS/marca.md` §5, rutas `cultura/`)
 - **Admin backoffice mínimo** — catálogo, órdenes, lanzamientos, calendario editorial. (rutas `admin/`, `docs/DOCS/plan-backoffice-ecommerce-2026.md`)
 - **i18n** — 4 locales (es-AR default, en, fr, pt-BR). (`docs/adr/0002-i18n-locales.md`)
-- **Legal AR bloqueante** — precio final IVA incluido, stock real, arrepentimiento 10 días, garantía 6 meses, botón Defensa del Consumidor, disclaimer no-médico en productos rituales. (`docs/legal/01-product-specs-requirements.md` P-01..P-11 MUST)
+- **Legal AR bloqueante** — precio final IVA incluido, stock real, arrepentimiento 10 días, garantía 6 meses, botón Defensa del Consumidor, precauciones de uso cosmético. (`docs/legal/01-product-specs-requirements.md` P-01..P-11 MUST)
 
 ## 4. NO-scope
 
 - App nativa; PWA completa (manifest sin icons, evaluar post-F1).
 - Multi-moneda real (solo ARS; multi-idioma sí). Checkout online distinto de MP (Stripe queda en lanes experimentales, no en el env baseline). 
 - Marketplace con vendedores terceros.
-- Suscripción "caja ritual mensual" (diferida hasta validar demanda, marca §6).
+- Suscripción "caja de belleza mensual" (diferida hasta validar demanda, pendiente de ratificar contra `docs/brand/`).
 - Modo oscuro, comparador de productos, mapa de calor, quiz "elegí tu camino", calendario lunar interactivo (fases posteriores, plan tienda §10/§12, marca §5).
-- Lecturas de tarot en vivo o servicios: trino vende productos físicos, no servicios.
+- Servicios de maquillaje presenciales: trino vende productos físicos, no servicios.
 - Backoffice 360 avanzado (LTV p95, batch SSE): ya secuenciado en `docs/ROADMAP-NEXT-SDD.md`, no parte del mínimo.
 
 ## 5. Restricciones
 
-- **Legales (AR)** — Ley 24.240 (arts. 4, 10 ter, 34), Ley 22.802, Res. SCI 244/2021: copy obligatoria textual de `docs/legal/01` §5; sin launch con algún MUST P-01..P-11 rojo. Consumibles rituales usados no retornables (higiene).
+- **Legales (AR)** — Ley 24.240 (arts. 4, 10 ter, 34), Ley 22.802, Res. SCI 244/2021: copy obligatoria textual de `docs/legal/01` §5; sin launch con algún MUST P-01..P-11 rojo. Productos cosméticos abiertos o usados no retornables por higiene (política por categoría pendiente de aprobación).
 - **Dinero** — `price_cents` INT (centavos ARS) + decimal.js; total recomputado server-side (409 price_mismatch); nunca float. (`docs/adr/0003-money-decimal.md`)
-- **Marca** — todo el copy UI en minúscula (`text-transform: lowercase` por componente); paleta Neo-Bauhaus como tokens únicos (terracota/verde/mostaza/celeste); sin jerarquizar tradiciones; moderación de reseñas sin debate religioso. (`docs/DOCS/marca.md` §1, §4, §7)
+- **Marca** — `trino.` siempre minúsculo con punto; el resto del copy con mayúscula inicial oracional (sin `text-transform: lowercase` global); tokens de `docs/brand/trino-tokens.css`; pares AA aprobados; respetar `prefers-reduced-motion`. (`docs/brand/README.md`, `docs/brand/manual-marca.md`)
 - **Técnicas** — stack fijo (Next 16/Supabase RLS deny-by-default/Upstash/Vercel); releases solo vía changesets; `pnpm test` fuerza `TEMP=E:/temp` en Windows (quirk vitest+playwright, no remover sin CI completa). (`README.md`)
 - **SDD** — PRs stacked-to-main ≤400 líneas, TDD estricto RED→GREEN→REFACTOR. (`docs/ROADMAP-NEXT-SDD.md`)
 

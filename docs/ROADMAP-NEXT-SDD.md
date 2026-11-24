@@ -181,7 +181,7 @@ Conversion features that directly move revenue — scoped as a **feature** chang
 - **related carousel afinado** — tuned related-products carousel (refine `ecom-engine` + `performance-scalability` image pipeline + virtualization)
 - **share viral** — social share / referral affordance (Web Share API + OG image, `next-intl` locale-aware)
 
-Spanish product terms kept per constitution brand context (`Trinidad` triple taxonomy, Neo-Bauhaus palette).
+Spanish product terms kept per current brand context (`docs/brand/`).
 
 ### Why parked
 

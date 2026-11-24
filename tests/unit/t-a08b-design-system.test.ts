@@ -4,15 +4,15 @@ import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
 
-describe('T-A08b design system Bauhaus', () => {
-  it('src/styles/tokens.css exists with --primary --pill --space', () => {
+describe('T-A08b design system', () => {
+  it('src/styles/tokens.css exists with canonical brand tokens', () => {
     const p = path.join(ROOT, 'src/styles/tokens.css');
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/--primary/);
-    expect(c).toMatch(/--pill.*9999|9999/);
+    expect(c).toMatch(/--pill:\s*999px/);
     expect(c).toMatch(/--space/);
-    expect(c).toMatch(/Geist|44px/);
+    expect(c).toMatch(/DM Sans|44px/);
     expect(c).toMatch(/prefers-reduced-motion/);
   });
 

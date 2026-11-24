@@ -10,14 +10,14 @@
 
 | # | Ruta (`/[locale]/...`) | Título ES-AR | Estado actual | Contenido mínimo (qué va adentro) | Fuente legal | Trace |
 |---|---|---|---|---|---|---|
-| **L-01** | `/terms` (alias `/terminos`) | Términos y Condiciones | ✅ existe `src/app/[locale]/(legal)/terms/page.tsx` | Precios IVA incluido, factura C/B, domicilio CUIT, jurisdicción CABA, oferta válida hasta stock, 10 días arrepentimiento, garantía 6m, esoteric disclaimer link | L.24240 art.4/10/34/11 + Res.244/21 | T-C07b |
+| **L-01** | `/terms` (alias `/terminos`) | Términos y Condiciones | ✅ existe `src/app/[locale]/(legal)/terms/page.tsx` | Precios IVA incluido, factura C/B, domicilio CUIT, jurisdicción CABA, oferta válida hasta stock, 10 días arrepentimiento, garantía 6m, link a precauciones de uso cosmético | L.24240 art.4/10/34/11 + Res.244/21 | T-C07b |
 | **L-02** | `/defensa-consumidor` | Defensa del Consumidor — Ley 24.240 | ✅ existe `defensa-consumidor/page.tsx` | Texto Ley 24.240 + link oficial https://www.argentina.gob.ar/produccion/defensadelconsumidor + **0800-666-1518** visible, domicilio proveedor, "información clara y trato digno" | Res.244/21 + L.24240 CABA voter o requiere visto por el est. y para ar. | T-C07b |
 | **L-03** | `/privacy` (alias `/privacidad`) | Privacidad / Políticas de Privacidad | ✅ existe `src/app/[locale]/privacy/page.tsx` | LOPD/Ley 25.326 base, consentimiento granular necesario/analítica/marketing, **vigencia consent 1 año**, derechos ARCO (acceso/rectificación/supresión), contacto privacidad@, `DELETE` + anonimización 365d, Data retention | Ley 25.326 + PRIV-01/02/03/04 | T-C05b |
-| **L-04** | `/cambios-devoluciones` | Cambios, Devoluciones & Arrepentimiento | ❌ crear | Plazo 10 días corridos (art.34), cómo ejercer (email/form + nº pedido), estado del producto (sin uso), excepciones por higiene (velas encendidas / inciensos abiertos / aceites abiertos NO retornables — marca.md §8.2), costo flete devolución a cargo de quién, RMA por categoría, NC vinculada | L.24240 art.34 + marca.md §8.2 | **Gap — prioridad ALTA** |
-| **L-05** | `/envios` | Política de Envíos | ❌ crear (existe shipping logic pero no página legal) | Cobertura nacional, plazos estimados, carriers (Andreani/Correo/OCA + DHL si intl flag), costo antes de pagar (ECOM-06), restricciones combustibles (velas/resinas — marca.md §6), responsabilidad transportista (L.24240 art.40), seguimiento con tracking | ECOM-06 + LOG-01/02/03 + L.24240 art.40 | Gap — **bloquea checkout** |
+| **L-04** | `/cambios-devoluciones` | Cambios, Devoluciones & Arrepentimiento | ❌ crear | Plazo 10 días corridos (art.34), cómo ejercer (email/form + nº pedido), estado del producto (sin uso), excepciones por higiene (cosméticos abiertos o usados NO retornables — política por categoría pendiente de aprobación), costo flete devolución a cargo de quién, RMA por categoría, NC vinculada | L.24240 art.34 + draft de política por categoría | **Gap — prioridad ALTA** |
+| **L-05** | `/envios` | Política de Envíos | ❌ crear (existe shipping logic pero no página legal) | Cobertura nacional, plazos estimados, carriers (Andreani/Correo/OCA + DHL si intl flag), costo antes de pagar (ECOM-06), restricciones por producto según composición/embalaje cuando aplique, responsabilidad transportista (L.24240 art.40), seguimiento con tracking | ECOM-06 + LOG-01/02/03 + L.24240 art.40 | Gap — **bloquea checkout** |
 | **L-06** | `/garantia` | Garantía Legal | ❌ crear (mencionada en terms pero sin página propia) | 6 meses nuevos / 3 meses usados (art.11), qué cubre (vicios fabricación), qué no (mal uso), cómo reclamar (email + certificado PDF), transporte a cargo del vendedor si aplica, cambio / devolución dinero / descuento a elección del consumidor (art.17) | L.24240 art.11-14, 17 | Gap |
 | **L-07** | `/cookies` (sub-ruta de privacy o standalone) | Política de Cookies | ⚠️ parcial (`cookie-consent.tsx` existe pero falta página) | Qué cookies usa el sitio (necesarias/sesión/carrito, analítica PostHog, marketing Resend), cómo dar/revocar consent, vigencia 1 año, link a `privacy` | PRIV-01 + ePrivacy | T-C05b |
-| **L-08** | `/legal-avisos` *(opcional, SEO + transparencia)* | Aviso Legal / Propiedad Intelectual | ⚠️ parcial (`DOCS/LEGAL.md` existe) | Titular del sitio, CUIT, domicilio, propiedad intelectual Bauhaus, disclaimer esotérico completo DOC-01 | DOC-01 | T-C07 |
+| **L-08** | `/legal-avisos` *(opcional, SEO + transparencia)* | Aviso Legal / Propiedad Intelectual | ⚠️ parcial (`DOCS/LEGAL.md` existe) | Titular del sitio, CUIT, domicilio, propiedad intelectual de marca, precauciones de uso cosmético DOC-01 | DOC-01 | T-C07 |
 
 > **Nota de ruteo:** Todas bajo `src/app/[locale]/(legal)/` route group `(legal)` para compartir layout angosto `max-w-3xl` (ya usado en terms/defensa). Cada una con `generateMetadata` dinámico (DEV-02) + `hreflang x4`.
 
@@ -35,11 +35,10 @@ Cómo ejercerlo: escribí a hola@trino.com.ar o usa el formulario /contacto con 
 El producto debe estar **sin uso, en empaque original, con etiquetas**. No se reintegra flete salvo falla.
 
 **Excepciones por higiene/salud (no retornables si abiertos/usados):**
-- Velas encendidas o con cera derretida
-- Inciensos, resinas y sahumerios abiertos
-- Aceites y esencias abiertos
-- Cristales desempacados sin film (opcional según política)
-Ver detalle por `tipo` en tabla abajo — esta excepción es válida bajo L.24240 por razones de higiene.
+- Cosméticos abiertos o usados (labiales, máscaras, esmaltes, cremas)
+- Productos con precinto de seguridad removido
+- Kits sellados cuyo empaque original fue abandonado (opcional según política)
+Ver detalle por categoría en la tabla abajo — la política concreta está pendiente de aprobación del owner.
 
 Costo de devolución: a cargo del comprador salvo producto fallado (art. 11 — a cargo del vendedor).
 Reintegro: dentro de 10 días via mismo medio de pago; si fue transferencia, a CBU alias informado.
@@ -57,8 +56,9 @@ Enviamos a todo el país vía Andreani / Correo Argentino / OCA (carrier Strateg
 Plazo estimado 3–7 días hábiles desde `processing`. Costo calculado antes de pagar en checkout
 según CP + peso/dims; si todos los carriers fallan se usa tarifa plana de `global_settings`.
 
-Restricciones: velas y resinas son material combustible — algunos couriers requieren embalaje
-especial; el sistema puede marcar productos con `shipping_restricted=true` y filtrar carrier.
+Restricciones: productos con composición o embalaje especial pueden requerir condiciones de
+envío particulares; el sistema puede marcar productos con `shipping_restricted=true` y filtrar
+carrier. La política concreta está pendiente de definir para el catálogo de belleza.
 
 Seguimiento: tracking provisto por carrier API (LOG-01) + formato A4 o ZPL térmico (LOG-02).
 Responsabilidad transporte: L.24240 art.40 solidaria.
@@ -106,7 +106,7 @@ Mensaje: "Sin tu consentimiento de marketing, no enviamos emails promocionales (
 Footer must contain (Res.244/21 + Res.424/2020):
 
 ```
-[ Logo trino. ]                        Ne Bauhaus pill footer
+[ trino. ]                             Footer con tokens canónicos
 
 Comprar          Ayuda               Legal
 Tienda           Envíos             Términos ─────── L-01

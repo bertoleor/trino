@@ -1,6 +1,7 @@
 # TRINO (trino.) — Plan de acción 2026-09-12 (UNVERIFIED)
 
-> Fuente: consolidado 2026-09-12 + `docs/reports/2026-09-12-trino-producto-marketing-estilo.md`.
+> Fuente: consolidado 2026-09-12. El reporte de producto original fue retirado el 2026-11-23
+> porque describía el posicionamiento esotérico cancelado.
 > Briefing/marca definidos, producto por construir. Nada aplicado sin OK del dueño. Regla de voz:
 > minúscula siempre, segunda persona.
 

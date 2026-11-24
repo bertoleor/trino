@@ -3,10 +3,15 @@
 > **Scope:** What MUST be shown per product under Argentina Ley 24.240 (Defensa del Consumidor) + Ley 22.802 (Lealtad Comercial) + Código Civil y Comercial (CCyC) art. 1100+ — mapped to PDP/PLP/checkout locations and Zod/DB validation.  
 > **Trace:** T-C07 / T-C07b / DOC-01 / PRIV-01 / ADMIN-03 / ECOM-04 / MONEY-01 · `DOCS/TERMS.md` · `DOCS/LEGAL.md` · `src/app/[locale]/(legal)/*`  
 > **Last verified:** 2026-09-03 against InfoLEG texact 24.240 + 22.802, RG 5721/ARCA WSFEv1, Res. SCI 244/2021 e-commerce info.
+>
+> **Aviso 2026-11-23:** el rubro pasó a ser **belleza** (maquillaje, skincare e insumos).
+> Las referencias a productos esotéricos, tradiciones, disclaimer esotérico y fuego quedaron
+> canceladas. Los requisitos legales de defensa del consumidor se conservan. El textado
+> cosmético definitivo requiere revisión del owner/asesoría legal antes de publicarse.
 
 ---
 
-## 1. Legal Basis — what applies to Trino (esoteric physical goods)
+## 1. Legal Basis — what applies to Trino (cosmetic physical goods)
 
 | Norma | Artículo clave | Obliga a |
 |---|---|---|
@@ -32,28 +37,28 @@
 | # | Requisito | Fundamento | PDP Location | PLP/Checkout Location | Validación Zod/DB | Fails if |
 |---|---|---|---|---|---|---|
 | **P-01** | **Precio final con IVA incluido** + leyenda `IVA incluido (21%)` o discriminado | L.24240 art.4 + Res.7/02 + Res.244/21 | Debajo del título, junto a `price_cents` + `sale_price_cents` | PLP card price + checkout line_items + mini-cart | `price_cents: z.number().int().min(0)`, `currency:'ARS'`, display `(cents/100).toLocale...` — server recomputes total from DB (ECOM-04, MONEY-01) | Precio sin IVA o float |
-| **P-02** | **Precio por unidad de medida** cuando producto es fraccionable (ej. sahumerio x10 sticks, resina por gramo) | L.22802 + Res.7/02 art.2 | Ficha: "AR$ X por unidad / por 100g" | — | `weight_grams`, `dimensions_cm` → computed `unit_price = price_cents / qty` validated server | Omisión en consumibles fraccionables |
+| **P-02** | **Precio por unidad de medida** cuando producto es fraccionable (ej. esmalte 10 ml, crema por 100 g) | L.22802 + Res.7/02 art.2 | Ficha: "AR$ X por unidad / por 100g" | — | `weight_grams`, `dimensions_cm` → computed `unit_price = price_cents / qty` validated server | Omisión en consumibles fraccionables |
 | **P-03** | **Stock / Disponibilidad** clara: "En stock (n unidades)", "Sin stock", "Últimas unidades" | L.24240 art.4 + 10 ter | Badge junto a stock + CTA disabled si 0 | PLP badge "sin stock" | `stock: z.number().int().min(0)`, OCC `updated_at` (CONCURRENCIA-01) | Mostrar "comprar" sin stock |
 | **P-04** | **Identificación del vendedor**: razón social, **CUIT**, **domicilio** (CABA), email legal | CCyC 1100 + L.24240 art.4 + Res.244/21 | Footer PDP + link `/terms` | Footer global + `/defensa-consumidor` | `global_settings` table CMS-01 (never hardcoded) | CUIT ausente |
 | **P-05** | **Derecho de arrepentimiento 10 días corridos** + cómo ejercerlo (botón/email) | L.24240 art.34 + Res.424/2020 botón arrepentimiento | Tab "Cambios y devoluciones" en PDP + checkout confirm | Thank-you page + email transaccional | Copy en `messages/{locale}/legal.json`, link `/cambios-devoluciones` | Sin mención de 10 días |
 | **P-06** | **Garantía legal 6 meses** (nuevos) / 3 meses usados — certificado | L.24240 art.11-14 | Tab "Garantía" + PDF certificado post-compra | Email con certificado | `orders` → audit + `docs/TERMS.md` | Garantía omitida o <6 meses |
-| **P-07** | **Descripción cierta y detallada**: qué es, dimensiones, peso, material, origen cultural | L.24240 art.4 + marca.md §4 (curaduría) | Bloque "Descripción" TipTap | — | Zod `name`, `excerpt` ≤155, `description` TipTap JSON, `sku` unique | Ficha vacía/genérica |
+| **P-07** | **Descripción cierta y detallada**: qué es, contenido, tono, acabado, peso y país de origen | L.24240 art.4 | Bloque "Descripción" TipTap | — | Zod `name`, `excerpt` ≤155, `description` TipTap JSON, `sku` unique | Ficha vacía/genérica |
 | **P-08** | **Fotos reales del producto** (no solo mock), mínimo 1, máx 8, presigned Storage | L.22802 veracidad | Galería PDP (WebP/AVIF + BlurHash) | PLP thumb | `images: z.array(z.string().url()).min(1).max(8)` + magic-bytes check SEC-04 | Imagen rota/placeholder en prod |
 | **P-09** | **Condiciones de entrega y plazo** (a todo el país, 3-7 días) + costo antes de pagar | L.24240 art.4 + Res.244/21 | PDP "Envíos" + shipping calculator `POST /api/shipping/rates` | Checkout step 2 (antes de pay) | `ECOM-06` carrier Strategy + fallback `global_settings.fixed_shipping_cents` | Costo oculto hasta pago |
 | **P-10** | **Medios de pago aceptados** discriminados | L.24240 art.4 | PDP icons + checkout | Checkout | `payment_provider` enum | Omisión |
-| **P-11** | **Disclaimer esotérico no-médico** para tarot/velas/cristales/rituales | DOC-01 + marca.md §4: "no reemplaza diagnóstico médico/psicológico" | PDP banner amarillo crema bajo descripción + checkout footnote | Email | `disclaimer.tsx` component + `DOCS/LEGAL.md` | Tarot sin disclaimer |
+| **P-11** | **Precauciones de uso cosmético**: uso externo, suspender ante irritación, sin propiedades terapéuticas | DOC-01 (`docs/LEGAL.md`) + L.24240 art.4/5 | PDP banner bajo descripción + checkout footnote | Email | `disclaimer.tsx` component + `docs/LEGAL.md` | Producto sin precauciones |
 
 ### SHOULD (highly recommended — reduce juicios y chargebacks)
 
 | # | Requisito | Fundamento | PDP Location | Validación |
 |---|---|---|---|---|
-| **S-01** | **Origen / tradición + contexto cultural** (ej. "sahumerio palo santo — Chamanismo andino — cosecha sustentable") | marca.md §4 respeto multi-creencia + L.22802 origen | Bloque "Origen y tradición" | `tradicion` facet + `body_tipTap_json` |
-| **S-02** | **Modo de uso / "cómo se usa" + seguridad fuego** (vela/incienso: no dejar encendido sin supervisión, mantener lejos de niños) | marca.md §5 + defensa consumidor seguridad producto L.24240 art.5-6 | Tab "Cómo se usa" + pictograma | Copy + icono |
+| **S-01** | **Composición / INCI + país de origen** | L.22802 origen + L.24240 art.4 | Bloque "Composición y origen" | `body_tipTap_json` + `tags` |
+| **S-02** | **Modo de uso + precauciones** (uso externo, evitar ojos/mucosas, suspender ante irritación) | defensa consumidor L.24240 art.5-6 | Tab "Cómo se usa" + pictograma | Copy + icono |
 | **S-03** | **Peso y dimensiones** para cálculo de flete | ECOM-06 | Ficha specs | `weight_grams`, `dimensions_cm` numeric |
 | **S-04** | **SKU visible para RMA** + EAN si aplica | Trazabilidad | PDP meta (pequeño) | `sku` unique |
-| **S-05** | **Advertencia alergias / composición** (cera soja, aceites esenciales) | L.24240 art.5 productos peligrosos | Bloque ingredientes | `tags` + text |
-| **S-06** | **Política por categoría**: consumibles usados (vela encendida, incienso abierto) no retornables por higiene | marca.md §8.2 + RMA per-category | Tab devoluciones con detalle por `tipo` | `global_settings.return_policy_by_tipo` |
-| **S-07** | **Sellos / certificaciones**: origen ético piedras si existe, sino no prometer | marca.md §8.3 | Badge "origen ético" | boolean + proof doc |
+| **S-05** | **Alérgenos / INCI** según envase | L.24240 art.5 | Bloque ingredientes | `tags` + text |
+| **S-06** | **Política por categoría**: cosméticos abiertos o usados no retornables por higiene | pendiente de aprobación del owner + RMA per-category | Tab devoluciones | `global_settings.return_policy_by_category` |
+| **S-07** | **Sellos / certificaciones** (vegano, cruelty-free): solo si hay respaldo documental | L.22802 veracidad | Badge correspondiente | boolean + proof doc |
 | **S-08** | **SEO: JSON-LD Product + AggregateRating + Review** + hreflang x4 | DEV-02 | `<script type="application/ld+json">` en PDP | `src/lib/seo/json-ld.ts` |
 | **S-09** | **Consentimiento granular** para personalización | PRIV-01 | Consent banner | `cookie-consent.tsx` |
 
@@ -63,23 +68,23 @@
 
 ```
 Hero (galería WebP/AVIF + BlurHash, 44px thumb)     ← P-08
-  nombre (lowercase, font-chunky)                    ← P-07
+  nombre (sentence case, font-display)               ← P-07
   precio IVA incluido + tachado oferta + %off calc   ← P-01 (MONEY-01)
   precio por unidad si fraccionable                  ← P-02
   stock badge + "últimas unidades" (<5)             ← P-03
-  [agregar al carrito.] pill terracota sticky bottom ← UX-01 44px
+  [Agregar al carrito] control sticky 44px           ← UX-01 (tokens en docs/brand/)
   medios de pago icons                               ← P-10
 
 Tabs (lazy load, no fetch hasta click — PERF-04):
   Descripción (TipTap)                               ← P-07
-  Cómo se usa / Seguridad fuego                      ← S-02
-  Origen y tradición                                 ← S-01
+  Cómo se usa / Precauciones                         ← S-02
+  Composición y origen                               ← S-01
   Especificaciones (peso/dims/SKU)                  ← S-03/04
   Envíos (calculator + plazos)                       ← P-09
   Cambios y devoluciones (10 días)                   ← P-05 + S-06
   Garantía (6 meses + certificado)                   ← P-06
 
-Disclaimer esotérico fijo                            ← P-11 (DOC-01)
+Precauciones de uso cosmético fijas                  ← P-11 (DOC-01)
 Vendedor (CUIT/domicilio) link /terms               ← P-04
 JSON-LD Product + Review                             ← S-08
 Related products carousel (cross-sell)               ← facets
@@ -125,16 +130,16 @@ Server price integrity (ECOM-04): checkout **recomputes** total from `products.p
 **Precio:** `AR$ 12.490,00 — IVA incluido (21%)`  (formateado con `Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS'})`)
 
 **Arrepentimiento (art.34):**
-> Tenés 10 días corridos desde que recibís el producto para arrepentirte (Ley 24.240 art. 34). Escribí a hola@trino.com.ar con tu nº de pedido. El producto debe estar sin uso y en su empaque original. Consumibles encendidos/abiertos (velas, inciensos) no admiten devolución por higiene — ver /cambios-devoluciones.
+> Tenés 10 días corridos desde que recibís el producto para arrepentirte (Ley 24.240 art. 34). Escribí a hola@trino.com.ar con tu nº de pedido. El producto debe estar sin uso y en su empaque original. Los cosméticos abiertos o usados no admiten devolución por higiene — ver /cambios-devoluciones.
 
 **Garantía (art.11):**
 > Garantía legal 6 meses por defectos de fabricación (Ley 24.240 art. 11). No cubre mal uso, rotura por caída o desgaste normal. Ver /garantia.
 
-**No-médico (DOC-01):**
-> Contenido esotérico con fines de entretenimiento y bienestar espiritual. No reemplaza consejo médico, psicológico, legal o financiero profesional.
+**Precauciones de uso cosmético (DOC-01):**
+> Uso externo. No ingerir. Evitar contacto con ojos y mucosas salvo indicación del envase. Suspender ante irritación o reacción adversa. Los productos no sustituyen diagnóstico ni tratamiento médico, psicológico, legal o financiero profesional.
 
-**Seguridad fuego (velas/inciensos):**
-> Nunca dejes velas o inciensos encendidos sin supervisión. Mantener alejado de niños, mascotas y materiales inflamables. Usar sobre superficie resistente al calor.
+**Conservación:**
+> Conservar según las indicaciones del envase y mantener fuera del alcance de niños.
 
 **Vendedor (CCyC 1100):**
 > Vendedor: Santísima Trinidad — CUIT 30-XXXXXXX-X — Domicilio: CABA, Argentina — legal@santisimatrinidad.com.ar — Defensa del Consumidor 0800-666-1518 — https://www.argentina.gob.ar/produccion/defensadelconsumidor
@@ -149,8 +154,8 @@ Server price integrity (ECOM-04): checkout **recomputes** total from `products.p
 - [ ] CUIT + domicilio visibles (footer + PDP + /terms)
 - [ ] Tab devoluciones menciona 10 días + link `/cambios-devoluciones`
 - [ ] Tab garantía menciona 6 meses + flujo RMA per-tipo
-- [ ] Disclaimer esotérico bajo descripción en todos los PDP con `tradicion!=general`
-- [ ] Advertencia fuego en `tipo ∈ {velas, inciensos}` 
+- [ ] Precauciones de uso cosmético visibles en todos los PDP
+- [ ] Composición/INCI y país de origen presentes en la ficha
 - [ ] Imágenes presigned URL (magic-bytes), WebP/AVIF + BlurHash
 - [ ] Envío cotizado antes de pago + fallback fijo
 - [ ] JSON-LD Product validado en https://search.google.com/test/rich-results

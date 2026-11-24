@@ -1,0 +1,33 @@
+:root {
+  --ink: #17141B;
+  --cream: #FFF8E8;
+  --pink: #FF75AE;
+  --orange: #FF5A36;
+  --lilac: #A98AF5;
+  --aqua: #21BFA6;
+  --lemon: #FFD84A;
+  --cobalt: #3155F5;
+  --text-primary: #17141B;
+  --text-inverse: #FFF8E8;
+  --surface-base: #FFF8E8;
+  --surface-strong: #17141B;
+  --surface-brand: #FF75AE;
+  --surface-info: #3155F5;
+  --surface-success: #21BFA6;
+  --surface-warning: #FFD84A;
+  --surface-error: #FF5A36;
+  --action-primary: #17141B;
+  --action-primary-text: #FFF8E8;
+  --focus-ring: #3155F5;
+  --font-display: "Fredoka", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --motion-feedback: 160ms;
+  --motion-enter: 280ms;
+  --motion-scene: 420ms;
+  --ease-brand: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

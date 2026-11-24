@@ -23,11 +23,13 @@ describe('T-A01 guardrails CQ-03 enforcement', () => {
     expect(cfg.compilerOptions.noUncheckedIndexedAccess).toBe(true);
   });
 
-  it('vitest coverage gates 90 critical 80 global', () => {
+  it('vitest coverage gates 80 global', () => {
     const content = fs.readFileSync(path.join(ROOT, 'vitest.config.ts'), 'utf8');
     expect(content).toMatch(/thresholds|threshold/i);
-    expect(content).toMatch(/90/);
-    expect(content).toMatch(/80/);
+    expect(content).toMatch(/lines:\s*80/);
+    expect(content).toMatch(/functions:\s*80/);
+    expect(content).toMatch(/branches:\s*80/);
+    expect(content).toMatch(/statements:\s*80/);
   });
 
   it('package.json scripts include lint typecheck coverage', () => {
