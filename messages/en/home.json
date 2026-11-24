@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "trino. beauty | Accessible cosmetics",
+    "description": "Selected multi-brand trends, stock available in Palermo Soho and same-day dispatch in CABA."
+  },
+  "hero": {
+    "eyebrow": "New drops · stock available in Palermo Soho",
+    "titleLine1": "Beauty that",
+    "titleLine2": "makes noise.",
+    "body": "Accessible cosmetics and multi-brand trends sourced from wholesalers. Pick what you like and get it without needless waiting.",
+    "primaryCta": "Pick your drop",
+    "secondaryCta": "View catalog",
+    "badge": "Multi-brand selection"
+  },
+  "brands": {
+    "eyebrow": "Multi-brand curation",
+    "title": "Brands you already know",
+    "body": "We bring the brands you care about together in one place, with stock available in Palermo Soho.",
+    "available": "See in stock"
+  },
+  "featured": {
+    "eyebrow": "Featured drops",
+    "title": "Picked for you",
+    "emptyTitle": "No drops published yet",
+    "emptyBody": "Check back soon: we are loading the catalog."
+  },
+  "guide": {
+    "eyebrow": "Shop with confidence",
+    "title": "Find your favorite",
+    "body": "Browse by category, compare finishes and choose the product that fits your style. No long forms and no waiting.",
+    "steps": [
+      "Browse by category",
+      "Compare finishes and shades",
+      "Pick your favorite"
+    ],
+    "cta": "Explore catalog"
+  },
+  "community": {
+    "eyebrow": "#TRINOGLOW",
+    "title": "Your look, unfiltered",
+    "body": "Show how your picks look on you. The best reference is the community.",
+    "cta": "See drops"
+  },
+  "club": {
+    "eyebrow": "Updates",
+    "title": "Hear about new drops",
+    "body": "We add products to the selection every week. See what is available now.",
+    "cta": "View catalog"
+  }
+}

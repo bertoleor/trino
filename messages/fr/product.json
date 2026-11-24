@@ -1,0 +1,50 @@
+{
+  "breadcrumb": {
+    "label": "Fil d'Ariane",
+    "home": "Accueil",
+    "shop": "Boutique"
+  },
+  "badges": {
+    "inStock": "En stock",
+    "selected": "Sélection multimarque"
+  },
+  "gallery": {
+    "mainAlt": "Image de {name}",
+    "zoom": "Agrandir l'image",
+    "empty": "Image indisponible",
+    "emptyHint": "Ce produit n'a pas encore de photo."
+  },
+  "purchase": {
+    "priceLabel": "Prix",
+    "installments": "Jusqu'à 3 versements sans intérêts",
+    "addToBag": "Ajouter au panier",
+    "save": "Ajouter aux favoris",
+    "shippingNote": "Expédition le jour même à CABA si vous commandez avant 16 h 30."
+  },
+  "shade": {
+    "title": "Teinte",
+    "none": "Ce produit n'a pas de teinte renseignée."
+  },
+  "details": {
+    "title": "Détail du produit",
+    "whatTitle": "Ce que c'est et pour qui",
+    "howTitle": "Mode d'emploi",
+    "ingredientsTitle": "Ingrédients et précautions",
+    "shippingTitle": "Livraison et retrait",
+    "what": "Un produit de la sélection multimarque trino. beauty, acheté à des grossistes et disponible à Palermo Soho.",
+    "how": "Lisez toujours l'emballage et suivez les indications du fabricant avant utilisation.",
+    "ingredients": "Usage externe. Conservez le contenant fermé, à l'écart de la chaleur et de la lumière directe.",
+    "shipping": "Expédition le jour même à CABA si vous commandez avant 16 h 30. Vous pouvez aussi retirer à Palermo Soho."
+  },
+  "related": {
+    "eyebrow": "Choix compatibles",
+    "title": "Complétez votre routine",
+    "cta": "Voir tout le catalogue",
+    "empty": "Aucun produit associé pour le moment."
+  },
+  "community": {
+    "eyebrow": "#TRINOGLOW",
+    "title": "Votre look, sans filtre",
+    "body": "Essayez, comparez et montrez-le. Votre expérience est le meilleur guide."
+  }
+}

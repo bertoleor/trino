@@ -1,0 +1,46 @@
+{
+  "announcement": "Expédition le jour même à CABA (avant 16 h 30) · Retrait à Palermo Soho · Jusqu'à 3 versements sans intérêts",
+  "nav": {
+    "label": "Navigation principale",
+    "drops": "Nouveautés",
+    "catalog": "Catalogue",
+    "lips": "Lèvres",
+    "face": "Visage"
+  },
+  "actions": {
+    "search": "Rechercher des produits",
+    "wishlist": "Voir les favoris",
+    "cart": "Voir le panier",
+    "shop": "Acheter"
+  },
+  "trust": {
+    "shipping": {
+      "label": "Expédition le jour même à CABA",
+      "detail": "Commandez avant 16 h 30."
+    },
+    "pickup": {
+      "label": "Retrait à Palermo Soho",
+      "detail": "Organisez votre retrait sans frais de livraison."
+    },
+    "packaging": {
+      "label": "Emballage sûr",
+      "detail": "Chaque commande est préparée avec soin."
+    },
+    "installments": {
+      "label": "Jusqu'à 3 versements sans intérêts",
+      "detail": "Payez de la façon qui vous convient."
+    }
+  },
+  "footer": {
+    "about": "Cosmétiques accessibles et tendances multimarques achetées à des grossistes. Stock disponible à Palermo Soho.",
+    "aboutShort": "Sélection multimarque",
+    "catalogTitle": "Catalogue",
+    "helpTitle": "Aide",
+    "servicesTitle": "Pourquoi trino.",
+    "terms": "Conditions générales",
+    "privacy": "Avis de confidentialité",
+    "shipping": "Livraison",
+    "returns": "Retours",
+    "copyright": "© 2026 trino. beauty. Tous droits réservés."
+  }
+}

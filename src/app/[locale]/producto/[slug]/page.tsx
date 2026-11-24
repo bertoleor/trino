@@ -1,10 +1,22 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
-import { formatArs } from '@/lib/money/fx';
-import Image from 'next/image';
+import {
+  ProductBreadcrumb,
+  ProductGallery,
+  ProductPurchase,
+} from '@/components/storefront/product-sections';
+import {
+  ProductCommunity,
+  ProductDetails,
+  RelatedProducts,
+} from '@/components/storefront/product-panels';
 import type { Metadata } from 'next';
+import { StitchShell } from '@/components/layout/stitch-shell';
+import { StorefrontFooter } from '@/components/storefront/storefront-footer';
+import { StorefrontHeader } from '@/components/storefront/storefront-header';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { priceInCents } from '@/components/storefront/storefront-product';
 import { productJsonLd } from '@/lib/seo/json-ld';
 import { routing } from '@/i18n/routing';
 
@@ -51,52 +63,52 @@ export default async function ProductoPage({
   const supabase = await createClient();
   const { data: product } = await supabase
     .from('products')
-    .select('id, name, description, price, price_cents, image_url, slug')
+    .select(
+      'id, name, description, price, price_cents, sale_price_cents, image_url, slug, shade, brand, category'
+    )
     .eq('slug', slug)
     .single();
   if (!product) notFound();
+
   const nonce = nonceProp((await headers()).get(NONCE_HEADER));
-  const priceCents =
-    (product as { price_cents?: number }).price_cents ?? Math.round(Number(product.price) * 100);
   const ld = productJsonLd({
     name: product.name,
     slug: product.slug,
-    priceCents,
+    priceCents: priceInCents(product),
     currency: 'ARS',
     image: product.image_url ?? 'https://trino.com.ar/og.jpg',
     description: product.description ?? undefined,
   });
+
+  const { data: related } = await supabase
+    .from('products')
+    .select('id, name, slug, price, price_cents, sale_price_cents, image_url')
+    .is('deleted_at', null)
+    .eq('is_active', true)
+    .neq('id', product.id)
+    .order('created_at', { ascending: false })
+    .limit(4);
+
   return (
-    <main className="mx-auto w-full max-w-7xl px-6 py-12">
+    <StitchShell
+      shellType="web_standard"
+      header={<StorefrontHeader locale={locale} active="product" />}
+      footer={<StorefrontFooter locale={locale} />}
+      contentClassName="flex flex-col gap-16 px-6 py-10"
+    >
       <script
         type="application/ld+json"
         nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
       />
-      <div className="grid gap-8 lg:grid-cols-2">
-        {product.image_url ? (
-          <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-zinc-100">
-            <Image
-              src={product.image_url}
-              alt={product.name}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-              className="object-cover"
-            />
-          </div>
-        ) : (
-          <div className="aspect-square rounded-xl bg-zinc-100" />
-        )}
-        <div>
-          <h1 className="text-3xl font-bold lowercase">{product.name}</h1>
-          <p className="mt-4 text-zinc-600">{product.description}</p>
-          <p className="mt-6 text-2xl font-semibold">{formatArs(priceCents, locale)}</p>
-          <button className="mt-8 min-h-[44px] w-full rounded-full bg-zinc-900 px-6 py-3 text-white sm:w-auto">
-            agregar al carrito.
-          </button>
-        </div>
-      </div>
-    </main>
+      <ProductBreadcrumb locale={locale} name={product.name} />
+      <section className="col-span-full grid gap-10 lg:grid-cols-2">
+        <ProductGallery locale={locale} product={product} />
+        <ProductPurchase locale={locale} product={product} priceCents={priceInCents(product)} />
+      </section>
+      <ProductDetails locale={locale} />
+      <RelatedProducts locale={locale} products={related ?? []} />
+      <ProductCommunity locale={locale} />
+    </StitchShell>
   );
 }

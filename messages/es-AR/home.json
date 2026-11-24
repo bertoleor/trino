@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "trino. beauty | Cosmética accesible",
+    "description": "Tendencias multimarca seleccionadas, stock disponible en Palermo Soho y despacho en el día en CABA."
+  },
+  "hero": {
+    "eyebrow": "Nuevos drops · stock disponible en Palermo Soho",
+    "titleLine1": "Belleza que",
+    "titleLine2": "hace ruido.",
+    "body": "Cosmética accesible y tendencias multimarca compradas a mayoristas. Elegí lo que te gusta y recibilo sin esperas innecesarias.",
+    "primaryCta": "Elegí tu drop",
+    "secondaryCta": "Ver catálogo",
+    "badge": "Selección multimarca"
+  },
+  "brands": {
+    "eyebrow": "Curaduría multimarca",
+    "title": "Marcas que ya conocés",
+    "body": "Reunimos las marcas que más te interesan en un solo lugar, con stock disponible en Palermo Soho.",
+    "available": "Ver en stock"
+  },
+  "featured": {
+    "eyebrow": "Drops destacados",
+    "title": "Elegidos para vos",
+    "emptyTitle": "Todavía no hay drops publicados",
+    "emptyBody": "Volvé pronto: estamos cargando el catálogo."
+  },
+  "guide": {
+    "eyebrow": "Sin errores al comprar",
+    "title": "Encontrá tu favorito",
+    "body": "Explorá por categoría, compará acabados y elegí el producto que va con tu estilo. Sin formularios largos ni esperas.",
+    "steps": [
+      "Explorá por categoría",
+      "Compará acabados y tonos",
+      "Elegí tu favorito"
+    ],
+    "cta": "Explorar catálogo"
+  },
+  "community": {
+    "eyebrow": "#TRINOGLOW",
+    "title": "Tu look, sin filtros",
+    "body": "Mostrá cómo te queda lo que elegiste. La mejor referencia es la de la comunidad.",
+    "cta": "Ver drops"
+  },
+  "club": {
+    "eyebrow": "Novedades",
+    "title": "Enterate de los nuevos drops",
+    "body": "Cada semana sumamos productos a la selección. Mirá qué hay disponible ahora.",
+    "cta": "Ver catálogo"
+  }
+}

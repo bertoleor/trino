@@ -1,0 +1,50 @@
+{
+  "breadcrumb": {
+    "label": "Ruta de navegación",
+    "home": "Inicio",
+    "shop": "Tienda"
+  },
+  "badges": {
+    "inStock": "En stock",
+    "selected": "Selección multimarca"
+  },
+  "gallery": {
+    "mainAlt": "Imagen de {name}",
+    "zoom": "Ampliar imagen",
+    "empty": "Imagen no disponible",
+    "emptyHint": "Este producto todavía no tiene foto cargada."
+  },
+  "purchase": {
+    "priceLabel": "Precio",
+    "installments": "Hasta 3 cuotas sin interés",
+    "addToBag": "Sumar a la bolsa",
+    "save": "Guardar en favoritos",
+    "shippingNote": "Despacho en el día en CABA comprando antes de las 16:30 hs."
+  },
+  "shade": {
+    "title": "Tono",
+    "none": "Este producto no tiene un tono cargado."
+  },
+  "details": {
+    "title": "Detalle del producto",
+    "whatTitle": "Qué es y para quién es",
+    "howTitle": "Modo de uso",
+    "ingredientsTitle": "Ingredientes y precauciones",
+    "shippingTitle": "Envíos y retiro",
+    "what": "Un producto de la selección multimarca de trino. beauty, comprado a mayoristas y disponible en Palermo Soho.",
+    "how": "Leé siempre el envase y seguí las indicaciones del fabricante antes de usarlo.",
+    "ingredients": "Uso externo. Conservá el envase cerrado y alejado del calor y de la luz directa.",
+    "shipping": "Despacho en el día en CABA comprando antes de las 16:30 hs. También podés retirar en Palermo Soho."
+  },
+  "related": {
+    "eyebrow": "Curaduría compatible",
+    "title": "Completá tu rutina",
+    "cta": "Ver todo el catálogo",
+    "empty": "No hay productos relacionados por ahora."
+  },
+  "community": {
+    "eyebrow": "#TRINOGLOW",
+    "title": "Tu look, sin filtros",
+    "body": "Probá, compará y mostralo. Tu experiencia es la mejor guía."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "announcement": "Despacho en el día en CABA (corte 16:30) · Retiro en Palermo Soho · Hasta 3 cuotas sin interés",
+  "nav": {
+    "label": "Navegación principal",
+    "drops": "Drops",
+    "catalog": "Catálogo",
+    "lips": "Labios",
+    "face": "Rostro"
+  },
+  "actions": {
+    "search": "Buscar productos",
+    "wishlist": "Ver favoritos",
+    "cart": "Ver bolsa",
+    "shop": "Comprar"
+  },
+  "trust": {
+    "shipping": {
+      "label": "Despacho en el día en CABA",
+      "detail": "Comprando antes de las 16:30 hs."
+    },
+    "pickup": {
+      "label": "Retiro en Palermo Soho",
+      "detail": "Coordiná tu retiro sin costo de envío."
+    },
+    "packaging": {
+      "label": "Empaque seguro",
+      "detail": "Cada pedido se prepara con cuidado."
+    },
+    "installments": {
+      "label": "Hasta 3 cuotas sin interés",
+      "detail": "Pagá como te resulte más cómodo."
+    }
+  },
+  "footer": {
+    "about": "Cosmética accesible y tendencias multimarca compradas a mayoristas. Stock disponible en Palermo Soho.",
+    "aboutShort": "Selección multimarca",
+    "catalogTitle": "Catálogo",
+    "helpTitle": "Ayuda",
+    "servicesTitle": "Por qué trino.",
+    "terms": "Términos y condiciones",
+    "privacy": "Aviso de privacidad",
+    "shipping": "Envíos",
+    "returns": "Cambios y devoluciones",
+    "copyright": "© 2026 trino. beauty. Todos los derechos reservados."
+  }
+}

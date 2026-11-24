@@ -1,0 +1,46 @@
+{
+  "announcement": "Same-day dispatch in CABA (cut-off 16:30) · Pickup in Palermo Soho · Up to 3 interest-free installments",
+  "nav": {
+    "label": "Main navigation",
+    "drops": "Drops",
+    "catalog": "Catalog",
+    "lips": "Lips",
+    "face": "Face"
+  },
+  "actions": {
+    "search": "Search products",
+    "wishlist": "View wishlist",
+    "cart": "View bag",
+    "shop": "Shop"
+  },
+  "trust": {
+    "shipping": {
+      "label": "Same-day dispatch in CABA",
+      "detail": "Order before 16:30."
+    },
+    "pickup": {
+      "label": "Pickup in Palermo Soho",
+      "detail": "Arrange your pickup with no shipping fee."
+    },
+    "packaging": {
+      "label": "Secure packaging",
+      "detail": "Every order is prepared with care."
+    },
+    "installments": {
+      "label": "Up to 3 interest-free installments",
+      "detail": "Pay in the way that suits you best."
+    }
+  },
+  "footer": {
+    "about": "Accessible cosmetics and multi-brand trends sourced from wholesalers. Stock available in Palermo Soho.",
+    "aboutShort": "Multi-brand selection",
+    "catalogTitle": "Catalog",
+    "helpTitle": "Help",
+    "servicesTitle": "Why trino.",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy notice",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "copyright": "© 2026 trino. beauty. All rights reserved."
+  }
+}
