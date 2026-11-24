@@ -67,7 +67,7 @@ export function buildOrderEmailHtml(status: OrderEmailStatus, input: OrderEmailI
   const items =
     input.itemCount !== undefined ? `<p>Items: <strong>${input.itemCount}</strong></p>` : '';
   return (
-    `<!doctype html><html lang="en"><body style="font-family: sans-serif; color: #1a1a1a;">` +
+    `<!doctype html><html lang="en"><body style="font-family: sans-serif; color: #17141B;">` +
     `<h1>${copy.heading}</h1>` +
     `<p>Order <strong>${input.orderId}</strong></p>` +
     `<p>${copy.body}</p>` +

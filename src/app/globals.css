@@ -3,21 +3,29 @@
 @import '../styles/responsive.css';
 @import '../styles/motion.css';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--surface-base);
+  --color-foreground: var(--text-primary);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-pink: var(--pink);
+  --color-orange: var(--orange);
+  --color-lilac: var(--lilac);
+  --color-aqua: var(--aqua);
+  --color-lemon: var(--lemon);
+  --color-cobalt: var(--cobalt);
+  --font-sans: var(--font-body);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+  --shadow-pop-sm: var(--shadow-pop-sm);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-pop-lg: var(--shadow-pop-lg);
+  --shadow-pop-xl: var(--shadow-pop-xl);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
 }

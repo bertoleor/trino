@@ -1,18 +1,20 @@
 import './globals.css';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { DM_Sans, Fredoka } from 'next/font/google';
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import type { Metadata } from 'next';
 import { Providers } from './providers';
 import { headers } from 'next/headers';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const fredoka = Fredoka({
+  variable: '--font-fredoka',
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const dmSans = DM_Sans({
+  variable: '--font-dm-sans',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const nonce = nonceProp((await headers()).get(NONCE_HEADER));
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="es" className={`${fredoka.variable} ${dmSans.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <Providers nonce={nonce}>{children}</Providers>
       </body>

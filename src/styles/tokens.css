@@ -30,8 +30,17 @@
   --focus-ring: #3155f5;
 
   /* Tipografía y movimiento */
-  --font-display: 'Fredoka', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: var(--font-fredoka, 'Fredoka'), sans-serif;
+  --font-body: var(--font-dm-sans, 'DM Sans'), sans-serif;
+
+  /* Neo-Pop: geometría y sombras duras (docs/brand/trino-tokens.json) */
+  --border-width: 2px;
+  --radius-control: 999px;
+  --radius-card: 0px;
+  --shadow-pop-sm: 2px 2px 0 var(--ink);
+  --shadow-pop: 3px 3px 0 var(--ink);
+  --shadow-pop-lg: 6px 6px 0 var(--ink);
+  --shadow-pop-xl: 10px 10px 0 var(--ink);
   --motion-feedback: 160ms;
   --motion-enter: 280ms;
   --motion-scene: 420ms;
@@ -64,7 +73,7 @@ html {
 body {
   color: var(--text-primary);
   background: var(--surface-base);
-  font-family: 'DM Sans', var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 button,
