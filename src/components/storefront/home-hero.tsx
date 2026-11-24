@@ -14,8 +14,9 @@ export async function HomeHero({ locale }: { locale: string }) {
         </p>
         <h1 className="font-display mt-6 text-5xl leading-[0.95] font-semibold sm:text-6xl lg:text-7xl">
           {t('hero.titleLine1')}
+          {' '}
           <br />
-          <span className="text-pink">{t('hero.titleLine2')}</span>
+          <span className="text-cobalt">{t('hero.titleLine2')}</span>
         </h1>
         <p className="font-body mt-6 max-w-xl text-base">{t('hero.body')}</p>
         <div className="mt-8 flex flex-wrap gap-4">

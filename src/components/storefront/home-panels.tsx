@@ -15,7 +15,7 @@ export async function HomeGuide({ locale }: { locale: string }) {
       <ol className="mt-10 grid gap-4 md:grid-cols-3">
         {steps.map((step, index) => (
           <li key={step} className="border-ink bg-cream text-ink shadow-pop p-6">
-            <span className="font-display text-pink text-3xl font-semibold">
+            <span className="font-display text-cobalt text-3xl font-semibold">
               {String(index + 1).padStart(2, '0')}
             </span>
             <p className="font-display mt-3 text-xl font-semibold">{step}</p>
