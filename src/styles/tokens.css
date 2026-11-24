@@ -65,24 +65,12 @@
 }
 
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--ink) var(--cream);
+  scrollbar-width: none;
 }
 
+/* Oculta el scrollbar por completo para mantener estética idéntica a los HTMLs Stitch */
 ::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
-}
-::-webkit-scrollbar-track {
-  background: var(--cream);
-  border-left: 3px solid var(--ink);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--ink);
-  border: 3px solid var(--cream);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--orange);
+  display: none;
 }
 html {
   font-size: 16px;
