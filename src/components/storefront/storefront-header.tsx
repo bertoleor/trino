@@ -56,7 +56,7 @@ export async function StorefrontHeader({
     .filter(Boolean);
 
   return (
-    <>
+    <div className="w-full">
       <div className="border-ink bg-orange overflow-hidden border-b-[3px] py-2 select-none">
         <div className="neopop-marquee flex w-max items-center gap-10 whitespace-nowrap">
           {[...tickerItems, ...tickerItems].map((item, index) => (
@@ -121,6 +121,6 @@ export async function StorefrontHeader({
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

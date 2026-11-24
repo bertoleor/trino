@@ -25,7 +25,7 @@ export async function HomeHero({ locale }: { locale: string }) {
           {' '}
           <br />
           <span className="text-cobalt">{t('hero.titleLine2')}</span>
-          <span className="bg-pink text-ink border-ink shadow-pop mt-3 inline-block -rotate-1 border-[3px] px-3 py-1 text-2xl font-semibold sm:text-3xl">
+          <span className="bg-pink text-ink border-ink shadow-pop-lg mt-6 block w-fit -rotate-1 border-4 px-6 py-3 text-4xl leading-none font-semibold sm:text-5xl xl:text-6xl">
             {t('hero.highlight')}
           </span>
         </h1>
