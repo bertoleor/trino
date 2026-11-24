@@ -1,48 +1,48 @@
-# Local tooling and VCS
-.git/
-.github/
-.husky/
-.vscode/
-.agent/
-.atl/
-.changeset/
-.codegraph/
-.pnpm-store-local/
-.rdd/
-.vite-cache/
-.worktrees/
-.eslintcache
-tsconfig.tsbuildinfo
+# Local tooling and VCS (root-anchored: unanchored dirs match at any depth)
+/.git/
+/.github/
+/.husky/
+/.vscode/
+/.agent/
+/.atl/
+/.changeset/
+/.codegraph/
+/.pnpm-store-local/
+/.rdd/
+/.vite-cache/
+/.worktrees/
+/.eslintcache
+/tsconfig.tsbuildinfo
 
 # Environment files (Vercel injects env vars at build time)
-.env
-.env.*
-!.env.example
+/.env
+/.env.*
+!/.env.example
 
 # Test and audit artifacts
-tests/
-test-results/
-playwright-report/
-coverage/
-jscpd-report/
-playwright.config.ts
-vitest.config.ts
-lighthouserc.json
+/tests/
+/test-results/
+/playwright-report/
+/coverage/
+/jscpd-report/
+/playwright.config.ts
+/vitest.config.ts
+/lighthouserc.json
 
 # Docs, specs and authoring sources (not needed at runtime)
-docs/
-odd/
-sdd/
-openspec/
-design-system/
-scripts/
-supabase/
-plan-accion-*.md
-AGENTS.md
+/docs/
+/odd/
+/sdd/
+/openspec/
+/design-system/
+/scripts/
+/supabase/
+/plan-accion-*.md
+/AGENTS.md
 
 # Local scratch files
-body.txt
-headers.txt
-test.cjs
-validate.cjs
-validate.lf
+/body.txt
+/headers.txt
+/test.cjs
+/validate.cjs
+/validate.lf
