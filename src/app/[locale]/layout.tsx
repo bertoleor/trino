@@ -1,5 +1,5 @@
 import '../globals.css';
-import { DM_Sans, Fredoka } from 'next/font/google';
+import { Fredoka, Plus_Jakarta_Sans, Rubik } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -10,8 +10,13 @@ const fredoka = Fredoka({
   subsets: ['latin'],
   display: 'swap',
 });
-const dmSans = DM_Sans({
-  variable: '--font-dm-sans',
+const jakarta = Plus_Jakarta_Sans({
+  variable: '--font-plus-jakarta-sans',
+  subsets: ['latin'],
+  display: 'swap',
+});
+const rubik = Rubik({
+  variable: '--font-rubik',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -31,7 +36,10 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) notFound();
   const messages = await getMessages();
   return (
-    <html lang={locale} className={`${fredoka.variable} ${dmSans.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      className={`${fredoka.variable} ${jakarta.variable} ${rubik.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>

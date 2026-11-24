@@ -63,7 +63,7 @@ export async function StorefrontHeader({
             <span
               key={`${item}-${index}`}
               aria-hidden={index >= tickerItems.length ? true : undefined}
-              className="font-display text-ink text-xs font-bold tracking-widest uppercase"
+              className="font-label text-ink text-xs font-bold tracking-widest uppercase"
             >
               ✦ {item}
             </span>
@@ -87,7 +87,7 @@ export async function StorefrontHeader({
               key={item.key}
               href={item.href(locale)}
               className={cn(
-                'text-ink border-2 border-transparent px-2 py-2 text-[11px] font-bold tracking-wide uppercase whitespace-nowrap',
+                'font-label text-ink border-2 border-transparent px-2 py-2 text-[11px] font-bold tracking-wide uppercase whitespace-nowrap',
                 active === item.match && 'border-ink bg-lemon shadow-pop-sm'
               )}
             >
@@ -114,7 +114,7 @@ export async function StorefrontHeader({
           />
           <Link
             href={`/${locale}/tienda`}
-            className="border-ink bg-pink text-ink shadow-pop-sm inline-flex min-h-11 items-center gap-2 border-2 px-4 text-xs font-bold uppercase"
+            className="font-label border-ink bg-pink text-ink shadow-pop-sm inline-flex min-h-11 items-center gap-2 border-2 px-4 text-xs font-bold uppercase"
           >
             {t('actions.shop')}
             <UserRound aria-hidden="true" />

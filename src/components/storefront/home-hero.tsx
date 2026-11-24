@@ -16,7 +16,7 @@ export async function HomeHero({ locale }: { locale: string }) {
   return (
     <section className="border-ink col-span-full grid grid-cols-1 items-center gap-10 border-b-[3px] px-6 pb-12 lg:grid-cols-12 lg:gap-12">
       <div className="flex flex-col items-start gap-6 lg:col-span-7">
-        <p className="font-display border-ink bg-lemon shadow-pop-sm inline-flex items-center gap-2 border-[3px] px-4 py-2 text-xs font-bold tracking-wider uppercase">
+        <p className="font-label border-ink bg-lemon shadow-pop-sm inline-flex items-center gap-2 border-[3px] px-4 py-2 text-xs font-bold tracking-wider uppercase">
           <span aria-hidden="true" className="bg-orange h-2.5 w-2.5 rounded-full" />
           {t('hero.eyebrow')}
         </p>
@@ -33,21 +33,21 @@ export async function HomeHero({ locale }: { locale: string }) {
         <div className="flex flex-wrap gap-4">
           <Link
             href={`/${locale}/tienda`}
-            className="border-ink bg-ink text-cream shadow-pop inline-flex min-h-11 items-center gap-2 border-[3px] px-6 font-semibold"
+            className="font-label border-ink bg-ink text-cream shadow-pop inline-flex min-h-11 items-center gap-2 border-[3px] px-6 font-semibold"
           >
             {t('hero.primaryCta')}
             <ArrowRight aria-hidden="true" />
           </Link>
           <Link
             href="#test-de-tono"
-            className="border-ink bg-cream text-ink shadow-pop inline-flex min-h-11 items-center gap-2 border-[3px] px-6 font-semibold"
+            className="font-label border-ink bg-cream text-ink shadow-pop inline-flex min-h-11 items-center gap-2 border-[3px] px-6 font-semibold"
           >
             {t('hero.secondaryCta')}
           </Link>
         </div>
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {highlights.map((item) => (
-            <li key={item.label} className="font-display flex items-center gap-1 text-xs font-bold uppercase">
+            <li key={item.label} className="font-label flex items-center gap-1 text-xs font-bold uppercase">
               <span className="text-cobalt">{item.icon}</span>
               {item.label}
             </li>
@@ -56,7 +56,7 @@ export async function HomeHero({ locale }: { locale: string }) {
       </div>
       <div className="lg:col-span-5">
         <div className="border-ink bg-lilac shadow-pop-xl relative border-4 p-4 pb-6">
-          <span className="font-display border-ink bg-pink text-ink shadow-pop-sm absolute -top-4 -left-4 z-10 inline-flex -rotate-3 items-center gap-2 border-[3px] px-4 py-1.5 text-xs font-bold tracking-wider uppercase">
+          <span className="font-label border-ink bg-pink text-ink shadow-pop-sm absolute -top-4 -left-4 z-10 inline-flex -rotate-3 items-center gap-2 border-[3px] px-4 py-1.5 text-xs font-bold tracking-wider uppercase">
             <Sparkles aria-hidden="true" />
             {t('hero.badge')}
           </span>
@@ -79,12 +79,12 @@ export async function HomeHero({ locale }: { locale: string }) {
           </div>
           <div className="border-ink bg-cream shadow-pop mt-4 flex items-center justify-between gap-3 border-[3px] p-3">
             <div className="flex flex-col">
-              <span className="font-display text-ink text-xs font-bold uppercase tracking-wide">
+              <span className="font-label text-ink text-xs font-bold uppercase tracking-wide">
                 {HOME_BRANDS[0].name}
               </span>
               <span className="font-display text-xl font-semibold">{tStore('trust.pickup.label')}</span>
             </div>
-            <span className="font-display border-ink bg-cobalt text-cream border-2 px-3 py-1 text-xs font-bold uppercase">
+            <span className="font-label border-ink bg-cobalt text-cream border-2 px-3 py-1 text-xs font-bold uppercase">
               {tStore('trust.installments.label')}
             </span>
           </div>

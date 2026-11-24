@@ -37,7 +37,7 @@ export async function HomeBrands({ locale }: { locale: string }) {
   const tones = ['bg-cream', 'bg-pink', 'bg-aqua', 'bg-lemon'];
   return (
     <section id="marcas" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
-      <p className="font-display border-ink bg-lilac shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
+      <p className="font-label border-ink bg-lilac shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
         {t('brands.eyebrow')}
       </p>
       <h2 className="font-display mt-4 text-3xl font-semibold sm:text-4xl">{t('brands.title')}</h2>
@@ -50,7 +50,7 @@ export async function HomeBrands({ locale }: { locale: string }) {
             className={`border-ink shadow-pop flex h-44 flex-col justify-between border-[3px] p-4 transition-transform hover:-translate-y-1 ${tones[index % tones.length]}`}
           >
             <span className="flex items-center justify-between">
-              <span className="border-ink bg-ink text-cream border-2 px-2 py-0.5 text-[10px] font-bold uppercase">
+              <span className="font-label border-ink bg-ink text-cream border-2 px-2 py-0.5 text-[10px] font-bold uppercase">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <ArrowRight aria-hidden="true" />
@@ -88,7 +88,7 @@ export async function HomeFeatured({
     <section id="drops" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="font-display border-ink bg-lemon shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
+          <p className="font-label border-ink bg-lemon shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
             {t('featured.eyebrow')}
           </p>
           <h2 className="font-display mt-4 text-3xl font-semibold sm:text-4xl">
@@ -100,7 +100,7 @@ export async function HomeFeatured({
             <li key={filter.key}>
               <Link
                 href={filter.href}
-                className="border-ink bg-cream shadow-pop-sm inline-flex min-h-11 items-center px-4 text-xs font-bold uppercase"
+                className="font-label border-ink bg-cream shadow-pop-sm inline-flex min-h-11 items-center px-4 text-xs font-bold uppercase"
               >
                 {tStore(filter.key)}
               </Link>

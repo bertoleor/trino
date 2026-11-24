@@ -31,7 +31,8 @@
 
   /* Tipografía y movimiento */
   --font-display: var(--font-fredoka, 'Fredoka'), sans-serif;
-  --font-body: var(--font-dm-sans, 'DM Sans'), sans-serif;
+  --font-body: var(--font-plus-jakarta-sans, 'Plus Jakarta Sans'), sans-serif;
+  --font-label: var(--font-rubik, 'Rubik'), sans-serif;
 
   /* Neo-Pop: geometría y sombras duras (docs/brand/trino-tokens.json) */
   --border-width: 2px;

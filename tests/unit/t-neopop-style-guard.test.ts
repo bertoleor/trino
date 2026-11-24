@@ -30,13 +30,21 @@ describe('neo-pop style guard', () => {
 
   it('rejects legacy hex, fonts and blur', () => {
     const source =
-      'const a = "#fef7ff";\nconst font = "Rubik";\nconst blur = "backdrop-blur-md";\n';
+      'const a = "#fef7ff";\nconst font = "Geist";\nconst blur = "backdrop-blur-md";\n';
     withSource(source, (file) => {
       const result = runGuard(['--file', file]);
       expect(result.status).toBe(1);
       expect(result.stderr).toMatch(/non-canonical hex/);
       expect(result.stderr).toMatch(/legacy font or icon font/);
       expect(result.stderr).toMatch(/blur\/glass is not Neo-Pop/);
+    });
+  });
+
+  it('accepts the Neo-Pop HTML reference fonts', () => {
+    const source = 'const display = "Rubik";\nconst body = "Plus Jakarta Sans";\n';
+    withSource(source, (file) => {
+      const result = runGuard(['--file', file]);
+      expect(result.status, result.stderr).toBe(0);
     });
   });
 

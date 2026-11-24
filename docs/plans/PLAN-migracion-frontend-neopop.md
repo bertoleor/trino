@@ -43,6 +43,8 @@ Cuando dos fuentes chocan, gana la de arriba.
 
 **Conflicto resuelto de entrada:** las pantallas `*_mua_*` y `modal_test_virtual_de_tono_desktop_paso_2_calibraci_n_*` se rechazan aunque sean visualmente neo-pop: el guardrail 4 prohíbe turnos con humanas y diagnósticos de precisión. El ticker `"100% ORIGINALES DIRECTO"` de `inicio_trina._beauty_2` se quita del copy: choca con el guardrail 2.
 
+**Decisión del 2026-11-24 (tipografía):** el owner aceptó explícitamente la discordancia con `docs/brand/` y pidió usar la pila del HTML de referencia: **Fredoka** en títulos (el propio `code.html` lo aplica inline a los `h1/h2/h3`), **Rubik** en nav, ticker, labels y botones, y **Plus Jakarta Sans** en cuerpo. Las filas de este plan que marcan Rubik/Plus Jakarta como "legacy a repeinar" quedan vigentes como clasificación histórica del audit, pero **no se aplican a la tipografía**. El guard de estilo solo bloquea Geist, icon fonts y hex legacy; no bloquea estas tres fuentes.
+
 **Contraste canónico (manual §6 y tokens canónicos):**
 - Ink `#17141B` sobre Cream `#FFF8E8`, Pink `#FF75AE`, Lemon `#FFD84A`, Orange `#FF5A36`, Aqua `#21BFA6` y Lilac `#A98AF5`.
 - Cream o blanco **solo** sobre Ink o Cobalt `#3155F5`. Prohibido claro sobre Lemon/Orange/Pink.
@@ -249,7 +251,7 @@ Script único en `scripts/stitch-extract.mjs` (devDependency `cheerio` si hace f
 | Stitch / DESIGN.md | Destino en el repo |
 |---|---|
 | `#fef7ff`, `#1d1a21`, `bg-surface*` | `--cream`, `--ink`, `bg-cream` / `text-ink` |
-| `Rubik`, `Plus Jakarta Sans` | `--font-display` (Fredoka), `--font-body` (DM Sans) |
+| `Rubik`, `Plus Jakarta Sans` (decisión 2026-11-24) | `--font-label` (Rubik), `--font-body` (Plus Jakarta Sans); `--font-display` sigue en Fredoka |
 | `bg-primary`, `text-on-primary` | `bg-ink` + `text-cream` |
 | `font-headline-*` | `font-display` + escala textual de `docs/brand/` |
 | `rounded-lg` / `rounded-2xl` | `--radius-card` (16px); botones `--radius-btn` (9999px) |
@@ -395,7 +397,7 @@ pnpm changeset
 | Riesgo | Mitigación |
 |---|---|
 | Fotos con licencia dudosa | Espejo local + placeholder del kit; bloqueo de publicación hasta aprobación |
-| `DESIGN.md` de Stitch gana por accidente | Guard en CI: ningún hex legacy ni Rubik/Plus Jakarta en `src/` |
+| `DESIGN.md` de Stitch gana por accidente | Guard en CI: ningún hex legacy, Geist ni icon fonts en `src/`; las tres fuentes del HTML están permitidas por decisión del owner |
 | Port se convierte en rewrite de backend | Regla: si el HTML pide lógica nueva, se documenta en §6 y se difiere |
 | Copy con claims prohibidos | Guard de §5.1 sobre HTML y sobre los 4 locales |
 | Glassmorphism se filtra desde pantallas M/L | Revisión de diff: `backdrop-blur` y `shadow-[0_1px_8px]` = fail |
@@ -403,7 +405,7 @@ pnpm changeset
 | Duplicados de rutas `src/app/(account)` vs `src/app/[locale]/(account)` | Unificar en Fase 3, con redirects; no tocar en Fase 2 |
 | Cambios de catálogo mezclados con UI | Commit `0028` primero, luego commits por slice de UI |
 | Bajas del export sin reemplazo | Las 8 pantallas eliminadas quedan marcadas en §4; las dos críticas (home y PDP mobile) volvieron al P0. Si se elimina otra pantalla canónica, actualizar el plan en el mismo commit |
-| Desktop nuevas clasificadas M | #65/#66 son Neo-Pop en composición pero traen Rubik/Plus Jakarta y hex legacy; pasan por `REPEINAR` y por el guard de estilo antes de merge |
+| Desktop nuevas clasificadas M | #65/#66 son Neo-Pop en composición pero traen hex legacy y claims prohibidos; pasan por `REPEINAR` y por el guard de estilo antes de merge. La tipografía se conserva por decisión del 2026-11-24 |
 
 **Pendiente de tu confirmación:** orden de generación de los P0. Recomiendo empezar por **#1 y #2** (home y PDP mobile, recién eliminadas) y **#3** (PLP desktop), y en paralelo **#6 y #7** (checkout pasos 1 y 2, que son los huecos que impiden cerrar el funnel).
 

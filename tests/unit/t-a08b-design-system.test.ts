@@ -12,7 +12,7 @@ describe('T-A08b design system', () => {
     expect(c).toMatch(/--primary/);
     expect(c).toMatch(/--pill:\s*999px/);
     expect(c).toMatch(/--space/);
-    expect(c).toMatch(/DM Sans|44px/);
+    expect(c).toMatch(/Plus Jakarta Sans|44px/);
     expect(c).toMatch(/prefers-reduced-motion/);
   });
 

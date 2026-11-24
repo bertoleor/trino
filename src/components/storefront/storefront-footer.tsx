@@ -24,7 +24,7 @@ export async function StorefrontFooter({ locale }: { locale: string }) {
         <p className="font-body mt-3 max-w-xs text-sm">{t('footer.about')}</p>
       </div>
       <div>
-        <h2 className="font-display text-lg font-semibold uppercase">{t('footer.catalogTitle')}</h2>
+        <h2 className="font-label text-lg font-semibold uppercase">{t('footer.catalogTitle')}</h2>
         <ul className="mt-3 space-y-2 text-sm">
           {catalog.map((item) => (
             <li key={item.key}>
@@ -37,7 +37,7 @@ export async function StorefrontFooter({ locale }: { locale: string }) {
         </ul>
       </div>
       <div>
-        <h2 className="font-display text-lg font-semibold uppercase">{t('footer.helpTitle')}</h2>
+        <h2 className="font-label text-lg font-semibold uppercase">{t('footer.helpTitle')}</h2>
         <ul className="mt-3 space-y-2 text-sm">
           {legal.map((item) => (
             <li key={item.key}>
@@ -50,7 +50,7 @@ export async function StorefrontFooter({ locale }: { locale: string }) {
         </ul>
       </div>
       <div>
-        <h2 className="font-display text-lg font-semibold uppercase">
+        <h2 className="font-label text-lg font-semibold uppercase">
           {t('footer.servicesTitle')}
         </h2>
         <ul className="mt-3 space-y-3 text-sm">

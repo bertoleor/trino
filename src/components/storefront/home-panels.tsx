@@ -10,7 +10,7 @@ export async function HomeGuide({ locale }: { locale: string }) {
       id="test-de-tono"
       className="border-ink bg-cobalt text-cream shadow-pop-lg col-span-full border-2 p-8 sm:p-12"
     >
-      <p className="font-display text-sm font-semibold tracking-wide uppercase">
+      <p className="font-label text-sm font-semibold tracking-wide uppercase">
         {t('guide.eyebrow')}
       </p>
       <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">{t('guide.title')}</h2>
@@ -27,7 +27,7 @@ export async function HomeGuide({ locale }: { locale: string }) {
       </ol>
       <Link
         href={`/${locale}/tienda`}
-        className="border-ink bg-lemon text-ink font-body shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
+        className="font-label border-ink bg-lemon text-ink shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
       >
         {t('guide.cta')}
         <ArrowRight aria-hidden="true" />
@@ -46,7 +46,7 @@ export async function HomeCommunity({ locale }: { locale: string }) {
         backgroundRepeat: 'repeat-x',
       }}
     >
-      <p className="font-display text-sm font-semibold tracking-wide uppercase">
+      <p className="font-label text-sm font-semibold tracking-wide uppercase">
         {t('community.eyebrow')}
       </p>
       <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">
@@ -55,7 +55,7 @@ export async function HomeCommunity({ locale }: { locale: string }) {
       <p className="font-body mt-4 max-w-2xl">{t('community.body')}</p>
       <Link
         href={`/${locale}/tienda`}
-        className="border-ink bg-pink text-ink font-body shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
+        className="font-label border-ink bg-pink text-ink shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
       >
         {t('community.cta')}
         <ArrowRight aria-hidden="true" />
@@ -71,14 +71,14 @@ export async function HomeClub({ locale }: { locale: string }) {
       id="club"
       className="border-ink bg-lemon shadow-pop-lg col-span-full border-2 p-8 sm:p-12"
     >
-      <p className="font-display text-sm font-semibold tracking-wide uppercase">
+      <p className="font-label text-sm font-semibold tracking-wide uppercase">
         {t('club.eyebrow')}
       </p>
       <h2 className="font-display mt-2 text-3xl font-semibold sm:text-4xl">{t('club.title')}</h2>
       <p className="font-body mt-4 max-w-2xl">{t('club.body')}</p>
       <Link
         href={`/${locale}/tienda`}
-        className="border-ink bg-ink text-cream font-body shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
+        className="font-label border-ink bg-ink text-cream shadow-pop-sm mt-8 inline-flex min-h-11 items-center gap-2 border-2 px-6 font-semibold"
       >
         {t('club.cta')}
         <ArrowRight aria-hidden="true" />

@@ -12,7 +12,8 @@ const HEX = /#[0-9a-fA-F]{3,8}\b/g;
 const LEGACY = [
   {
     message: 'legacy font or icon font',
-    test: /\bRubik\b|Plus\s+Jakarta|\bGeist\b|material-symbols-outlined/i,
+    // Rubik and Plus Jakarta Sans are the Neo-Pop HTML reference fonts and are allowed here.
+    test: /\bGeist\b|material-symbols-outlined/i,
   },
   { message: 'blur/glass is not Neo-Pop', test: /backdrop-blur|backdrop-filter/i },
 ];
