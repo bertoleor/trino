@@ -30,6 +30,9 @@ jscpd-report/
 zap-report/
 *.sarif
 
+# local tooling indexes
+.codegraph/
+
 # local scratch artifacts
 body.txt
 headers.txt
