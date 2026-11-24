@@ -1,9 +1,11 @@
 # trino. — Estructura de Catálogo de Productos
 
-> **Parcialmente vigente (2026-11-23).** La estructura de categorías de belleza (5 categorías,
-> subcategorías, `brand`, `shade`, `finish`) sigue siendo la referencia del catálogo.
-> Los ejemplos de hex de paleta de marca quedaron cancelados: la identidad visual la define
-> `docs/brand/`. El campo `shade` describe el tono del producto, no el color de la marca.
+> **Vigente (2026-11-23).** La estructura de categorías de belleza (5 categorías,
+> subcategorías, `brand`, `shade`, `finish`) es la referencia del catálogo. La migración `0028`
+> agregó esos atributos a `public.products` — tabla canónica de la PLP, el carrito y el sitemap—;
+> `public.makeup_products` (0027) queda como staging de importación. Los ejemplos de hex de
+> paleta de marca quedaron cancelados: la identidad visual la define `docs/brand/`. El campo
+> `shade` describe el tono del producto, no el color de la marca.
 
 ## Entregable al Cliente
 **Fecha:** 23 de octubre de 2026  

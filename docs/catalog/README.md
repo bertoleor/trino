@@ -5,9 +5,10 @@
 > Modelo objetivo: `docs/estructura-catalogo-trino.md` + `supabase/migrations/0027_makeup_products.sql`.
 > **Trace:** T-D01b (facets GIN) · MONEY-01 (INT centavos) · `supabase/migrations/0003_softdelete_fts.sql` · `openspec/AGENT_RULES.md` perf/DB-07
 >
-> **Deuda técnica:** el runtime aún filtra por `tipo`/`tradicion`/`intencion`
-> (`src/lib/db/facets.ts`, `src/app/[locale]/tienda/page.tsx`). No agregar valores nuevos
-> a esas facetas; son residuo pendiente de migrar.
+> **Runtime vigente (2026-11-23):** la PLP filtra por `category`, `subcategory`, `finish`,
+> `brand` y `shade` sobre `public.products` (`src/lib/db/facets.ts`, migración `0028`).
+> `public.makeup_products` (0027) queda como staging de importación; las facetas esotéricas
+> quedaron retiradas.
 
 Trino usa una categoría principal más atributos combinables. Un producto puede ser
 "labios" + "labiales" + `trino.` + `8A2E4B` + "mate" a la vez. El hex es el **tono del
@@ -89,12 +90,12 @@ producto**, no un color de marca.
 | `weight_grams` |  | INT o vacío | `8` | Para shipping ECOM-06 |
 | `dimensions_cm` |  | `LxWxH` o vacío | `9x3x3` |  |
 | `images` | ✅ | URLs Storage, `,` separadas, mín 1 | `products/lip-liner-001/01.webp\|products/lip-liner-001/02.webp` | presigned + magic-bytes + WebP/AVIF |
-| `category` | ✅ | 1 de 5 | `labios` | Modelo objetivo (migración 0027); runtime aún usa `tipo` |
-| `subcategory` | ✅ | según categoría | `labiales` | Modelo objetivo (migración 0027) |
-| `brand` | ✅ | texto libre normalizado | `trino.` | Modelo objetivo (migración 0027) |
-| `shade` |  | hex del **tono del producto** | `8A2E4B` | No es un color de marca |
-| `finish` |  | texto libre | `mate` | Modelo objetivo (migración 0027) |
-| `tipo` / `tradicion` / `intencion` | ⚠️ | facetas heredadas del runtime | — | Deuda migratoria: no agregar valores nuevos |
+| `category` | ✅ | 1 de 5 | `labios` | `products.category` (migración 0028) |
+| `subcategory` | ✅ | según categoría | `labiales` | `products.subcategory` (migración 0028) |
+| `brand` | ✅ | texto libre normalizado | `trino.` | `products.brand` (migración 0028) |
+| `shade` |  | hex del **tono del producto** | `8A2E4B` | Se normaliza a minúsculas; no es color de marca |
+| `finish` |  | texto libre | `mate` | `products.finish` (migración 0028) |
+| `tipo` / `tradicion` / `intencion` | ❌ | retiradas | — | No reintroducir: la PLP ya no las consulta |
 | `tags` |  | `,` separado, lowercase | `labial,mate,berry,larga-duracion` | `text[]` GIN |
 | `locale` | ✅ | `es-AR` (default) / `en` / `fr` / `pt-BR` | `es-AR` | I18N-01 — un row por locale si traducido |
 | `related_product_slugs` |  | `,` separado o vacío | `lip-liner-001,plumping-serum-001` | FK check en import (warning si no existe) |
@@ -104,7 +105,7 @@ producto**, no un color de marca.
 
 1. **Precio:** siempre INT centavos. `AR$ 1.999,90` → `199990`. No usar `,` ni `$` en CSV. Sale solo activo si `now ∈ [sale_start, sale_end]` (UTC).
 2. **Imágenes Storage path:** `products/{slug}/01.webp` (no URL completa). Import script convierte a `https://{supabase_url}/storage/v1/object/public/products/...`. Placeholder: `public/placeholder.webp` (44px-ready, 800×1000, BlurHash generado en Edge Function PERF-07).
-3. **Atributos de catálogo obligatorios:** `category` y `subcategory` sin vacío; `brand`, `shade` y `finish` según aplique. El runtime todavía exige las facetas heredadas: migrar, no reforzar.
+3. **Atributos de catálogo obligatorios:** `category` y `subcategory` sin vacío; `brand`, `shade` y `finish` según aplique. Validados por `src/lib/validations/catalog.ts`.
 4. **Locale:** si el producto existe en varios idiomas, repetir row con mismo `slug` cambiando `locale` y `title/excerpt`. Import hace upsert por `(slug, locale)`.
 5. **Tags libre pero normalizado:** lowercase, sin tildes en CSV (`proteccion` no `protección`), sin espacios dobles. Tags se indexan con `pg_trgm` para typo tolerance (DB-07).
 6. **Soft delete:** no borrar rows del CSV para ocultar — usar `status=archived` o `deleted_at` en DB. Re-import no borra.
@@ -137,7 +138,7 @@ pnpm csv:import --file docs/catalog/products-500-template.csv
 
 Validadores (a implementar junto a `src/lib/validations/money.ts`):
 - `price_cents` INT + `currency=ARS` + `sale_price < price` (MONEY-01)
-- `tipo/tradicion/intencion` enums + `stock>=0` + `images>=1`
+- `category/subcategory/finish` enums + `brand` 2–50 + `shade` hex + `stock>=0` + `images>=1`
 - `slug` único por locale + `sku` único global
 - `sale_start < sale_end` si ambos presentes
 - `weight_grams/dimensions_cm` numéricos si presentes

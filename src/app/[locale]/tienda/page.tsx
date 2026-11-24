@@ -1,4 +1,4 @@
-import { INTENCION, TIPO, TRADICION, parseFacets } from '@/lib/db/facets';
+import { CATEGORY, FINISH, SUBCATEGORY, parseFacets } from '@/lib/db/facets';
 import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
@@ -6,6 +6,32 @@ import { paginate } from '@/lib/db/pagination';
 
 export const revalidate = 300;
 export const dynamic = 'force-static';
+
+type Supabase = Awaited<ReturnType<typeof createClient>>;
+type ProductFacets = ReturnType<typeof parseFacets>;
+
+function selectProducts(supabase: Supabase, offset: number, limit: number) {
+  return supabase
+    .from('products')
+    .select('id, name, slug, description, price_cents, image_url', { count: 'exact' })
+    .is('deleted_at', null)
+    .eq('is_active', true)
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+}
+
+type ProductsQuery = ReturnType<typeof selectProducts>;
+
+function applyBeautyFilters(query: ProductsQuery, q: string, facets: ProductFacets): ProductsQuery {
+  let next = query;
+  if (q) next = next.textSearch('search_vector', q, { type: 'plain', config: 'spanish' });
+  if (facets.category.length) next = next.in('category', facets.category);
+  if (facets.subcategory.length) next = next.in('subcategory', facets.subcategory);
+  if (facets.finish.length) next = next.in('finish', facets.finish);
+  if (facets.brand.length) next = next.in('brand', facets.brand);
+  if (facets.shade.length) next = next.in('shade', facets.shade);
+  return next;
+}
 
 export async function generateMetadata() {
   return { title: 'Tienda | trino.' };
@@ -24,41 +50,32 @@ export default async function TiendaPage({
     perPage: Number(sp.per_page ?? 25),
   });
   const supabase = await createClient();
-  let query = supabase
-    .from('products')
-    .select('id, name, slug, description, price_cents, image_url', { count: 'exact' })
-    .is('deleted_at', null)
-    .eq('is_active', true)
-    .order('created_at', { ascending: false })
-    .range(offset, offset + limit - 1);
-
-  if (q) query = query.textSearch('search_vector', q, { type: 'plain', config: 'spanish' });
-  if (facets.tipo.length) query = query.in('tipo', facets.tipo);
-  if (facets.tradicion.length) query = query.in('tradicion', facets.tradicion);
-  if (facets.intencion.length) query = query.in('intencion', facets.intencion);
-
-  const { data: products } = await query;
+  const { data: products } = await applyBeautyFilters(
+    selectProducts(supabase, offset, limit),
+    q,
+    facets
+  );
   const items = products ?? [];
 
   return (
     <main className="mx-auto w-full max-w-7xl px-6 py-8">
       <h1 className="text-3xl font-bold lowercase">tienda.</h1>
       <section className="mt-6 flex flex-wrap gap-2">
-        {TIPO.map((t) => (
+        {CATEGORY.map((t) => (
           <span key={t} className="rounded-full border px-3 py-1 text-xs lowercase">
             {t}
           </span>
         ))}
       </section>
       <section className="mt-2 flex flex-wrap gap-2">
-        {TRADICION.map((t) => (
+        {SUBCATEGORY.map((t) => (
           <span key={t} className="rounded-full border px-3 py-1 text-xs lowercase">
             {t}
           </span>
         ))}
       </section>
       <section className="mt-2 flex flex-wrap gap-2">
-        {INTENCION.map((t) => (
+        {FINISH.map((t) => (
           <span key={t} className="rounded-full border px-3 py-1 text-xs lowercase">
             {t}
           </span>
@@ -66,7 +83,12 @@ export default async function TiendaPage({
       </section>
       <p className="mt-4 text-sm text-zinc-500">
         pagina {page} — {perPage} por pagina —{' '}
-        {facets.tipo.length + facets.tradicion.length + facets.intencion.length} filtros
+        {facets.category.length +
+          facets.subcategory.length +
+          facets.finish.length +
+          facets.brand.length +
+          facets.shade.length}{' '}
+        filtros
         {q ? ` — busqueda: ${q} (GIN search_vector)` : ''}
       </p>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

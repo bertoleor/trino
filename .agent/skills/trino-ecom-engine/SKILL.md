@@ -59,8 +59,9 @@ Strict ENUM, server-validated transitions:
 - Target taxonomy: category (ojos, labios, rostro, manicure, pestañas) × subcategory × brand ×
   shade × finish — combinable filters, one round-trip intersect, not separate menus.
   Source: `docs/estructura-catalogo-trino.md` + `supabase/migrations/0027_makeup_products.sql`.
-- Runtime still queries legacy `tipo`/`tradicion`/`intencion` facets
-  (`src/lib/db/facets.ts`, PLP). Treat as migration debt: do NOT add new legacy facets.
+- Runtime queries beauty facets `category`/`subcategory`/`finish`/`brand`/`shade`
+  (`src/lib/db/facets.ts`, PLP, migration 0028). `makeup_products` (0027) is import staging;
+  `public.products` is the canonical storefront table. Do NOT reintroduce legacy facets.
 - Cosmetic products MUST show usage precautions and composition/origin where applicable.
   Final legal wording still needs owner/legal review.
 - Consent banner MUST gate analytics/marketing cookies with **granular categories** (PRIV-01).

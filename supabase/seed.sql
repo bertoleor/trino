@@ -1,18 +1,18 @@
 -- seed.sql T-D08 factories SEED sadPaths 90/80
 -- idempotent seed for dev/test: products, cultura, wishlist, reviews, carts
 
--- products (10) with price_cents INT MONEY
+-- products — canonical beauty catalog (0028), price_cents INT MONEY
 -- schema: name (NOT NULL, no "title" column exists), price numeric NOT NULL
-insert into public.products (id, slug, name, price, price_cents, currency, deleted_at) values
-  ('00000000-0000-0000-0000-000000000001','sahumerio-palo-santo','Sahumerio Palo Santo', 2500.00, 250000,'ARS',null),
-  ('00000000-0000-0000-0000-000000000002','vela-soja-trino','Vela Soja Trino', 1800.00, 180000,'ARS',null),
-  ('00000000-0000-0000-0000-000000000003','incienzo-copal','Incienzo Copal', 1200.00, 120000,'ARS',null)
+insert into public.products (id, slug, name, price, price_cents, currency, deleted_at, category, subcategory, brand, shade, finish) values
+  ('00000000-0000-0000-0000-000000000001','labial-liquido-mate-berry','Labial líquido mate berry', 2499.00, 249900,'ARS',null,'labios','labiales','trino.','8a2e4b','mate'),
+  ('00000000-0000-0000-0000-000000000002','paleta-sombras-crushed','Paleta de sombras crushed', 1299.00, 129900,'ARS',null,'ojos','sombras','trino.','c4416b','shimmer'),
+  ('00000000-0000-0000-0000-000000000003','mascara-volumen-extremo','Máscara volumen extremo', 3499.00, 349900,'ARS',null,'pestañas','máscaras','trino.','1a1a1a','gloss')
 on conflict (id) do nothing;
 
 -- cultura_posts draft/published + sad paths
 insert into public.cultura_posts (id, slug, locale, title, excerpt, body, status, published_at, tags, deleted_at) values
-  ('00000000-0000-0000-0000-000000000010','ritual-limpieza','es-AR','Ritual de Limpieza','Excerpt ritual', '{"type":"doc"}','published', now(), array['ritual','limpieza'], null),
-  ('00000000-0000-0000-0000-000000000011','ritual-draft','es-AR','Borrador','draft excerpt','{}','draft', null, array['draft'], null),
+  ('00000000-0000-0000-0000-000000000010','rutina-skincare','es-AR','Rutina de skincare','Excerpt skincare', '{"type":"doc"}','published', now(), array['skincare','rutina'], null),
+  ('00000000-0000-0000-0000-000000000011','rutina-draft','es-AR','Borrador','draft excerpt','{}','draft', null, array['draft'], null),
   ('00000000-0000-0000-0000-000000000012','deleted-post','es-AR','Eliminado','x','{}','published', now(), array['sad'], now())
 on conflict (id) do nothing;
 
@@ -32,6 +32,12 @@ insert into auth.users (id, email, email_confirmed_at, raw_app_meta_data, raw_us
   ('00000000-0000-0000-0000-000000000101','seed-reviewer-1@trino.local', now(), '{"provider":"seed","providers":["seed"]}', '{"full_name":"Seed Reviewer 1"}'),
   ('00000000-0000-0000-0000-000000000102','seed-reviewer-2@trino.local', now(), '{"provider":"seed","providers":["seed"]}', '{"full_name":"Seed Reviewer 2"}')
 on conflict (id) do nothing;
+
+-- makeup_products staging (0027): same slugs, lowercase shade per its CHECK.
+insert into public.makeup_products (id, user_id, name, slug, price_cents, sku, category_makeup, subcategory, brand, shade, finish) values
+  ('00000000-0000-0000-0000-000000000050','00000000-0000-0000-0000-000000000101','Labial líquido mate berry','labial-liquido-mate-berry',249900,'LL-MAT-001','labios','labiales','trino.','8a2e4b','mate'),
+  ('00000000-0000-0000-0000-000000000051','00000000-0000-0000-0000-000000000101','Paleta de sombras crushed','paleta-sombras-crushed',129900,'SOM-CRU-001','ojos','sombras','trino.','c4416b','shimmer')
+on conflict (slug) do nothing;
 
 -- reviews pending/approved rejected sad rating 0/6 filtered by app (reviewers = seed identities)
 insert into public.reviews (id, product_id, user_id, rating, title, body, status) values

@@ -566,12 +566,15 @@ export type Database = {
       }
       products: {
         Row: {
+          brand: string | null
+          category: string | null
           category_id: string | null
           created_at: string
           currency: string
           deleted_at: string | null
           description: string | null
           featured: boolean
+          finish: string | null
           id: string
           image_url: string | null
           is_active: boolean
@@ -582,16 +585,21 @@ export type Database = {
           sale_price_cents: number | null
           sale_start: string | null
           search_vector: unknown
+          shade: string | null
           slug: string
+          subcategory: string | null
           updated_at: string
         }
         Insert: {
+          brand?: string | null
+          category?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string
           deleted_at?: string | null
           description?: string | null
           featured?: boolean
+          finish?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
@@ -602,16 +610,21 @@ export type Database = {
           sale_price_cents?: number | null
           sale_start?: string | null
           search_vector?: unknown
+          shade?: string | null
           slug: string
+          subcategory?: string | null
           updated_at?: string
         }
         Update: {
+          brand?: string | null
+          category?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string
           deleted_at?: string | null
           description?: string | null
           featured?: boolean
+          finish?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean
@@ -622,7 +635,9 @@ export type Database = {
           sale_price_cents?: number | null
           sale_start?: string | null
           search_vector?: unknown
+          shade?: string | null
           slug?: string
+          subcategory?: string | null
           updated_at?: string
         }
         Relationships: [

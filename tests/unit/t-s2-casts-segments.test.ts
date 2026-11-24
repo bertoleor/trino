@@ -61,12 +61,12 @@ describe('t-s2 local narrowing behavior', () => {
   it('parseFacets keeps known facets, drops unknown, lowercases', async () => {
     const mod = await import('@/lib/db/facets');
     const f = mod.parseFacets({
-      tipo: 'Velas,unknown-facet',
-      tradicion: undefined,
-      intencion: ['amor', 'nope'],
+      category: 'Labios,unknown-facet',
+      subcategory: undefined,
+      finish: ['Mate', 'nope'],
     });
-    expect(f.tipo).toEqual(['velas']);
-    expect(f.intencion).toEqual(['amor']);
+    expect(f.category).toEqual(['labios']);
+    expect(f.finish).toEqual(['mate']);
   });
   it('toDecimalCents rounds half-up and falls back on out-of-range modes', async () => {
     const mod = await import('@/lib/money/decimal');
