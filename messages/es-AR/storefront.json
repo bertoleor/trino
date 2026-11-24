@@ -5,7 +5,11 @@
     "drops": "Drops",
     "catalog": "Catálogo",
     "lips": "Labios",
-    "face": "Rostro"
+    "face": "Rostro",
+    "brands": "Marcas",
+    "toneTest": "Test de tono",
+    "club": "Club trino",
+    "contact": "Contacto"
   },
   "actions": {
     "search": "Buscar productos",

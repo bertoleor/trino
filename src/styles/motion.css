@@ -38,3 +38,15 @@
   }
 }
 /* CLS-safe: no layout shift, only clip-path/mask/transform, CLS<0.1 */
+.neopop-marquee {
+  animation: neopop-marquee 24s linear infinite;
+  will-change: transform;
+}
+@keyframes neopop-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

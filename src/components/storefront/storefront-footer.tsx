@@ -16,7 +16,7 @@ export async function StorefrontFooter({ locale }: { locale: string }) {
     { key: 'nav.face', href: `/${locale}/tienda?category=rostro` },
   ];
   return (
-    <div className="grid gap-8 md:grid-cols-4">
+    <div id="contacto" className="grid gap-8 md:grid-cols-4">
       <div>
         <p className="font-display text-3xl font-semibold">
           trino<span className="text-pink">.</span>

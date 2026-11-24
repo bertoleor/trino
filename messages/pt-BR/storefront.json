@@ -5,7 +5,11 @@
     "drops": "Novidades",
     "catalog": "Catálogo",
     "lips": "Lábios",
-    "face": "Rosto"
+    "face": "Rosto",
+    "brands": "Marcas",
+    "toneTest": "Teste de tom",
+    "club": "Clube trino",
+    "contact": "Contato"
   },
   "actions": {
     "search": "Buscar produtos",

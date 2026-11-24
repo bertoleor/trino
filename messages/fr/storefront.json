@@ -5,7 +5,11 @@
     "drops": "Nouveautés",
     "catalog": "Catalogue",
     "lips": "Lèvres",
-    "face": "Visage"
+    "face": "Visage",
+    "brands": "Marques",
+    "toneTest": "Test de teinte",
+    "club": "Club trino",
+    "contact": "Contact"
   },
   "actions": {
     "search": "Rechercher des produits",

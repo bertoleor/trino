@@ -6,7 +6,10 @@ export async function HomeGuide({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'home' });
   const steps = t.raw('guide.steps') as string[];
   return (
-    <section className="border-ink bg-cobalt text-cream shadow-pop-lg col-span-full border-2 p-8 sm:p-12">
+    <section
+      id="test-de-tono"
+      className="border-ink bg-cobalt text-cream shadow-pop-lg col-span-full border-2 p-8 sm:p-12"
+    >
       <p className="font-display text-sm font-semibold tracking-wide uppercase">
         {t('guide.eyebrow')}
       </p>
@@ -64,7 +67,10 @@ export async function HomeCommunity({ locale }: { locale: string }) {
 export async function HomeClub({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'home' });
   return (
-    <section className="border-ink bg-lemon shadow-pop-lg col-span-full border-2 p-8 sm:p-12">
+    <section
+      id="club"
+      className="border-ink bg-lemon shadow-pop-lg col-span-full border-2 p-8 sm:p-12"
+    >
       <p className="font-display text-sm font-semibold tracking-wide uppercase">
         {t('club.eyebrow')}
       </p>
