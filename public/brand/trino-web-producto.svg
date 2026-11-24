@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000">
+  <rect width="1440" height="1000" fill="#FFF8E8"/><rect width="1440" height="88" fill="#FFF8E8" stroke="#17141B" stroke-width="4"/>
+  <text x="64" y="58" font-family="Fredoka" font-size="44" font-weight="700" fill="#17141B">trino.</text>
+  <rect x="70" y="150" width="650" height="720" fill="#A98AF5" stroke="#17141B" stroke-width="4"/><rect x="330" y="270" width="120" height="420" rx="60" fill="#FF75AE" stroke="#17141B" stroke-width="5"/>
+  <text x="800" y="190" font-family="DM Sans" font-size="20" font-weight="700" fill="#17141B">MAKEUP / LABIOS</text>
+  <text x="800" y="285" font-family="Fredoka" font-size="88" font-weight="700" fill="#17141B">Gloss oil</text>
+  <text x="800" y="355" font-family="DM Sans" font-size="28" fill="#17141B">Brillo cómodo. Cero drama.</text>
+  <text x="800" y="430" font-family="DM Sans" font-size="20" fill="#17141B">Qué es · Para quién · Cómo se usa · Resultado</text>
+  <rect x="800" y="520" width="480" height="72" rx="36" fill="#17141B"/><text x="920" y="567" font-family="DM Sans" font-size="24" font-weight="700" fill="#FFF8E8">SUMAR AL CARRITO</text>
+  <metadata>Template ficha de producto 1440. Mantener arquitectura informativa.</metadata>
+</svg>

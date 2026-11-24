@@ -59,6 +59,8 @@ Canónicos en `docs/` — `docs/audits/` (reportes), `docs/adr/` (decisiones), `
 `docs/plans/`, `docs/ciclo-no-tecnico/`. No dejar `.md` sueltos en raíz sin mover a `docs/` (o
 `AGENTS.md`/`README.md`/`SECURITY.md`).
 
+- Plan activo: `docs/plans/PLAN-migracion-frontend-neopop.md` — port Neo-Pop de Stitch al stack actual (clasificación de 63 pantallas, pipeline HTML→React y pantallas faltantes).
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

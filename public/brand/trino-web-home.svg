@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1200" viewBox="0 0 1440 1200">
+  <rect width="1440" height="1200" fill="#FFF8E8"/><rect width="1440" height="88" fill="#FFF8E8" stroke="#17141B" stroke-width="4"/>
+  <text x="64" y="58" font-family="Fredoka" font-size="44" font-weight="700" fill="#17141B">trino.</text>
+  <rect x="0" y="88" width="1440" height="700" fill="#FFD84A" stroke="#17141B" stroke-width="4"/>
+  <text x="80" y="330" font-family="Fredoka" font-size="132" font-weight="700" fill="#17141B">Tu próximo</text><text x="80" y="445" font-family="Fredoka" font-size="132" font-weight="700" fill="#3155F5">favorito.</text>
+  <rect x="80" y="530" width="280" height="70" rx="35" fill="#17141B"/><text x="125" y="576" font-family="DM Sans" font-size="24" font-weight="700" fill="#FFF8E8">EXPLORAR AHORA</text>
+  <rect x="840" y="160" width="420" height="540" rx="210" fill="#FF75AE" stroke="#17141B" stroke-width="5"/><rect x="1010" y="430" width="110" height="320" rx="55" fill="#FF5A36" stroke="#17141B" stroke-width="5"/>
+  <text x="80" y="890" font-family="Fredoka" font-size="62" font-weight="700" fill="#17141B">Novedades / categorías / prueba social</text>
+  <metadata>Template web home 1440. Grilla de 12 columnas. Reemplazar copy y fotografía.</metadata>
+</svg>
