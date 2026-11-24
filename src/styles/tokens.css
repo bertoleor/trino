@@ -66,6 +66,23 @@
 
 * {
   scrollbar-width: thin;
+  scrollbar-color: var(--ink) var(--cream);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-left: 3px solid var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 3px solid var(--cream);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--orange);
 }
 html {
   font-size: 16px;
