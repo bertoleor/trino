@@ -79,7 +79,7 @@ export function StitchShell({
     return (
       <div
         data-shell-type={shellType}
-        className={cn('bg-cream text-ink mx-auto w-full max-w-[1440px]', className)}
+        className={cn('bg-cream text-ink w-full', className)}
       >
         <ShellHeader>{header}</ShellHeader>
         <main className={cn('grid grid-cols-12 gap-6 px-6 py-8', contentClassName)}>
