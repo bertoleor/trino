@@ -16,7 +16,7 @@ export async function HomeTrust({ locale }: { locale: string }) {
     { label: tStore('trust.installments.label'), icon: <CreditCard aria-hidden="true" /> },
   ];
   return (
-    <section aria-label={tStore('footer.servicesTitle')} className="col-span-full">
+    <section aria-label={tStore('footer.servicesTitle')} className="col-span-full px-6">
       <ul className="border-ink flex flex-wrap gap-3 border-y-[3px] py-4">
         {trust.map((item) => (
           <li
@@ -36,7 +36,7 @@ export async function HomeBrands({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'home' });
   const tones = ['bg-cream', 'bg-pink', 'bg-aqua', 'bg-lemon'];
   return (
-    <section id="marcas" className="col-span-full border-ink border-b-[3px] pb-12">
+    <section id="marcas" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
       <p className="font-display border-ink bg-lilac shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
         {t('brands.eyebrow')}
       </p>
@@ -85,7 +85,7 @@ export async function HomeFeatured({
     { key: 'nav.catalog', href: `/${locale}/tienda` },
   ];
   return (
-    <section id="drops" className="col-span-full border-ink border-b-[3px] pb-12">
+    <section id="drops" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="font-display border-ink bg-lemon shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">

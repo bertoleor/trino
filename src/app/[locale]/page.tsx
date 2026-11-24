@@ -36,7 +36,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       shellType="web_standard"
       header={<StorefrontHeader locale={locale} active="home" />}
       footer={<StorefrontFooter locale={locale} />}
-      contentClassName="flex flex-col gap-16 px-6 py-10"
+      contentClassName="flex flex-col gap-16 py-10"
     >
       <HomeHero locale={locale} />
       <HomeTrust locale={locale} />

@@ -27,7 +27,7 @@ export interface StitchShellProps {
 function ShellHeader({ children }: { children?: React.ReactNode }) {
   if (!children) return null;
   return (
-    <header className="border-ink bg-cream sticky top-0 z-10 flex min-h-16 items-center justify-between border-b-2 px-4">
+    <header className="border-ink bg-cream sticky top-0 z-10 flex min-h-16 items-center justify-between border-b-2">
       {children}
     </header>
   );
@@ -82,11 +82,9 @@ export function StitchShell({
         className={cn('bg-cream text-ink w-full', className)}
       >
         <ShellHeader>{header}</ShellHeader>
-        <main className={cn('grid grid-cols-12 gap-6 px-6 py-8', contentClassName)}>
-          {children}
-        </main>
+        <main className={cn('grid grid-cols-12 gap-6 py-8', contentClassName)}>{children}</main>
         {footer ? (
-          <footer className="border-ink bg-cream border-t-2 px-6 py-10">{footer}</footer>
+          <footer className="border-ink bg-cream border-t-2 py-10">{footer}</footer>
         ) : null}
       </div>
     );

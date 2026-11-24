@@ -14,7 +14,7 @@ export async function HomeHero({ locale }: { locale: string }) {
   ];
 
   return (
-    <section className="border-ink col-span-full grid grid-cols-1 items-center gap-10 border-b-[3px] pb-12 lg:grid-cols-12 lg:gap-12">
+    <section className="border-ink col-span-full grid grid-cols-1 items-center gap-10 border-b-[3px] px-6 pb-12 lg:grid-cols-12 lg:gap-12">
       <div className="flex flex-col items-start gap-6 lg:col-span-7">
         <p className="font-display border-ink bg-lemon shadow-pop-sm inline-flex items-center gap-2 border-[3px] px-4 py-2 text-xs font-bold tracking-wider uppercase">
           <span aria-hidden="true" className="bg-orange h-2.5 w-2.5 rounded-full" />
