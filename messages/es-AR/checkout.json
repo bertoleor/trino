@@ -82,6 +82,25 @@
     "submit": "Continuar al pago",
     "submitNote": "La confirmación se habilita cuando se conecte la pasarela de pago."
   },
+  "rejected": {
+    "meta": {
+      "title": "Pago no confirmado | trino.",
+      "description": "Revisá el resultado de tu pago y elegí cómo continuar con tu pedido en trino."
+    },
+    "hero": {
+      "title": "Pago no confirmado",
+      "description": "No pudimos confirmar la operación con el medio de pago elegido."
+    },
+    "details": {
+      "title": "Qué podés hacer",
+      "description": "Volvé a elegir un medio de pago o explorá el catálogo. Tu bolsa sigue disponible."
+    },
+    "actions": {
+      "retry": "Volver al pago",
+      "catalog": "Explorar el catálogo"
+    },
+    "note": "El resultado final se muestra cuando se conecte la pasarela de pago."
+  },
   "payment": {
     "meta": {
       "title": "Método de pago | trino.",

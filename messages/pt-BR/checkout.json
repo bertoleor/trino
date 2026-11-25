@@ -82,6 +82,25 @@
     "submit": "Continuar para o pagamento",
     "submitNote": "A confirmação é habilitada quando o gateway de pagamento for conectado."
   },
+  "rejected": {
+    "meta": {
+      "title": "Pagamento não confirmado | trino.",
+      "description": "Confira o resultado do seu pagamento e escolha como continuar seu pedido na trino."
+    },
+    "hero": {
+      "title": "Pagamento não confirmado",
+      "description": "Não foi possível confirmar a operação com a forma de pagamento escolhida."
+    },
+    "details": {
+      "title": "O que você pode fazer",
+      "description": "Escolha outra forma de pagamento ou explore o catálogo. Sua sacola continua disponível."
+    },
+    "actions": {
+      "retry": "Voltar ao pagamento",
+      "catalog": "Explorar o catálogo"
+    },
+    "note": "O resultado final é exibido quando o gateway de pagamento for conectado."
+  },
   "payment": {
     "meta": {
       "title": "Forma de pagamento | trino.",

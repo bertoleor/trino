@@ -82,6 +82,25 @@
     "submit": "Continuer vers le paiement",
     "submitNote": "La confirmation est activée une fois la passerelle de paiement connectée."
   },
+  "rejected": {
+    "meta": {
+      "title": "Paiement non confirmé | trino.",
+      "description": "Vérifiez le résultat de votre paiement et choisissez comment poursuivre votre commande trino."
+    },
+    "hero": {
+      "title": "Paiement non confirmé",
+      "description": "Nous n'avons pas pu confirmer l'opération avec le moyen de paiement choisi."
+    },
+    "details": {
+      "title": "Ce que vous pouvez faire",
+      "description": "Choisissez un autre moyen de paiement ou explorez le catalogue. Votre panier reste disponible."
+    },
+    "actions": {
+      "retry": "Retour au paiement",
+      "catalog": "Explorer le catalogue"
+    },
+    "note": "Le résultat final s'affiche une fois la passerelle de paiement connectée."
+  },
   "payment": {
     "meta": {
       "title": "Moyen de paiement | trino.",

@@ -82,6 +82,25 @@
     "submit": "Continue to payment",
     "submitNote": "Confirmation is enabled once the payment gateway is connected."
   },
+  "rejected": {
+    "meta": {
+      "title": "Payment not confirmed | trino.",
+      "description": "Review your payment result and choose how to continue with your trino order."
+    },
+    "hero": {
+      "title": "Payment not confirmed",
+      "description": "We could not confirm the transaction with the payment method you chose."
+    },
+    "details": {
+      "title": "What you can do",
+      "description": "Choose another payment method or explore the catalog. Your bag is still available."
+    },
+    "actions": {
+      "retry": "Back to payment",
+      "catalog": "Explore the catalog"
+    },
+    "note": "The final result is shown once the payment gateway is connected."
+  },
   "payment": {
     "meta": {
       "title": "Payment method | trino.",

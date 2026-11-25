@@ -123,7 +123,7 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | 13 | `trino._beauty_carrito_drawer_lateral_desktop` | M | web_standard | drawer global | **PORTADA 2026-11-25**: drawer global desde el header, ítems y recomendaciones desde `products`/`product_variants` (solo lectura); sin envío gratis, cuotas, promo, stock ni mutaciones |
 | 14 | `trino._beauty_carrito_drawer_con_puntos_glow_canjeados_mobile` | L | mobile_blank | drawer + toggle Glow | REPEINAR |
 | 15 | `trino._beauty_checkout_paso_3_selecci_n_de_m_todo_de_pago_desktop_neo_pop` | M | web_standard | `/checkout/pago` | **PORTADA 2026-11-25**: shell compartido con #16 (stepper + grid 7/5), medios de pago y resumen desde `cart_items`/`products` (solo lectura); sin cuotas, descuentos, envío gratis, stock, reserva ni afirmaciones de pago; CTA deshabilitado hasta conectar la pasarela |
-| 16 | `trino._beauty_checkout_pago_rechazado_desktop_neo_pop_oficial` | M | web_standard | `/checkout/rechazado` | REPEINAR |
+| 16 | `trino._beauty_checkout_pago_rechazado_desktop_neo_pop_oficial` | M | web_standard | `/checkout/rechazado` | **PORTADA 2026-11-25**: shell compartido con #15 en estado `rejected` (stepper en atención), acciones para volver al pago o al catálogo; sin reembolsos, cuotas ni promesas de pago |
 | 17 | `trino._beauty_pago_por_transferencia_mobile_cuenta_particular_whatsapp_mail` | L | mobile_stack | `/checkout/transferencia` | REPEINAR + quitar CUIT societario |
 | 18 | `trino._beauty_confirmaci_n_de_compra_mobile` | L | mobile_stack | `/checkout/confirmacion` | REPEINAR |
 
