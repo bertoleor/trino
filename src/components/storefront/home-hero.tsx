@@ -21,9 +21,7 @@ export async function HomeHero({ locale }: { locale: string }) {
           {t('hero.eyebrow')}
         </p>
         <h1 className="font-display text-5xl leading-[0.95] font-semibold sm:text-6xl lg:text-7xl">
-          {t('hero.titleLine1')}
-          {' '}
-          <br />
+          {t('hero.titleLine1')} <br />
           <span className="text-cobalt">{t('hero.titleLine2')}</span>
           <span className="bg-pink text-ink border-ink shadow-pop-lg mt-6 block w-fit -rotate-1 border-4 px-6 py-3 text-4xl leading-none font-semibold sm:text-5xl xl:text-6xl">
             {t('hero.highlight')}
@@ -39,7 +37,7 @@ export async function HomeHero({ locale }: { locale: string }) {
             <ArrowRight aria-hidden="true" />
           </Link>
           <Link
-            href="#test-de-tono"
+            href={`/${locale}/tienda`}
             className="font-label border-ink bg-cream text-ink shadow-pop inline-flex min-h-11 items-center gap-2 border-[3px] px-6 font-semibold"
           >
             {t('hero.secondaryCta')}
@@ -47,7 +45,10 @@ export async function HomeHero({ locale }: { locale: string }) {
         </div>
         <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {highlights.map((item) => (
-            <li key={item.label} className="font-label flex items-center gap-1 text-xs font-bold uppercase">
+            <li
+              key={item.label}
+              className="font-label flex items-center gap-1 text-xs font-bold uppercase"
+            >
               <span className="text-cobalt">{item.icon}</span>
               {item.label}
             </li>
@@ -79,10 +80,12 @@ export async function HomeHero({ locale }: { locale: string }) {
           </div>
           <div className="border-ink bg-cream shadow-pop mt-4 flex items-center justify-between gap-3 border-[3px] p-3">
             <div className="flex flex-col">
-              <span className="font-label text-ink text-xs font-bold uppercase tracking-wide">
+              <span className="font-label text-ink text-xs font-bold tracking-wide uppercase">
                 {HOME_BRANDS[0].name}
               </span>
-              <span className="font-display text-xl font-semibold">{tStore('trust.pickup.label')}</span>
+              <span className="font-display text-xl font-semibold">
+                {tStore('trust.pickup.label')}
+              </span>
             </div>
             <span className="font-label border-ink bg-cobalt text-cream border-2 px-3 py-1 text-xs font-bold uppercase">
               {tStore('trust.installments.label')}

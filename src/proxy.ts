@@ -1,12 +1,12 @@
 /* eslint-disable max-lines -- prettier printWidth 100 re-wrap expands this file beyond the 150-line budget; auth/rate-limit/i18n middleware chain; substantive hardening owned by T4; ticket: trino-ci-green/fast-follow */
 import { type NextRequest, NextResponse } from 'next/server';
 import { applyNonceCsp, nextWithNonce, nonceForRequest } from '@/lib/security/csp';
-import { enqueueSecurityAudit } from '@/lib/proxy/turnstile';
 import { isRecord, toTypedSupabase } from '@/lib/supabase/typed';
 import type { Role } from '@/lib/auth/roles';
 import { checkRateLimit } from '@/lib/rate-limit';
 import createIntlMiddleware from 'next-intl/middleware';
 import { createServerClient } from '@supabase/ssr';
+import { enqueueSecurityAudit } from '@/lib/proxy/turnstile';
 import { hasRole } from '@/lib/auth/roles';
 import { logRbacDeny } from '@/lib/proxy/rbac-audit';
 import { logger } from '@/lib/logger';

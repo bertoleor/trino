@@ -36,7 +36,20 @@ const eslintConfig = defineConfig([
       ],
     },
   },
+  {
+    files: ['scripts/**', '*.cjs'],
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      'max-lines': 'off',
+    },
+  },
   globalIgnores([
+    '.worktrees/**',
+    'components/**',
+    'jscpd-report/**',
+    'test.cjs',
+    'validate.cjs',
     '.next/**',
     'out/**',
     'build/**',

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import fs from 'node:fs';
-import path from 'node:path';
 import { formatArs } from '@/lib/money/fx';
 import { formatPriceARS } from '@/lib/money/format-price-ars';
+import fs from 'node:fs';
+import path from 'node:path';
 
 // Guard for the locale-qa-report 2026-10-14 currency finding (t_6412ad44):
 // every page that renders an ARS price must go through lib/money
@@ -26,11 +26,14 @@ describe('money-locale-format guard: product prices go through lib/money', () =>
     expect(src).toMatch(/formatArs\(priceCents, locale\)/);
   });
 
-  it.each(LITERAL_DOLLAR_PAGES)('%s has no literal $ next to a price and uses formatPriceARS', (rel) => {
-    const src = read(rel);
-    expect(src).not.toMatch(/\$\{[a-z_.]*price/i);
-    expect(src).toMatch(/formatPriceARS\(/);
-  });
+  it.each(LITERAL_DOLLAR_PAGES)(
+    '%s has no literal $ next to a price and uses formatPriceARS',
+    (rel) => {
+      const src = read(rel);
+      expect(src).not.toMatch(/\$\{[a-z_.]*price/i);
+      expect(src).toMatch(/formatPriceARS\(/);
+    }
+  );
 
   it('locale home passes the route locale to the formatter', () => {
     expect(read('src/app/[locale]/page.tsx')).toMatch(/formatPriceARS\(product\.price, locale\)/);

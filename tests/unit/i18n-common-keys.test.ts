@@ -1,7 +1,7 @@
-import { readFileSync, readdirSync } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { readFileSync, readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
 const messagesDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../messages');
 

@@ -1,5 +1,5 @@
-import { formatPriceARS } from '@/lib/money/format-price-ars';
 import { createClient } from '@/lib/supabase/server';
+import { formatPriceARS } from '@/lib/money/format-price-ars';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
