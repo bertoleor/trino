@@ -1,8 +1,8 @@
 # Plan de migración del frontend — trino. beauty Neo-Pop
 
-> **Fecha:** 2026-11-24 (rescan del export reordenado; primera versión 2026-11-23) · **Autor:** arquitectura (agente) · **Motivo:** migrar la presentación al lenguaje Neo-Pop de las pantallas Stitch sin tocar stack, datos, pagos ni i18n
+> **Fecha:** 2026-11-25 (revisión del inventario desktop y orden de port aprobado; rescan 2026-11-24; primera versión 2026-11-23) · **Autor:** arquitectura (agente) · **Motivo:** migrar la presentación al lenguaje Neo-Pop de las pantallas Stitch sin tocar stack, datos, pagos ni i18n
 > **Búsqueda:** keywords: `trino, stitch, neo-pop, migracion-frontend, port-html, tokens, pantallas-faltantes, wcag-aa` · clasificación: `plans` · estado: `borrador`
-> **Resumen:** plan canónico para portar las 58 pantallas vigentes del export al stack Next 16 / Tailwind 4 del repo. Clasifica cada pantalla como portar, repeinar, rechazar o diferir; define el pipeline HTML→componentes, la lista de pantallas que faltan y los gates por fase.
+> **Resumen:** plan canónico para portar las 59 pantallas vigentes del export al stack Next 16 / Tailwind 4 del repo. Clasifica cada pantalla como portar, repeinar, rechazar o diferir; define el pipeline HTML→componentes, la lista de pantallas que faltan y los gates por fase.
 > **Parte de:** [[INDICE-SISTEMA]] · Relacionados: [[PRD-trino-minimo]], [[manual-marca]], [[DESIGN]], [[trino-tokens]]
 
 ---
@@ -58,9 +58,9 @@ Ruta: `E:\Archivos Usuario\Descargas\trino\sticht\stitch_tienda_virtual_de_maqui
 
 | Métrica | Valor (2026-11-24) | Valor (2026-11-23) | Evidencia |
 |---|---:|---:|---|
-| Pantallas con `code.html` | **58** | 63 | `Get-ChildItem -Recurse -Filter code.html` |
-| — en `1.MOBILE` / `2.DESKTOP` / `4.ADMIN` | 23 / 21 / 14 | — | inventario nuevo |
-| Capturas `screen.png` | **64** (58 de pantalla + 6 referencias JPG en `3.ARCHIVOS`) | 70 | inventario del ZIP |
+| Pantallas con `code.html` | **59** (2026-11-25), 58 (2026-11-24) | 63 | inventario canónico + alta de #67 |
+| — en `1.MOBILE` / `2.DESKTOP` / `4.ADMIN` | 23 / **22** / 14 | — | `2.DESKTOP` sumó `club tirno desktop` |
+| Capturas `screen.png` | **65** (59 de pantalla + 6 referencias JPG en `3.ARCHIVOS`) | 70 | inventario del ZIP + #67 |
 | Variantes de `DESIGN.md` | 3 | 3 | todas en `3.ARCHIVOS/` |
 | Referencias HTTPS en `src` | **193** | 204 | regex sobre los 58 HTML |
 | Referencias `googleusercontent.com` | **135 `src` en 36 pantallas** | 141 en 42 | regex sobre los 58 HTML |
@@ -74,9 +74,9 @@ Ruta: `E:\Archivos Usuario\Descargas\trino\sticht\stitch_tienda_virtual_de_maqui
 |---|---|---:|
 | **N — Neo-Pop** | Fredoka o DM Sans + hex canónicos + sombras duras `Npx Npx 0 #17141B` + sin blur | 12 (15) |
 | **L — Legacy** | Rubik/Plus Jakarta + `#fef7ff`/`#1d1a21`/`#49464b`/`#625e52`, `bg-surface`, `backdrop-blur` | 29 (30) |
-| **M — Mezcla** | Ambos sistemas: se rescata estructura y se repeina | 17 (18) |
+| **M — Mezcla** | Ambos sistemas: se rescata estructura y se repeina | 18 (17) |
 
-Por grupo: mobile 9 N / 11 L / 3 M · desktop 2 N / 5 L / 14 M · admin 1 N / 13 L / 0 M.
+Por grupo: mobile 9 N / 11 L / 3 M · desktop 2 N / 5 L / **15 M** (suma #67) · admin 1 N / 13 L / 0 M.
 
 **Shells declarados en el HTML:** `mobile_tab`, `mobile_stack`, `mobile_blank`, `web_standard`, `web_dashboard`, `web_blank`.
 
@@ -110,7 +110,7 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | 5 | `cat_logo_filtrado_tono_03_warm_honey_trino._beauty_mobile_3` | L | ~~mobile_tab~~ | — | **ELIMINADA 2026-11-24** (era variante de estado de #4) |
 | 6 | `trino._beauty_marcas_oficiales_curadur_a_desktop_neo_pop` | M | web_standard | `[locale]/marcas` | REPEINAR |
 | 7 | `trino._beauty_b_squeda_sin_resultados_desktop_neo_pop` | N | web_standard | zero-state PLP | PORTAR |
-| 8 | `trino._beauty_error_404_p_gina_no_encontrada_desktop` | N | web_standard | `[locale]/not-found.tsx` | PORTAR |
+| 8 | `trino._beauty_error_404_p_gina_no_encontrada_desktop` | N | web_standard | `[locale]/not-found.tsx` | **PORTADA 2026-11-25**: copia reescrita, tarjetas con datos reales y sin claims |
 | 9 | `detalle_de_producto_trino._beauty_mobile` | N | ~~mobile_stack~~ | — | **ELIMINADA 2026-11-24** (obsoleta). Reemplazo desktop: #66; falta PDP mobile Neo-Pop |
 | 10 | `detalle_de_producto_trina_` | N | ~~mobile_stack~~ | — | **ELIMINADA 2026-11-24** (era referencia, mismo shell que #9) |
 | 11 | `trino._beauty_ficha_de_producto_estado_agotado_alerta_de_restock_desktop` | M | web_standard | estado agotado PDP | REPEINAR |
@@ -206,7 +206,7 @@ Los únicos pares con el mismo `shell-type` que sí son duplicados o variantes d
 | 61 | `modal_ajuste_r_pido_de_stock_mobile_neo_pop_oficial` | N | mobile_stack | REFERENCIA Fase 4 (versión que gana) |
 | 62 | `modal_ajuste_r_pido_de_stock_mobile_trino._beauty` | L | mobile_stack | RECHAZAR (variante legacy de #61, mismo shell) |
 
-### 4.6 Altas del rescan y variante suelta (4)
+### 4.6 Altas del rescan y variante suelta (5)
 
 | # | Carpeta | Tipo | Shell | Destino | Decisión |
 |---|---|---|---|---|---|
@@ -214,8 +214,9 @@ Los únicos pares con el mismo `shell-type` que sí son duplicados o variantes d
 | 64 | `carrito vacio mobile` | N | mobile_tab | bolsa / empty state | **PORTAR** con reescritura: sacar `-40% Refill`, `Recarga Consciente Cápsula Refill` y los precios de ejemplo en USD |
 | 65 | `trino._beauty_home_desktop_neo_pop_oficial` | M | web_standard | `[locale]/page.tsx` desktop | **REPEINAR**: quitar Rubik/Plus Jakarta, `#1D1A21` (4x), `#FEF7FF` (3x) y los claims `100% Originales USA`, `Precinto de Fábrica`, `98%`, `turno`, `precisión` |
 | 66 | `trino._beauty_ficha_de_producto_desktop_neo_pop_oficial` | M | web_standard | `[locale]/producto/[slug]` desktop | **REPEINAR**: mismos fonts/hex legacy; quitar `LOTE USA ORIGINAL CERTIFICADO`, `100% ORIGINAL IMPORTADO FÍSICO`, `CLEAN` |
+| 67 | `club tirno desktop` | M | web_standard | `[locale]#club` (sección existente) | **PORTAR solo presentación** 2026-11-25: sacar puntos acumulados, equivalencias en ARS, `garantizado` y `100% ORIGINAL`; diferencia lógica de puntos/canjes |
 
-**Total vigente:** **58** HTML (63 del audit original − 8 bajas + 3 altas): 12 N, 29 L, 17 M. De las 12 N, **3 se rechazan por guardrails** (#29, #34 y #35) y las 9 restantes requieren reescritura de copy antes de publicar. Las dos desktop nuevas son **M**: la mayoría de sus hex son canónicos y la composición sirve, pero arrastran Rubik/Plus Jakarta y unos pocos hex legacy, así que se repeinan, no se portan tal cual.
+**Total vigente:** **59** HTML (63 del audit original − 8 bajas + 3 altas + 1 alta 2026-11-25): 12 N, 29 L, 18 M. De las 12 N, **3 se rechazan por guardrails** (#29, #34 y #35) y las 9 restantes requieren reescritura de copy antes de publicar. Las dos desktop nuevas son **M**: la mayoría de sus hex son canónicos y la composición sirve, pero arrastran Rubik/Plus Jakarta y unos pocos hex legacy, así que se repeinan, no se portan tal cual.
 
 ---
 
@@ -348,7 +349,7 @@ El manual define **34 pantallas mobile + 30 desktop + 24 admin** (88). El export
 
 ### P1 — cuenta, auth y test (segundo slice)
 
-Login y Registro Mobile/Desktop · Crear Cuenta Mobile/Desktop · Bienvenida al Club / Correo Enviado · Recuperar Contraseña Mobile · Verificar OTP Mobile · Reenvío Exitoso de OTP · Mi Perfil y Cuenta Mobile · Contacto y FAQ Mobile/Desktop · Error 404 Mobile · Test de Tono Mobile Paso 1 y Paso 2 en versión **Neo-Pop oficial** · Ficha de Producto Agotado Mobile · Compartir Wishlist · Wishlist pública de Sofi · Modal Compra Compartida · Manifiesto Desktop.
+Login y Registro Mobile/Desktop · Crear Cuenta Mobile/Desktop · Correo Enviado (la landing del Club ya existe como #67 y se porta en Fase 2) · Recuperar Contraseña Mobile · Verificar OTP Mobile · Reenvío Exitoso de OTP · Mi Perfil y Cuenta Mobile · Contacto y FAQ Mobile/Desktop · Error 404 Mobile (la desktop #8 ya existe y quedó portada el 2026-11-25) · Test de Tono Mobile Paso 1 y Paso 2 en versión **Neo-Pop oficial** · Ficha de Producto Agotado Mobile · Compartir Wishlist · Wishlist pública de Sofi · Modal Compra Compartida · Manifiesto Desktop.
 
 ### P2 — Fase 4 y excepciones del manual
 
@@ -365,8 +366,8 @@ Dashboard General · Inventario & Lotes · Drops & Campañas · Socias Club · M
 | **0** | Manifiesto, dedupe, espejo de assets, guard de licencias | `docs/stitch/manifiesto.json`, `public/stitch/*`, `public/brand/*` | script de extracción sin copy prohibido |
 | **0** | Commit separado del catálogo `0028` | migración + facets + guards | `tsc`, 30 guards focalizados, lint scoped |
 | **1** | Tokens + shells + primitivas + guard de estilo | `stitch-shell.tsx`, `shadow-pop`, utilidades | guard que prohíbe hex legacy en `src/` |
-| **2** | Home → PLP → PDP → bolsa → checkout → confirmación | funnel completo 390/1440 | suite completa + Playwright visual + axe |
-| **3** | Wishlist, cuenta, auth, test de tono digital, 404 | flujos de cuenta | ídem + checks de voseo en 4 locales |
+| **2** | Home → **404** → marcas → búsqueda sin resultados → carrito drawer → checkout pago → checkout rechazado → PLP/PDP → confirmación | funnel completo 390/1440 | suite completa + Playwright visual + axe |
+| **3** | Wishlist, cuenta, auth, club (#67), test de tono digital | flujos de cuenta | ídem + checks de voseo en 4 locales |
 | **4** | Admin desktop y PDA | backoffice | ídem + lhci |
 
 ### Gate de cada slice
@@ -407,7 +408,7 @@ pnpm changeset
 | Bajas del export sin reemplazo | Las 8 pantallas eliminadas quedan marcadas en §4; las dos críticas (home y PDP mobile) volvieron al P0. Si se elimina otra pantalla canónica, actualizar el plan en el mismo commit |
 | Desktop nuevas clasificadas M | #65/#66 son Neo-Pop en composición pero traen hex legacy y claims prohibidos; pasan por `REPEINAR` y por el guard de estilo antes de merge. La tipografía se conserva por decisión del 2026-11-24 |
 
-**Pendiente de tu confirmación:** orden de generación de los P0. Recomiendo empezar por **#1 y #2** (home y PDP mobile, recién eliminadas) y **#3** (PLP desktop), y en paralelo **#6 y #7** (checkout pasos 1 y 2, que son los huecos que impiden cerrar el funnel).
+**Orden aprobado por el owner el 2026-11-25:** en Fase 2, primero la **404 desktop (#8)** y después el funnel **#6 marcas → #7 búsqueda sin resultados → #13 carrito drawer → #15 checkout pago → #16 checkout rechazado**, solo presentación; administración, TypeScript y lint quedan bajo otro agente. La generación de los P0 pendientes sigue en espera del ZIP nuevo.
 
 ---
 
@@ -428,7 +429,7 @@ Un slice se da por terminado solo si:
 
 - Manual definitivo: `E:\Archivos Usuario\Descargas\trino\sticht\stitch_tienda_virtual_de_maquillaje\3.ARCHIVOS\manual_t_cnico_maestro_definitivo_trino._beauty.txt` (470 líneas; guardrails §11-35, catálogo §87-300, backlog §304-345, 6 puntos críticos §347-432, tokens §435-467). Sigue siendo la fuente 1 aunque el owner lo haya movido a `3.ARCHIVOS/`.
 - Inventario actual: `E:\temp\opencode\stitch-inventory-2026-11-24.tsv` (58 filas: tipo, shell, imágenes, grupo, carpeta). Inventario previo: `E:\temp\opencode\stitch-inventory.tsv` (63 filas). Clasificación reproducible con el script de §11.
-- Estructura del export (2026-11-24): `1.MOBILE/` (23 HTML), `2.DESKTOP/` (21), `3.ARCHIVOS/` (manual, 3 `DESIGN.md`, referencias y SVGs), `4.ADMIN/` (14).
+- Estructura del export (revisión 2026-11-25): `1.MOBILE/` (23 HTML vigentes), `2.DESKTOP/` (**22**, incluye `club tirno desktop` = #67), `3.ARCHIVOS/` (manual, 3 `DESIGN.md`, referencias y SVGs), `4.ADMIN/` (14). El total recursivo de archivos `code.html` es mayor por copias anidadas en `1.MOBILE/AA/` y `1.MOBILE/1. ESTETICA NO VALIDA/`; el inventario canónico las excluye.
 - Repo: `docs/brand/trino-tokens.css`, `src/styles/tokens.css`, `src/app/[locale]/`, `src/lib/db/facets.ts`, `supabase/migrations/0028_product_beauty_attributes.sql`.
 - Estados previos: commit `045935c` (brand docs + tokens + gates); catálogo `0028` aún sin commitear.
 - Generado por el agente de arquitectura el 2026-11-23 y re-escaneado el 2026-11-24, con `doc-template-flota` v2.0.0.
