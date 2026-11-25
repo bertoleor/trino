@@ -15,9 +15,22 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const errors = (await import(`../../messages/${locale}/errors.json`)).default;
   const home = (await import(`../../messages/${locale}/home.json`)).default;
   const product = (await import(`../../messages/${locale}/product.json`)).default;
+  const search = (await import(`../../messages/${locale}/search.json`)).default;
   const storefront = (await import(`../../messages/${locale}/storefront.json`)).default;
   return {
     locale,
-    messages: { admin, auth, brands, checkout, common, emails, errors, home, product, storefront },
+    messages: {
+      admin,
+      auth,
+      brands,
+      checkout,
+      common,
+      emails,
+      errors,
+      home,
+      product,
+      search,
+      storefront,
+    },
   };
 });

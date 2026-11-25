@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "Sem resultados | trino. beauty",
+    "description": "Não encontramos o que você procurava. Tente outra busca ou explore o catálogo da trino."
+  },
+  "breadcrumb": {
+    "home": "Início",
+    "catalog": "Catálogo",
+    "results": "Resultados da busca"
+  },
+  "hero": {
+    "badge": "Sem correspondência para «{query}»",
+    "title": "Não encontramos esse produto... ainda.",
+    "description": "Pode estar esgotado, escrito de outra forma ou ainda não estar no catálogo. Tente outra busca ou veja o que está por perto."
+  },
+  "form": {
+    "label": "Buscar novamente",
+    "placeholder": "Escreva outra marca, tom ou produto",
+    "action": "Buscar novamente"
+  },
+  "suggestions": {
+    "label": "Sugestões do catálogo:"
+  },
+  "request": {
+    "title": "Quer que a gente adicione ao catálogo?",
+    "description": "Conte o que você procurava e a gente te diz se consegue trazer.",
+    "action": "Ir para contato"
+  },
+  "recommendations": {
+    "eyebrow": "CONTINUE EXPLORANDO",
+    "title": "Outras opções do catálogo.",
+    "viewAll": "Ver catálogo completo"
+  }
+}

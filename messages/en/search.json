@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "title": "No results | trino. beauty",
+    "description": "We could not find what you were looking for. Try another search or explore the trino. catalog."
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "results": "Search results"
+  },
+  "hero": {
+    "badge": "No matches for \"{query}\"",
+    "title": "We could not find that product... yet.",
+    "description": "It may be sold out, spelled differently, or not listed in the catalog yet. Try another search or take a look at what is close."
+  },
+  "form": {
+    "label": "Search again",
+    "placeholder": "Try another brand, shade or product",
+    "action": "Search again"
+  },
+  "suggestions": {
+    "label": "Catalog suggestions:"
+  },
+  "request": {
+    "title": "Would you like us to add it to the catalog?",
+    "description": "Tell us what you were looking for and we will let you know if we can get it.",
+    "action": "Go to contact"
+  },
+  "recommendations": {
+    "eyebrow": "KEEP EXPLORING",
+    "title": "Other catalog options.",
+    "viewAll": "View full catalog"
+  }
+}
