@@ -1,4 +1,5 @@
 import './globals.css';
+import '@/styles/tokens.css';
 import { Fredoka, Plus_Jakarta_Sans, Rubik } from 'next/font/google';
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import type { Metadata } from 'next';
