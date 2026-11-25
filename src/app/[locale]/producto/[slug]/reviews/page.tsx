@@ -1,4 +1,5 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 import ReviewForm from '@/components/product/review-form';
 import StarRating from '@/components/product/star-rating';
@@ -6,7 +7,6 @@ import { createClient } from '@/lib/supabase/server';
 import dynamic from 'next/dynamic';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
 
 const ReviewsList = dynamic(() => import('@/components/product/reviews-list'), {
   loading: () => (
@@ -28,11 +28,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const url = `https://trino.com.ar/${locale}/producto/${slug}/reviews`;
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales)
-    languages[l] = `https://trino.com.ar/${l}/producto/${slug}/reviews`;
-  return { title: `Reviews ${slug}`, alternates: { canonical: url, languages } };
+  const path = `producto/${slug}/reviews`;
+  return {
+    title: `Reviews ${slug}`,
+    alternates: { canonical: localizedUrl(locale, path), languages: languageAlternates(path) },
+  };
 }
 export default async function ReviewsPage({
   params,

@@ -1,24 +1,30 @@
+import { languageAlternates, siteUrl } from '@/lib/seo/site';
 import type { MetadataRoute } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 import { routing } from '@/i18n/routing';
+
+const STATIC_PATHS = [
+  '',
+  'tienda',
+  'marcas',
+  'cultura',
+  'cambios-devoluciones',
+  'envios',
+  'garantia',
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = 'https://trino.com.ar';
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
   for (const locale of routing.locales) {
-    entries.push({
-      url: `${base}/${locale}`,
-      lastModified: now,
-      alternates: {
-        languages: Object.fromEntries(routing.locales.map((l) => [l, `${base}/${l}`])),
-      },
-    } as unknown as MetadataRoute.Sitemap[number]);
-    entries.push({ url: `${base}/${locale}/tienda`, lastModified: now });
-    entries.push({ url: `${base}/${locale}/cultura`, lastModified: now });
-    entries.push({ url: `${base}/${locale}/cambios-devoluciones`, lastModified: now });
-    entries.push({ url: `${base}/${locale}/envios`, lastModified: now });
-    entries.push({ url: `${base}/${locale}/garantia`, lastModified: now });
+    for (const path of STATIC_PATHS) {
+      entries.push({
+        url: siteUrl(`${locale}${path ? `/${path}` : ''}`),
+        lastModified: now,
+        alternates: { languages: languageAlternates(path) },
+      } as unknown as MetadataRoute.Sitemap[number]);
+    }
   }
   try {
     const supabase = await createClient();
@@ -30,13 +36,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const products = (data ?? []) as { slug: string; updated_at?: string }[];
     for (const p of products) {
       for (const locale of routing.locales) {
-        const url = `${base}/${locale}/producto/${p.slug}`;
-        const languages: Record<string, string> = {};
-        for (const l of routing.locales) languages[l] = `${base}/${l}/producto/${p.slug}`;
         entries.push({
-          url,
+          url: siteUrl(`${locale}/producto/${p.slug}`),
           lastModified: p.updated_at ? new Date(p.updated_at) : now,
-          alternates: { languages },
+          alternates: { languages: languageAlternates(`producto/${p.slug}`) },
         } as unknown as MetadataRoute.Sitemap[number]);
       }
     }

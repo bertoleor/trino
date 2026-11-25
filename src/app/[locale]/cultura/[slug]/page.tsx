@@ -1,11 +1,11 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { articleJsonLd } from '@/lib/seo/json-ld';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
 
 export const revalidate = 300;
 
@@ -23,13 +23,12 @@ export async function generateMetadata({
     .single();
   const title = post?.title ?? slug;
   const description = post?.excerpt ?? title;
-  const url = `https://trino.com.ar/${locale}/cultura/${slug}`;
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales) languages[l] = `https://trino.com.ar/${l}/cultura/${slug}`;
+  const path = `cultura/${slug}`;
+  const url = localizedUrl(locale, path);
   return {
     title,
     description,
-    alternates: { canonical: url, languages },
+    alternates: { canonical: url, languages: languageAlternates(path) },
     openGraph: {
       title,
       description,
@@ -46,7 +45,7 @@ export default async function CulturaDetail({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const supabase = await createClient();
   const { data: post } = await supabase
     .from('cultura_posts')
@@ -63,6 +62,7 @@ export default async function CulturaDetail({
     excerpt: post.excerpt ?? undefined,
     image: post.cover_image ?? undefined,
     datePublished: post.published_at ?? undefined,
+    locale,
   });
   return (
     <main className="mx-auto w-full max-w-3xl px-6 py-12">

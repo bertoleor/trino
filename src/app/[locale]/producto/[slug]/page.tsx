@@ -9,6 +9,7 @@ import {
   ProductDetails,
   RelatedProducts,
 } from '@/components/storefront/product-panels';
+import { languageAlternates, localizedUrl, siteUrl } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 import { StitchShell } from '@/components/layout/stitch-shell';
 import { StorefrontFooter } from '@/components/storefront/storefront-footer';
@@ -18,7 +19,6 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { priceInCents } from '@/components/storefront/storefront-product';
 import { productJsonLd } from '@/lib/seo/json-ld';
-import { routing } from '@/i18n/routing';
 
 export const revalidate = 300;
 
@@ -36,13 +36,11 @@ export async function generateMetadata({
     .single();
   const title = product?.name ?? slug;
   const description = product?.description ?? title;
-  const url = `https://trino.com.ar/${locale}/producto/${slug}`;
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales) languages[l] = `https://trino.com.ar/${l}/producto/${slug}`;
+  const url = localizedUrl(locale, `producto/${slug}`);
   return {
     title,
     description,
-    alternates: { canonical: url, languages },
+    alternates: { canonical: url, languages: languageAlternates(`producto/${slug}`) },
     openGraph: {
       title,
       description,
@@ -76,8 +74,9 @@ export default async function ProductoPage({
     slug: product.slug,
     priceCents: priceInCents(product),
     currency: 'ARS',
-    image: product.image_url ?? 'https://trino.com.ar/og.jpg',
+    image: product.image_url ?? siteUrl('og.jpg'),
     description: product.description ?? undefined,
+    locale,
   });
 
   const { data: related } = await supabase

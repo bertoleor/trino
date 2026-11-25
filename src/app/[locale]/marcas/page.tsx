@@ -1,3 +1,4 @@
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import type { BrandSummary } from '@/components/storefront/brands-directory';
 import { BrandsDirectory } from '@/components/storefront/brands-directory';
 import { BrandsHero } from '@/components/storefront/brands-hero';
@@ -18,7 +19,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'brands' });
-  return { title: t('meta.title'), description: t('meta.description') };
+  const url = localizedUrl(locale, 'marcas');
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+    alternates: { canonical: url, languages: languageAlternates('marcas') },
+    openGraph: { type: 'website', url, locale },
+  };
 }
 
 export default async function BrandsPage({ params }: { params: Promise<{ locale: string }> }) {

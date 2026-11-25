@@ -1,4 +1,5 @@
 import { CATEGORY, FINISH, SUBCATEGORY, parseFacets } from '@/lib/db/facets';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import { LegacyProductList } from '@/components/storefront/legacy-product-list';
 import { SearchEmptyState } from '@/components/storefront/search-empty-state';
 import { StitchShell } from '@/components/layout/stitch-shell';
@@ -37,10 +38,25 @@ function applyBeautyFilters(query: ProductsQuery, q: string, facets: ProductFace
   return next;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { locale } = await params;
+  const sp = await searchParams;
+  const hasQuery = typeof sp.q === 'string' && sp.q.trim().length > 0;
   const t = await getTranslations({ locale, namespace: 'search' });
-  return { title: t('meta.title'), description: t('meta.description') };
+  const url = localizedUrl(locale, 'tienda');
+  return {
+    title: hasQuery ? t('meta.title') : t('meta.catalogTitle'),
+    description: hasQuery ? t('meta.description') : t('meta.catalogDescription'),
+    alternates: { canonical: url, languages: languageAlternates('tienda') },
+    openGraph: { type: 'website', url, locale },
+    robots: hasQuery ? { index: false, follow: true } : { index: true, follow: true },
+  };
 }
 
 export default async function TiendaPage({

@@ -1,3 +1,5 @@
+import { localizedUrl, siteUrl } from '@/lib/seo/site';
+
 export function productJsonLd(input: {
   name: string;
   slug: string;
@@ -6,10 +8,12 @@ export function productJsonLd(input: {
   image: string;
   description?: string;
   availability?: string;
+  locale?: string;
   // Carried for the <script nonce> contract; never embedded in the payload.
   nonce?: string;
 }) {
   const price = (input.priceCents / 100).toFixed(2);
+  const path = `producto/${input.slug}`;
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -22,7 +26,7 @@ export function productJsonLd(input: {
       price,
       priceCurrency: input.currency ?? 'ARS',
       availability: `https://schema.org/${input.availability ?? 'InStock'}`,
-      url: `https://trino.com.ar/producto/${input.slug}`,
+      url: input.locale ? localizedUrl(input.locale, path) : siteUrl(path),
     },
   };
 }
@@ -34,9 +38,11 @@ export function articleJsonLd(input: {
   image?: string;
   datePublished?: string;
   author?: string;
+  locale?: string;
   // Carried for the <script nonce> contract; never embedded in the payload.
   nonce?: string;
 }) {
+  const path = `cultura/${input.slug}`;
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -45,7 +51,7 @@ export function articleJsonLd(input: {
     image: input.image,
     datePublished: input.datePublished,
     author: { '@type': 'Person', name: input.author ?? 'trino.' },
-    mainEntityOfPage: `https://trino.com.ar/cultura/${input.slug}`,
+    mainEntityOfPage: input.locale ? localizedUrl(input.locale, path) : siteUrl(path),
   };
 }
 

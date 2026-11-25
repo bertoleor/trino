@@ -1,8 +1,8 @@
 import { cuitForDisplay, getMerchantIdentity } from '@/lib/merchant/identity';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
-import { routing } from '@/i18n/routing';
 
 // Fetches via the cookie-bound supabase server client (session-aware), so it
 // cannot be prerendered; force-dynamic keeps the static export from attempting it.
@@ -13,12 +13,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales) languages[l] = `https://trino.com.ar/${l}/envios`;
   return {
     title: `Envíos — ${locale}`,
     description: 'Costos y plazos Andreani Correo OCA',
-    alternates: { canonical: `https://trino.com.ar/${locale}/envios`, languages },
+    alternates: {
+      canonical: localizedUrl(locale, 'envios'),
+      languages: languageAlternates('envios'),
+    },
     openGraph: { locale },
   };
 }
@@ -62,9 +63,6 @@ export default async function EnviosPage({ params }: { params: Promise<{ locale:
         </p>
         <p>Ley 24.240 información clara — precios con IVA incluido, factura C/B.</p>
       </section>
-      <p className="mt-4 text-xs text-zinc-600">
-        hreflang {routing.locales.join(', ')} alternates languages
-      </p>
     </main>
   );
 }

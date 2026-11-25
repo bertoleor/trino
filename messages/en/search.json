@@ -1,7 +1,9 @@
 {
   "meta": {
     "title": "No results | trino. beauty",
-    "description": "We could not find what you were looking for. Try another search or explore the trino. catalog."
+    "description": "We could not find what you were looking for. Try another search or explore the trino. catalog.",
+    "catalogTitle": "Catalog and drops | trino. beauty",
+    "catalogDescription": "Explore the trino. beauty multi-brand catalog, discover new drops and find products to try."
   },
   "breadcrumb": {
     "home": "Home",

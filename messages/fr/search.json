@@ -1,7 +1,9 @@
 {
   "meta": {
     "title": "Aucun résultat | trino. beauty",
-    "description": "Nous n'avons pas trouvé ce que vous cherchiez. Essayez une autre recherche ou explorez le catalogue trino."
+    "description": "Nous n'avons pas trouvé ce que vous cherchiez. Essayez une autre recherche ou explorez le catalogue trino.",
+    "catalogTitle": "Catalogue et nouveautés | trino. beauty",
+    "catalogDescription": "Explorez le catalogue multimarques trino. beauty, découvrez les nouveautés et trouvez des produits à essayer."
   },
   "breadcrumb": {
     "home": "Accueil",

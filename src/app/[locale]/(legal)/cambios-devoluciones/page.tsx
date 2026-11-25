@@ -1,8 +1,8 @@
 import { cuitForDisplay, getMerchantIdentity } from '@/lib/merchant/identity';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
-import { routing } from '@/i18n/routing';
 
 // Fetches via the cookie-bound supabase server client (session-aware), so it
 // cannot be prerendered; force-dynamic keeps the static export from attempting it.
@@ -13,12 +13,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const languages: Record<string, string> = {};
-  for (const l of routing.locales) languages[l] = `https://trino.com.ar/${l}/cambios-devoluciones`;
   return {
     title: `Cambios y devoluciones — ${locale}`,
     description: 'Política de cambios 10 días Ley 24.240 art.34',
-    alternates: { canonical: `https://trino.com.ar/${locale}/cambios-devoluciones`, languages },
+    alternates: {
+      canonical: localizedUrl(locale, 'cambios-devoluciones'),
+      languages: languageAlternates('cambios-devoluciones'),
+    },
     openGraph: { locale },
   };
 }
@@ -64,9 +65,6 @@ export default async function CambiosPage({ params }: { params: Promise<{ locale
         </p>
         <p>Contacto: reclamos@santisimatrinidad.com.ar — 0800-666-1518.</p>
       </section>
-      <p className="mt-4 text-xs text-zinc-600">
-        hreflang alternates languages {routing.locales.join(', ')}
-      </p>
     </main>
   );
 }

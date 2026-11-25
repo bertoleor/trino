@@ -1,5 +1,6 @@
 import { HomeBrands, HomeFeatured, HomeTrust } from '@/components/storefront/home-sections';
 import { HomeClub, HomeCommunity, HomeGuide } from '@/components/storefront/home-panels';
+import { languageAlternates, localizedUrl } from '@/lib/seo/site';
 import { HomeHero } from '@/components/storefront/home-hero';
 import type { Metadata } from 'next';
 import { StitchShell } from '@/components/layout/stitch-shell';
@@ -17,7 +18,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
-  return { title: t('meta.title'), description: t('meta.description') };
+  const url = localizedUrl(locale);
+  return {
+    title: t('meta.title'),
+    description: t('meta.description'),
+    alternates: { canonical: url, languages: languageAlternates() },
+    openGraph: { type: 'website', url, locale },
+  };
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
