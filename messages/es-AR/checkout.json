@@ -1,1 +1,50 @@
-{"checkout":"Checkout","pay":"Pay","total":"Total"}
+{
+  "checkout": "Checkout",
+  "pay": "Pagar",
+  "total": "Total",
+  "steps": {
+    "contact": "Contacto",
+    "delivery": "Entrega",
+    "payment": "Pago",
+    "current": "Paso actual",
+    "attention": "Requiere atención"
+  },
+  "payment": {
+    "meta": {
+      "title": "Método de pago | trino.",
+      "description": "Elegí cómo querés abonar tu pedido en trino."
+    },
+    "hero": {
+      "title": "Método de pago",
+      "description": "Elegí cómo querés abonar tu pedido."
+    },
+    "methods": {
+      "legend": "Opciones de pago",
+      "card": "Tarjeta",
+      "cardHint": "Débito o crédito",
+      "transfer": "Transferencia",
+      "transferHint": "Desde tu banco",
+      "wallet": "Mercado Pago",
+      "walletHint": "Con tu cuenta"
+    },
+    "card": {
+      "previewLabel": "Vista de la tarjeta",
+      "number": "Número de tarjeta",
+      "name": "Nombre del titular",
+      "expiry": "Vencimiento",
+      "holder": "TITULAR",
+      "note": "Los datos se completan en el paso de pago cuando esté disponible."
+    },
+    "transferNote": "Los datos para transferir se muestran al confirmar el pedido.",
+    "walletNote": "Abonás desde tu cuenta de Mercado Pago.",
+    "submit": "Confirmar pago",
+    "submitNote": "La confirmación se habilita cuando se conecte la pasarela de pago.",
+    "summary": {
+      "title": "Tu pedido",
+      "count": "{count} {count, plural, one {producto} other {productos}}",
+      "total": "Total",
+      "empty": "Todavía no sumaste productos a tu bolsa.",
+      "browse": "Explorar el catálogo"
+    }
+  }
+}

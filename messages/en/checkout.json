@@ -1,1 +1,50 @@
-{"checkout":"Checkout","pay":"Pay","total":"Total"}
+{
+  "checkout": "Checkout",
+  "pay": "Pay",
+  "total": "Total",
+  "steps": {
+    "contact": "Contact",
+    "delivery": "Delivery",
+    "payment": "Payment",
+    "current": "Current step",
+    "attention": "Needs attention"
+  },
+  "payment": {
+    "meta": {
+      "title": "Payment method | trino.",
+      "description": "Choose how you want to pay for your order at trino."
+    },
+    "hero": {
+      "title": "Payment method",
+      "description": "Choose how you want to pay for your order."
+    },
+    "methods": {
+      "legend": "Payment options",
+      "card": "Card",
+      "cardHint": "Debit or credit",
+      "transfer": "Bank transfer",
+      "transferHint": "From your bank",
+      "wallet": "Mercado Pago",
+      "walletHint": "With your account"
+    },
+    "card": {
+      "previewLabel": "Card preview",
+      "number": "Card number",
+      "name": "Cardholder name",
+      "expiry": "Expiry date",
+      "holder": "CARDHOLDER",
+      "note": "Details are entered at the payment step once it is available."
+    },
+    "transferNote": "Bank details are shown when you confirm the order.",
+    "walletNote": "Pay from your Mercado Pago account.",
+    "submit": "Confirm payment",
+    "submitNote": "Confirmation is enabled once the payment gateway is connected.",
+    "summary": {
+      "title": "Your order",
+      "count": "{count} {count, plural, one {product} other {products}}",
+      "total": "Total",
+      "empty": "You have not added any products to your bag yet.",
+      "browse": "Explore the catalog"
+    }
+  }
+}

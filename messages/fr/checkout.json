@@ -1,1 +1,50 @@
-{"checkout":"Checkout","pay":"Pay","total":"Total"}
+{
+  "checkout": "Checkout",
+  "pay": "Payer",
+  "total": "Total",
+  "steps": {
+    "contact": "Contact",
+    "delivery": "Livraison",
+    "payment": "Paiement",
+    "current": "Étape actuelle",
+    "attention": "À vérifier"
+  },
+  "payment": {
+    "meta": {
+      "title": "Moyen de paiement | trino.",
+      "description": "Choisissez comment régler votre commande chez trino."
+    },
+    "hero": {
+      "title": "Moyen de paiement",
+      "description": "Choisissez comment régler votre commande."
+    },
+    "methods": {
+      "legend": "Options de paiement",
+      "card": "Carte",
+      "cardHint": "Débit ou crédit",
+      "transfer": "Virement",
+      "transferHint": "Depuis votre banque",
+      "wallet": "Mercado Pago",
+      "walletHint": "Avec votre compte"
+    },
+    "card": {
+      "previewLabel": "Aperçu de la carte",
+      "number": "Numéro de carte",
+      "name": "Nom du titulaire",
+      "expiry": "Date d'expiration",
+      "holder": "TITULAIRE",
+      "note": "Les informations sont saisies à l'étape du paiement lorsqu'elle est disponible."
+    },
+    "transferNote": "Les coordonnées bancaires sont affichées lors de la confirmation de la commande.",
+    "walletNote": "Payez depuis votre compte Mercado Pago.",
+    "submit": "Confirmer le paiement",
+    "submitNote": "La confirmation est activée une fois la passerelle de paiement connectée.",
+    "summary": {
+      "title": "Votre commande",
+      "count": "{count} {count, plural, one {produit} other {produits}}",
+      "total": "Total",
+      "empty": "Vous n'avez pas encore ajouté de produits à votre panier.",
+      "browse": "Explorer le catalogue"
+    }
+  }
+}

@@ -1,1 +1,50 @@
-{"checkout":"Checkout","pay":"Pay","total":"Total"}
+{
+  "checkout": "Checkout",
+  "pay": "Pagar",
+  "total": "Total",
+  "steps": {
+    "contact": "Contato",
+    "delivery": "Entrega",
+    "payment": "Pagamento",
+    "current": "Etapa atual",
+    "attention": "Requer atenção"
+  },
+  "payment": {
+    "meta": {
+      "title": "Forma de pagamento | trino.",
+      "description": "Escolha como quer pagar seu pedido na trino."
+    },
+    "hero": {
+      "title": "Forma de pagamento",
+      "description": "Escolha como quer pagar seu pedido."
+    },
+    "methods": {
+      "legend": "Opções de pagamento",
+      "card": "Cartão",
+      "cardHint": "Débito ou crédito",
+      "transfer": "Transferência",
+      "transferHint": "Pelo seu banco",
+      "wallet": "Mercado Pago",
+      "walletHint": "Com sua conta"
+    },
+    "card": {
+      "previewLabel": "Prévia do cartão",
+      "number": "Número do cartão",
+      "name": "Nome do titular",
+      "expiry": "Validade",
+      "holder": "TITULAR",
+      "note": "Os dados são preenchidos na etapa de pagamento quando ela estiver disponível."
+    },
+    "transferNote": "Os dados bancários são exibidos ao confirmar o pedido.",
+    "walletNote": "Pague pela sua conta do Mercado Pago.",
+    "submit": "Confirmar pagamento",
+    "submitNote": "A confirmação é habilitada quando o gateway de pagamento for conectado.",
+    "summary": {
+      "title": "Seu pedido",
+      "count": "{count} {count, plural, one {produto} other {produtos}}",
+      "total": "Total",
+      "empty": "Você ainda não adicionou produtos à sua sacola.",
+      "browse": "Explorar o catálogo"
+    }
+  }
+}
