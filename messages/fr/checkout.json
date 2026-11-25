@@ -9,6 +9,79 @@
     "current": "Étape actuelle",
     "attention": "À vérifier"
   },
+  "contact": {
+    "meta": {
+      "title": "Contact et livraison | trino.",
+      "description": "Saisissez vos coordonnées et l'adresse de livraison de votre commande trino."
+    },
+    "hero": {
+      "title": "Contact et livraison",
+      "description": "Nous avons besoin de vos informations pour préparer la commande."
+    },
+    "badge": "Étape 01",
+    "details": {
+      "title": "Informations de contact",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "vous@email.com",
+      "phone": "Téléphone mobile",
+      "phonePlaceholder": "11 1234 5678"
+    },
+    "recipient": {
+      "title": "Destinataire",
+      "name": "Nom et prénom",
+      "namePlaceholder": "Nom complet"
+    },
+    "address": {
+      "title": "Adresse de livraison",
+      "street": "Rue et numéro",
+      "streetPlaceholder": "12 rue de la Paix",
+      "floor": "Étage / Appartement",
+      "floorPlaceholder": "2e étage, appartement B",
+      "postal": "Code postal",
+      "postalPlaceholder": "C1425",
+      "city": "Ville / Quartier",
+      "cityPlaceholder": "Palermo",
+      "notes": "Instructions de livraison",
+      "notesPlaceholder": "Étage, sonnette ou repère pour vous trouver"
+    },
+    "submit": "Continuer vers les options de livraison",
+    "submitNote": "La confirmation est activée une fois la passerelle de paiement connectée."
+  },
+  "delivery": {
+    "meta": {
+      "title": "Options de livraison | trino.",
+      "description": "Choisissez comment recevoir votre commande trino."
+    },
+    "hero": {
+      "title": "Options de livraison",
+      "description": "Choisissez le mode de livraison qui vous convient."
+    },
+    "address": {
+      "title": "Livrer à",
+      "empty": "Vous n'avez pas encore saisi d'adresse.",
+      "edit": "Modifier l'adresse"
+    },
+    "legend": "Modes de livraison",
+    "methods": {
+      "home": "Livraison à domicile",
+      "homeHint": "Recevez votre commande à l'adresse indiquée.",
+      "pickup": "Retrait en showroom",
+      "pickupHint": "Récupérez votre commande au showroom.",
+      "post": "Courrier postal",
+      "postHint": "Nous expédions votre commande par courrier postal."
+    },
+    "slots": {
+      "legend": "Plage horaire",
+      "afternoon": "Après-midi",
+      "evening": "Soir"
+    },
+    "care": {
+      "title": "Modifications et confirmation",
+      "description": "Vous pouvez changer le mode de livraison avant de confirmer la commande."
+    },
+    "submit": "Continuer vers le paiement",
+    "submitNote": "La confirmation est activée une fois la passerelle de paiement connectée."
+  },
   "payment": {
     "meta": {
       "title": "Moyen de paiement | trino.",

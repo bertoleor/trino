@@ -11,11 +11,13 @@ export type CheckoutState = 'payment' | 'rejected';
 export async function CheckoutShell({
   locale,
   state,
+  activeStep = 3,
   children,
   summary,
 }: {
   locale: string;
   state: CheckoutState;
+  activeStep?: 1 | 2 | 3;
   children: ReactNode;
   summary: ReactNode;
 }) {
@@ -35,7 +37,7 @@ export async function CheckoutShell({
     >
       <ol className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {steps.map((step, index) => {
-          const current = index === 2;
+          const current = index === activeStep - 1;
           return (
             <li
               key={step.number}

@@ -9,6 +9,79 @@
     "current": "Etapa atual",
     "attention": "Requer atenção"
   },
+  "contact": {
+    "meta": {
+      "title": "Contato e entrega | trino.",
+      "description": "Informe seus dados de contato e o endereço de entrega do seu pedido na trino."
+    },
+    "hero": {
+      "title": "Contato e entrega",
+      "description": "Precisamos dos seus dados para preparar o pedido."
+    },
+    "badge": "Etapa 01",
+    "details": {
+      "title": "Informações de contato",
+      "email": "E-mail",
+      "emailPlaceholder": "voce@email.com",
+      "phone": "Celular",
+      "phonePlaceholder": "11 1234 5678"
+    },
+    "recipient": {
+      "title": "Quem recebe",
+      "name": "Nome e sobrenome",
+      "namePlaceholder": "Nome completo"
+    },
+    "address": {
+      "title": "Endereço de entrega",
+      "street": "Rua e número",
+      "streetPlaceholder": "Rua Principal, 1234",
+      "floor": "Andar / Apartamento",
+      "floorPlaceholder": "2º andar, Apartamento B",
+      "postal": "CEP",
+      "postalPlaceholder": "C1425",
+      "city": "Cidade / Bairro",
+      "cityPlaceholder": "Palermo",
+      "notes": "Instruções de entrega",
+      "notesPlaceholder": "Andar, campainha ou referência para te encontrar"
+    },
+    "submit": "Continuar para opções de entrega",
+    "submitNote": "A confirmação é habilitada quando o gateway de pagamento for conectado."
+  },
+  "delivery": {
+    "meta": {
+      "title": "Opções de entrega | trino.",
+      "description": "Escolha como quer receber seu pedido na trino."
+    },
+    "hero": {
+      "title": "Opções de entrega",
+      "description": "Escolha a forma de entrega que preferir."
+    },
+    "address": {
+      "title": "Entregar em",
+      "empty": "Você ainda não informou um endereço.",
+      "edit": "Editar endereço"
+    },
+    "legend": "Formas de entrega",
+    "methods": {
+      "home": "Entrega em casa",
+      "homeHint": "Receba no endereço que você informar.",
+      "pickup": "Retirada no showroom",
+      "pickupHint": "Busque seu pedido no showroom.",
+      "post": "Correio",
+      "postHint": "Enviamos seu pedido pelo correio."
+    },
+    "slots": {
+      "legend": "Faixa de horário",
+      "afternoon": "Tarde",
+      "evening": "Noite"
+    },
+    "care": {
+      "title": "Alterações e confirmação",
+      "description": "Você pode mudar a forma de entrega antes de confirmar o pedido."
+    },
+    "submit": "Continuar para o pagamento",
+    "submitNote": "A confirmação é habilitada quando o gateway de pagamento for conectado."
+  },
   "payment": {
     "meta": {
       "title": "Forma de pagamento | trino.",

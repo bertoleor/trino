@@ -9,6 +9,79 @@
     "current": "Current step",
     "attention": "Needs attention"
   },
+  "contact": {
+    "meta": {
+      "title": "Contact and delivery | trino.",
+      "description": "Enter your contact details and delivery address for your trino order."
+    },
+    "hero": {
+      "title": "Contact and delivery",
+      "description": "We need your details to prepare your order."
+    },
+    "badge": "Step 01",
+    "details": {
+      "title": "Contact information",
+      "email": "Email address",
+      "emailPlaceholder": "you@email.com",
+      "phone": "Mobile phone",
+      "phonePlaceholder": "11 1234 5678"
+    },
+    "recipient": {
+      "title": "Who receives it",
+      "name": "Full name",
+      "namePlaceholder": "Full name"
+    },
+    "address": {
+      "title": "Delivery address",
+      "street": "Street and number",
+      "streetPlaceholder": "123 Main Street",
+      "floor": "Floor / Apartment",
+      "floorPlaceholder": "Floor 2, Apartment B",
+      "postal": "Postal code",
+      "postalPlaceholder": "C1425",
+      "city": "City / Neighborhood",
+      "cityPlaceholder": "Palermo",
+      "notes": "Delivery notes",
+      "notesPlaceholder": "Floor, doorbell or references to find you"
+    },
+    "submit": "Continue to delivery options",
+    "submitNote": "Confirmation is enabled once the payment gateway is connected."
+  },
+  "delivery": {
+    "meta": {
+      "title": "Delivery options | trino.",
+      "description": "Choose how you want to receive your trino order."
+    },
+    "hero": {
+      "title": "Delivery options",
+      "description": "Choose the delivery method you prefer."
+    },
+    "address": {
+      "title": "Deliver to",
+      "empty": "You have not entered an address yet.",
+      "edit": "Edit address"
+    },
+    "legend": "Delivery methods",
+    "methods": {
+      "home": "Home delivery",
+      "homeHint": "Receive it at the address you provide.",
+      "pickup": "Showroom pickup",
+      "pickupHint": "Collect it at the showroom.",
+      "post": "Postal mail",
+      "postHint": "We send it by postal mail."
+    },
+    "slots": {
+      "legend": "Time window",
+      "afternoon": "Afternoon",
+      "evening": "Evening"
+    },
+    "care": {
+      "title": "Changes and confirmation",
+      "description": "You can change the delivery method again before confirming your order."
+    },
+    "submit": "Continue to payment",
+    "submitNote": "Confirmation is enabled once the payment gateway is connected."
+  },
   "payment": {
     "meta": {
       "title": "Payment method | trino.",

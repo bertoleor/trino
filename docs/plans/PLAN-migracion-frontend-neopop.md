@@ -127,7 +127,14 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | 17 | `trino._beauty_pago_por_transferencia_mobile_cuenta_particular_whatsapp_mail` | L | mobile_stack | `/checkout/transferencia` | REPEINAR + quitar CUIT societario |
 | 18 | `trino._beauty_confirmaci_n_de_compra_mobile` | L | mobile_stack | `/checkout/confirmacion` | REPEINAR |
 
-**Gap bloqueante:** no hay export de checkout paso 2 (envío/retiro), ni de bolsa con productos. Ver §6. El export de paso 1 existe (`trino._beauty_checkout_paso_1_contacto_y_direcci_n_de_entrega_desktop_neo_pop`) pero quedó **descartado 2026-11-25**: usa Rubik/Plus Jakarta y cero hex canónicos, no coincide con el sitio. La referencia visual canónica del checkout es el paso 3 (#15), reutilizada por #16.
+**Exports recibidos 2026-11-25 (reclasificación):** el owner envió tres frames desktop nuevos. Los tres usan hex canónicos y son regeneraciones Neo-Pop, pero todos traen copy prohibido (cuotas, envío gratis, stock, reserva, SSL/AFIP/WhatsApp/CUIT, 100% original). El paso 3 (`checkout_paso_3_..._neo_pop_oficial`) confirma #15 y no requiere trabajo nuevo. El paso 1 y el paso 2 se portan como presentación pura con copy reescrito:
+
+| # | Carpeta | Tipo | Shell | Destino | Decisión |
+|---|---|---|---|---|---|
+| 15a | `checkout_paso_1_contacto_y_direcci_n_desktop` | M | web_standard | `/checkout/contacto` | **PORTADA 2026-11-25**: datos de contacto, destinatario y dirección; campos deshabilitados y CTA inactivo hasta conectar la pasarela; sin AFIP, WhatsApp, CUIT ni stock |
+| 15b | `checkout_paso_2_selecci_n_de_env_o_desktop` | M | web_standard | `/checkout/entrega` | **PORTADA 2026-11-25**: medios de entrega y franjas horarias, radios locales sin mutaciones; sin envío gratis, despacho same-day, stock ni reserva |
+
+La referencia visual canónica del checkout sigue siendo el paso 3 (#15). Los frames viejos descartados (`trino._beauty_checkout_paso_1_contacto_y_direcci_n_de_entrega_desktop_neo_pop`, con Rubik/Plus Jakarta y cero hex canónicos) no se reintegran. **Gap bloqueante restante:** bolsa con productos desktop y los tres pasos mobile (§6).
 
 ### 4.3 Test de tono digital (17)
 
@@ -337,8 +344,8 @@ El manual define **34 pantallas mobile + 30 desktop + 24 admin** (88). El export
 | 3 | **Catálogo Completo & Drops Desktop** | 1440 | Solo hay PLP mobile (#2) |
 | 4 | **Bolsa de Compras Mobile** (con productos, cantidades, cupón, envío) | 390 | Solo hay carrito vacío (#64) y drawers |
 | 5 | **Bolsa / Carrito con productos Desktop** | 1440 | Falta estado poblado |
-| 6 | **Checkout Paso 1: Datos & Identificación** | 390 + 1440 | No hay ningún paso 1 |
-| 7 | **Checkout Paso 2: Envío / Retiro en Showroom** | 390 + 1440 | No hay ningún paso 2; incluye Moto Express, Correo Argentino y retiro Palermo |
+| 6 | **Checkout Paso 1: Datos & Identificación** | 390 | Desktop cubierto por #15a; no hay paso 1 mobile |
+| 7 | **Checkout Paso 2: Envío / Retiro en Showroom** | 390 | Desktop cubierto por #15b; no hay paso 2 mobile |
 | 8 | **Checkout Mobile auditado** (stepper Envío → Pago → Listo) | 390 | El manual lo exige; no está en el export |
 | 9 | **Pago por Transferencia Desktop** (alias, CBU, copiar, WA, carga web) | 1440 | Solo hay versión mobile legacy |
 | 10 | **Confirmación de Compra Desktop** (orden, tracking o QR) | 1440 | Solo hay versión mobile legacy |
