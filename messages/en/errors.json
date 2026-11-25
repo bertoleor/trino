@@ -1,1 +1,25 @@
-{"generic":"Error","notFound":"Not found","unauthorized":"Unauthorized"}
+{
+  "generic": "Error",
+  "notFound": "Not found",
+  "unauthorized": "Unauthorized",
+  "notFoundPage": {
+    "sticker": "Missing drop",
+    "badge": "Glow off the radar",
+    "codeLabel": "Error 404",
+    "title": "This page left with the last drop",
+    "description": "The link you followed moved, sold out, or never existed. No worries: pick a new drop from the catalog.",
+    "backHome": "Back to home",
+    "explore": "Explore the catalog",
+    "searchLabel": "Looking for something specific?",
+    "searchPlaceholder": "Search serums, lip oils or blushes",
+    "searchAction": "Search",
+    "suggestionsLabel": "Suggestions",
+    "suggestions": ["lips", "face", "serums"],
+    "breadcrumbHome": "Home",
+    "breadcrumbError": "Error 404",
+    "breadcrumbCurrent": "Page not found",
+    "relatedLabel": "Try these drops",
+    "relatedTitle": "Pick your next favorite",
+    "relatedDescription": "Products from the active catalog."
+  }
+}

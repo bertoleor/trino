@@ -1,1 +1,25 @@
-{"generic":"Error","notFound":"Not found","unauthorized":"Unauthorized"}
+{
+  "generic": "Error",
+  "notFound": "Not found",
+  "unauthorized": "Unauthorized",
+  "notFoundPage": {
+    "sticker": "Drop extraviado",
+    "badge": "Glow fora do radar",
+    "codeLabel": "Erro 404",
+    "title": "Esta página saiu com o último drop",
+    "description": "O link que você procura mudou de lugar, esgotou ou nunca existiu. Sem problema: escolha um novo drop no catálogo.",
+    "backHome": "Voltar ao início",
+    "explore": "Explorar o catálogo",
+    "searchLabel": "Procurava algo específico?",
+    "searchPlaceholder": "Busque séruns, lip oils ou blushes",
+    "searchAction": "Buscar",
+    "suggestionsLabel": "Sugestões",
+    "suggestions": ["lábios", "rosto", "séruns"],
+    "breadcrumbHome": "Início",
+    "breadcrumbError": "Erro 404",
+    "breadcrumbCurrent": "Página não encontrada",
+    "relatedLabel": "Experimente estes drops",
+    "relatedTitle": "Escolha seu próximo favorito",
+    "relatedDescription": "Produtos do catálogo ativo."
+  }
+}

@@ -1,1 +1,25 @@
-{"generic":"Error","notFound":"Not found","unauthorized":"Unauthorized"}
+{
+  "generic": "Error",
+  "notFound": "Not found",
+  "unauthorized": "Unauthorized",
+  "notFoundPage": {
+    "sticker": "Drop égaré",
+    "badge": "Glow hors radar",
+    "codeLabel": "Erreur 404",
+    "title": "Cette page est partie avec le dernier drop",
+    "description": "Le lien que vous cherchez a changé de place, est épuisé ou n’a jamais existé. Pas de souci : choisissez un nouveau drop dans le catalogue.",
+    "backHome": "Retour à l’accueil",
+    "explore": "Explorer le catalogue",
+    "searchLabel": "Vous cherchiez quelque chose ?",
+    "searchPlaceholder": "Sérums, lip oils ou blushs",
+    "searchAction": "Rechercher",
+    "suggestionsLabel": "Suggestions",
+    "suggestions": ["lèvres", "visage", "sérums"],
+    "breadcrumbHome": "Accueil",
+    "breadcrumbError": "Erreur 404",
+    "breadcrumbCurrent": "Page introuvable",
+    "relatedLabel": "Essayez ces drops",
+    "relatedTitle": "Choisissez votre prochain favori",
+    "relatedDescription": "Produits du catalogue actif."
+  }
+}
