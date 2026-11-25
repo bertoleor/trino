@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Marcas | trino. beauty",
+    "description": "Explorá las marcas del catálogo de trino. y encontrá productos por nombre."
+  },
+  "hero": {
+    "eyebrow": "CURADURÍA TRINO · MARCAS EN CATÁLOGO",
+    "title": "Nuestras marcas.",
+    "description": "Acá juntamos las marcas que podés explorar en trino. Elegí una y mirá qué tiene publicado en el catálogo.",
+    "badges": [
+      { "title": "Selección multimarca", "body": "Distintas propuestas en un mismo lugar." },
+      { "title": "Envíos a todo el país", "body": "Despachamos a donde estés." },
+      { "title": "Retiro en Palermo", "body": "Coordiná tu retiro sin costo." }
+    ]
+  },
+  "filters": {
+    "label": "Buscar una marca",
+    "placeholder": "Buscá por nombre de marca",
+    "action": "Buscar",
+    "categoriesLabel": "Explorar por categoría",
+    "categories": ["Labios", "Rostro", "Ojos"],
+    "alphabetLabel": "Filtrar por inicial",
+    "all": "Todas"
+  },
+  "featured": {
+    "eyebrow": "SELECCIÓN TRINO",
+    "title": "Marcas para empezar.",
+    "description": "Las marcas con más productos publicados en el catálogo activo."
+  },
+  "directory": {
+    "eyebrow": "DIRECTORIO",
+    "title": "Todas las marcas.",
+    "description": "Marcas con productos publicados en el catálogo."
+  },
+  "card": {
+    "products": "{count, plural, one {# producto} other {# productos}}",
+    "explore": "Explorar {brand}",
+    "viewCatalog": "Ver catálogo"
+  },
+  "empty": {
+    "title": "Todavía no hay marcas publicadas",
+    "description": "Cuando carguemos el catálogo, vas a poder explorar las marcas desde acá.",
+    "action": "Ir a la tienda"
+  },
+  "wholesale": {
+    "eyebrow": "CONSULTAS POR MAYOR",
+    "title": "¿Querés consultar por compras por mayor?",
+    "description": "Escribinos y te contamos cómo trabajamos con marcas y productos.",
+    "cta": "Ir a contacto"
+  }
+}

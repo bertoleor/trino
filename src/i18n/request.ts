@@ -8,6 +8,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
   const admin = (await import(`../../messages/${locale}/admin.json`)).default;
   const auth = (await import(`../../messages/${locale}/auth.json`)).default;
+  const brands = (await import(`../../messages/${locale}/brands.json`)).default;
   const checkout = (await import(`../../messages/${locale}/checkout.json`)).default;
   const common = (await import(`../../messages/${locale}/common.json`)).default;
   const emails = (await import(`../../messages/${locale}/emails.json`)).default;
@@ -17,6 +18,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const storefront = (await import(`../../messages/${locale}/storefront.json`)).default;
   return {
     locale,
-    messages: { admin, auth, checkout, common, emails, errors, home, product, storefront },
+    messages: { admin, auth, brands, checkout, common, emails, errors, home, product, storefront },
   };
 });

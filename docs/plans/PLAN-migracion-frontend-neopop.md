@@ -108,7 +108,7 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | 3 | `trino._beauty_cat_logo_filtro_de_marcas_mobile_2` | N | mobile_tab | chips de marca en PLP | PORTAR |
 | 4 | `cat_logo_filtrado_tono_03_warm_honey_trino._beauty_mobile_2` | N | mobile_tab | PLP prefiltrada por tono | PORTAR; quitar `MATCH MUA CERTIFICADO`, `Diagnóstico validado por Sol MUA`, `98%` |
 | 5 | `cat_logo_filtrado_tono_03_warm_honey_trino._beauty_mobile_3` | L | ~~mobile_tab~~ | — | **ELIMINADA 2026-11-24** (era variante de estado de #4) |
-| 6 | `trino._beauty_marcas_oficiales_curadur_a_desktop_neo_pop` | M | web_standard | `[locale]/marcas` | REPEINAR |
+| 6 | `trino._beauty_marcas_oficiales_curadur_a_desktop_neo_pop` | M | web_standard | `[locale]/marcas` | **REPEINADA 2026-11-25**: marcas y conteos desde `products.brand`, sin SKUs ni claims de stock/precio |
 | 7 | `trino._beauty_b_squeda_sin_resultados_desktop_neo_pop` | N | web_standard | zero-state PLP | PORTAR |
 | 8 | `trino._beauty_error_404_p_gina_no_encontrada_desktop` | N | web_standard | `[locale]/not-found.tsx` | **PORTADA 2026-11-25**: copia reescrita, tarjetas con datos reales y sin claims |
 | 9 | `detalle_de_producto_trino._beauty_mobile` | N | ~~mobile_stack~~ | — | **ELIMINADA 2026-11-24** (obsoleta). Reemplazo desktop: #66; falta PDP mobile Neo-Pop |

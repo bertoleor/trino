@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Brands | trino. beauty",
+    "description": "Explore the brands in the trino. catalog and find products by name."
+  },
+  "hero": {
+    "eyebrow": "TRINO. CURATION · BRANDS IN CATALOG",
+    "title": "Our brands.",
+    "description": "Here are the brands you can explore at trino. Pick one and see what is listed in the catalog.",
+    "badges": [
+      { "title": "Multi-brand selection", "body": "Different proposals in one place." },
+      { "title": "Nationwide shipping", "body": "We ship wherever you are." },
+      { "title": "Pickup in Palermo", "body": "Arrange your pickup at no cost." }
+    ]
+  },
+  "filters": {
+    "label": "Search a brand",
+    "placeholder": "Search by brand name",
+    "action": "Search",
+    "categoriesLabel": "Explore by category",
+    "categories": ["Lips", "Face", "Eyes"],
+    "alphabetLabel": "Filter by initial",
+    "all": "All"
+  },
+  "featured": {
+    "eyebrow": "TRINO. PICKS",
+    "title": "Brands to start with.",
+    "description": "The brands with the most products listed in the active catalog."
+  },
+  "directory": {
+    "eyebrow": "DIRECTORY",
+    "title": "All brands.",
+    "description": "Brands with products listed in the catalog."
+  },
+  "card": {
+    "products": "{count, plural, one {# product} other {# products}}",
+    "explore": "Explore {brand}",
+    "viewCatalog": "View catalog"
+  },
+  "empty": {
+    "title": "No brands listed yet",
+    "description": "Once the catalog is loaded, you will be able to explore brands here.",
+    "action": "Go to shop"
+  },
+  "wholesale": {
+    "eyebrow": "WHOLESALE ENQUIRIES",
+    "title": "Want to ask about wholesale orders?",
+    "description": "Write to us and we will tell you how we work with brands and products.",
+    "cta": "Go to contact"
+  }
+}

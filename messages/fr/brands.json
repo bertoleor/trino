@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "Marques | trino. beauty",
+    "description": "Découvrez les marques du catalogue trino. et trouvez des produits par nom."
+  },
+  "hero": {
+    "eyebrow": "SÉLECTION TRINO. · MARQUES AU CATALOGUE",
+    "title": "Nos marques.",
+    "description": "Retrouvez ici les marques que vous pouvez explorer chez trino. Choisissez-en une pour voir ce qui est proposé au catalogue.",
+    "badges": [
+      { "title": "Sélection multi-marques", "body": "Différentes propositions au même endroit." },
+      { "title": "Livraison dans tout le pays", "body": "Nous expédions où vous êtes." },
+      { "title": "Retrait à Palermo", "body": "Organisez votre retrait sans frais." }
+    ]
+  },
+  "filters": {
+    "label": "Rechercher une marque",
+    "placeholder": "Rechercher par nom de marque",
+    "action": "Rechercher",
+    "categoriesLabel": "Explorer par catégorie",
+    "categories": ["Lèvres", "Visage", "Yeux"],
+    "alphabetLabel": "Filtrer par initiale",
+    "all": "Toutes"
+  },
+  "featured": {
+    "eyebrow": "CHOIX TRINO.",
+    "title": "Des marques pour commencer.",
+    "description": "Les marques qui comptent le plus de produits dans le catalogue actif."
+  },
+  "directory": {
+    "eyebrow": "RÉPERTOIRE",
+    "title": "Toutes les marques.",
+    "description": "Marques avec des produits proposés au catalogue."
+  },
+  "card": {
+    "products": "{count, plural, one {# produit} other {# produits}}",
+    "explore": "Explorer {brand}",
+    "viewCatalog": "Voir le catalogue"
+  },
+  "empty": {
+    "title": "Aucune marque proposée pour l'instant",
+    "description": "Une fois le catalogue chargé, vous pourrez explorer les marques ici.",
+    "action": "Voir la boutique"
+  },
+  "wholesale": {
+    "eyebrow": "DEMANDES GROS",
+    "title": "Vous voulez nous parler de commandes en gros ?",
+    "description": "Écrivez-nous et nous vous expliquerons comment nous travaillons avec les marques et les produits.",
+    "cta": "Voir le contact"
+  }
+}

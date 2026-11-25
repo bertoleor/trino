@@ -4,12 +4,12 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 
-export type StorefrontSection = 'home' | 'shop' | 'product';
+export type StorefrontSection = 'home' | 'shop' | 'product' | 'brands';
 
 const NAV_ITEMS = [
   { key: 'nav.drops', href: (locale: string) => `/${locale}/tienda`, match: 'shop' },
   { key: 'nav.catalog', href: (locale: string) => `/${locale}/tienda`, match: 'shop' },
-  { key: 'nav.brands', href: (locale: string) => `/${locale}#marcas`, match: 'none' },
+  { key: 'nav.brands', href: (locale: string) => `/${locale}/marcas`, match: 'brands' },
   { key: 'nav.toneTest', href: (locale: string) => `/${locale}#test-de-tono`, match: 'none' },
   { key: 'nav.club', href: (locale: string) => `/${locale}#club`, match: 'none' },
   { key: 'nav.contact', href: (locale: string) => `/${locale}#contacto`, match: 'none' },
@@ -87,7 +87,7 @@ export async function StorefrontHeader({
               key={item.key}
               href={item.href(locale)}
               className={cn(
-                'font-label text-ink border-2 border-transparent px-2 py-2 text-[11px] font-bold tracking-wide uppercase whitespace-nowrap',
+                'font-label text-ink border-2 border-transparent px-2 py-2 text-[11px] font-bold tracking-wide whitespace-nowrap uppercase',
                 active === item.match && 'border-ink bg-lemon shadow-pop-sm'
               )}
             >
