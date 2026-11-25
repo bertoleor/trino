@@ -2,6 +2,16 @@
   "generic": "Error",
   "notFound": "Not found",
   "unauthorized": "Unauthorized",
+  "errorPage": {
+    "sticker": "Drop under repair",
+    "badge": "Glow on standby",
+    "codeLabel": "Error 500",
+    "title": "The party fell apart",
+    "description": "This one is on us. Try again in a moment; if it keeps happening, head home and keep browsing the catalog.",
+    "retry": "Try again",
+    "backHome": "Back to home",
+    "explore": "Explore the catalog"
+  },
   "notFoundPage": {
     "sticker": "Missing drop",
     "badge": "Glow off the radar",

@@ -2,6 +2,16 @@
   "generic": "Error",
   "notFound": "Not found",
   "unauthorized": "Unauthorized",
+  "errorPage": {
+    "sticker": "Drop em reparo",
+    "badge": "Glow em standby",
+    "codeLabel": "Erro 500",
+    "title": "A festa se desarmou",
+    "description": "Este erro é nosso, não seu. Tente de novo em instantes; se continuar, volte ao início e explore o catálogo.",
+    "retry": "Tentar novamente",
+    "backHome": "Voltar ao início",
+    "explore": "Explorar o catálogo"
+  },
   "notFoundPage": {
     "sticker": "Drop extraviado",
     "badge": "Glow fora do radar",

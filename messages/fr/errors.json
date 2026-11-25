@@ -2,6 +2,16 @@
   "generic": "Error",
   "notFound": "Not found",
   "unauthorized": "Unauthorized",
+  "errorPage": {
+    "sticker": "Drop en réparation",
+    "badge": "Glow en veille",
+    "codeLabel": "Erreur 500",
+    "title": "La fête s’est désassemblée",
+    "description": "Cette erreur vient de nous, pas de vous. Réessayez dans un instant ; si ça continue, retournez à l’accueil et explorez le catalogue.",
+    "retry": "Réessayer",
+    "backHome": "Retour à l’accueil",
+    "explore": "Explorer le catalogue"
+  },
   "notFoundPage": {
     "sticker": "Drop égaré",
     "badge": "Glow hors radar",
