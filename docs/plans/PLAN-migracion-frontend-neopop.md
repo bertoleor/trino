@@ -127,7 +127,7 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | 17 | `trino._beauty_pago_por_transferencia_mobile_cuenta_particular_whatsapp_mail` | L | mobile_stack | `/checkout/transferencia` | REPEINAR + quitar CUIT societario |
 | 18 | `trino._beauty_confirmaci_n_de_compra_mobile` | L | mobile_stack | `/checkout/confirmacion` | REPEINAR |
 
-**Gap bloqueante:** no hay export de checkout paso 1 (datos) ni paso 2 (envío/retiro), ni de bolsa con productos. Ver §6.
+**Gap bloqueante:** no hay export de checkout paso 2 (envío/retiro), ni de bolsa con productos. Ver §6. El export de paso 1 existe (`trino._beauty_checkout_paso_1_contacto_y_direcci_n_de_entrega_desktop_neo_pop`) pero quedó **descartado 2026-11-25**: usa Rubik/Plus Jakarta y cero hex canónicos, no coincide con el sitio. La referencia visual canónica del checkout es el paso 3 (#15), reutilizada por #16.
 
 ### 4.3 Test de tono digital (17)
 
