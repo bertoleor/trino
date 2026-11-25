@@ -1,0 +1,27 @@
+{
+  "drawer": {
+    "title": "Votre panier",
+    "open": "Ouvrir le panier",
+    "close": "Fermer le panier",
+    "item": {
+      "variant": "Variante : {variant}",
+      "quantity": "Quantité : {quantity}",
+      "view": "Voir le produit"
+    },
+    "empty": {
+      "title": "Votre panier vous attend",
+      "body": "Les produits ajoutés apparaîtront ici.",
+      "action": "Explorer le catalogue"
+    },
+    "recommendations": {
+      "title": "Vous aimerez aussi",
+      "view": "Voir"
+    },
+    "summary": {
+      "subtotal": "Sous-total",
+      "total": "Total estimé",
+      "checkout": "Commencer le paiement",
+      "checkoutEmpty": "Ajoutez des produits pour continuer"
+    }
+  }
+}

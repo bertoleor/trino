@@ -1,7 +1,9 @@
-import { Heart, Search, ShoppingBag, UserRound } from 'lucide-react';
+import { Heart, Search, UserRound } from 'lucide-react';
+import { CartDrawer } from '@/components/storefront/cart-drawer';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { getCartView } from '@/lib/db/cart-view';
 import { getTranslations } from 'next-intl/server';
 
 export type StorefrontSection = 'home' | 'shop' | 'product' | 'brands';
@@ -54,6 +56,7 @@ export async function StorefrontHeader({
     .split('·')
     .map((item) => item.trim())
     .filter(Boolean);
+  const cartView = await getCartView();
 
   return (
     <div className="w-full">
@@ -106,12 +109,7 @@ export async function StorefrontHeader({
             label={t('actions.wishlist')}
             icon={<Heart aria-hidden="true" />}
           />
-          <ActionLink
-            href={`/${locale}/tienda`}
-            label={t('actions.cart')}
-            tone="aqua"
-            icon={<ShoppingBag aria-hidden="true" />}
-          />
+          <CartDrawer locale={locale} view={cartView} />
           <Link
             href={`/${locale}/tienda`}
             className="font-label border-ink bg-pink text-ink shadow-pop-sm inline-flex min-h-11 items-center gap-2 border-2 px-4 text-xs font-bold uppercase"

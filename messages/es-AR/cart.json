@@ -1,0 +1,27 @@
+{
+  "drawer": {
+    "title": "Tu bolsa",
+    "open": "Abrir la bolsa",
+    "close": "Cerrar la bolsa",
+    "item": {
+      "variant": "Variante: {variant}",
+      "quantity": "Cantidad: {quantity}",
+      "view": "Ver producto"
+    },
+    "empty": {
+      "title": "Tu bolsa está esperando",
+      "body": "Cuando sumes productos, van a aparecer acá.",
+      "action": "Explorar el catálogo"
+    },
+    "recommendations": {
+      "title": "También te puede gustar",
+      "view": "Ver"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "total": "Total estimado",
+      "checkout": "Iniciar checkout",
+      "checkoutEmpty": "Sumá productos para continuar"
+    }
+  }
+}

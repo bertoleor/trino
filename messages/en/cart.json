@@ -1,0 +1,27 @@
+{
+  "drawer": {
+    "title": "Your bag",
+    "open": "Open bag",
+    "close": "Close bag",
+    "item": {
+      "variant": "Variant: {variant}",
+      "quantity": "Quantity: {quantity}",
+      "view": "View product"
+    },
+    "empty": {
+      "title": "Your bag is waiting",
+      "body": "Products you add will show up here.",
+      "action": "Explore the catalog"
+    },
+    "recommendations": {
+      "title": "You might also like",
+      "view": "View"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "total": "Estimated total",
+      "checkout": "Start checkout",
+      "checkoutEmpty": "Add products to continue"
+    }
+  }
+}

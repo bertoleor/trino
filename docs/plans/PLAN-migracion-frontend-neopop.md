@@ -120,7 +120,7 @@ Leyenda de decisión: **PORTAR** = copiar la composición con tokens canónicos 
 | # | Carpeta | Tipo | Shell | Destino | Decisión |
 |---|---|---|---|---|---|
 | 12 | `bolsa_vac_a_trino._beauty_mobile` | N | ~~mobile_tab~~ | — | **ELIMINADA 2026-11-24**; reemplazada por #64 `carrito vacio mobile` |
-| 13 | `trino._beauty_carrito_drawer_lateral_desktop` | M | web_standard | drawer global | REPEINAR |
+| 13 | `trino._beauty_carrito_drawer_lateral_desktop` | M | web_standard | drawer global | **PORTADA 2026-11-25**: drawer global desde el header, ítems y recomendaciones desde `products`/`product_variants` (solo lectura); sin envío gratis, cuotas, promo, stock ni mutaciones |
 | 14 | `trino._beauty_carrito_drawer_con_puntos_glow_canjeados_mobile` | L | mobile_blank | drawer + toggle Glow | REPEINAR |
 | 15 | `trino._beauty_checkout_paso_3_selecci_n_de_m_todo_de_pago_desktop_neo_pop` | M | web_standard | `/checkout/pago` | REPEINAR |
 | 16 | `trino._beauty_checkout_pago_rechazado_desktop_neo_pop_oficial` | M | web_standard | `/checkout/rechazado` | REPEINAR |

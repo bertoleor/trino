@@ -1,0 +1,27 @@
+{
+  "drawer": {
+    "title": "Sua sacola",
+    "open": "Abrir a sacola",
+    "close": "Fechar a sacola",
+    "item": {
+      "variant": "Variante: {variant}",
+      "quantity": "Quantidade: {quantity}",
+      "view": "Ver produto"
+    },
+    "empty": {
+      "title": "Sua sacola está esperando",
+      "body": "Os produtos que você adicionar aparecem aqui.",
+      "action": "Explorar o catálogo"
+    },
+    "recommendations": {
+      "title": "Você também pode gostar",
+      "view": "Ver"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "total": "Total estimado",
+      "checkout": "Iniciar checkout",
+      "checkoutEmpty": "Adicione produtos para continuar"
+    }
+  }
+}
