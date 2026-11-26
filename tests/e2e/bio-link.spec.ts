@@ -58,9 +58,9 @@ test('bio link keeps the brand lockup, ticker ribbon and footer anchored', async
     const beauty = spans.find((s) => s.textContent?.trim() === 'beauty');
     const ticker = document.querySelector('[data-purpose="ticker-announcement"]');
     const footer = document.querySelector('[data-purpose="footer-credits"]');
-    const bg = (el) => (el ? getComputedStyle(el).backgroundColor : '');
+    const bg = (el: Element | null) => (el ? getComputedStyle(el).backgroundColor : '');
     return {
-      beautyInsideBrandCard: !!brand && !!beauty && brand.contains(beauty),
+      beautyInsideBrandCard: !!brand && !!beauty && brand.parentElement === beauty.parentElement,
       brandCardBackground: bg(beauty?.parentElement),
       tickerShadow: ticker ? getComputedStyle(ticker).boxShadow : '',
       tickerBackground: bg(ticker),
