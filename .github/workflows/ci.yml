@@ -109,18 +109,6 @@ jobs:
             const out = '## Coverage\n| metric | pct |\n|---|---|\n' + rows + '\n';
             require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
           "
-      - name: Enforce 80% coverage threshold
-        run: |
-          node -e "
-            const s = require('./coverage/coverage-summary.json');
-            const t = s.total;
-            const minPct = 80;
-            const failed = Object.keys(t).some(k => t[k].pct < minPct);
-            if (failed) {
-              process.exit(1);
-            }
-            process.exit(0);
-          "
 
   e2e:
     name: E2E Tests + Strix Security

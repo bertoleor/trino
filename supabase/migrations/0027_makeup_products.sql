@@ -7,7 +7,7 @@
 -- 1) EXTENSIONS & SETUP
 -- ------------------------------------------------------------------
 
-create extension if not exists "uuid-extension";
+-- gen_random_uuid() is built into PostgreSQL 13+; no extension is needed here.
 
 -- ------------------------------------------------------------------
 -- 2) MAKEUP CATEGORIES (new table — separate from core categories)
