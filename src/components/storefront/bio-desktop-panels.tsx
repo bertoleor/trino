@@ -58,7 +58,6 @@ export function BioInfoPanel({
 
 type BrandShowcaseProps = {
   logoBrand: string;
-  logoLine: string;
   headlineStart: string;
   headlineAccent: string;
   footerTagline: string;
