@@ -1,0 +1,233 @@
+{
+  "manifiesto": {
+    "ticker": {
+      "a": "BELEZA SEM REGRAS",
+      "b": "ZERO PERFEIÇÃO",
+      "c": "PURA EXPRESSÃO",
+      "d": "TRINO. MANIFESTO"
+    },
+    "eyebrow": "MANIFESTO OFICIAL · TRINO. ESSÊNCIA",
+    "edition": "EDIÇÃO 01",
+    "editionDetail": "DOC. FUNDACIONAL",
+    "hero": {
+      "line1": "Uma beleza que",
+      "highlight1": "faz barulho.",
+      "line2": "Zero perfeição.",
+      "highlight2": "Pura expressão.",
+      "body": "Nós cansamos de uma beleza elitista e dos preços inflados. Na trino. selecionamos tendências e produtos para que você brinque, experimente e se expresse do seu jeito.",
+      "cta": "Ver os princípios",
+      "note": "Sem papel de especialista: venha experimentar"
+    },
+    "craft": {
+      "stamp": "FEITO COM CRITÉRIO",
+      "eyebrow": "SELEÇÃO TRINO.",
+      "title": "Nós selecionamos, não copiamos.",
+      "body": "Escolhemos por forma, textura e uso real. Tudo o que chega à loja tem um motivo.",
+      "highlighted": "Como trabalhamos",
+      "cards": {
+        "a": {
+          "title": "Olhamos de perto",
+          "body": "Testamos texturas e acabamentos antes de incluir no catálogo."
+        },
+        "b": {
+          "title": "Pensamos em você",
+          "body": "Buscamos produtos que você usa de verdade, não que ficam parados numa gaveta."
+        },
+        "c": {
+          "title": "Brincamos no seu ritmo",
+          "body": "Experimente, compare e escolha o que combina com você."
+        }
+      }
+    },
+    "principles": {
+      "eyebrow": "NOSSOS PRINCÍPIOS",
+      "title": "Cinco ideias que nos movem",
+      "description": "Não são regras de estilo. São a forma como escolhemos, escrevemos e acompanhamos você.",
+      "items": {
+        "complice": {
+          "number": "01",
+          "title": "Cúmplice.",
+          "body": "Falamos com você como com alguém que já entende de beleza, sem dar lição.",
+          "tag": "TOM PRÓXIMO"
+        },
+        "curiosa": {
+          "number": "02",
+          "title": "Curiosa.",
+          "body": "Buscamos o novo, testamos e contamos o que funciona para cada estilo.",
+          "tag": "MENTE ABERTA"
+        },
+        "atrevida": {
+          "number": "03",
+          "title": "Atrevida.",
+          "body": "Incentivamos cor, brilho e mudança. Experimente algo diferente.",
+          "tag": "SEM MEDO"
+        },
+        "clara": {
+          "number": "04",
+          "title": "Clara.",
+          "body": "Descrevemos o que você vê e o que sente ao usar, sem palavras infladas.",
+          "tag": "INFO ÚTIL"
+        },
+        "optimista": {
+          "number": "05",
+          "title": "Otimista.",
+          "body": "Acreditamos que maquiar pode ser um momento de brincadeira, não uma obrigação.",
+          "tag": "BOA ENERGIA"
+        }
+      }
+    },
+    "identity": {
+      "eyebrow": "QUEM SOMOS",
+      "title": "Somos (e não somos)",
+      "yesLabel": "SOMOS",
+      "noLabel": "NÃO SOMOS",
+      "yes": {
+        "items": {
+          "a": {
+            "title": "Pop e ousadas",
+            "body": "Maquiagem para brincar com cor, brilho e textura."
+          },
+          "b": {
+            "title": "Úteis e acessíveis",
+            "body": "Seleção pensada para o uso de todos os dias."
+          },
+          "c": {
+            "title": "Próximas",
+            "body": "Falamos como você fala: simples, cúmplice e sem rodeio."
+          },
+          "d": {
+            "title": "Curiosas",
+            "body": "Testamos, comparamos e aprendemos com cada novidade."
+          }
+        }
+      },
+      "no": {
+        "items": {
+          "a": {
+            "title": "Elitistas",
+            "body": "Nada de listas fechadas nem códigos que só alguns entendem."
+          },
+          "b": {
+            "title": "Dogmáticas",
+            "body": "Não existe uma única forma certa de se maquiar."
+          },
+          "c": {
+            "title": "Perfeitas",
+            "body": "Não buscamos um ideal: queremos que você se sinta à vontade."
+          }
+        }
+      }
+    },
+    "team": {
+      "eyebrow": "DESIGN E EQUIPE",
+      "title": "Feito por pessoas que olham",
+      "description": "Atrás de cada escolha tem alguém testando, lendo e ouvindo.",
+      "quoteLabel": "A FRASE QUE NOS GUIA",
+      "quote": "Que cada escolha comece com uma pergunta e termine com um sorriso.",
+      "author": "Equipe trino.",
+      "role": "Curadoria e conteúdo",
+      "community": "Comunidade que compartilha",
+      "tile1": "OLHO PARA O DETALHE",
+      "tile1Body": "Cada imagem, texto e ficha é revisado com calma.",
+      "tile2": "VOZES DIFERENTES",
+      "tile2Body": "Somamos olhares e estilos para que ninguém fique de fora."
+    },
+    "cta": {
+      "eyebrow": "SEU MOMENTO",
+      "title": "Faça barulho do seu jeito.",
+      "body": "Percorra a loja e encontre o que te anima a experimentar algo novo.",
+      "primary": "Explorar a loja",
+      "secondary": "Voltar aos princípios",
+      "note": "SEM PERFEIÇÃO · SEM REGRAS · COM ESTILO"
+    },
+    "club": {
+      "eyebrow": "TRINO. PARA VOCÊ",
+      "title": "Gostou do que leu?",
+      "body": "Salve esta página e volte quando quiser encontrar sua próxima escolha.",
+      "action": "Ver a loja"
+    },
+    "stories": {
+      "eyebrow": "CULTURA TRINO.",
+      "title": "Histórias para ler sem pressa",
+      "description": "Notas, ideias e descobertas do nosso universo. Escritas pela equipe.",
+      "emptyTitle": "Ainda não há notas",
+      "emptyBody": "Volte em breve: estamos preparando as primeiras histórias.",
+      "emptyAction": "Explorar a loja",
+      "dateLabel": "PUBLICADO",
+      "untitled": "Sem título",
+      "read": "Ler nota"
+    }
+  },
+  "wishlist": {
+    "breadcrumb": {
+      "home": "Início",
+      "current": "Favoritos"
+    },
+    "hero": {
+      "badgeSaved": "SALVO",
+      "badgeShared": "PARA COMPARTILHAR",
+      "badgeNote": "SUA SELEÇÃO",
+      "titleAccent": "salvos.",
+      "description": "Um lugar para organizar o que você gosta e voltar quando quiser decidir.",
+      "counterLabel": "NA SUA LISTA",
+      "counterUnit": "PRODUTOS",
+      "updated": "Atualiza a cada coração."
+    },
+    "toolbar": {
+      "count": "{count, plural, one {# salvo} other {# salvos}}",
+      "browse": "Continuar explorando"
+    },
+    "empty": {
+      "title": "Sua lista esperando",
+      "description": "Você ainda não salvou produtos. Percorra a loja e toque no coração do que você gostar.",
+      "action": "Ir à loja"
+    },
+    "grid": {
+      "title": "Produtos salvos",
+      "referenceLabel": "REFERÊNCIA",
+      "browse": "Ver na loja"
+    },
+    "share": {
+      "eyebrow": "COMPARTILHAR",
+      "title": "Sua lista, em um link",
+      "body": "Copie o link desta página e envie a quem você quiser.",
+      "highlight": "Sem conta, sem rodeio: o que você salvou, em um só lugar.",
+      "linkLabel": "LINK DESTA PÁGINA",
+      "copy": "Copiar link",
+      "copied": "Link copiado.",
+      "copyError": "Não foi possível copiar. Tente de novo."
+    },
+    "assurance": {
+      "title": "Como sua lista funciona",
+      "items": {
+        "a": {
+          "title": "Fica salva",
+          "body": "A lista fica ligada à sua sessão para você encontrá-la de novo."
+        },
+        "b": {
+          "title": "Só sua",
+          "body": "Cada lista pertence a uma sessão e aparece somente aqui."
+        },
+        "c": {
+          "title": "Sem compromisso",
+          "body": "Retire um produto quando quiser, tocando no coração."
+        },
+        "d": {
+          "title": "Sempre clara",
+          "body": "Aqui você vê a referência de cada produto salvo."
+        }
+      }
+    },
+    "notify": {
+      "eyebrow": "AVISOS",
+      "title": "Avisamos quando voltar",
+      "body": "Esta tela mostra como seria o aviso. Não guardamos e-mails nem enviamos mensagens aqui.",
+      "open": "Ver aviso",
+      "close": "Fechar",
+      "emailLabel": "SEU E-MAIL",
+      "emailPlaceholder": "nome@exemplo.com",
+      "submit": "Entendi",
+      "note": "Aviso de demonstração: nenhum e-mail é enviado."
+    }
+  }
+}

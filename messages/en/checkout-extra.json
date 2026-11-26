@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "title": "Purchase confirmation | trino.",
+    "description": "Review your selection in trino, an informational view with no order data or processed payments."
+  },
+  "hero": {
+    "eyebrow": "Selection recorded",
+    "title": "Purchase confirmation",
+    "subtitle": "Thanks for choosing trino.",
+    "badge": "Demo view",
+    "delivery": "Delivery to arrange",
+    "summary": "This is a demo view. No payment was processed and no order data was generated.",
+    "actions": {
+      "delivery": "See delivery options",
+      "help": "Talk to the team",
+      "catalog": "Back to catalog"
+    },
+    "stickers": {
+      "primary": "NEW SELECTION",
+      "secondary": "#TRINOGLOW"
+    }
+  },
+  "status": {
+    "title": "Delivery status",
+    "subtitle": "Details of the steps in your purchase.",
+    "badge": "To arrange",
+    "timeline": {
+      "step1Title": "1. Contact details",
+      "step1Time": "Done",
+      "step1Body": "Contact details are recorded in this view.",
+      "step2Title": "2. Selection preparation",
+      "step2Time": "Pending",
+      "step2Body": "Preparation is arranged once the order is confirmed.",
+      "step3Title": "3. Delivery",
+      "step3Time": "Your choice",
+      "step3Body": "You can choose pickup or shipping at the delivery step.",
+      "step4Title": "4. Purchase complete",
+      "step4Time": "Pending",
+      "step4Body": "Final details will be available once payment is connected."
+    },
+    "delivery": {
+      "title": "Delivery address",
+      "empty": "You haven't added an address yet.",
+      "hint": "Add it at the delivery step."
+    },
+    "operator": {
+      "title": "Delivery method",
+      "value": "Pickup or shipping",
+      "hint": "Choose the option you prefer.",
+      "tag": "To define"
+    }
+  },
+  "products": {
+    "title": "Products in your selection",
+    "subtitle": "A look at what you picked.",
+    "badge": "Featured collection",
+    "items": {
+      "gloss": {
+        "name": "Gloss Oil Dew Viral",
+        "variant": "Shade: Watermelon Pop",
+        "tag": "Selection 01"
+      },
+      "blush": {
+        "name": "Solar Pop Liquid Blush",
+        "variant": "Shade: Coral Sun",
+        "tag": "Selection 02"
+      },
+      "balm": {
+        "name": "Dewy Glow Stick Balm",
+        "variant": "Shade: Universal Dew",
+        "tag": "Selection 03"
+      }
+    },
+    "totals": {
+      "products": "Selected products",
+      "delivery": "Delivery",
+      "detail": "Price details",
+      "total": "Total",
+      "pending": "To confirm",
+      "perOption": "Depends on chosen option",
+      "available": "Available in the catalog",
+      "note": "Demo view"
+    }
+  },
+  "club": {
+    "eyebrow": "trino club",
+    "title": "Join the club",
+    "description": "Discover news and content from the community.",
+    "action": "Explore the club"
+  },
+  "share": {
+    "eyebrow": "Share your style",
+    "title": "Show what you picked",
+    "description": "Use #TrinoGlow to show your looks on your networks.",
+    "primary": "Share on social",
+    "secondary": "Explore catalog"
+  },
+  "support": {
+    "eyebrow": "Beauty support",
+    "title": "Need shade advice?",
+    "description": "Write to us about shades and combinations for your selection.",
+    "status": "Team available on the web",
+    "action": "Go to contact"
+  },
+  "commitment": {
+    "title": "Our commitment",
+    "items": {
+      "catalog": {
+        "title": "Local curation",
+        "body": "Beauty selection made for our community."
+      },
+      "packaging": {
+        "title": "Protected packaging",
+        "body": "We take care of every product in transit."
+      },
+      "service": {
+        "title": "Human support",
+        "body": "We reply by email from the contact page."
+      }
+    }
+  },
+  "catalogCta": {
+    "eyebrow": "Keep exploring",
+    "title": "Discover new drops",
+    "description": "Browse catalog news and find your next favorite.",
+    "action": "Back to catalog"
+  }
+}

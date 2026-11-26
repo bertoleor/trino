@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "title": "Confirmación de compra | trino.",
+    "description": "Mirá el resumen de tu selección en trino, una vista informativa sin datos de orden ni pagos procesados."
+  },
+  "hero": {
+    "eyebrow": "Compra registrada",
+    "title": "Confirmación de compra",
+    "subtitle": "Gracias por elegir trino.",
+    "badge": "Vista informativa",
+    "delivery": "Entrega a coordinar",
+    "summary": "Esta es una vista de demostración. No se procesó ningún pago ni se generaron datos de orden.",
+    "actions": {
+      "delivery": "Ver opciones de entrega",
+      "help": "Hablar con el equipo",
+      "catalog": "Volver al catálogo"
+    },
+    "stickers": {
+      "primary": "NUEVA SELECCIÓN",
+      "secondary": "#TRINOGLOW"
+    }
+  },
+  "status": {
+    "title": "Estado de la entrega",
+    "subtitle": "Detalle de los pasos de tu compra.",
+    "badge": "A coordinar",
+    "timeline": {
+      "step1Title": "1. Datos de contacto",
+      "step1Time": "Completado",
+      "step1Body": "La información de contacto quedó registrada en esta vista.",
+      "step2Title": "2. Preparación de la selección",
+      "step2Time": "Pendiente",
+      "step2Body": "La preparación se coordina cuando se confirme el pedido.",
+      "step3Title": "3. Entrega",
+      "step3Time": "Según tu elección",
+      "step3Body": "Podés elegir retiro o envío en el paso de entrega.",
+      "step4Title": "4. Compra cerrada",
+      "step4Time": "Pendiente",
+      "step4Body": "El detalle final estará disponible cuando se conecte el pago."
+    },
+    "delivery": {
+      "title": "Dirección de entrega",
+      "empty": "Todavía no cargaste una dirección.",
+      "hint": "Cargala en el paso de entrega."
+    },
+    "operator": {
+      "title": "Medio de entrega",
+      "value": "Retiro o envío",
+      "hint": "Elegí la opción que prefieras.",
+      "tag": "A definir"
+    }
+  },
+  "products": {
+    "title": "Productos de tu selección",
+    "subtitle": "Un vistazo a lo que elegiste.",
+    "badge": "Colección destacada",
+    "items": {
+      "gloss": {
+        "name": "Gloss Oil Dew Viral",
+        "variant": "Tono: Watermelon Pop",
+        "tag": "Selección 01"
+      },
+      "blush": {
+        "name": "Solar Pop Liquid Blush",
+        "variant": "Tono: Coral Sun",
+        "tag": "Selección 02"
+      },
+      "balm": {
+        "name": "Dewy Glow Stick Balm",
+        "variant": "Tono: Universal Dew",
+        "tag": "Selección 03"
+      }
+    },
+    "totals": {
+      "products": "Productos seleccionados",
+      "delivery": "Entrega",
+      "detail": "Detalle de precios",
+      "total": "Total",
+      "pending": "A confirmar",
+      "perOption": "Según opción elegida",
+      "available": "Disponible en el catálogo",
+      "note": "Vista informativa"
+    }
+  },
+  "club": {
+    "eyebrow": "Club trino",
+    "title": "Sumate al club",
+    "description": "Conocé las novedades y el contenido de la comunidad.",
+    "action": "Conocer el club"
+  },
+  "share": {
+    "eyebrow": "Compartí tu estilo",
+    "title": "Mostrá lo que elegiste",
+    "description": "Usá #TrinoGlow para mostrar tus looks en tus redes.",
+    "primary": "Compartir en redes",
+    "secondary": "Explorar catálogo"
+  },
+  "support": {
+    "eyebrow": "Soporte de belleza",
+    "title": "¿Dudas con los tonos?",
+    "description": "Escribinos para conocer tonos y combinaciones de tu selección.",
+    "status": "Equipo disponible en la web",
+    "action": "Ir a contacto"
+  },
+  "commitment": {
+    "title": "Nuestro compromiso",
+    "items": {
+      "catalog": {
+        "title": "Curaduría local",
+        "body": "Selección de belleza pensada para nuestra comunidad."
+      },
+      "packaging": {
+        "title": "Embalaje protegido",
+        "body": "Cuidamos cada producto durante el traslado."
+      },
+      "service": {
+        "title": "Atención humana",
+        "body": "Respondemos por correo desde la página de contacto."
+      }
+    }
+  },
+  "catalogCta": {
+    "eyebrow": "Seguí explorando",
+    "title": "Descubrí nuevos drops",
+    "description": "Mirá las novedades del catálogo y encontrá tu próxima favorita.",
+    "action": "Volver al catálogo"
+  }
+}

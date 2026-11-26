@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "step1": {
+      "title": "Orientative tone test · Step 1: undertone and depth",
+      "description": "A visual, orientative guide to your undertone and depth before exploring bases and correctors."
+    },
+    "step2": {
+      "title": "Orientative tone test · Step 2: preferences and coverage",
+      "description": "Set coverage, finish and focus to get orientative suggestions from the catalog."
+    },
+    "step3": {
+      "title": "Orientative tone test · Step 3: suggestions",
+      "description": "An orientative result with a curated set of formulas to explore in the catalog."
+    }
+  },
+  "hero": {
+    "eyebrow": "Visual tone guide · Orientative",
+    "badgeTitle": "Practical guide",
+    "badgeText": "Simple and orientative",
+    "step1Title": "Orientative tone test · Step 1 of 3: undertone and depth",
+    "step1Description": "Discover your undertone and depth with this simple visual guide. Answer a few key questions or pick your swatches to explore compatible bases and correctors in our multibrand catalog.",
+    "step2Title": "Orientative tone test · Step 2 of 3: preferences and coverage",
+    "step2Description": "Adjust coverage, finish and focus to orient the suggestions of bases and correctors in the multibrand catalog.",
+    "step3Title": "Here are your orientative suggestions",
+    "step3Description": "We cross-referenced your undertone with your finish and coverage preferences to show orientative options from the multibrand catalog."
+  },
+  "steps": {
+    "one": {
+      "label": "Your undertone and depth",
+      "active": "In progress",
+      "done": "Completed",
+      "pending": "Waiting"
+    },
+    "two": {
+      "label": "Preferences and coverage",
+      "active": "In progress",
+      "done": "Completed",
+      "pending": "Waiting"
+    },
+    "three": {
+      "label": "Suggested products",
+      "active": "In progress",
+      "done": "Completed",
+      "pending": "Waiting"
+    }
+  },
+  "common": {
+    "stepper": "Tone test progress",
+    "guide": "Orientative guide",
+    "multibrand": "Multibrand catalog",
+    "optionAria": "Select option: {option}",
+    "selected": "Selected",
+    "choose": "Select"
+  },
+  "step1": {
+    "orientativeTag": "Orientative",
+    "selectorTitle": "Visual undertone selector",
+    "selectorHint": "Pick the undertone that best describes how your skin looks in natural daylight:",
+    "subtoneAria": "Select undertone: {tone}",
+    "subtones": {
+      "warm": {
+        "label": "Warm / Golden",
+        "hint": "If your skin shows golden or yellow nuances, this is an orientative starting point."
+      },
+      "neutral": {
+        "label": "Neutral",
+        "hint": "A balance between pink and warm nuances: a versatile reference across bases and brands."
+      },
+      "cool": {
+        "label": "Cool / Pink",
+        "hint": "If your skin shows pink or violet nuances, this is an orientative starting point."
+      }
+    },
+    "shadeTitle": "Approximate skin depth",
+    "shadeTag": "Medium",
+    "shadeHint": "Brand-color swatches to orient the intensity of your tone:",
+    "swatchAria": "Select depth: {tone}",
+    "shades": {
+      "veryLight": { "label": "Very light" },
+      "light": { "label": "Light" },
+      "medium": { "label": "Medium" },
+      "bronzed": { "label": "Bronzed" },
+      "deep": { "label": "Deep" }
+    },
+    "summaryTitle": "Selected undertone",
+    "summaryText": "An orientative guide to explore compatible bases and correctors in the next steps.",
+    "questionsTitle": "Short questions about your skin",
+    "questionsHint": "Answer according to how your skin looks and feels without any product on.",
+    "questionsTag": "4 questions",
+    "question1": "1. How does your skin react to summer sun?",
+    "question2": "2. Which finish do you prefer day to day?",
+    "question3": "3. Which accessories suit you best?",
+    "question4": "4. How is your skin through the day?",
+    "sunOptions": {
+      "fast": { "label": "I burn easily", "hint": "I turn red and barely tan" },
+      "golden": { "label": "I tan golden", "hint": "I rarely burn" },
+      "slow": { "label": "I rarely burn", "hint": "Cinnamon or deep olive tone" }
+    },
+    "finishOptions": {
+      "dewy": { "label": "Dewy", "hint": "Fresh and luminous" },
+      "glow": { "label": "Wet glow", "hint": "Intense luminosity" },
+      "satin": { "label": "Semi-matte", "hint": "Satin and even" },
+      "soft": { "label": "Sheer", "hint": "Natural effect" }
+    },
+    "jewelryOptions": {
+      "gold": { "label": "Gold", "hint": "Warm undertone" },
+      "silver": { "label": "Silver", "hint": "Cool undertone" },
+      "both": { "label": "Both equally", "hint": "Neutral undertone" }
+    },
+    "skinOptions": {
+      "dry": { "label": "Dry to combination", "hint": "Tight cheeks and softer T-zone" },
+      "oily": { "label": "Shiny", "hint": "Visible shine through the day" },
+      "balanced": { "label": "Balanced", "hint": "Even texture" }
+    },
+    "tipTitle": "Practical tip",
+    "tipText": "If you often use tinted sunscreen or self-tanner, you can adjust your usual depth in step 2.",
+    "dockText": "A practical guide to orient yourself among the brands in our multibrand catalog.",
+    "dockCta": "Continue to step 2: preferences and coverage"
+  },
+  "step2": {
+    "eyebrow": "Tone and coverage guide",
+    "badge": "Personalized guidance",
+    "coverageTitle": "Which coverage level are you looking for every day?",
+    "coverageStep": "Step 2.1",
+    "coverage": {
+      "light": {
+        "label": "Light skin tint",
+        "hint": "Evens out subtly without covering freckles or natural texture."
+      },
+      "medium": {
+        "label": "Buildable medium coverage",
+        "hint": "Softens redness and small marks by building layers."
+      },
+      "full": {
+        "label": "Full coverage",
+        "hint": "An even canvas with long wear."
+      }
+    },
+    "finishTitle": "Desired skin finish",
+    "finishStep": "Step 2.2",
+    "finish": {
+      "dewy": { "label": "Glazed glow", "hint": "Dewy and juicy" },
+      "satin": { "label": "Natural satin", "hint": "Matte and glow balance" },
+      "matte": { "label": "Velvet matte", "hint": "Shine control" }
+    },
+    "focusTitle": "Focus you want to address today",
+    "focusStep": "Step 2.3",
+    "focus": {
+      "redness": { "label": "Redness or uneven tone" },
+      "dull": { "label": "Dull skin without light" },
+      "underEyes": { "label": "Marked under-eyes" },
+      "texture": { "label": "Visible pores or texture" }
+    },
+    "rangeTitle": "Brightness in winter and summer",
+    "rangeStep": "Step 2.4",
+    "rangeLabel": "Orientative range",
+    "rangeValue": "Shade 02 light to shade 03 medium",
+    "winter": "Winter",
+    "summer": "Summer",
+    "rangeText": "Suggestions adapt to both ends of the range you selected.",
+    "summaryTitle": "Preferences summary",
+    "summaryTag": "Orientative suggestions",
+    "rowSubtone": "Selected undertone",
+    "rowSubtoneValue": "Warm / Golden",
+    "rowCoverage": "Coverage",
+    "rowFinish": "Finish",
+    "rowFocus": "Main focus",
+    "summaryText": "Guidance based on catalog formulas. The next step shows your orientative selection.",
+    "cta": "See orientative products",
+    "disclaimer": "trino. orientative guide: tones vary according to each brand's formula.",
+    "bannerTitle": "How we pick your suggestions",
+    "bannerText": "We cross your coverage, finish and undertone preferences with formulas from the catalog.",
+    "bannerTag": "Orientative filtering"
+  },
+  "step3": {
+    "eyebrow": "Practical guide completed",
+    "badge": "Orientative results",
+    "title": "Here are your suggestions",
+    "ribbon": "Formulas picked for you",
+    "description": "We cross-referenced your undertone with your preferences to show orientative options from the catalog.",
+    "resultBadge": "Orientative result",
+    "resultSubtone": "Warm / golden undertone",
+    "resultShade": "Orientative medium depth · Dewy finish",
+    "swatchText": "Warm",
+    "swatchLabel": "Reference swatch",
+    "swatchValue": "Golden / warm undertone",
+    "swatchHint": "Orientative tone for light bases",
+    "tipTitle": "Orientative tip",
+    "tipText": "Try a small amount on the side of your neck in natural light to see how the formula settles on your skin.",
+    "curationTitle": "trino. curation",
+    "curationSubtitle": "Selection based on your finish preferences",
+    "curationQuote": "For a warm golden undertone with a glow finish, buildable light bases and peach blushes enhance natural luminosity without overloading the skin.",
+    "factCoverageLabel": "Coverage",
+    "factCoverageValue": "Light / buildable",
+    "factFinishLabel": "Finish",
+    "factFinishValue": "Wet glow",
+    "factFocusLabel": "Focus",
+    "factFocusValue": "Warm tone",
+    "factTextureLabel": "Texture",
+    "factTextureValue": "Daily comfort",
+    "curationCardTitle": "Application advice",
+    "curationBadge": "Orientative curation",
+    "curationCardText": "An orientative selection based on your answers: you can mix textures and depths until you find the routine you like.",
+    "curationAdviceTitle": "How to try it",
+    "curationAdvice": "Apply a thin layer, check it in natural light and adjust the intensity to your taste.",
+    "productsTitle": "Three orientative essentials",
+    "productsBadge": "Orientative selection",
+    "base": {
+      "badge": "Light base",
+      "name": "Skin Dew Tint",
+      "description": "Light, fresh tint for a luminous, buildable finish.",
+      "shade": "Shade 03 Sand Glow"
+    },
+    "lips": {
+      "badge": "Gloss-effect lips",
+      "name": "Gloss Oil Dew",
+      "description": "Botanical oil for optical volume and a shiny finish.",
+      "shade": "Shade 02 Pop Pink"
+    },
+    "blush": {
+      "badge": "Multi-use blush",
+      "name": "Solar Pop Blush",
+      "description": "Creamy multi-use blush to add warmth to the face.",
+      "shade": "Shade 04 Tangerine Pop"
+    },
+    "orientativeShort": "Orientative",
+    "shopAria": "View {product} in the catalog",
+    "shopCta": "View in catalog",
+    "bundleBadge": "Orientative set",
+    "bundleTag": "trino. curation",
+    "bundleTitle": "Complete orientative tone set",
+    "bundleText": "A combination designed to explore base, lips and blush with one tone idea.",
+    "benefits": {
+      "first": "Application guide in digital format",
+      "second": "Three formulas to try in layers",
+      "third": "Depth comparison in the catalog"
+    },
+    "bundleCardTitle": "Explore the selection",
+    "bundleCardText": "Review each formula calmly and pick the one that best fits your routine.",
+    "bundleCta": "Explore the catalog",
+    "bundleDisclaimer": "Orientative selection",
+    "helpTitle": "Questions about tones?",
+    "helpText": "Explore the catalog to compare formulas and depths.",
+    "restart": "Back to step 1",
+    "catalog": "View catalog"
+  }
+}

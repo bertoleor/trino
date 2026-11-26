@@ -1,3 +1,15 @@
+import {
+  Crop,
+  LayoutDashboard,
+  Package,
+  ReceiptText,
+  ScanLine,
+  SlidersHorizontal,
+  Truck,
+  UserRound,
+  UserRoundPlus,
+} from 'lucide-react';
+
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
@@ -22,43 +34,43 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </p>
         <nav className="mt-2 flex gap-4 lg:flex-col">
           <Link href="/admin" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">dashboard</span>
+            <LayoutDashboard aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Dashboard</span>
           </Link>
           <Link href="/admin/pedidos" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">receipt_long</span>
+            <ReceiptText aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Órdenes</span>
           </Link>
           <Link href="/admin/inventario" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">inventory</span>
+            <Package aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Inventario</span>
           </Link>
-          <Link href "/admin/usuarios" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">person</span>
+          <Link href="/admin/usuarios" className="text-zinc-600 hover:text-zinc-900">
+            <UserRound aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Usuarios</span>
           </Link>
           <Link href="/admin/configuracion" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">tune</span>
+            <SlidersHorizontal aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Configuración</span>
           </Link>
           <Link href="/admin/registrar-socia" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">person_add</span>
+            <UserRoundPlus aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Registrar Socia</span>
           </Link>
           <Link href="/admin/mercader" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">local_shipping</span>
+            <Truck aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Mercader & Remito</span>
           </Link>
           <Link href="/admin/etiquetas" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">barcode_reader</span>
+            <ScanLine aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Etiquetas</span>
           </Link>
-          <Link href "/admin/drops" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">crop_square</span>
+          <Link href="/admin/drops" className="text-zinc-600 hover:text-zinc-900">
+            <Crop aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Drops</span>
           </Link>
           <Link href="/admin/perfil" className="text-zinc-600 hover:text-zinc-900">
-            <span className="material-symbols-outlined text-[18px]">person</span>
+            <UserRound aria-hidden="true" className="h-[18px] w-[18px]" />
             <span className="hidden lg:inline">Perfil</span>
           </Link>
           <form action={signOut}>

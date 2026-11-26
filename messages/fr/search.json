@@ -32,5 +32,61 @@
     "eyebrow": "CONTINUER À EXPLORER",
     "title": "D'autres options du catalogue.",
     "viewAll": "Voir tout le catalogue"
+  },
+  "catalog": {
+    "breadcrumb": {
+      "current": "Tous les drops"
+    },
+    "hero": {
+      "badge": "Catalogue et nouveautés",
+      "title": "Des formules vivantes.",
+      "titleAccent": "Zéro drame.",
+      "description": "Un maquillage très pigmenté, sans règles, pensé pour vous ressembler. Découvrez les teintes, les marques et les nouveautés du catalogue.",
+      "summaryLabel": "Exploration du catalogue"
+    },
+    "filters": {
+      "title": "Filtres",
+      "clear": "Tout effacer",
+      "active": "Filtres actifs",
+      "category": "Catégorie",
+      "subcategory": "Sous-catégorie",
+      "finish": "Finition",
+      "all": "Tout",
+      "remove": "Retirer le filtre {label}"
+    },
+    "categories": {
+      "ojos": "Yeux",
+      "labios": "Lèvres",
+      "rostro": "Visage",
+      "manicure": "Manucure",
+      "pestañas": "Cils"
+    },
+    "sort": {
+      "label": "Trier les produits",
+      "newest": "Nouveautés d'abord",
+      "price_asc": "Prix : croissant",
+      "price_desc": "Prix : décroissant",
+      "name": "Nom A-Z"
+    },
+    "view": {
+      "label": "Vue du catalogue",
+      "grid": "Vue grille",
+      "compact": "Vue compacte"
+    },
+    "toolbar": {
+      "summary": "{shown} sur {total} produits"
+    },
+    "card": {
+      "badge": "Drop",
+      "view": "Voir le produit"
+    },
+    "empty": {
+      "title": "Aucun produit ne correspond à ces filtres.",
+      "description": "Essayez une autre catégorie, finition ou marque."
+    },
+    "pagination": {
+      "label": "Pagination du catalogue",
+      "page": "Page {page} sur {total}"
+    }
   }
 }

@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "Links oficiais | trino.",
+    "description": "Encontre todos os canais oficiais da trino. beauty em um só lugar."
+  },
+  "badge": "Canais oficiais",
+  "logo": {
+    "brand": "trino.",
+    "line": "beauty"
+  },
+  "headline": {
+    "start": "Beleza que",
+    "accent": "faz barulho."
+  },
+  "intro": "Uma seleção multimarca e tendências para criar a sua versão.",
+  "channels": "Escolha onde nos acompanhar",
+  "ticker": ["Drops novos", "Seleção multimarca", "Atendimento direto"],
+  "links": {
+    "whatsapp": {
+      "title": "Falar com a trino.",
+      "handle": "WhatsApp",
+      "detail": "Dúvidas sobre produtos e pedidos.",
+      "tag": "Direto"
+    },
+    "vip": {
+      "title": "Grupo VIP",
+      "handle": "Comunidade trino.",
+      "detail": "Novidades e drops para membros.",
+      "tag": "Convite"
+    },
+    "instagram": {
+      "title": "Instagram oficial",
+      "handle": "@trinopunto",
+      "detail": "Drops, swatches e novidades.",
+      "tag": "Oficial"
+    },
+    "tiktok": {
+      "title": "TikTok oficial",
+      "handle": "@puntotrino",
+      "detail": "Tutoriais e favoritos.",
+      "tag": "Oficial"
+    },
+    "facebook": {
+      "title": "Comunidade do Facebook",
+      "handle": "@trinopunto",
+      "detail": "Novidades e comunidade.",
+      "tag": "Oficial"
+    }
+  },
+  "share": {
+    "label": "Compartilhar este perfil",
+    "copied": "Link copiado"
+  },
+  "footer": {
+    "tagline": "Seleção multimarca",
+    "copyright": "© 2026 trino. beauty · Buenos Aires, Argentina"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Ajustes de cuenta",
+    "description": "Revisá los datos de tu cuenta de trino. y las opciones disponibles."
+  },
+  "breadcrumb": {
+    "label": "Ruta de navegación",
+    "home": "Inicio",
+    "account": "Mi cuenta",
+    "current": "Ajustes"
+  },
+  "header": {
+    "eyebrow": "Configuración de cuenta",
+    "title": "Ajustes y administración de cuenta",
+    "body": "Revisá tus datos, tus preferencias y las opciones de seguridad disponibles.",
+    "statusLabel": "Estado de la sesión",
+    "statusActive": "Sesión iniciada",
+    "statusNone": "Sin sesión iniciada",
+    "tabsLabel": "Secciones de la cuenta",
+    "tabs": {
+      "overview": "Resumen",
+      "orders": "Mis pedidos",
+      "tone": "Mi perfil de tono",
+      "favorites": "Mis favoritos",
+      "club": "Club trino.",
+      "settings": "Ajustes"
+    }
+  },
+  "profile": {
+    "title": "Tu cuenta",
+    "emailLabel": "Email",
+    "anonymous": "No iniciaste sesión",
+    "hint": "Los datos se muestran tal como están registrados."
+  },
+  "nav": {
+    "label": "Menú de ajustes"
+  },
+  "sections": {
+    "personal": {
+      "title": "1. Datos personales",
+      "body": "Información asociada a tu cuenta.",
+      "note": "Para actualizar tus datos, escribinos desde Contacto."
+    },
+    "addresses": {
+      "title": "2. Direcciones de entrega",
+      "body": "Direcciones guardadas para tus pedidos.",
+      "emptyTitle": "Todavía no hay direcciones guardadas",
+      "emptyBody": "Podés cargar una dirección durante el checkout."
+    },
+    "payments": {
+      "title": "3. Métodos de pago",
+      "body": "Los medios de pago se gestionan en el checkout.",
+      "emptyTitle": "No guardamos métodos de pago en esta sección",
+      "emptyBody": "Los pagos se procesan al confirmar cada pedido."
+    },
+    "security": {
+      "title": "4. Seguridad y contraseña",
+      "body": "Opciones para cuidar el acceso a tu cuenta.",
+      "passwordCta": "Cambiar contraseña",
+      "signOut": "Cerrar sesión",
+      "note": "Si olvidaste tu contraseña, podés restablecerla desde el enlace de recuperación."
+    },
+    "notifications": {
+      "title": "5. Preferencias y privacidad",
+      "body": "Consultá cómo tratamos tus datos.",
+      "privacyCta": "Ver privacidad",
+      "note": "Revisá la política de privacidad para conocer el tratamiento de tus datos."
+    }
+  },
+  "advanced": {
+    "title": "Gestión avanzada",
+    "body": "Para solicitudes sobre tus datos personales, usá el canal de contacto.",
+    "cta": "Ir a contacto"
+  },
+  "support": {
+    "title": "¿Necesitás ayuda?",
+    "body": "Si tenés dudas sobre tu cuenta, escribinos y te respondemos por ese canal.",
+    "cta": "Contactar"
+  }
+}

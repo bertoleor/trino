@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "step1": {
+      "title": "Test de teinte indicatif · Étape 1 : sous-ton et intensité",
+      "description": "Un guide visuel et indicatif pour explorer votre sous-ton et votre intensité avant de choisir bases et correcteurs."
+    },
+    "step2": {
+      "title": "Test de teinte indicatif · Étape 2 : préférences et couverture",
+      "description": "Ajustez couverture, fini et priorité pour recevoir des suggestions indicatives du catalogue."
+    },
+    "step3": {
+      "title": "Test de teinte indicatif · Étape 3 : suggestions",
+      "description": "Un résultat indicatif avec une sélection de formules à explorer dans le catalogue."
+    }
+  },
+  "hero": {
+    "eyebrow": "Guide visuel de teinte · Indicatif",
+    "badgeTitle": "Guide pratique",
+    "badgeText": "Simple et indicatif",
+    "step1Title": "Test de teinte indicatif · Étape 1 sur 3 : sous-ton et intensité",
+    "step1Description": "Découvrez votre sous-ton et votre intensité avec ce guide visuel simple et indicatif. Répondez à quelques questions clés ou choisissez vos échantillons pour explorer les bases et correcteurs compatibles de notre catalogue multimarque.",
+    "step2Title": "Test de teinte indicatif · Étape 2 sur 3 : préférences et couverture",
+    "step2Description": "Ajustez le niveau de couverture, le fini et la priorité pour orienter les suggestions de bases et de correcteurs du catalogue multimarque.",
+    "step3Title": "Voici vos suggestions indicatives",
+    "step3Description": "Nous avons croisé votre sous-ton avec vos préférences de fini et de couverture pour vous montrer des options indicatives du catalogue multimarque."
+  },
+  "steps": {
+    "one": {
+      "label": "Votre sous-ton et intensité",
+      "active": "En cours",
+      "done": "Terminé",
+      "pending": "En attente"
+    },
+    "two": {
+      "label": "Préférences et couverture",
+      "active": "En cours",
+      "done": "Terminé",
+      "pending": "En attente"
+    },
+    "three": {
+      "label": "Produits suggérés",
+      "active": "En cours",
+      "done": "Terminé",
+      "pending": "En attente"
+    }
+  },
+  "common": {
+    "stepper": "Progression du test de teinte",
+    "guide": "Guide indicatif",
+    "multibrand": "Catalogue multimarque",
+    "optionAria": "Choisir l’option : {option}",
+    "selected": "Sélectionné",
+    "choose": "Choisir"
+  },
+  "step1": {
+    "orientativeTag": "Indicatif",
+    "selectorTitle": "Sélecteur visuel de sous-ton",
+    "selectorHint": "Choisissez le sous-ton qui décrit le mieux l’apparence de votre peau à la lumière naturelle du jour :",
+    "subtoneAria": "Choisir le sous-ton : {tone}",
+    "subtones": {
+      "warm": {
+        "label": "Chaud / Doré",
+        "hint": "Si votre peau montre des nuances dorées ou jaunes, ceci est un point de départ indicatif."
+      },
+      "neutral": {
+        "label": "Neutre",
+        "hint": "Équilibre entre nuances rosées et chaudes : une référence polyvalente entre les marques et les bases."
+      },
+      "cool": {
+        "label": "Froid / Rosé",
+        "hint": "Si votre peau montre des nuances rosées ou violacées, ceci est un point de départ indicatif."
+      }
+    },
+    "shadeTitle": "Intensité approximative de la peau",
+    "shadeTag": "Moyenne",
+    "shadeHint": "Échantillons aux couleurs de marque pour orienter l’intensité de la teinte :",
+    "swatchAria": "Choisir l’intensité : {tone}",
+    "shades": {
+      "veryLight": { "label": "Très claire" },
+      "light": { "label": "Claire" },
+      "medium": { "label": "Moyenne" },
+      "bronzed": { "label": "Hâlée" },
+      "deep": { "label": "Profonde" }
+    },
+    "summaryTitle": "Sous-ton sélectionné",
+    "summaryText": "Un guide indicatif pour explorer les bases et correcteurs compatibles aux étapes suivantes.",
+    "questionsTitle": "Questions brèves sur votre peau",
+    "questionsHint": "Répondez selon l’apparence et la sensation de votre peau sans produit préalable.",
+    "questionsTag": "4 questions",
+    "question1": "1. Comment votre peau réagit-elle au soleil d’été ?",
+    "question2": "2. Quel fini préférez-vous au quotidien ?",
+    "question3": "3. Quels accessoires vous semblent le plus vous mettre en valeur ?",
+    "question4": "4. Comment est votre peau au fil de la journée ?",
+    "sunOptions": {
+      "fast": { "label": "Je brûle facilement", "hint": "Je rougis et bronze à peine" },
+      "golden": { "label": "Je bronze doré", "hint": "Je brûle presque jamais" },
+      "slow": { "label": "Je brûle rarement", "hint": "Teinte cannelle ou olive profonde" }
+    },
+    "finishOptions": {
+      "dewy": { "label": "Dewy / Frais", "hint": "Frais et lumineux" },
+      "glow": { "label": "Glow humide", "hint": "Luminosité intense" },
+      "satin": { "label": "Semi-mat", "hint": "Satiné et uniforme" },
+      "soft": { "label": "Translucide", "hint": "Effet naturel" }
+    },
+    "jewelryOptions": {
+      "gold": { "label": "Or / Doré", "hint": "Sous-ton chaud" },
+      "silver": { "label": "Argent", "hint": "Sous-ton froid" },
+      "both": { "label": "Les deux", "hint": "Sous-ton neutre" }
+    },
+    "skinOptions": {
+      "dry": { "label": "Sèche à mixte", "hint": "Tiraillement sur les joues et zone T plus douce" },
+      "oily": { "label": "Brillante", "hint": "Brillance visible durant la journée" },
+      "balanced": { "label": "Équilibrée", "hint": "Texture uniforme" }
+    },
+    "tipTitle": "Conseil pratique",
+    "tipText": "Si vous utilisez souvent une protection solaire teintée ou un autobronzant, vous pouvez ajuster votre intensité habituelle à l’étape 2.",
+    "dockText": "Un guide pratique pour vous orienter parmi les marques de notre catalogue multimarque.",
+    "dockCta": "Continuer vers l’étape 2 : préférences et couverture"
+  },
+  "step2": {
+    "eyebrow": "Guide de teinte et couverture",
+    "badge": "Orientation personnalisée",
+    "coverageTitle": "Quel niveau de couverture recherchez-vous au quotidien ?",
+    "coverageStep": "Étape 2.1",
+    "coverage": {
+      "light": {
+        "label": "Skin tint léger",
+        "hint": "Unifie légèrement sans masquer les taches de rousseur ni la texture naturelle."
+      },
+      "medium": {
+        "label": "Couverture moyenne modulable",
+        "hint": "Atténue rougeurs et petites taches en superposant les couches."
+      },
+      "full": {
+        "label": "Couverture totale",
+        "hint": "Un canevas uniforme à longue tenue."
+      }
+    },
+    "finishTitle": "Fini de peau souhaité",
+    "finishStep": "Étape 2.2",
+    "finish": {
+      "dewy": { "label": "Glow vitrifié", "hint": "Dewy et juteux" },
+      "satin": { "label": "Satiné naturel", "hint": "Équilibre mat et glow" },
+      "matte": { "label": "Mat velours", "hint": "Contrôle de la brillance" }
+    },
+    "focusTitle": "Priorité à traiter aujourd’hui",
+    "focusStep": "Étape 2.3",
+    "focus": {
+      "redness": { "label": "Rougeurs ou teinte inégale" },
+      "dull": { "label": "Peau terne sans éclat" },
+      "underEyes": { "label": "Cernes marqués" },
+      "texture": { "label": "Pores visibles ou texture" }
+    },
+    "rangeTitle": "Luminosité en hiver et en été",
+    "rangeStep": "Étape 2.4",
+    "rangeLabel": "Plage indicative",
+    "rangeValue": "Teinte 02 claire à teinte 03 moyenne",
+    "winter": "Hiver",
+    "summer": "Été",
+    "rangeText": "Les suggestions s’adaptent aux deux extrémités de la plage choisie.",
+    "summaryTitle": "Résumé des préférences",
+    "summaryTag": "Suggestions indicatives",
+    "rowSubtone": "Sous-ton choisi",
+    "rowSubtoneValue": "Chaud / Doré",
+    "rowCoverage": "Couverture",
+    "rowFinish": "Fini",
+    "rowFocus": "Priorité principale",
+    "summaryText": "Orientation basée sur les formules du catalogue. À l’étape suivante, découvrez votre sélection indicative.",
+    "cta": "Voir les produits indicatifs",
+    "disclaimer": "Guide indicatif trino. : les teintes varient selon la formule de chaque marque.",
+    "bannerTitle": "Comment choisissons-nous vos suggestions ?",
+    "bannerText": "Nous croisons vos préférences de couverture, de fini et de sous-ton avec les formules du catalogue.",
+    "bannerTag": "Filtrage indicatif"
+  },
+  "step3": {
+    "eyebrow": "Guide pratique terminé",
+    "badge": "Résultats indicatifs",
+    "title": "Voici vos suggestions",
+    "ribbon": "Formules choisies pour vous",
+    "description": "Nous avons croisé votre sous-ton avec vos préférences pour vous montrer des options indicatives du catalogue.",
+    "resultBadge": "Résultat indicatif",
+    "resultSubtone": "Sous-ton chaud / doré",
+    "resultShade": "Intensité moyenne indicative · Fini dewy",
+    "swatchText": "Chaud",
+    "swatchLabel": "Échantillon de référence",
+    "swatchValue": "Doré / sous-ton chaud",
+    "swatchHint": "Teinte indicative pour bases légères",
+    "tipTitle": "Conseil indicatif",
+    "tipText": "Appliquez d’abord une petite quantité sur le côté du cou à la lumière naturelle pour observer comment la formule se pose sur votre peau.",
+    "curationTitle": "Sélection trino.",
+    "curationSubtitle": "Choix basé sur vos préférences de fini",
+    "curationQuote": "Pour un sous-ton chaud et doré avec un fini glow, les bases légères modulables et les blushes pêche mettent en valeur l’éclat naturel sans surcharger la peau.",
+    "factCoverageLabel": "Couverture",
+    "factCoverageValue": "Légère / modulable",
+    "factFinishLabel": "Fini",
+    "factFinishValue": "Glow humide",
+    "factFocusLabel": "Priorité",
+    "factFocusValue": "Ton chaud",
+    "factTextureLabel": "Texture",
+    "factTextureValue": "Confort quotidien",
+    "curationCardTitle": "Conseil d’application",
+    "curationBadge": "Sélection indicative",
+    "curationCardText": "Une sélection indicative basée sur vos réponses : vous pouvez combiner textures et intensités jusqu’à trouver la routine qui vous plaît.",
+    "curationAdviceTitle": "Comment l’essayer",
+    "curationAdvice": "Appliquez une couche fine, observez à la lumière naturelle et ajustez l’intensité à votre goût.",
+    "productsTitle": "Trois essentiels indicatifs",
+    "productsBadge": "Sélection indicative",
+    "base": {
+      "badge": "Base légère",
+      "name": "Skin Dew Tint",
+      "description": "Teinte légère et fraîche pour un fini lumineux et modulable.",
+      "shade": "Teinte 03 Sand Glow"
+    },
+    "lips": {
+      "badge": "Lèvres effet verre",
+      "name": "Gloss Oil Dew",
+      "description": "Huile botanique pour un volume optique et un fini brillant.",
+      "shade": "Teinte 02 Pop Pink"
+    },
+    "blush": {
+      "badge": "Blush multi-usage",
+      "name": "Solar Pop Blush",
+      "description": "Blush crème multi-usage pour apporter de la chaleur au visage.",
+      "shade": "Teinte 04 Tangerine Pop"
+    },
+    "orientativeShort": "Indicatif",
+    "shopAria": "Voir {product} dans le catalogue",
+    "shopCta": "Voir au catalogue",
+    "bundleBadge": "Ensemble indicatif",
+    "bundleTag": "Sélection trino.",
+    "bundleTitle": "Ensemble de teinte indicatif complet",
+    "bundleText": "Une combinaison pensée pour explorer base, lèvres et blush avec une même idée de teinte.",
+    "benefits": {
+      "first": "Guide d’application au format numérique",
+      "second": "Trois formules à essayer en couches",
+      "third": "Comparaison des intensités dans le catalogue"
+    },
+    "bundleCardTitle": "Explorer la sélection",
+    "bundleCardText": "Examinez chaque formule calmement et choisissez celle qui correspond le mieux à votre routine.",
+    "bundleCta": "Explorer le catalogue",
+    "bundleDisclaimer": "Sélection indicative",
+    "helpTitle": "Des doutes sur les teintes ?",
+    "helpText": "Explorez le catalogue pour comparer formules et intensités.",
+    "restart": "Retour à l’étape 1",
+    "catalog": "Voir le catalogue"
+  }
+}

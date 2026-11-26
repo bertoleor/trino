@@ -32,5 +32,61 @@
     "eyebrow": "CONTINUE EXPLORANDO",
     "title": "Outras opções do catálogo.",
     "viewAll": "Ver catálogo completo"
+  },
+  "catalog": {
+    "breadcrumb": {
+      "current": "Todos os drops"
+    },
+    "hero": {
+      "badge": "Catálogo e drops",
+      "title": "Fórmulas vivas.",
+      "titleAccent": "Zero drama.",
+      "description": "Maquiagem de alta saturação, sem regras e feita para você se ver e se sentir como você. Descubra tons, marcas e novidades do catálogo.",
+      "summaryLabel": "Explorando o catálogo"
+    },
+    "filters": {
+      "title": "Filtros",
+      "clear": "Limpar tudo",
+      "active": "Filtros ativos",
+      "category": "Categoria",
+      "subcategory": "Subcategoria",
+      "finish": "Acabamento",
+      "all": "Todos",
+      "remove": "Remover filtro {label}"
+    },
+    "categories": {
+      "ojos": "Olhos",
+      "labios": "Lábios",
+      "rostro": "Rosto",
+      "manicure": "Manicure",
+      "pestañas": "Cílios"
+    },
+    "sort": {
+      "label": "Ordenar produtos",
+      "newest": "Novidades primeiro",
+      "price_asc": "Preço: menor a maior",
+      "price_desc": "Preço: maior a menor",
+      "name": "Nome A-Z"
+    },
+    "view": {
+      "label": "Visualização do catálogo",
+      "grid": "Visualização em grade",
+      "compact": "Visualização compacta"
+    },
+    "toolbar": {
+      "summary": "{shown} de {total} produtos"
+    },
+    "card": {
+      "badge": "Drop",
+      "view": "Ver produto"
+    },
+    "empty": {
+      "title": "Nenhum produto com esses filtros.",
+      "description": "Tente outra categoria, acabamento ou marca."
+    },
+    "pagination": {
+      "label": "Paginação do catálogo",
+      "page": "Página {page} de {total}"
+    }
   }
 }

@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "step1": {
+      "title": "Teste de tom indicativo · Etapa 1: subtom e intensidade",
+      "description": "Um guia visual e indicativo para explorar seu subtom e sua intensidade antes de escolher bases e corretivos."
+    },
+    "step2": {
+      "title": "Teste de tom indicativo · Etapa 2: preferências e cobertura",
+      "description": "Ajuste cobertura, acabamento e foco para receber sugestões indicativas do catálogo."
+    },
+    "step3": {
+      "title": "Teste de tom indicativo · Etapa 3: sugestões",
+      "description": "Um resultado indicativo com uma curadoria de fórmulas para explorar no catálogo."
+    }
+  },
+  "hero": {
+    "eyebrow": "Guia visual de tom · Indicativo",
+    "badgeTitle": "Guia prático",
+    "badgeText": "Simples e indicativo",
+    "step1Title": "Teste de tom indicativo · Etapa 1 de 3: subtom e intensidade",
+    "step1Description": "Descubra seu subtom e sua intensidade com este guia visual simples e indicativo. Responda a algumas perguntas-chave ou escolha suas amostras para explorar bases e corretivos compatíveis do nosso catálogo multimarca.",
+    "step2Title": "Teste de tom indicativo · Etapa 2 de 3: preferências e cobertura",
+    "step2Description": "Ajuste o nível de cobertura, o acabamento e o foco para orientar as sugestões de bases e corretivos do catálogo multimarca.",
+    "step3Title": "Aqui estão suas sugestões indicativas",
+    "step3Description": "Cruzamos seu subtom com suas preferências de acabamento e cobertura para mostrar opções indicativas do catálogo multimarca."
+  },
+  "steps": {
+    "one": {
+      "label": "Seu subtom e intensidade",
+      "active": "Em andamento",
+      "done": "Concluído",
+      "pending": "Aguardando"
+    },
+    "two": {
+      "label": "Preferências e cobertura",
+      "active": "Em andamento",
+      "done": "Concluído",
+      "pending": "Aguardando"
+    },
+    "three": {
+      "label": "Produtos sugeridos",
+      "active": "Em andamento",
+      "done": "Concluído",
+      "pending": "Aguardando"
+    }
+  },
+  "common": {
+    "stepper": "Progresso do teste de tom",
+    "guide": "Guia indicativo",
+    "multibrand": "Catálogo multimarca",
+    "optionAria": "Escolher opção: {option}",
+    "selected": "Selecionado",
+    "choose": "Escolher"
+  },
+  "step1": {
+    "orientativeTag": "Indicativo",
+    "selectorTitle": "Seletor visual de subtom",
+    "selectorHint": "Escolha o subtom que melhor descreve como sua pele aparece na luz natural do dia:",
+    "subtoneAria": "Escolher subtom: {tone}",
+    "subtones": {
+      "warm": {
+        "label": "Quente / Dourado",
+        "hint": "Se sua pele mostra nuances douradas ou amareladas, este é um ponto de partida indicativo."
+      },
+      "neutral": {
+        "label": "Neutro",
+        "hint": "Equilíbrio entre nuances rosadas e quentes: uma referência versátil entre marcas e bases."
+      },
+      "cool": {
+        "label": "Frio / Rosado",
+        "hint": "Se sua pele mostra nuances rosadas ou arroxeadas, este é um ponto de partida indicativo."
+      }
+    },
+    "shadeTitle": "Intensidade aproximada da pele",
+    "shadeTag": "Média",
+    "shadeHint": "Amostras com cores de marca para orientar a intensidade do tom:",
+    "swatchAria": "Escolher intensidade: {tone}",
+    "shades": {
+      "veryLight": { "label": "Muito clara" },
+      "light": { "label": "Clara" },
+      "medium": { "label": "Média" },
+      "bronzed": { "label": "Bronzeada" },
+      "deep": { "label": "Profunda" }
+    },
+    "summaryTitle": "Subtom selecionado",
+    "summaryText": "Um guia indicativo para explorar bases e corretivos compatíveis nas próximas etapas.",
+    "questionsTitle": "Perguntas breves sobre sua pele",
+    "questionsHint": "Responda de acordo com a aparência e a sensação da sua pele sem produto prévio.",
+    "questionsTag": "4 perguntas",
+    "question1": "1. Como sua pele reage ao sol de verão?",
+    "question2": "2. Qual acabamento você prefere no dia a dia?",
+    "question3": "3. Quais acessórios você sente que mais combinam com você?",
+    "question4": "4. Como é sua pele ao longo do dia?",
+    "sunOptions": {
+      "fast": { "label": "Queimo fácil", "hint": "Fico vermelha e quase não bronzeio" },
+      "golden": { "label": "Bronzeio dourado", "hint": "Quase nunca queimo" },
+      "slow": { "label": "Quase não queimo", "hint": "Tom canela ou oliva profundo" }
+    },
+    "finishOptions": {
+      "dewy": { "label": "Dewy / Fresco", "hint": "Fresco e luminoso" },
+      "glow": { "label": "Glow úmido", "hint": "Luminosidade intensa" },
+      "satin": { "label": "Semi-mate", "hint": "Cetimado e uniforme" },
+      "soft": { "label": "Transparente", "hint": "Efeito natural" }
+    },
+    "jewelryOptions": {
+      "gold": { "label": "Ouro / Dourado", "hint": "Subtom quente" },
+      "silver": { "label": "Prata / Prateado", "hint": "Subtom frio" },
+      "both": { "label": "Ambos", "hint": "Subtom neutro" }
+    },
+    "skinOptions": {
+      "dry": { "label": "Seca a mista", "hint": "Repuxamento nas bochechas e zona T mais suave" },
+      "oily": { "label": "Com brilho", "hint": "Brilho visível ao longo do dia" },
+      "balanced": { "label": "Equilibrada", "hint": "Textura uniforme" }
+    },
+    "tipTitle": "Dica prática",
+    "tipText": "Se você usa protetor solar com cor ou autobronzeador com frequência, pode ajustar seu tom habitual na etapa 2.",
+    "dockText": "Um guia prático para se orientar entre as marcas do nosso catálogo multimarca.",
+    "dockCta": "Continuar para a etapa 2: preferências e cobertura"
+  },
+  "step2": {
+    "eyebrow": "Guia de tom e cobertura",
+    "badge": "Orientação personalizada",
+    "coverageTitle": "Qual nível de cobertura você procura no dia a dia?",
+    "coverageStep": "Etapa 2.1",
+    "coverage": {
+      "light": {
+        "label": "Skin tint leve",
+        "hint": "Uniformiza sutilmente sem cobrir sardas nem a textura natural."
+      },
+      "medium": {
+        "label": "Cobertura média modular",
+        "hint": "Suaviza vermelhidões e pequenas manchas ao construir camadas."
+      },
+      "full": {
+        "label": "Alta cobertura",
+        "hint": "Uma base uniforme de longa duração."
+      }
+    },
+    "finishTitle": "Acabamento de pele desejado",
+    "finishStep": "Etapa 2.2",
+    "finish": {
+      "dewy": { "label": "Glow vidrado", "hint": "Dewy e úmido" },
+      "satin": { "label": "Natural acetinado", "hint": "Equilíbrio entre mate e glow" },
+      "matte": { "label": "Mate aveludado", "hint": "Controle de brilho" }
+    },
+    "focusTitle": "Foco que você quer tratar hoje",
+    "focusStep": "Etapa 2.3",
+    "focus": {
+      "redness": { "label": "Vermelhidão ou tom desigual" },
+      "dull": { "label": "Pele opaca sem luz" },
+      "underEyes": { "label": "Olheiras marcadas" },
+      "texture": { "label": "Poros visíveis ou textura" }
+    },
+    "rangeTitle": "Luminosidade no inverno e no verão",
+    "rangeStep": "Etapa 2.4",
+    "rangeLabel": "Faixa indicativa",
+    "rangeValue": "Tom 02 claro a tom 03 médio",
+    "winter": "Inverno",
+    "summer": "Verão",
+    "rangeText": "As sugestões se ajustam às duas extremidades da faixa escolhida.",
+    "summaryTitle": "Resumo das preferências",
+    "summaryTag": "Sugestões indicativas",
+    "rowSubtone": "Subtom escolhido",
+    "rowSubtoneValue": "Quente / Dourado",
+    "rowCoverage": "Cobertura",
+    "rowFinish": "Acabamento",
+    "rowFocus": "Foco principal",
+    "summaryText": "Orientação baseada nas fórmulas do catálogo. Na próxima etapa você vê sua seleção indicativa.",
+    "cta": "Ver produtos indicativos",
+    "disclaimer": "Guia indicativo trino.: os tons variam conforme a fórmula de cada marca.",
+    "bannerTitle": "Como escolhemos suas sugestões?",
+    "bannerText": "Cruzamos suas preferências de cobertura, acabamento e subtom com fórmulas do catálogo.",
+    "bannerTag": "Filtragem indicativa"
+  },
+  "step3": {
+    "eyebrow": "Guia prático concluído",
+    "badge": "Resultados indicativos",
+    "title": "Aqui estão suas sugestões",
+    "ribbon": "Fórmulas escolhidas para você",
+    "description": "Cruzamos seu subtom com suas preferências para mostrar opções indicativas do catálogo.",
+    "resultBadge": "Resultado indicativo",
+    "resultSubtone": "Subtom quente / dourado",
+    "resultShade": "Intensidade média indicativa · Acabamento dewy",
+    "swatchText": "Quente",
+    "swatchLabel": "Amostra de referência",
+    "swatchValue": "Dourado / subtom quente",
+    "swatchHint": "Tom indicativo para bases leves",
+    "tipTitle": "Dica indicativa",
+    "tipText": "Aplique primeiro uma pequena quantidade na lateral do pescoço com luz natural para ver como a fórmula assenta na sua pele.",
+    "curationTitle": "Curadoria trino.",
+    "curationSubtitle": "Seleção com base nas suas preferências de acabamento",
+    "curationQuote": "Para um subtom quente e dourado com acabamento glow, bases leves e modulares e blushes pêssego realçam a luminosidade natural sem sobrecarregar a pele.",
+    "factCoverageLabel": "Cobertura",
+    "factCoverageValue": "Leve / modular",
+    "factFinishLabel": "Acabamento",
+    "factFinishValue": "Glow úmido",
+    "factFocusLabel": "Foco",
+    "factFocusValue": "Tom quente",
+    "factTextureLabel": "Textura",
+    "factTextureValue": "Conforto diário",
+    "curationCardTitle": "Dica de aplicação",
+    "curationBadge": "Curadoria indicativa",
+    "curationCardText": "Uma seleção indicativa com base nas suas respostas: você pode combinar texturas e tons até encontrar a rotina que mais gosta.",
+    "curationAdviceTitle": "Como testar",
+    "curationAdvice": "Aplique uma camada fina, observe com luz natural e ajuste a intensidade ao seu gosto.",
+    "productsTitle": "Três essenciais indicativos",
+    "productsBadge": "Seleção indicativa",
+    "base": {
+      "badge": "Base leve",
+      "name": "Skin Dew Tint",
+      "description": "Tinta leve e fresca para um acabamento luminoso e modular.",
+      "shade": "Tom 03 Sand Glow"
+    },
+    "lips": {
+      "badge": "Lábios efeito vidro",
+      "name": "Gloss Oil Dew",
+      "description": "Óleo botânico que dá volume óptico e acabamento brilhante.",
+      "shade": "Tom 02 Pop Pink"
+    },
+    "blush": {
+      "badge": "Blush multiuso",
+      "name": "Solar Pop Blush",
+      "description": "Blush cremoso multiuso para adicionar calor ao rosto.",
+      "shade": "Tom 04 Tangerine Pop"
+    },
+    "orientativeShort": "Indicativo",
+    "shopAria": "Ver {product} no catálogo",
+    "shopCta": "Ver no catálogo",
+    "bundleBadge": "Conjunto indicativo",
+    "bundleTag": "Curadoria trino.",
+    "bundleTitle": "Conjunto completo de tom indicativo",
+    "bundleText": "Uma combinação pensada para explorar base, lábios e blush com uma mesma ideia de tom.",
+    "benefits": {
+      "first": "Guia de aplicação em formato digital",
+      "second": "Três fórmulas para testar em camadas",
+      "third": "Comparação de tons no catálogo"
+    },
+    "bundleCardTitle": "Explore a seleção",
+    "bundleCardText": "Analise cada fórmula com calma e escolha a que melhor se encaixa na sua rotina.",
+    "bundleCta": "Explorar o catálogo",
+    "bundleDisclaimer": "Seleção indicativa",
+    "helpTitle": "Dúvidas sobre os tons?",
+    "helpText": "Explore o catálogo para comparar fórmulas e tons.",
+    "restart": "Voltar à etapa 1",
+    "catalog": "Ver catálogo"
+  }
+}

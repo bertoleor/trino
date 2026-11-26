@@ -42,6 +42,10 @@ describe('A-01 auth Server Actions verify Turnstile fail-closed', () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(async (input: unknown, init?: RequestInit) => {
+        // Audit ingest also fetches; only Cloudflare siteverify is a captcha call.
+        if (!String(input).includes('challenges.cloudflare.com/turnstile')) {
+          return new Response('{}', { status: 200 });
+        }
         const body = String(init?.body ?? '');
         const params = new URLSearchParams(body);
         captchaCalls.push({

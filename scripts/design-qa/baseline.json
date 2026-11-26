@@ -1,11 +1,10 @@
 {
-  "total": 12,
+  "total": 15,
   "per_dir": {
-    "src": 12
+    "src": 15
   },
-  "scan_dirs": [
-    "src"
-  ],
-  "taken_at": "2026-10-17",
-  "source_commit": "5a91eba49a87c342ccb90592f9fe2cade8805e9f"
+  "scan_dirs": ["src"],
+  "taken_at": "2026-11-26",
+  "source_commit": "2c87681",
+  "note": "Re-measured after excluding Storybook fixtures and HTML sizes attributes from the detector. 15 = 8 intentional inline styles in global-error.tsx + 1 pre-existing email template hex + 6 pre-existing responsive.css values."
 }

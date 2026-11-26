@@ -1,0 +1,233 @@
+{
+  "manifiesto": {
+    "ticker": {
+      "a": "BEAUTY WITHOUT RULES",
+      "b": "NO PERFECTION",
+      "c": "PURE EXPRESSION",
+      "d": "TRINO. MANIFESTO"
+    },
+    "eyebrow": "OFFICIAL MANIFESTO · TRINO. ESSENCE",
+    "edition": "EDITION 01",
+    "editionDetail": "FOUNDING DOCUMENT",
+    "hero": {
+      "line1": "Beauty that",
+      "highlight1": "makes noise.",
+      "line2": "No perfection.",
+      "highlight2": "Pure expression.",
+      "body": "We got tired of elitist beauty and inflated prices. At trino. we curate trends and products so you can play, experiment and express yourself your way.",
+      "cta": "See the principles",
+      "note": "No expert role: just come and try"
+    },
+    "craft": {
+      "stamp": "MADE WITH CRITERIA",
+      "eyebrow": "TRINO. SELECTION",
+      "title": "We curate, not copy.",
+      "body": "We choose by shape, texture and real use. Everything in the shop has a reason.",
+      "highlighted": "How we work",
+      "cards": {
+        "a": {
+          "title": "We look closer",
+          "body": "We test textures and finishes before adding them to the catalog."
+        },
+        "b": {
+          "title": "We think of you",
+          "body": "We look for products you will actually use, not ones that gather dust."
+        },
+        "c": {
+          "title": "We play at your pace",
+          "body": "Try, compare and pick what feels like you."
+        }
+      }
+    },
+    "principles": {
+      "eyebrow": "OUR PRINCIPLES",
+      "title": "Five ideas that drive us",
+      "description": "They are not style rules. They shape how we choose, write and show up for you.",
+      "items": {
+        "complice": {
+          "number": "01",
+          "title": "Ally.",
+          "body": "We talk to you like someone who already gets beauty, without lecturing.",
+          "tag": "CLOSE TONE"
+        },
+        "curiosa": {
+          "number": "02",
+          "title": "Curious.",
+          "body": "We look for what is new, try it and share what works for each style.",
+          "tag": "OPEN MIND"
+        },
+        "atrevida": {
+          "number": "03",
+          "title": "Bold.",
+          "body": "We cheer on color, shine and change. Try something different.",
+          "tag": "NO FEAR"
+        },
+        "clara": {
+          "number": "04",
+          "title": "Clear.",
+          "body": "We describe what you see and how it feels to use, without inflated words.",
+          "tag": "USEFUL INFO"
+        },
+        "optimista": {
+          "number": "05",
+          "title": "Upbeat.",
+          "body": "Makeup can be a moment of play, not an obligation.",
+          "tag": "GOOD ENERGY"
+        }
+      }
+    },
+    "identity": {
+      "eyebrow": "WHO WE ARE",
+      "title": "What we are (and are not)",
+      "yesLabel": "WE ARE",
+      "noLabel": "WE ARE NOT",
+      "yes": {
+        "items": {
+          "a": {
+            "title": "Pop and bold",
+            "body": "Makeup to play with color, shine and texture."
+          },
+          "b": {
+            "title": "Useful and within reach",
+            "body": "A selection made for everyday use."
+          },
+          "c": {
+            "title": "Close",
+            "body": "We speak the way you do: simple, warm and straight to the point."
+          },
+          "d": {
+            "title": "Curious",
+            "body": "We try, compare and learn with every launch."
+          }
+        }
+      },
+      "no": {
+        "items": {
+          "a": {
+            "title": "Elitist",
+            "body": "No closed lists or codes only a few understand."
+          },
+          "b": {
+            "title": "Dogmatic",
+            "body": "There is no single right way to wear makeup."
+          },
+          "c": {
+            "title": "Perfect",
+            "body": "We are not chasing an ideal: we want you to feel at ease."
+          }
+        }
+      }
+    },
+    "team": {
+      "eyebrow": "DESIGN AND TEAM",
+      "title": "Made by people who pay attention",
+      "description": "Behind every pick there is someone testing, reading and listening.",
+      "quoteLabel": "THE LINE WE FOLLOW",
+      "quote": "Every pick should start with a question and end with a smile.",
+      "author": "trino. team",
+      "role": "Curation and content",
+      "community": "A community that shares",
+      "tile1": "EYE FOR DETAIL",
+      "tile1Body": "Every image, text and detail page gets a careful review.",
+      "tile2": "DIFFERENT VOICES",
+      "tile2Body": "We bring in many perspectives so nobody feels left out."
+    },
+    "cta": {
+      "eyebrow": "YOUR MOMENT",
+      "title": "Make noise your way.",
+      "body": "Browse the shop and find something that invites you to try what is next.",
+      "primary": "Explore the shop",
+      "secondary": "Back to the principles",
+      "note": "NO PERFECTION · NO RULES · WITH STYLE"
+    },
+    "club": {
+      "eyebrow": "TRINO. FOR YOU",
+      "title": "Did you like what you read?",
+      "body": "Keep this page and come back whenever you want to find your next pick.",
+      "action": "See the shop"
+    },
+    "stories": {
+      "eyebrow": "TRINO. CULTURE",
+      "title": "Stories to read at your pace",
+      "description": "Notes, ideas and finds from our world. Written by the team.",
+      "emptyTitle": "No notes yet",
+      "emptyBody": "Come back soon: the first stories are on their way.",
+      "emptyAction": "Explore the shop",
+      "dateLabel": "PUBLISHED",
+      "untitled": "Untitled",
+      "read": "Read note"
+    }
+  },
+  "wishlist": {
+    "breadcrumb": {
+      "home": "Home",
+      "current": "Saved"
+    },
+    "hero": {
+      "badgeSaved": "SAVED",
+      "badgeShared": "SHAREABLE",
+      "badgeNote": "YOUR PICKS",
+      "titleAccent": "saved.",
+      "description": "A place to keep what you like and come back when you are ready to decide.",
+      "counterLabel": "ON YOUR LIST",
+      "counterUnit": "PRODUCTS",
+      "updated": "It updates with every heart."
+    },
+    "toolbar": {
+      "count": "{count, plural, one {# saved item} other {# saved items}}",
+      "browse": "Keep browsing"
+    },
+    "empty": {
+      "title": "Your list is waiting",
+      "description": "You have not saved anything yet. Browse the shop and tap the heart on what you like.",
+      "action": "Go to the shop"
+    },
+    "grid": {
+      "title": "Saved products",
+      "referenceLabel": "REFERENCE",
+      "browse": "View in shop"
+    },
+    "share": {
+      "eyebrow": "SHARE",
+      "title": "Your list, in one link",
+      "body": "Copy this page link and send it to whoever you want.",
+      "highlight": "No sign-in needed: just what you saved, in one place.",
+      "linkLabel": "THIS PAGE LINK",
+      "copy": "Copy link",
+      "copied": "Link copied.",
+      "copyError": "Could not copy. Try again."
+    },
+    "assurance": {
+      "title": "How your list works",
+      "items": {
+        "a": {
+          "title": "Kept for you",
+          "body": "The list is tied to your session so you find it again."
+        },
+        "b": {
+          "title": "Only yours",
+          "body": "Each list belongs to one session and is shown only here."
+        },
+        "c": {
+          "title": "No commitment",
+          "body": "Remove a product whenever you want by tapping the heart."
+        },
+        "d": {
+          "title": "Always clear",
+          "body": "You see the reference of every product you saved."
+        }
+      }
+    },
+    "notify": {
+      "eyebrow": "NOTICES",
+      "title": "We will let you know when it is back",
+      "body": "This screen shows how the notice would look. We do not store emails or send messages here.",
+      "open": "See notice",
+      "close": "Close",
+      "emailLabel": "YOUR EMAIL",
+      "emailPlaceholder": "name@example.com",
+      "submit": "Got it",
+      "note": "Demo notice: no emails are sent."
+    }
+  }
+}

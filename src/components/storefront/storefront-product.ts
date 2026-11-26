@@ -1,6 +1,7 @@
 export interface PricedProduct {
   price: number;
   price_cents: number | null;
+  sale_price_cents: number | null;
 }
 
 export interface StorefrontProductCardData extends PricedProduct {

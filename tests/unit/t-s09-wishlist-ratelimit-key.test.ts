@@ -23,9 +23,7 @@ describe('T-S09 wishlist rate-limit key: never client-rotatable (IP for anon)', 
 
   it('no sessionId variable reaches the rate-limit call site', () => {
     const wl = read('src/lib/actions/wishlist.ts');
-    const line = wl
-      .split('\n')
-      .find((l) => l.includes('await checkRateLimit'));
+    const line = wl.split('\n').find((l) => l.includes('await checkRateLimit'));
     expect(line).toBeDefined();
     // La key del bucket jamás contiene el sessionId (cookie rotable).
     expect(line).not.toContain('sessionId');

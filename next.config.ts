@@ -46,11 +46,25 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/admin/:path*',
-        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+        headers: [
+          { key: 'Cache-Control', value: 'private, no-cache, no-store' },
+          { key: 'Content-Security-Policy', value: staticPublicCsp },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
       },
       {
         source: '/account/:path*',
-        headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
+        headers: [
+          { key: 'Cache-Control', value: 'private, no-cache, no-store' },
+          { key: 'Content-Security-Policy', value: staticPublicCsp },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
       },
       {
         source: '/api/me/:path*',

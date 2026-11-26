@@ -1,82 +1,93 @@
-import Link from 'next/link';
+import {
+  Crop,
+  LayoutDashboard,
+  Package,
+  ReceiptText,
+  ScanLine,
+  SlidersHorizontal,
+  Smartphone,
+  UserRound,
+  UserRoundPlus,
+} from 'lucide-react';
 
 export default function AdminDashboardPage() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-2xl font-bold mb-6">Panel de Administración</h1>
-      
-      <p className="text-zinc-500 mb-6">
-        Bienvenido al panel de control. Selecciona una de las siguientes opciones para gestionar tu tienda TRINO.
+      <h1 className="mb-6 text-2xl font-bold">Panel de Administración</h1>
+
+      <p className="mb-6 text-zinc-500">
+        Bienvenido al panel de control. Selecciona una de las siguientes opciones para gestionar tu
+        tienda TRINO.
       </p>
-      
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px] text-primary">dashboard</span>
+
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <LayoutDashboard aria-hidden="true" className="text-primary h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Resumen General</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Resumen General</h3>
           <p className="text-sm text-zinc-500">Ver estadísticas generales</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">receipt_long</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <ReceiptText aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Órdenes</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Órdenes</h3>
           <p className="text-sm text-zinc-500">Gestionar pedidos</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">inventory</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <Package aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Inventario</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Inventario</h3>
           <p className="text-sm text-zinc-500">Control de stock</p>
         </div>
       </div>
-      
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">person_add</span>
+
+      <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <UserRoundPlus aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Usuarios</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Usuarios</h3>
           <p className="text-sm text-zinc-500">Gestionar staff</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">tune</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <SlidersHorizontal aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Configuración</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Configuración</h3>
           <p className="text-sm text-zinc-500">Ajustes del sistema</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">barcode_reader</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <ScanLine aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Etiquetas</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Etiquetas</h3>
           <p className="text-sm text-zinc-500">Escaneos y remitos</p>
         </div>
       </div>
-      
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">crop_square</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <Crop aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Drops</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Drops</h3>
           <p className="text-sm text-zinc-500">Campañas y promociones</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">person</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <UserRound aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Perfil</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Perfil</h3>
           <p className="text-sm text-zinc-500">Configuración personal</p>
         </div>
-        <div className="p-6 bg-surface-container-lowest border border-primary rounded-lg hover:bg-primary/5 transition-colors cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="material-symbols-outlined text-[24px]">phone_android</span>
+        <div className="bg-surface-container-lowest border-primary hover:bg-primary/5 cursor-pointer rounded-lg border p-6 transition-colors">
+          <div className="mb-3 flex items-center gap-3">
+            <Smartphone aria-hidden="true" className="h-[24px] w-[24px]" />
           </div>
-          <h3 className="font-semibold text-primary uppercase tracking-wider">Remito Scanner</h3>
+          <h3 className="text-primary font-semibold tracking-wider uppercase">Remito Scanner</h3>
           <p className="text-sm text-zinc-500">Scanner manual de remitos</p>
         </div>
       </div>

@@ -20,10 +20,13 @@ describe('T-C04 proxy cookie HttpOnly Secure SameSite Turnstile honeypot compose
     expect(c).toMatch(/SameSite|samesite/i);
     expect(c).toMatch(/createServerClient|supabase/i);
   });
-  it('verifies Turnstile and honeypot', () => {
+  it('blocks honeypot hits; Turnstile verification is delegated to Server Actions', () => {
     const c = read();
-    expect(c).toMatch(/turnstile|honeypot/i);
-    expect(c).toMatch(/verify|siteverify/i);
+    expect(c).toMatch(/honeypot/i);
+    const auth = fs.readFileSync(path.join(ROOT, 'src/app/auth/actions.ts'), 'utf8');
+    const reviews = fs.readFileSync(path.join(ROOT, 'src/lib/actions/reviews.ts'), 'utf8');
+    expect(auth).toMatch(/verifyTurnstile/);
+    expect(reviews).toMatch(/verifyTurnstile/);
   });
   it('composes next-intl + rate-limit + supabase', () => {
     const c = read();
@@ -99,8 +102,11 @@ describe('T-C04 slice B (S-2/S-3): auth tier + hardened audit path', () => {
   it('sends denials through the hardened internal audit path', () => {
     const c = read();
     expect(c).toMatch(/enqueueSecurityAudit/);
-    expect(c).toMatch(/turnstile_403/);
     expect(c).toMatch(/rate_limit_429/);
+    const auth = fs.readFileSync(path.join(ROOT, 'src/app/auth/actions.ts'), 'utf8');
+    const reviews = fs.readFileSync(path.join(ROOT, 'src/lib/actions/reviews.ts'), 'utf8');
+    expect(auth).toMatch(/turnstile_403/);
+    expect(reviews).toMatch(/turnstile_403/);
     const helper = fs.readFileSync(path.join(ROOT, 'src/lib/proxy/turnstile.ts'), 'utf8');
     expect(helper).toMatch(/\/api\/internal\/audit/);
     expect(helper).toMatch(/AUDIT_INGEST_SECRET/);

@@ -3,39 +3,60 @@ import Link from 'next/link';
 export default function RegistrarSociaPage() {
   return (
     <div className="prose max-w-none">
-      <h1 className="text-2xl font-bold mb-6">Registrar Nueva Socia</h1>
-      
+      <h1 className="mb-6 text-2xl font-bold">Registrar Nueva Socia</h1>
+
       <form className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Nombre Completo</label>
-          <input className="appearance-none rounded-lg border-2 border-primary w-full py-3 px-4 text-primary leading-tight focus:outline-none focus:border-primary" type="text" placeholder="Ej: Clara Rossi" />
+          <label className="mb-2 block text-sm font-medium">Nombre Completo</label>
+          <input
+            className="border-primary text-primary focus:border-primary w-full appearance-none rounded-lg border-2 px-4 py-3 leading-tight focus:outline-none"
+            type="text"
+            placeholder="Ej: Clara Rossi"
+          />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Email Institucional</label>
-          <input className="appearance-none rounded-lg border-2 border-primary w-full py-3 px-4 text-primary leading-tight focus:outline-none focus:border-primary" type="email" placeholder="clara@trinobeauty.com" />
+          <label className="mb-2 block text-sm font-medium">Email Institucional</label>
+          <input
+            className="border-primary text-primary focus:border-primary w-full appearance-none rounded-lg border-2 px-4 py-3 leading-tight focus:outline-none"
+            type="email"
+            placeholder="clara@trinobeauty.com"
+          />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Nivel de Club</label>
+          <label className="mb-2 block text-sm font-medium">Nivel de Club</label>
           <div className="grid grid-cols-3 gap-2">
-            <button className="p-3 rounded border-2 border-primary bg-primary text-on-primary">Gold VIP</button>
-            <button className="p-3 rounded border-2 border-primary bg-secondary text-on-secondary-fixed">Silver Activas</button>
-            <button className="p-3 rounded border-2 border-primary bg-error text-on-error-container">Bronce Nuevas</button>
+            <button className="border-primary bg-primary text-on-primary rounded border-2 p-3">
+              Gold VIP
+            </button>
+            <button className="border-primary bg-secondary text-on-secondary-fixed rounded border-2 p-3">
+              Silver Activas
+            </button>
+            <button className="border-primary bg-error text-on-error-container rounded border-2 p-3">
+              Bronce Nuevas
+            </button>
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Permisos</label>
+          <label className="mb-2 block text-sm font-medium">Permisos</label>
           <div className="grid grid-cols-2 gap-2">
-            <button className="p-3 rounded border-2 border-primary bg-primary text-on-primary">Fulfillment & Picking</button>
-            <button className="p-3 rounded border-2 border-primary bg-primary text-on-primary">Mesa de Despacho</button>
+            <button className="border-primary bg-primary text-on-primary rounded border-2 p-3">
+              Fulfillment & Picking
+            </button>
+            <button className="border-primary bg-primary text-on-primary rounded border-2 p-3">
+              Mesa de Despacho
+            </button>
           </div>
         </div>
       </form>
 
       <div className="mt-6">
-        <Link href="/admin/usuarios" className="inline-block bg-primary text-on-primary rounded-lg px-4 py-2 text-sm font-medium uppercase tracking-wider hover:opacity-95 active:scale-[0.99] transition-all">
+        <Link
+          href="/admin/usuarios"
+          className="bg-primary text-on-primary inline-block rounded-lg px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all hover:opacity-95 active:scale-[0.99]"
+        >
           ← Volver a Usuarios
         </Link>
-        <button className="inline-block bg-primary text-on-primary rounded-lg px-4 py-2 text-sm font-medium uppercase tracking-wider ml-2 hover:opacity-95 active:scale-[0.99] transition-all">
+        <button className="bg-primary text-on-primary ml-2 inline-block rounded-lg px-4 py-2 text-sm font-medium tracking-wider uppercase transition-all hover:opacity-95 active:scale-[0.99]">
           Registrar Socia
         </button>
       </div>

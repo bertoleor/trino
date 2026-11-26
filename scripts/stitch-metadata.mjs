@@ -97,8 +97,11 @@ export function buildScreen({
 
 export function buildManifest({ config, screens, inventorySha256, planSha256 }) {
   const { EXPORT_ROOT, GROUP, INVENTORY, PLAN, OUT_DIR } = config;
-  const snapshot = [inventorySha256, planSha256, ...screens.map((screen) => screen.sourceSha256)]
-    .join('\n');
+  const snapshot = [
+    inventorySha256,
+    planSha256,
+    ...screens.map((screen) => screen.sourceSha256),
+  ].join('\n');
   return {
     schemaVersion: 2,
     frozen: true,

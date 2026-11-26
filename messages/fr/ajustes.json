@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Paramètres du compte",
+    "description": "Consultez les informations de votre compte trino. et les options disponibles."
+  },
+  "breadcrumb": {
+    "label": "Fil d’Ariane",
+    "home": "Accueil",
+    "account": "Mon compte",
+    "current": "Paramètres"
+  },
+  "header": {
+    "eyebrow": "Paramètres du compte",
+    "title": "Paramètres et gestion du compte",
+    "body": "Consultez vos informations, vos préférences et les options de sécurité disponibles.",
+    "statusLabel": "État de la session",
+    "statusActive": "Connecté",
+    "statusNone": "Non connecté",
+    "tabsLabel": "Sections du compte",
+    "tabs": {
+      "overview": "Aperçu",
+      "orders": "Mes commandes",
+      "tone": "Mon profil de teintes",
+      "favorites": "Mes favoris",
+      "club": "trino. club",
+      "settings": "Paramètres"
+    }
+  },
+  "profile": {
+    "title": "Votre compte",
+    "emailLabel": "E-mail",
+    "anonymous": "Vous n’êtes pas connecté",
+    "hint": "Les informations sont affichées telles qu’enregistrées."
+  },
+  "nav": {
+    "label": "Menu des paramètres"
+  },
+  "sections": {
+    "personal": {
+      "title": "1. Informations personnelles",
+      "body": "Informations associées à votre compte.",
+      "note": "Pour modifier vos informations, écrivez-nous via Contact."
+    },
+    "addresses": {
+      "title": "2. Adresses de livraison",
+      "body": "Adresses enregistrées pour vos commandes.",
+      "emptyTitle": "Aucune adresse enregistrée",
+      "emptyBody": "Vous pouvez ajouter une adresse lors du paiement."
+    },
+    "payments": {
+      "title": "3. Moyens de paiement",
+      "body": "Les moyens de paiement sont gérés lors du paiement.",
+      "emptyTitle": "Nous ne stockons pas de moyens de paiement ici",
+      "emptyBody": "Les paiements sont traités lors de la confirmation de chaque commande."
+    },
+    "security": {
+      "title": "4. Sécurité et mot de passe",
+      "body": "Options pour protéger l’accès à votre compte.",
+      "passwordCta": "Changer le mot de passe",
+      "signOut": "Se déconnecter",
+      "note": "Si vous avez oublié votre mot de passe, vous pouvez le réinitialiser via le lien de récupération."
+    },
+    "notifications": {
+      "title": "5. Préférences et confidentialité",
+      "body": "Découvrez comment nous traitons vos données.",
+      "privacyCta": "Voir la politique de confidentialité",
+      "note": "Consultez la politique de confidentialité pour connaître le traitement de vos données."
+    }
+  },
+  "advanced": {
+    "title": "Gestion avancée",
+    "body": "Pour toute demande concernant vos données personnelles, utilisez le canal de contact.",
+    "cta": "Aller au contact"
+  },
+  "support": {
+    "title": "Besoin d’aide ?",
+    "body": "Si vous avez des questions sur votre compte, écrivez-nous via ce canal.",
+    "cta": "Nous contacter"
+  }
+}

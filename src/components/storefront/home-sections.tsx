@@ -36,7 +36,7 @@ export async function HomeBrands({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'home' });
   const tones = ['bg-cream', 'bg-pink', 'bg-aqua', 'bg-lemon'];
   return (
-    <section id="marcas" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
+    <section id="marcas" className="border-ink col-span-full border-b-[3px] px-6 pb-12">
       <p className="font-label border-ink bg-lilac shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">
         {t('brands.eyebrow')}
       </p>
@@ -56,7 +56,9 @@ export async function HomeBrands({ locale }: { locale: string }) {
               <ArrowRight aria-hidden="true" />
             </span>
             <span>
-              <span className="font-display block text-2xl font-semibold uppercase">{brand.name}</span>
+              <span className="font-display block text-2xl font-semibold uppercase">
+                {brand.name}
+              </span>
               <span className="font-body mt-6 inline-flex items-center gap-2 text-sm font-semibold">
                 {t('brands.available')}
                 <ArrowRight aria-hidden="true" />
@@ -85,7 +87,7 @@ export async function HomeFeatured({
     { key: 'nav.catalog', href: `/${locale}/tienda` },
   ];
   return (
-    <section id="drops" className="col-span-full border-ink border-b-[3px] px-6 pb-12">
+    <section id="drops" className="border-ink col-span-full border-b-[3px] px-6 pb-12">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="font-label border-ink bg-lemon shadow-pop-sm inline-block border-2 px-3 py-1 text-sm font-bold uppercase">

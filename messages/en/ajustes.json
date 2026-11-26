@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Account settings",
+    "description": "Review your trino. account details and available options."
+  },
+  "breadcrumb": {
+    "label": "Breadcrumb",
+    "home": "Home",
+    "account": "My account",
+    "current": "Settings"
+  },
+  "header": {
+    "eyebrow": "Account settings",
+    "title": "Account settings and management",
+    "body": "Review your details, preferences, and available security options.",
+    "statusLabel": "Session status",
+    "statusActive": "Signed in",
+    "statusNone": "Not signed in",
+    "tabsLabel": "Account sections",
+    "tabs": {
+      "overview": "Overview",
+      "orders": "My orders",
+      "tone": "My shade profile",
+      "favorites": "My wishlist",
+      "club": "trino. club",
+      "settings": "Settings"
+    }
+  },
+  "profile": {
+    "title": "Your account",
+    "emailLabel": "Email",
+    "anonymous": "Not signed in",
+    "hint": "Details are shown as registered."
+  },
+  "nav": {
+    "label": "Settings menu"
+  },
+  "sections": {
+    "personal": {
+      "title": "1. Personal details",
+      "body": "Information linked to your account.",
+      "note": "To update your details, reach us through Contact."
+    },
+    "addresses": {
+      "title": "2. Delivery addresses",
+      "body": "Addresses saved for your orders.",
+      "emptyTitle": "No addresses saved yet",
+      "emptyBody": "You can add an address during checkout."
+    },
+    "payments": {
+      "title": "3. Payment methods",
+      "body": "Payment methods are managed at checkout.",
+      "emptyTitle": "We do not store payment methods here",
+      "emptyBody": "Payments are processed when each order is confirmed."
+    },
+    "security": {
+      "title": "4. Security and password",
+      "body": "Options to protect access to your account.",
+      "passwordCta": "Change password",
+      "signOut": "Sign out",
+      "note": "If you forgot your password, you can reset it from the recovery link."
+    },
+    "notifications": {
+      "title": "5. Preferences and privacy",
+      "body": "Learn how we handle your data.",
+      "privacyCta": "View privacy policy",
+      "note": "Read the privacy policy to understand how your data is handled."
+    }
+  },
+  "advanced": {
+    "title": "Advanced management",
+    "body": "For requests about your personal data, use the contact channel.",
+    "cta": "Go to contact"
+  },
+  "support": {
+    "title": "Need help?",
+    "body": "If you have questions about your account, contact us through that channel.",
+    "cta": "Contact us"
+  }
+}

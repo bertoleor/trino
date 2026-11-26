@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "title": "Payment by transfer | trino.",
+    "description": "Informational view about paying by transfer at trino, with no payment data or processed transactions."
+  },
+  "intro": {
+    "back": "Back to payment",
+    "step": "Step 2 of 3",
+    "title": "Transfer",
+    "noticeTitle": "Take your time",
+    "noticeBody": "There are no time limits in this demo view."
+  },
+  "data": {
+    "title": "Purchase details",
+    "tag": "Demo view",
+    "primaryLabel": "Main detail",
+    "primaryValue": "To define",
+    "primaryAction": "See contact",
+    "secondaryLabel": "Alternate detail",
+    "secondaryValue": "To define",
+    "secondaryAction": "See help",
+    "tiles": {
+      "holder": {
+        "label": "Purchase owner",
+        "value": "Completed at checkout",
+        "hint": "No data in this view"
+      },
+      "method": {
+        "label": "Payment method",
+        "value": "Transfer",
+        "hint": "Coordinated by email"
+      },
+      "detail": {
+        "label": "Detail",
+        "value": "Demo view",
+        "hint": "No simulated charges"
+      }
+    },
+    "allAction": "See contact options",
+    "note": "This screen shows no payment data and processes no transactions."
+  },
+  "guide": {
+    "title": "How to continue?",
+    "steps": {
+      "one": {
+        "title": "01 Review your payment method",
+        "body": "Choose the option you prefer at checkout."
+      },
+      "two": {
+        "title": "02 Check the amount",
+        "body": "The total is shown when you finish checkout."
+      },
+      "three": {
+        "title": "03 Ask us",
+        "body": "Write to us from the contact page."
+      }
+    }
+  },
+  "summary": {
+    "label": "Purchase summary",
+    "title": "Demo view",
+    "badge": "Awaiting confirmation",
+    "rows": {
+      "products": "Selected products",
+      "priceDetail": "Price details",
+      "delivery": "Delivery",
+      "catalog": "View catalog",
+      "pending": "To confirm",
+      "perOption": "Depends on chosen option"
+    },
+    "total": {
+      "label": "Total",
+      "value": "To confirm",
+      "action": "View detail",
+      "note": "The amount is shown once payment is connected."
+    }
+  },
+  "contact": {
+    "title": "Need help?",
+    "description": "Write to us if you have questions about your purchase.",
+    "primary": "Contact by email",
+    "secondary": "Explore the catalog",
+    "upload": {
+      "title": "Attach a file",
+      "body": "Uploading is not available in this view."
+    }
+  },
+  "note": {
+    "title": "Informational purchase",
+    "body": "Once payment is connected, you will be able to see your purchase detail."
+  }
+}
