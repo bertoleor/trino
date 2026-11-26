@@ -54,7 +54,11 @@ describe('A-02 createReview verifies Turnstile fail-closed (runtime)', () => {
     // Siteverify spy: fail-closed (success:false) unless the test flips it.
     vi.stubGlobal(
       'fetch',
-      vi.fn(async (_input: unknown, init?: RequestInit) => {
+      vi.fn(async (input: unknown, init?: RequestInit) => {
+        // Audit ingest also fetches; only Cloudflare siteverify is a captcha call.
+        if (!String(input).includes('challenges.cloudflare.com/turnstile')) {
+          return new Response('{}', { status: 200 });
+        }
         const params = new URLSearchParams(String(init?.body ?? ''));
         captchaCalls.push({
           secret: params.get('secret') ?? '',
