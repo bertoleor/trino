@@ -31,5 +31,11 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", ".worktrees", "components", "jscpd-report"]
+  "exclude": [
+    "node_modules",
+    ".worktrees",
+    "components",
+    "jscpd-report",
+    "**/*.stories.tsx"
+  ]
 }
