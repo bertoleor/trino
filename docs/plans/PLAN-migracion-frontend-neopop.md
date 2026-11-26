@@ -225,6 +225,13 @@ Los únicos pares con el mismo `shell-type` que sí son duplicados o variantes d
 
 **Total vigente:** **59** HTML (63 del audit original − 8 bajas + 3 altas + 1 alta 2026-11-25): 12 N, 29 L, 18 M. De las 12 N, **3 se rechazan por guardrails** (#29, #34 y #35) y las 9 restantes requieren reescritura de copy antes de publicar. Las dos desktop nuevas son **M**: la mayoría de sus hex son canónicos y la composición sirve, pero arrastran Rubik/Plus Jakarta y unos pocos hex legacy, así que se repeinan, no se portan tal cual.
 
+### 4.8 Bio link (`5. BIO LINK`, 2026-11-25)
+
+Fuente: `E:\Archivos Usuario\Descargas\trino\sticht\5. BIO LINK\code.html` — `mobile_blank`, Neo-Pop puro, con tres URLs verificadas: `instagram.com/trinopunto`, `tiktok.com/@puntotrino` y `facebook.com/trinopunto`. Se porta a `[locale]/bio` como página única responsive (móvil de una columna, desktop dos columnas), sin backend ni admin: los links quedan fijos en el route hasta que se defina una fuente editable.
+
+Se rechazan del HTML de origen los dos links de WhatsApp (`wa.me/5491112345678` y `chat.whatsapp.com`) por ser placeholders, y se reescribe el copy prohibido: `100% POSTA`, `STOCK FÍSICO INMEDIATO`, `ENVIOS EN EL DÍA`, `STOCK REAL`, `EN VIVO`, `CUPOS LIMITADOS`, `restocks antes que nadie`, `ENVÍOS EXPRESS` y la foto `aida-public`. La tarjeta de retiro/envíos se difiere: no hay horarios ni plazos verificados en el repositorio. El botón de compartir usa Web Share con fallback a portapapeles, sin enlaces de share inventados.
+
+
 ---
 
 ## 5. Cómo se pasa el HTML al stack

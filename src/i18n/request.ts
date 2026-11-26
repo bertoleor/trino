@@ -8,6 +8,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
   const admin = (await import(`../../messages/${locale}/admin.json`)).default;
   const auth = (await import(`../../messages/${locale}/auth.json`)).default;
+  const bio = (await import(`../../messages/${locale}/bio.json`)).default;
   const brands = (await import(`../../messages/${locale}/brands.json`)).default;
   const cart = (await import(`../../messages/${locale}/cart.json`)).default;
   const checkout = (await import(`../../messages/${locale}/checkout.json`)).default;
@@ -23,6 +24,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     messages: {
       admin,
       auth,
+      bio,
       brands,
       cart,
       checkout,
