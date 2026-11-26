@@ -77,15 +77,10 @@ export function StitchShell({
 }: StitchShellProps) {
   if (shellType === 'web_standard') {
     return (
-      <div
-        data-shell-type={shellType}
-        className={cn('bg-cream text-ink w-full', className)}
-      >
+      <div data-shell-type={shellType} className={cn('bg-cream text-ink w-full', className)}>
         <ShellHeader>{header}</ShellHeader>
         <main className={cn('grid grid-cols-12 gap-6 py-8', contentClassName)}>{children}</main>
-        {footer ? (
-          <footer className="border-ink bg-cream border-t-2 py-10">{footer}</footer>
-        ) : null}
+        {footer ? <footer className="border-ink bg-cream border-t-2 py-10">{footer}</footer> : null}
       </div>
     );
   }

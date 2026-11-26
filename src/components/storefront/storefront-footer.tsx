@@ -50,9 +50,7 @@ export async function StorefrontFooter({ locale }: { locale: string }) {
         </ul>
       </div>
       <div>
-        <h2 className="font-label text-lg font-semibold uppercase">
-          {t('footer.servicesTitle')}
-        </h2>
+        <h2 className="font-label text-lg font-semibold uppercase">{t('footer.servicesTitle')}</h2>
         <ul className="mt-3 space-y-3 text-sm">
           <li className="flex items-start gap-2">
             <Truck aria-hidden="true" />
