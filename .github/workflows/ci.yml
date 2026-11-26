@@ -112,7 +112,8 @@ jobs:
 
   e2e:
     name: E2E Tests + Strix Security
-    runs-on: ubuntu-latest
+    # ubuntu-latest (26.04) currently ships a 403ing Microsoft APT repo that breaks playwright install --with-deps.
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     needs: [lint-and-typecheck]
     if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'

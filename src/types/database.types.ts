@@ -370,6 +370,128 @@ export type Database = {
           },
         ]
       }
+      makeup_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      makeup_products: {
+        Row: {
+          brand: string
+          category_id: string | null
+          category_makeup: string
+          created_at: string
+          currency: string
+          description: string | null
+          dimensions_cm: string | null
+          featured: boolean
+          finish: string
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name: string
+          price_cents: number
+          sale_end: string | null
+          sale_price_cents: number | null
+          sale_start: string | null
+          shade: string
+          sku: string
+          slug: string
+          stock: number
+          subcategory: string
+          updated_at: string
+          user_id: string
+          weight_grams: number | null
+        }
+        Insert: {
+          brand: string
+          category_id?: string | null
+          category_makeup: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          dimensions_cm?: string | null
+          featured?: boolean
+          finish: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          price_cents: number
+          sale_end?: string | null
+          sale_price_cents?: number | null
+          sale_start?: string | null
+          shade: string
+          sku: string
+          slug: string
+          stock?: number
+          subcategory: string
+          updated_at?: string
+          user_id: string
+          weight_grams?: number | null
+        }
+        Update: {
+          brand?: string
+          category_id?: string | null
+          category_makeup?: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          dimensions_cm?: string | null
+          featured?: boolean
+          finish?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          price_cents?: number
+          sale_end?: string | null
+          sale_price_cents?: number | null
+          sale_start?: string | null
+          shade?: string
+          sku?: string
+          slug?: string
+          stock?: number
+          subcategory?: string
+          updated_at?: string
+          user_id?: string
+          weight_grams?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "makeup_products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "makeup_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           id: string
@@ -856,7 +978,12 @@ export type Database = {
     }
     Functions: {
       add_to_cart_serializable: {
-        Args: { p_product_id: string; p_qty: number; p_session_id: string }
+        Args: {
+          p_qty: number
+          p_session_id: string
+          p_user_id: string
+          p_variant_id: string
+        }
         Returns: Json
       }
       check_order_transition: {
@@ -874,9 +1001,12 @@ export type Database = {
         }[]
       }
       has_role: { Args: { required: string }; Returns: boolean }
+      heartbeat_select_one: { Args: never; Returns: number }
+      increment_helpful: { Args: { p_review_id: string }; Returns: Json }
       is_admin: { Args: never; Returns: boolean }
+      keepalive_ping: { Args: never; Returns: number }
       merge_cart_serializable: {
-        Args: { p_from_session: string; p_user_id: string }
+        Args: { p_session_id: string; p_user_id: string }
         Returns: Json
       }
       set_user_role: {
