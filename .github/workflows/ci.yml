@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, develop]
 
+permissions:
+  contents: read
+  security-events: write
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -139,7 +143,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Install Playwright
-        run: pnpm exec playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps
       - name: Build
         run: pnpm build
       - name: Run E2E Tests
