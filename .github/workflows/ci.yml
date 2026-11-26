@@ -101,13 +101,8 @@ jobs:
             const t = s.total;
             const rows = ['lines', 'functions', 'branches', 'statements']
               .map((k) => '| ' + k + ' | ' + t[k].pct + ' |')
-              .join('
-');
-            const out = '## Coverage
-| metric | pct |
-|---|---|
-' + rows + '
-';
+              .join('\n');
+            const out = '## Coverage\n| metric | pct |\n|---|---|\n' + rows + '\n';
             require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, out);
           "
       - name: Enforce 80% coverage threshold
