@@ -16,6 +16,18 @@
   "channels": "Choisissez où nous suivre",
   "ticker": ["Nouveaux drops", "Sélection multimarque", "Échange direct"],
   "links": {
+    "whatsapp": {
+      "title": "Parler à trino.",
+      "handle": "WhatsApp",
+      "detail": "Questions sur les produits et les commandes.",
+      "tag": "Direct"
+    },
+    "vip": {
+      "title": "Groupe VIP",
+      "handle": "Communauté trino.",
+      "detail": "Actualités et drops pour les membres.",
+      "tag": "Invitation"
+    },
     "instagram": {
       "title": "Instagram officiel",
       "handle": "@trinopunto",

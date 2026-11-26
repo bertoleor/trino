@@ -34,35 +34,26 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'bio' });
   const ticker = t.raw('ticker') as string[];
-  const links: BioLink[] = [
-    {
-      id: 'instagram',
-      href: 'https://instagram.com/trinopunto',
-      tone: 'pink',
-      title: t('links.instagram.title'),
-      handle: t('links.instagram.handle'),
-      detail: t('links.instagram.detail'),
-      tag: t('links.instagram.tag'),
-    },
-    {
-      id: 'tiktok',
-      href: 'https://tiktok.com/@puntotrino',
-      tone: 'lilac',
-      title: t('links.tiktok.title'),
-      handle: t('links.tiktok.handle'),
-      detail: t('links.tiktok.detail'),
-      tag: t('links.tiktok.tag'),
-    },
-    {
-      id: 'facebook',
-      href: 'https://facebook.com/trinopunto',
-      tone: 'cobalt',
-      title: t('links.facebook.title'),
-      handle: t('links.facebook.handle'),
-      detail: t('links.facebook.detail'),
-      tag: t('links.facebook.tag'),
-    },
-  ];
+  const text = (key: string) => t.raw(key) as string;
+  const links: BioLink[] = (
+    [
+      { id: 'instagram', href: 'https://www.instagram.com/trinopunto/', tone: 'pink' },
+      { id: 'tiktok', href: 'https://www.tiktok.com/@puntotrino', tone: 'lilac' },
+      { id: 'whatsapp', href: 'https://wa.link/lf1o1e', tone: 'aqua' },
+      {
+        id: 'vip',
+        href: 'https://chat.whatsapp.com/B73GiMAFrdwEbSU7vhwfqS',
+        tone: 'orange',
+      },
+      { id: 'facebook', href: 'https://www.facebook.com/trinopunto', tone: 'cobalt' },
+    ] as const
+  ).map((link) => ({
+    ...link,
+    title: text(`links.${link.id}.title`),
+    handle: text(`links.${link.id}.handle`),
+    detail: text(`links.${link.id}.detail`),
+    tag: text(`links.${link.id}.tag`),
+  }));
 
   return (
     <StitchShell shellType="mobile_blank">

@@ -2,13 +2,15 @@ import { expect, test } from '@playwright/test';
 
 const LOCALES = ['es-AR', 'en', 'fr', 'pt-BR'] as const;
 const LINKS = [
-  'https://instagram.com/trinopunto',
-  'https://tiktok.com/@puntotrino',
-  'https://facebook.com/trinopunto',
+  'https://www.instagram.com/trinopunto/',
+  'https://www.tiktok.com/@puntotrino',
+  'https://wa.link/lf1o1e',
+  'https://chat.whatsapp.com/B73GiMAFrdwEbSU7vhwfqS',
+  'https://www.facebook.com/trinopunto',
 ];
 
 for (const locale of LOCALES) {
-  test(`bio link renders the verified channels in ${locale}`, async ({ page }) => {
+  test(`bio link renders the five source cards in ${locale}`, async ({ page }) => {
     const response = await page.goto(`/${locale}/bio`);
     expect(response?.status()).toBe(200);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

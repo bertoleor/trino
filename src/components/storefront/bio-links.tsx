@@ -1,17 +1,19 @@
-import { ArrowUpRight, Camera, Music2, UsersRound } from 'lucide-react';
+import { ArrowUpRight, Camera, Crown, MessageCircle, Music2, UsersRound } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export type BioLink = {
-  id: 'instagram' | 'tiktok' | 'facebook';
+  id: 'whatsapp' | 'vip' | 'instagram' | 'tiktok' | 'facebook';
   href: string;
   title: string;
   handle: string;
   detail: string;
   tag: string;
-  tone: 'pink' | 'lilac' | 'cobalt';
+  tone: 'pink' | 'lilac' | 'cobalt' | 'aqua' | 'orange';
 };
 
 const ICONS: Record<BioLink['id'], ReactNode> = {
+  whatsapp: <MessageCircle aria-hidden="true" />,
+  vip: <Crown aria-hidden="true" />,
   instagram: <Camera aria-hidden="true" />,
   tiktok: <Music2 aria-hidden="true" />,
   facebook: <UsersRound aria-hidden="true" />,
@@ -21,6 +23,8 @@ const TONES: Record<BioLink['tone'], string> = {
   pink: 'bg-pink text-ink',
   lilac: 'bg-lilac text-ink',
   cobalt: 'bg-cobalt text-cream',
+  aqua: 'bg-aqua text-ink',
+  orange: 'bg-orange text-cream',
 };
 
 export function BioLinks({ links }: { links: readonly BioLink[] }) {

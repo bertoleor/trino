@@ -227,9 +227,9 @@ Los únicos pares con el mismo `shell-type` que sí son duplicados o variantes d
 
 ### 4.8 Bio link (`5. BIO LINK`, 2026-11-25)
 
-Fuente: `E:\Archivos Usuario\Descargas\trino\sticht\5. BIO LINK\code.html` — `mobile_blank`, Neo-Pop puro, con tres URLs verificadas: `instagram.com/trinopunto`, `tiktok.com/@puntotrino` y `facebook.com/trinopunto`. Se porta a `[locale]/bio` como página única responsive (móvil de una columna, desktop dos columnas), sin backend ni admin: los links quedan fijos en el route hasta que se defina una fuente editable.
+Fuente: `E:\Archivos Usuario\Descargas\trino\sticht\5. BIO LINK\code.html` — `mobile_blank`, Neo-Pop puro, con las cinco tarjetas del diseño en su orden original: Instagram, TikTok, WhatsApp directo, Grupo VIP y Facebook. Se porta a `[locale]/bio` como página única responsive (móvil de una columna, desktop dos columnas), sin backend ni admin: los links quedan fijos en el route hasta que se defina una fuente editable.
 
-Se rechazan del HTML de origen los dos links de WhatsApp (`wa.me/5491112345678` y `chat.whatsapp.com`) por ser placeholders, y se reescribe el copy prohibido: `100% POSTA`, `STOCK FÍSICO INMEDIATO`, `ENVIOS EN EL DÍA`, `STOCK REAL`, `EN VIVO`, `CUPOS LIMITADOS`, `restocks antes que nadie`, `ENVÍOS EXPRESS` y la foto `aida-public`. La tarjeta de retiro/envíos se difiere: no hay horarios ni plazos verificados en el repositorio. El botón de compartir usa Web Share con fallback a portapapeles, sin enlaces de share inventados.
+El owner reemplazó los dos URLs falsos del HTML por los reales: `wa.link/lf1o1e` para atención y `chat.whatsapp.com/B73GiMAFrdwEbSU7vhwfqS` para el grupo VIP; las tres redes se normalizan a `www.instagram.com/trinopunto/`, `www.tiktok.com/@puntotrino` y `www.facebook.com/trinopunto`. Se reescribe el copy prohibido: `100% POSTA`, `STOCK FÍSICO INMEDIATO`, `ENVIOS EN EL DÍA`, `STOCK REAL`, `EN VIVO`, `CUPOS LIMITADOS`, `restocks antes que nadie`, `ENVÍOS EXPRESS` y la foto `aida-public`. La tarjeta de retiro/envíos se difiere: no hay horarios ni plazos verificados en el repositorio. El botón de compartir usa Web Share con fallback a portapapeles, sin enlaces de share inventados.
 
 
 ---
