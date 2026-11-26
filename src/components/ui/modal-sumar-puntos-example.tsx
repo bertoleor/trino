@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { POINTS_REASONS, QuickPoints } from './modal-sumar-puntos-options';
 import { Input } from './input';
 import { ModalBase } from './modal-base';
 
@@ -14,13 +15,6 @@ export function ModalSumarPuntosExample({ open, onClose, onSubmit }: ModalSumarP
   const [points, setPoints] = React.useState(2500);
   const [reason, setReason] = React.useState('delay');
   const [auditNote, setAuditNote] = React.useState('');
-  const reasons = [
-    { value: 'delay', label: 'Retraso en envío' },
-    { value: 'bday', label: 'Cumpleaños de socia' },
-    { value: 'social', label: 'Evento social' },
-    { value: 'early', label: 'Compra anticipada' },
-    { value: 'audit', label: 'Auditoría interna' },
-  ];
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(points, reason, auditNote);
@@ -72,18 +66,7 @@ export function ModalSumarPuntosExample({ open, onClose, onSubmit }: ModalSumarP
           />
           <p className="text-xs text-zinc-500">(Cada 100 pts = $10 ARS)</p>
         </div>
-        <div className="flex gap-2">
-          {[500, 1000, 2500, 5000].map((val) => (
-            <button
-              key={val}
-              type="button"
-              onClick={() => setPoints(val)}
-              className={`flex-1 rounded-none border-2 border-[var(--ink)] py-2 ${points === val ? 'bg-[var(--primary)] text-[var(--ink)]' : 'bg-[var(--cream)] text-[var(--ink)]'} text-xs font-semibold tracking-wider uppercase transition-colors hover:bg-[var(--ink)]/10 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:outline-none`}
-            >
-              +{val}
-            </button>
-          ))}
-        </div>
+        <QuickPoints points={points} onSelect={setPoints} />
         <div className="mt-4 rounded-none border-2 border-[var(--ink)] bg-[var(--cream)] p-4">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-[var(--ink)]">Proyecto de saldo:</span>
@@ -107,7 +90,7 @@ export function ModalSumarPuntosExample({ open, onClose, onSubmit }: ModalSumarP
             onChange={(e) => setReason(e.target.value)}
             className="w-full cursor-pointer appearance-none rounded-none border-2 border-[var(--ink)] bg-[var(--cream)] px-4 py-2 text-[var(--text-primary)] shadow-sm focus:ring-2 focus:ring-[var(--focus-ring)] focus:outline-none"
           >
-            {reasons.map((r) => (
+            {POINTS_REASONS.map((r) => (
               <option key={r.value} value={r.value}>
                 {r.label}
               </option>

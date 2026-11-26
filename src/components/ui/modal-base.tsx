@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -102,7 +103,7 @@ export function ModalBase({
       aria-describedby={`${id}-description`}
       className={cn(
         'fixed inset-0 z-50 flex items-center justify-center',
-        'bg-black/60 backdrop-blur-sm',
+        'bg-[var(--ink)]/60',
         'transition-opacity duration-150 ease-in-out',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         className
@@ -130,7 +131,7 @@ export function ModalBase({
             onClick={onClose}
             className="flex h-10 w-10 items-center justify-center rounded-none border-2 border-[var(--ink)] bg-[var(--cream)] text-[var(--ink)] transition-colors hover:bg-[var(--ink)]/10 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            <span className="material-symbols-outlined">close</span>
+            <X aria-hidden="true" className="size-5" />
           </button>
         </header>
 
