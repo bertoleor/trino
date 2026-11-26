@@ -1,4 +1,15 @@
-export type SecurityAuditEvent = 'turnstile_403' | 'rate_limit_429' | 'rbac_403';
+export type SecurityAuditEvent =
+  | 'turnstile_403'
+  | 'rate_limit_429'
+  | 'rbac_403'
+  | 'auth_login_success'
+  | 'auth_login_failed_password'
+  | 'auth_login_failed_captcha'
+  | 'auth_signout'
+  | 'auth_signup_failed'
+  | 'auth_signup_failed_captcha'
+  | 'auth_signup_success'
+  | 'auth_google_oauth_attempt';
 
 export const AUDIT_INGEST_PATH = '/api/internal/audit';
 
