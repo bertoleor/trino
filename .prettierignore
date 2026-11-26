@@ -1,6 +1,10 @@
 # Build outputs & dependencies
 .next/
 node_modules/
+.pnpm-store-local/
+
+# Legacy root components are excluded from tsconfig/eslint gates
+components/**
 dist/
 build/
 coverage/
