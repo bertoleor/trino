@@ -17,7 +17,7 @@ export default async function LoginPage() {
   if (user) redirect(user.app_metadata?.role === 'admin' ? '/admin' : '/account');
 
   return (
-    <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-6 py-12">
+    <main data-purpose="auth-login-page" className="bg-cream text-ink w-full flex-1">
       <LoginForm />
     </main>
   );

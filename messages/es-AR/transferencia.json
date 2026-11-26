@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "title": "Pago por transferencia | trino.",
+    "description": "Vista informativa sobre el pago por transferencia en trino, sin datos de pago ni operaciones procesadas."
+  },
+  "intro": {
+    "back": "Volver al pago",
+    "step": "Paso 2 de 3",
+    "title": "Transferencia",
+    "noticeTitle": "Elegí con calma",
+    "noticeBody": "No hay tiempos límite en esta vista de muestra."
+  },
+  "data": {
+    "title": "Datos de la compra",
+    "tag": "Vista informativa",
+    "primaryLabel": "Dato principal",
+    "primaryValue": "A definir",
+    "primaryAction": "Ver contacto",
+    "secondaryLabel": "Dato alternativo",
+    "secondaryValue": "A definir",
+    "secondaryAction": "Ver ayuda",
+    "tiles": {
+      "holder": {
+        "label": "Titular de la compra",
+        "value": "Se completa en el checkout",
+        "hint": "Sin datos en esta vista"
+      },
+      "method": {
+        "label": "Medio de pago",
+        "value": "Transferencia",
+        "hint": "Se coordina por correo"
+      },
+      "detail": {
+        "label": "Detalle",
+        "value": "Vista informativa",
+        "hint": "Sin cargos simulados"
+      }
+    },
+    "allAction": "Ver opciones de contacto",
+    "note": "Esta pantalla no muestra datos de pago ni procesa operaciones."
+  },
+  "guide": {
+    "title": "¿Cómo continuar?",
+    "steps": {
+      "one": {
+        "title": "01 Revisá tu medio de pago",
+        "body": "Elegí la opción que prefieras en el checkout."
+      },
+      "two": {
+        "title": "02 Confirmá el monto",
+        "body": "El total se muestra al finalizar la compra."
+      },
+      "three": {
+        "title": "03 Consultanos",
+        "body": "Escribinos por correo desde la página de contacto."
+      }
+    }
+  },
+  "summary": {
+    "label": "Resumen de compra",
+    "title": "Vista informativa",
+    "badge": "Pendiente de confirmación",
+    "rows": {
+      "products": "Productos seleccionados",
+      "priceDetail": "Detalle de precios",
+      "delivery": "Entrega",
+      "catalog": "Ver catálogo",
+      "pending": "A confirmar",
+      "perOption": "Según opción elegida"
+    },
+    "total": {
+      "label": "Total",
+      "value": "A confirmar",
+      "action": "Ver detalle",
+      "note": "El monto se muestra cuando se conecte el pago."
+    }
+  },
+  "contact": {
+    "title": "¿Necesitás ayuda?",
+    "description": "Escribinos si tenés dudas sobre tu compra.",
+    "primary": "Contactar por correo",
+    "secondary": "Explorar el catálogo",
+    "upload": {
+      "title": "Adjuntar archivo",
+      "body": "La carga no está disponible en esta vista."
+    }
+  },
+  "note": {
+    "title": "Compra informativa",
+    "body": "Cuando se conecte el pago, vas a poder ver el detalle de tu pedido."
+  }
+}

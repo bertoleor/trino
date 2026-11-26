@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "title": "Confirmação de compra | trino.",
+    "description": "Veja o resumo da sua seleção na trino, uma vista informativa sem dados de pedido nem pagamentos processados."
+  },
+  "hero": {
+    "eyebrow": "Seleção registrada",
+    "title": "Confirmação de compra",
+    "subtitle": "Obrigada por escolher a trino.",
+    "badge": "Vista de demonstração",
+    "delivery": "Entrega a combinar",
+    "summary": "Esta é uma vista de demonstração. Nenhum pagamento foi processado e nenhum dado de pedido foi gerado.",
+    "actions": {
+      "delivery": "Ver opções de entrega",
+      "help": "Falar com a equipe",
+      "catalog": "Voltar ao catálogo"
+    },
+    "stickers": {
+      "primary": "NOVA SELEÇÃO",
+      "secondary": "#TRINOGLOW"
+    }
+  },
+  "status": {
+    "title": "Situação da entrega",
+    "subtitle": "Detalhe das etapas da sua compra.",
+    "badge": "A combinar",
+    "timeline": {
+      "step1Title": "1. Dados de contato",
+      "step1Time": "Concluído",
+      "step1Body": "Os dados de contato ficaram registrados nesta vista.",
+      "step2Title": "2. Preparação da seleção",
+      "step2Time": "Pendente",
+      "step2Body": "A preparação é combinada quando o pedido for confirmado.",
+      "step3Title": "3. Entrega",
+      "step3Time": "Conforme sua escolha",
+      "step3Body": "Você pode escolher retirada ou envio na etapa de entrega.",
+      "step4Title": "4. Compra concluída",
+      "step4Time": "Pendente",
+      "step4Body": "O detalhe final estará disponível quando o pagamento for conectado."
+    },
+    "delivery": {
+      "title": "Endereço de entrega",
+      "empty": "Você ainda não cadastrou um endereço.",
+      "hint": "Cadastre-o na etapa de entrega."
+    },
+    "operator": {
+      "title": "Forma de entrega",
+      "value": "Retirada ou envio",
+      "hint": "Escolha a opção que preferir.",
+      "tag": "A definir"
+    }
+  },
+  "products": {
+    "title": "Produtos da sua seleção",
+    "subtitle": "Um olhar sobre o que você escolheu.",
+    "badge": "Coleção em destaque",
+    "items": {
+      "gloss": {
+        "name": "Gloss Oil Dew Viral",
+        "variant": "Tom: Watermelon Pop",
+        "tag": "Seleção 01"
+      },
+      "blush": {
+        "name": "Solar Pop Liquid Blush",
+        "variant": "Tom: Coral Sun",
+        "tag": "Seleção 02"
+      },
+      "balm": {
+        "name": "Dewy Glow Stick Balm",
+        "variant": "Tom: Universal Dew",
+        "tag": "Seleção 03"
+      }
+    },
+    "totals": {
+      "products": "Produtos selecionados",
+      "delivery": "Entrega",
+      "detail": "Detalhe dos preços",
+      "total": "Total",
+      "pending": "A confirmar",
+      "perOption": "Conforme a opção escolhida",
+      "available": "Disponível no catálogo",
+      "note": "Vista de demonstração"
+    }
+  },
+  "club": {
+    "eyebrow": "clube trino",
+    "title": "Entre para o clube",
+    "description": "Conheça as novidades e os conteúdos da comunidade.",
+    "action": "Conhecer o clube"
+  },
+  "share": {
+    "eyebrow": "Compartilhe seu estilo",
+    "title": "Mostre o que você escolheu",
+    "description": "Use #TrinoGlow para mostrar seus looks nas suas redes.",
+    "primary": "Compartilhar nas redes",
+    "secondary": "Explorar catálogo"
+  },
+  "support": {
+    "eyebrow": "Apoio em beleza",
+    "title": "Dúvidas sobre os tons?",
+    "description": "Escreva para saber mais sobre tons e combinações da sua seleção.",
+    "status": "Equipe disponível no site",
+    "action": "Ir para contato"
+  },
+  "commitment": {
+    "title": "Nosso compromisso",
+    "items": {
+      "catalog": {
+        "title": "Curadoria local",
+        "body": "Seleção de beleza pensada para a nossa comunidade."
+      },
+      "packaging": {
+        "title": "Embalagem protegida",
+        "body": "Cuidamos de cada produto durante o transporte."
+      },
+      "service": {
+        "title": "Atendimento humano",
+        "body": "Respondemos por e-mail pela página de contato."
+      }
+    }
+  },
+  "catalogCta": {
+    "eyebrow": "Continue explorando",
+    "title": "Descubra novos drops",
+    "description": "Veja as novidades do catálogo e encontre sua próxima favorita.",
+    "action": "Voltar ao catálogo"
+  }
+}

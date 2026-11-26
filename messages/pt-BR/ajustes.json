@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Configurações da conta",
+    "description": "Confira os dados da sua conta trino. e as opções disponíveis."
+  },
+  "breadcrumb": {
+    "label": "Navegação",
+    "home": "Início",
+    "account": "Minha conta",
+    "current": "Configurações"
+  },
+  "header": {
+    "eyebrow": "Configurações da conta",
+    "title": "Configurações e gestão da conta",
+    "body": "Confira seus dados, suas preferências e as opções de segurança disponíveis.",
+    "statusLabel": "Estado da sessão",
+    "statusActive": "Sessão iniciada",
+    "statusNone": "Sessão não iniciada",
+    "tabsLabel": "Seções da conta",
+    "tabs": {
+      "overview": "Resumo",
+      "orders": "Meus pedidos",
+      "tone": "Meu perfil de tons",
+      "favorites": "Meus favoritos",
+      "club": "trino. club",
+      "settings": "Configurações"
+    }
+  },
+  "profile": {
+    "title": "Sua conta",
+    "emailLabel": "E-mail",
+    "anonymous": "Você não iniciou sessão",
+    "hint": "Os dados aparecem como foram cadastrados."
+  },
+  "nav": {
+    "label": "Menu de configurações"
+  },
+  "sections": {
+    "personal": {
+      "title": "1. Dados pessoais",
+      "body": "Informações vinculadas à sua conta.",
+      "note": "Para atualizar seus dados, fale com a gente pelo Contato."
+    },
+    "addresses": {
+      "title": "2. Endereços de entrega",
+      "body": "Endereços salvos para seus pedidos.",
+      "emptyTitle": "Ainda não há endereços salvos",
+      "emptyBody": "Você pode adicionar um endereço durante o checkout."
+    },
+    "payments": {
+      "title": "3. Formas de pagamento",
+      "body": "As formas de pagamento são gerenciadas no checkout.",
+      "emptyTitle": "Não guardamos formas de pagamento aqui",
+      "emptyBody": "Os pagamentos são processados ao confirmar cada pedido."
+    },
+    "security": {
+      "title": "4. Segurança e senha",
+      "body": "Opções para proteger o acesso à sua conta.",
+      "passwordCta": "Alterar senha",
+      "signOut": "Sair da conta",
+      "note": "Se esqueceu sua senha, pode redefini-la pelo link de recuperação."
+    },
+    "notifications": {
+      "title": "5. Preferências e privacidade",
+      "body": "Saiba como tratamos seus dados.",
+      "privacyCta": "Ver política de privacidade",
+      "note": "Consulte a política de privacidade para saber como seus dados são tratados."
+    }
+  },
+  "advanced": {
+    "title": "Gestão avançada",
+    "body": "Para solicitações sobre seus dados pessoais, use o canal de contato.",
+    "cta": "Ir para contato"
+  },
+  "support": {
+    "title": "Precisa de ajuda?",
+    "body": "Se tiver dúvidas sobre sua conta, fale com a gente por esse canal.",
+    "cta": "Contatar"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "title": "Paiement par virement | trino.",
+    "description": "Vue informative sur le paiement par virement chez trino, sans donnée de paiement ni opération traitée."
+  },
+  "intro": {
+    "back": "Retour au paiement",
+    "step": "Étape 2 sur 3",
+    "title": "Virement",
+    "noticeTitle": "Prenez votre temps",
+    "noticeBody": "Aucun délai n'est appliqué dans cette vue de démonstration."
+  },
+  "data": {
+    "title": "Détails de l'achat",
+    "tag": "Vue de démonstration",
+    "primaryLabel": "Détail principal",
+    "primaryValue": "À définir",
+    "primaryAction": "Voir le contact",
+    "secondaryLabel": "Détail secondaire",
+    "secondaryValue": "À définir",
+    "secondaryAction": "Voir l'aide",
+    "tiles": {
+      "holder": {
+        "label": "Titulaire de l'achat",
+        "value": "Complété au paiement",
+        "hint": "Aucune donnée dans cette vue"
+      },
+      "method": {
+        "label": "Moyen de paiement",
+        "value": "Virement",
+        "hint": "Coordonné par e-mail"
+      },
+      "detail": {
+        "label": "Détail",
+        "value": "Vue de démonstration",
+        "hint": "Aucun frais simulé"
+      }
+    },
+    "allAction": "Voir les options de contact",
+    "note": "Cet écran n'affiche aucune donnée de paiement et ne traite aucune opération."
+  },
+  "guide": {
+    "title": "Comment continuer ?",
+    "steps": {
+      "one": {
+        "title": "01 Vérifiez votre moyen de paiement",
+        "body": "Choisissez l'option qui vous convient au paiement."
+      },
+      "two": {
+        "title": "02 Vérifiez le montant",
+        "body": "Le total s'affiche à la fin du paiement."
+      },
+      "three": {
+        "title": "03 Contactez-nous",
+        "body": "Écrivez-nous depuis la page de contact."
+      }
+    }
+  },
+  "summary": {
+    "label": "Récapitulatif d'achat",
+    "title": "Vue de démonstration",
+    "badge": "En attente de confirmation",
+    "rows": {
+      "products": "Produits sélectionnés",
+      "priceDetail": "Détail des prix",
+      "delivery": "Livraison",
+      "catalog": "Voir le catalogue",
+      "pending": "À confirmer",
+      "perOption": "Selon l'option choisie"
+    },
+    "total": {
+      "label": "Total",
+      "value": "À confirmer",
+      "action": "Voir le détail",
+      "note": "Le montant s'affiche une fois le paiement connecté."
+    }
+  },
+  "contact": {
+    "title": "Besoin d'aide ?",
+    "description": "Écrivez-nous si vous avez une question sur votre achat.",
+    "primary": "Contacter par e-mail",
+    "secondary": "Explorer le catalogue",
+    "upload": {
+      "title": "Joindre un fichier",
+      "body": "L'envoi de fichier n'est pas disponible dans cette vue."
+    }
+  },
+  "note": {
+    "title": "Achat informatif",
+    "body": "Une fois le paiement connecté, vous pourrez voir le détail de votre achat."
+  }
+}

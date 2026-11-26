@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
 const listing = path.join(ROOT, 'src/app/[locale]/cultura/page.tsx');
+const stories = path.join(ROOT, 'src/components/storefront/manifiesto-stories.tsx');
 const detail = path.join(ROOT, 'src/app/[locale]/cultura/[slug]/page.tsx');
 const loading = path.join(ROOT, 'src/app/[locale]/cultura/loading.tsx');
 describe('T-E03 cultura listing 12 ISR Article LD', () => {
@@ -25,17 +26,17 @@ describe('T-E03 cultura listing 12 ISR Article LD', () => {
     expect(c).toMatch(/TipTap|body/i);
   });
   it('P-1 covers use next/image, no raw <img>', () => {
-    for (const f of [listing, detail]) {
+    for (const f of [stories, detail]) {
       const c = fs.readFileSync(f, 'utf8');
       expect(c).toMatch(/from 'next\/image'|from "next\/image"/);
       expect(c).not.toMatch(/<img[\s>]/);
     }
   });
   it('P-1 alt verbatim + mobile-first sizes + priority LCP', () => {
-    const lc = fs.readFileSync(listing, 'utf8');
-    expect(lc).toMatch(/alt=\{p\.title\}/);
+    const lc = fs.readFileSync(stories, 'utf8');
+    expect(lc).toMatch(/alt=\{post\.title\}/);
     expect(lc).toMatch(/sizes="\(max-width: 640px\) 100vw[^"]*"/);
-    expect(lc).toMatch(/priority/);
+    expect(lc).toMatch(/priority=\{index === 0\}/);
     const dc = fs.readFileSync(detail, 'utf8');
     expect(dc).toMatch(/alt=\{post\.title\}/);
     expect(dc).toMatch(/sizes=/);

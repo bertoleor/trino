@@ -1,7 +1,12 @@
-import { HomeBrands, HomeFeatured, HomeTrust } from '@/components/storefront/home-sections';
-import { HomeClub, HomeCommunity, HomeGuide } from '@/components/storefront/home-panels';
+import { HomeNeopopBrands, HomeNeopopFeatured } from '@/components/storefront/home-neopop-featured';
+import {
+  HomeNeopopCommunity,
+  HomeNeopopQuality,
+  HomeNeopopReviews,
+} from '@/components/storefront/home-neopop-community';
+import { HomeNeopopHero, HomeNeopopTicker } from '@/components/storefront/home-neopop-sections';
 import { languageAlternates, localizedUrl } from '@/lib/seo/site';
-import { HomeHero } from '@/components/storefront/home-hero';
+import { HomeNeopopGuide } from '@/components/storefront/home-neopop-guide';
 import type { Metadata } from 'next';
 import { StitchShell } from '@/components/layout/stitch-shell';
 import { StorefrontFooter } from '@/components/storefront/storefront-footer';
@@ -43,15 +48,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       shellType="web_standard"
       header={<StorefrontHeader locale={locale} active="home" />}
       footer={<StorefrontFooter locale={locale} />}
-      contentClassName="flex flex-col gap-16 py-10"
+      contentClassName="flex flex-col gap-12 py-0"
     >
-      <HomeHero locale={locale} />
-      <HomeTrust locale={locale} />
-      <HomeBrands locale={locale} />
-      <HomeFeatured locale={locale} products={products ?? []} />
-      <HomeGuide locale={locale} />
-      <HomeCommunity locale={locale} />
-      <HomeClub locale={locale} />
+      <HomeNeopopHero locale={locale} />
+      <HomeNeopopTicker locale={locale} />
+      <HomeNeopopBrands locale={locale} />
+      <HomeNeopopFeatured locale={locale} products={products ?? []} />
+      <HomeNeopopGuide locale={locale} />
+      <HomeNeopopCommunity locale={locale} />
+      <HomeNeopopReviews locale={locale} />
+      <HomeNeopopQuality locale={locale} />
     </StitchShell>
   );
 }

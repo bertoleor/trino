@@ -1,16 +1,20 @@
 import { NONCE_HEADER, nonceProp } from '@/lib/security/csp';
 import {
-  ProductBreadcrumb,
-  ProductGallery,
-  ProductPurchase,
-} from '@/components/storefront/product-sections';
+  ProductoDetalleBanner,
+  ProductoDetalleBreadcrumb,
+  ProductoDetalleGallery,
+} from '@/components/storefront/producto-detalle-principal';
 import {
-  ProductCommunity,
-  ProductDetails,
-  RelatedProducts,
-} from '@/components/storefront/product-panels';
+  ProductoDetalleBundle,
+  ProductoDetalleCompatibles,
+} from '@/components/storefront/producto-detalle-curaduria';
+import {
+  ProductoDetalleCommunity,
+  ProductoDetalleDetails,
+} from '@/components/storefront/producto-detalle-paneles';
 import { languageAlternates, localizedUrl, siteUrl } from '@/lib/seo/site';
 import type { Metadata } from 'next';
+import { ProductoDetalleCompra } from '@/components/storefront/producto-detalle-compra';
 import { StitchShell } from '@/components/layout/stitch-shell';
 import { StorefrontFooter } from '@/components/storefront/storefront-footer';
 import { StorefrontHeader } from '@/components/storefront/storefront-header';
@@ -93,21 +97,31 @@ export default async function ProductoPage({
       shellType="web_standard"
       header={<StorefrontHeader locale={locale} active="product" />}
       footer={<StorefrontFooter locale={locale} />}
-      contentClassName="flex flex-col gap-16 px-6 py-10"
+      contentClassName="flex flex-col gap-12 py-8"
     >
       <script
         type="application/ld+json"
         nonce={nonce}
         dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
       />
-      <ProductBreadcrumb locale={locale} name={product.name} />
-      <section className="col-span-full grid gap-10 lg:grid-cols-2">
-        <ProductGallery locale={locale} product={product} />
-        <ProductPurchase locale={locale} product={product} priceCents={priceInCents(product)} />
+      <ProductoDetalleBreadcrumb locale={locale} name={product.name} />
+      <ProductoDetalleBanner locale={locale} />
+      <section className="col-span-full grid grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-12">
+        <div className="lg:col-span-6">
+          <ProductoDetalleGallery locale={locale} product={product} />
+        </div>
+        <div className="lg:col-span-6">
+          <ProductoDetalleCompra
+            locale={locale}
+            product={product}
+            priceCents={priceInCents(product)}
+          />
+        </div>
       </section>
-      <ProductDetails locale={locale} />
-      <RelatedProducts locale={locale} products={related ?? []} />
-      <ProductCommunity locale={locale} />
+      <ProductoDetalleBundle locale={locale} />
+      <ProductoDetalleDetails locale={locale} />
+      <ProductoDetalleCompatibles locale={locale} products={related ?? []} />
+      <ProductoDetalleCommunity locale={locale} />
     </StitchShell>
   );
 }

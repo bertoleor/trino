@@ -1,14 +1,26 @@
-import WishlistHeart from '@/components/shared/wishlist-heart';
+import { EmptyState } from '@/components/storefront/empty-state';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { StitchShell } from '@/components/layout/stitch-shell';
+import { StorefrontFooter } from '@/components/storefront/storefront-footer';
+import { StorefrontHeader } from '@/components/storefront/storefront-header';
+import { WishlistGalleryAssurance } from '@/components/storefront/wishlist-gallery-assurance';
+import { WishlistGalleryGrid } from '@/components/storefront/wishlist-gallery-grid';
+import { WishlistGalleryHeader } from '@/components/storefront/wishlist-gallery-header';
+import { WishlistGalleryShare } from '@/components/storefront/wishlist-gallery-share';
 import { createClient } from '@/lib/supabase/server';
 import { getTranslations } from 'next-intl/server';
+
 // Session-bound page: renders the signed-in user's wishlist from the auth cookie.
 // force-dynamic replaces the revalidate=300 ISR config, which could never cache
 // per-user output and crashed the static export (cookies() during prerender).
 export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return { title: `Wishlist ${locale}` };
 }
+
 export default async function WishlistPage({
   params,
   searchParams,
@@ -33,47 +45,65 @@ export default async function WishlistPage({
   const items = data ?? [];
   const total = count ?? 0;
   const title = t.has('wishlist.title') ? t('wishlist.title') : 'Wishlist';
+  const tPage = await getTranslations({ locale, namespace: 'institucional.wishlist' });
+
+  const shell = (children: ReactNode) => (
+    <StitchShell
+      shellType="web_standard"
+      header={<StorefrontHeader locale={locale} active="shop" />}
+      footer={<StorefrontFooter locale={locale} />}
+      contentClassName="grid grid-cols-12 gap-6 px-6 py-8"
+    >
+      <WishlistGalleryHeader locale={locale} title={title} total={total} />
+      {children}
+    </StitchShell>
+  );
+
   if (!items.length) {
-    return (
-      <main className="mx-auto max-w-5xl px-6 py-12">
-        <h1 className="text-3xl font-bold lowercase">{title} — wishlist empty Bauhaus</h1>
-        <div className="mt-8 rounded border border-dashed p-12 text-center">
-          <div className="mx-auto h-24 w-24 rounded-full border-4 border-black" />
-          <p className="mt-4 text-zinc-600">
-            No hay favoritos aún. empty Bauhaus 12 ISR revalidate 300 locale i18n
-          </p>
+    return shell(
+      <>
+        <div className="col-span-12">
+          <EmptyState
+            title={tPage('empty.title')}
+            description={tPage('empty.description')}
+            action={
+              <Link
+                href={`/${locale}/tienda`}
+                className="font-label border-ink bg-ink text-cream shadow-pop-sm rounded-control inline-flex min-h-11 items-center border-2 px-5 text-xs font-bold uppercase"
+              >
+                {tPage('empty.action')}
+              </Link>
+            }
+          />
         </div>
-      </main>
+        <WishlistGalleryAssurance locale={locale} />
+      </>
     );
   }
-  return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-3xl font-bold lowercase">
-        {title} — {total} items paginated 12 ISR 300
-      </h1>
-      <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {items.map((it) => (
-          <div key={it.id} className="rounded border p-4">
-            <div className="aspect-square rounded bg-zinc-100" />
-            <p className="mt-2 text-sm">{it.product_id}</p>
-            <WishlistHeart productId={it.product_id} initial />
-          </div>
-        ))}
-      </div>
-      <div className="mt-8 flex gap-2">
+
+  return shell(
+    <>
+      <WishlistGalleryGrid locale={locale} entries={items} />
+      <WishlistGalleryShare />
+      <WishlistGalleryAssurance locale={locale} />
+      <nav
+        data-purpose="wishlist-gallery-pagination"
+        aria-label={tPage('grid.title')}
+        className="border-ink bg-cream shadow-pop rounded-card col-span-12 flex flex-wrap gap-3 border-[3px] p-4"
+      >
         {Array.from({ length: Math.ceil(total / 12) })
           .slice(0, 5)
           .map((_, i) => (
-            <a
+            <Link
               key={i}
               href={`/${locale}/wishlist?page=${i + 1}`}
-              className="rounded border px-3 py-2 text-sm"
-              style={{ minHeight: 44 }}
+              aria-current={page === i + 1 ? 'page' : undefined}
+              className="font-label border-ink bg-lemon text-ink shadow-pop-sm rounded-control inline-flex min-h-11 min-w-11 items-center justify-center border-2 px-3 text-xs font-bold"
             >
               {i + 1}
-            </a>
+            </Link>
           ))}
-      </div>
-    </main>
+      </nav>
+    </>
   );
 }

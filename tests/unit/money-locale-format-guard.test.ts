@@ -12,31 +12,42 @@ import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
 const read = (rel: string) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 
-const LITERAL_DOLLAR_PAGES = [
-  'src/app/page.tsx',
-  'src/app/[locale]/page.tsx',
-  'src/app/admin/page.tsx',
-  'src/app/producto/[slug]/page.tsx',
-];
+// Locale home/PDP delegate price rendering to PriceBlock (via ProductCard on
+// home and ProductoDetalleCompra on PDP). The guard follows the renderer so the
+// refactor cannot silently bypass lib/money.
+const PAGE_RENDERERS: Record<string, string> = {
+  'src/app/page.tsx': 'src/app/page.tsx',
+  'src/app/[locale]/page.tsx': 'src/components/storefront/price-block.tsx',
+  'src/app/admin/page.tsx': 'src/app/admin/page.tsx',
+  'src/app/producto/[slug]/page.tsx': 'src/app/producto/[slug]/page.tsx',
+  'src/app/[locale]/producto/[slug]/page.tsx': 'src/components/storefront/price-block.tsx',
+};
 
 describe('money-locale-format guard: product prices go through lib/money', () => {
-  it('locale producto page renders cents via formatArs(priceCents, locale)', () => {
+  it('locale producto page renders cents via lib/money, never toFixed', () => {
     const src = read('src/app/[locale]/producto/[slug]/page.tsx');
     expect(src).not.toMatch(/ARS \{|\(priceCents \/ 100\)\.toFixed/);
-    expect(src).toMatch(/formatArs\(priceCents, locale\)/);
+    expect(read('src/components/storefront/price-block.tsx')).toMatch(
+      /formatPriceARS\(currentCents \/ 100, locale\)/
+    );
   });
 
-  it.each(LITERAL_DOLLAR_PAGES)(
-    '%s has no literal $ next to a price and uses formatPriceARS',
-    (rel) => {
-      const src = read(rel);
-      expect(src).not.toMatch(/\$\{[a-z_.]*price/i);
-      expect(src).toMatch(/formatPriceARS\(/);
+  it.each(Object.entries(PAGE_RENDERERS))(
+    '%s has no literal $ next to a price; renderer uses formatPriceARS',
+    (page, renderer) => {
+      expect(read(page)).not.toMatch(/\$\{[a-z_.]*price/i);
+      expect(read(renderer)).toMatch(/formatPriceARS\(/);
     }
   );
 
-  it('locale home passes the route locale to the formatter', () => {
-    expect(read('src/app/[locale]/page.tsx')).toMatch(/formatPriceARS\(product\.price, locale\)/);
+  it('locale home and PDP pass the route locale to the formatter', () => {
+    expect(read('src/components/storefront/home-neopop-featured.tsx')).toMatch(/locale=\{locale\}/);
+    expect(read('src/components/storefront/producto-detalle-compra.tsx')).toMatch(
+      /locale=\{locale\}/
+    );
+    expect(read('src/components/storefront/price-block.tsx')).toMatch(
+      /formatPriceARS\(currentCents \/ 100, locale\)/
+    );
   });
 
   it('legacy non-locale product page formats variants with the es-AR default', () => {

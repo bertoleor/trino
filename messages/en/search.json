@@ -32,5 +32,61 @@
     "eyebrow": "KEEP EXPLORING",
     "title": "Other catalog options.",
     "viewAll": "View full catalog"
+  },
+  "catalog": {
+    "breadcrumb": {
+      "current": "All drops"
+    },
+    "hero": {
+      "badge": "Catalog and drops",
+      "title": "Living formulas.",
+      "titleAccent": "No drama.",
+      "description": "High-saturation makeup, free of rules and designed for you to look and feel like yourself. Discover shades, brands and new arrivals in the catalog.",
+      "summaryLabel": "Browsing the catalog"
+    },
+    "filters": {
+      "title": "Filters",
+      "clear": "Clear all",
+      "active": "Active filters",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "finish": "Finish",
+      "all": "All",
+      "remove": "Remove filter {label}"
+    },
+    "categories": {
+      "ojos": "Eyes",
+      "labios": "Lips",
+      "rostro": "Face",
+      "manicure": "Manicure",
+      "pestañas": "Lashes"
+    },
+    "sort": {
+      "label": "Sort products",
+      "newest": "Newest first",
+      "price_asc": "Price: low to high",
+      "price_desc": "Price: high to low",
+      "name": "Name A-Z"
+    },
+    "view": {
+      "label": "Catalog view",
+      "grid": "Grid view",
+      "compact": "Compact view"
+    },
+    "toolbar": {
+      "summary": "{shown} of {total} products"
+    },
+    "card": {
+      "badge": "Drop",
+      "view": "View product"
+    },
+    "empty": {
+      "title": "No products match those filters.",
+      "description": "Try another category, finish or brand."
+    },
+    "pagination": {
+      "label": "Catalog pagination",
+      "page": "Page {page} of {total}"
+    }
   }
 }
