@@ -5,7 +5,8 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const staticPublicCsp = [
   "default-src 'self'",
-  "script-src 'self'",
+  // TODO: Remove 'unsafe-eval' before production - investigate source of eval() (likely Next.js dev internals or Turnstile widget)
+  "script-src 'self' 'unsafe-eval' https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
