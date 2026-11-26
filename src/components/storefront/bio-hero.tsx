@@ -3,7 +3,6 @@ import { Sparkles } from 'lucide-react';
 type BioHeroProps = {
   badge: string;
   brand: string;
-  line: string;
   headlineStart: string;
   headlineAccent: string;
   intro: string;
@@ -14,13 +13,16 @@ type BioHeroProps = {
 export function BioHero({
   badge,
   brand,
-  line,
   headlineStart,
   headlineAccent,
   intro,
   channels,
   ticker,
 }: BioHeroProps) {
+  const dotAt = brand.lastIndexOf('.');
+  const brandName = dotAt >= 0 ? brand.slice(0, dotAt) : brand;
+  const brandDot = dotAt >= 0 ? brand.slice(dotAt) : '';
+
   return (
     <>
       <header className="mb-3 flex justify-center">
@@ -35,16 +37,12 @@ export function BioHero({
         data-purpose="hero-identity"
         className="mx-auto mb-4 flex max-w-2xl flex-col items-center text-center"
       >
-        <div className="border-ink shadow-pop bg-cream rounded-card inline-flex flex-col items-center justify-center border-[3px] px-6 py-2 md:py-2.5">
-          <span className="font-display text-4xl leading-none font-extrabold tracking-tight md:text-6xl">
-            {brand}
-          </span>
-          <span className="font-label text-ink mt-1 text-[10px] leading-none font-black tracking-[0.25em]">
-            {line}
-          </span>
-        </div>
-        <h1 className="font-display mt-2 text-2xl leading-tight font-extrabold tracking-tight md:text-3xl">
-          {headlineStart}{' '}
+        <span className="font-display text-5xl leading-none font-extrabold tracking-tight md:text-7xl">
+          {brandName}
+          <span className="text-cobalt">{brandDot}</span>
+        </span>
+        <h1 className="font-display border-ink shadow-pop bg-cream rounded-card mt-3 inline-flex flex-wrap items-center justify-center gap-2 border-[3px] px-3 py-2 text-2xl leading-tight font-extrabold tracking-tight md:text-3xl">
+          {headlineStart}
           <span className="border-ink shadow-pop-sm bg-cobalt text-cream rounded-card inline-block rotate-[-1.5deg] px-2.5 py-0.5">
             {headlineAccent}
           </span>

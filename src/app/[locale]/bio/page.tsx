@@ -65,7 +65,6 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
           <BioHero
             badge={t('badge')}
             brand={t('logo.brand')}
-            line={t('logo.line')}
             headlineStart={t('headline.start')}
             headlineAccent={t('headline.accent')}
             intro={t('intro')}
@@ -92,7 +91,6 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
               badge={t('badge')}
               channels={t('channels')}
               intro={t('intro')}
-              logoLine={t('logo.line')}
               headlineStart={t('headline.start')}
               headlineAccent={t('headline.accent')}
               footerTagline={t('footer.tagline')}
@@ -101,7 +99,6 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
 
           <BioBrandShowcase
             logoBrand={t('logo.brand')}
-            logoLine={t('logo.line')}
             headlineStart={t('headline.start')}
             headlineAccent={t('headline.accent')}
             footerTagline={t('footer.tagline')}

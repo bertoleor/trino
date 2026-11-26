@@ -5,7 +5,6 @@ type InfoPanelProps = {
   badge: string;
   channels: string;
   intro: string;
-  logoLine: string;
   headlineStart: string;
   headlineAccent: string;
   footerTagline: string;
@@ -16,7 +15,6 @@ export function BioInfoPanel({
   badge,
   channels,
   intro,
-  logoLine,
   headlineStart,
   headlineAccent,
   footerTagline,
@@ -49,10 +47,7 @@ export function BioInfoPanel({
       </section>
 
       <section className="border-ink shadow-pop bg-cobalt text-cream rounded-card p-4">
-        <span className="font-label text-[10px] font-black tracking-widest uppercase">
-          {logoLine}
-        </span>
-        <p className="font-display mt-2 text-xl leading-tight font-extrabold">
+        <p className="font-display text-xl leading-tight font-extrabold">
           {headlineStart} {headlineAccent}
         </p>
         <p className="font-body mt-2 text-xs font-bold">{footerTagline}</p>
@@ -72,7 +67,6 @@ type BrandShowcaseProps = {
 
 export function BioBrandShowcase({
   logoBrand,
-  logoLine,
   headlineStart,
   headlineAccent,
   footerTagline,
@@ -88,12 +82,7 @@ export function BioBrandShowcase({
           <div className="border-ink bg-cream text-cobalt font-display rounded-card flex size-11 shrink-0 items-center justify-center border-2 text-2xl font-extrabold">
             t.
           </div>
-          <div>
-            <span className="font-label text-lemon text-[9px] font-black tracking-wider uppercase">
-              {logoLine}
-            </span>
-            <p className="font-body text-xs font-bold">{footerTagline}</p>
-          </div>
+          <p className="font-body text-xs font-bold">{footerTagline}</p>
         </div>
         <div className="flex flex-col justify-center text-center md:text-left">
           <span className="font-label text-[10px] font-black tracking-wider uppercase">
