@@ -2,16 +2,19 @@
 
 import { Check, Share2 } from 'lucide-react';
 import { canWebShare, copyLink } from '@/lib/share';
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
 export function BioShareButton({
   label,
   copied,
   title,
+  fullWidth = false,
 }: {
   label: string;
   copied: string;
   title: string;
+  fullWidth?: boolean;
 }) {
   const [done, setDone] = useState(false);
 
@@ -35,11 +38,14 @@ export function BioShareButton({
   }
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className={cn('flex flex-col items-center gap-2', fullWidth && 'w-full')}>
       <button
         type="button"
         onClick={onShare}
-        className="border-ink shadow-pop bg-cream text-ink font-label rounded-control active:shadow-pop-sm flex min-h-11 items-center gap-2 border-[3px] px-5 py-2 text-sm font-black tracking-wider uppercase transition-transform active:translate-x-0.5 active:translate-y-0.5"
+        className={cn(
+          'border-ink shadow-pop bg-cream text-ink font-label rounded-control active:shadow-pop-sm flex min-h-11 items-center gap-2 border-[3px] px-5 py-2 text-sm font-black tracking-wider uppercase transition-transform active:translate-x-0.5 active:translate-y-0.5',
+          fullWidth && 'w-full justify-center'
+        )}
       >
         {done ? <Check aria-hidden="true" /> : <Share2 aria-hidden="true" />}
         {done ? copied : label}

@@ -46,3 +46,38 @@ test('bio link keeps the share action and adapts to mobile', async ({ page }) =>
   const shareBox = await page.getByRole('button', { name: /compartir/i }).boundingBox();
   expect(shareBox?.x).toBeLessThan(390);
 });
+
+test('bio link keeps the desktop Stitch 7/5 grid without editorial assets', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  const response = await page.goto('/es-AR/bio');
+  expect(response?.status()).toBe(200);
+
+  await expect(page.locator('[data-purpose="hero-identity"]')).toBeVisible();
+  await expect(page.locator('[data-purpose="ticker-announcement"]')).toBeVisible();
+
+  const channels = page.locator('[data-purpose="official-channels-list"]');
+  const info = page.locator('[data-purpose="editorial-and-info"]');
+  await expect(channels).toBeVisible();
+  await expect(info).toBeVisible();
+
+  const channelsBox = await channels.boundingBox();
+  const infoBox = await info.boundingBox();
+  if (!channelsBox || !infoBox) throw new Error('desktop columns are not rendered');
+  expect(channelsBox.x).toBeLessThan(infoBox.x);
+  expect(channelsBox.width).toBeGreaterThan(infoBox.width);
+  expect(Math.abs(channelsBox.y - infoBox.y)).toBeLessThan(4);
+
+  await expect(page.locator('img[src*="aida-public"]')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /compartir/i })).toBeVisible();
+
+  const overflow = await page.evaluate(() => {
+    const width = window.innerWidth;
+    return [
+      ...document.querySelectorAll('[data-shell-type="mobile_blank"] a[href^="http"]'),
+    ].filter((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.right > width + 1 || rect.left < -1;
+    }).length;
+  });
+  expect(overflow).toBe(0);
+});
