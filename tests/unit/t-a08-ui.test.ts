@@ -4,13 +4,14 @@ import path from 'node:path';
 
 const ROOT = path.resolve(__dirname, '../..');
 
-describe('T-A08 ui Bauhaus 44px pill', () => {
-  it('src/components/ui/button.tsx exists with 44px and pill', () => {
+describe('T-A08 ui Neo-Pop 44px square button', () => {
+  it('src/components/ui/button.tsx exists with 44px and square corners', () => {
     const p = path.join(ROOT, 'src/components/ui/button.tsx');
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/44px|min-h.*44|h-11/);
-    expect(c).toMatch(/pill|rounded.*full|9999/);
+    // Neo-Pop replaced the former Bauhaus pill geometry with squared corners.
+    expect(c).toMatch(/rounded-none|rounded-0|sharp/);
     expect(c).toMatch(/focus-visible|aria/);
   });
 

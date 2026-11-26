@@ -48,6 +48,20 @@ function isAuthTierPath(pathname: string): boolean {
   return pathname.includes('/login') || pathname.includes('/signup');
 }
 
+// These screens live outside the [locale] segment (src/app/login, /signup,
+// /admin, /account, /producto). With localePrefix: 'always', running next-intl
+// on an unprefixed URL redirects to /es-AR/<route>, which is served by the
+// [locale]/[...slug] catch-all and returns 404 - notably breaking the admin
+// login. Skip i18n prefixing for these families; locale-prefixed URLs still
+// go through the middleware and keep working as before.
+const UNLOCALIZED_PATHS = ['/admin', '/account', '/login', '/signup', '/producto', '/auth', '/api'];
+
+function isUnlocalizedPath(pathname: string): boolean {
+  return UNLOCALIZED_PATHS.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  );
+}
+
 type EntitlementRow = { role: string };
 
 async function fetchEntitlementRoles(
@@ -171,7 +185,9 @@ export async function proxy(request: NextRequest) {
     );
     return NextResponse.json({ error: 'rate limit' }, { status: 429, headers: rl.headers });
   }
-  const intlResponse = intlMiddleware(request) as NextResponse | undefined;
+  const intlResponse = isUnlocalizedPath(path)
+    ? undefined
+    : (intlMiddleware(request) as NextResponse | undefined);
   if (intlResponse && intlResponse.status >= 300 && intlResponse.status < 400) return intlResponse;
   const nonce = nonceForRequest(request.nextUrl.pathname);
   const response = await updateSession(request, nonce);
