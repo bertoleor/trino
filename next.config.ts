@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   cacheMaxMemorySize: 50 * 1024 * 1024,
+  experimental: {
+    agentUpgrade: 'security',
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' },
