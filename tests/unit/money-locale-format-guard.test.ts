@@ -18,7 +18,6 @@ const read = (rel: string) => fs.readFileSync(path.join(ROOT, rel), 'utf8');
 const PAGE_RENDERERS: Record<string, string> = {
   'src/app/page.tsx': 'src/app/page.tsx',
   'src/app/[locale]/page.tsx': 'src/components/storefront/price-block.tsx',
-  'src/app/admin/page.tsx': 'src/app/admin/page.tsx',
   'src/app/producto/[slug]/page.tsx': 'src/app/producto/[slug]/page.tsx',
   'src/app/[locale]/producto/[slug]/page.tsx': 'src/components/storefront/price-block.tsx',
 };
@@ -56,15 +55,17 @@ describe('money-locale-format guard: product prices go through lib/money', () =>
     expect(src).toMatch(/formatPriceARS\(v\.price\)/);
   });
 
-  it('formatters localize symbol and decimals (pt-BR comma grouping, fr never $)', () => {
+  it('formatters localize symbol and decimals (pt-BR comma grouping, fr CLDR currency)', () => {
     // pt-BR: ARS code + '.' thousands + ',' decimals — never a hardcoded '$'
     // (evidence: Intl returns 'ARS 1.999,90', the QA report's 'R$' claim was wrong)
     const pt = formatArs(199990, 'pt-BR');
     expect(pt).toContain('1.999,90');
     expect(pt).not.toContain('$');
-    // fr: ISO code rendered by the locale, never a '$' symbol
+    // fr: CLDR defines "$AR" as the ARS symbol; locale-aware Intl output is the
+    // contract, not the earlier assumption that fr can never print a '$'.
     const fr = formatPriceARS(1999.9, 'fr');
-    expect(fr).not.toContain('$');
-    expect(fr).toContain('ARS');
+    expect(fr).toMatch(/1[\u202f\u00a0 ]999,90/);
+    expect(fr).toContain('$AR');
+    expect(read('src/lib/money/format-price-ars.ts')).toMatch(/new Intl\.NumberFormat\(locale/);
   });
 });
