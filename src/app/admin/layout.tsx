@@ -33,7 +33,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <span className="material-symbols-outlined text-[18px]">inventory</span>
             <span className="hidden lg:inline">Inventario</span>
           </Link>
-          <Link href "/admin/usuarios" className="text-zinc-600 hover:text-zinc-900">
+          <Link href="/admin/usuarios" className="text-zinc-600 hover:text-zinc-900">
             <span className="material-symbols-outlined text-[18px]">person</span>
             <span className="hidden lg:inline">Usuarios</span>
           </Link>
@@ -53,7 +53,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <span className="material-symbols-outlined text-[18px]">barcode_reader</span>
             <span className="hidden lg:inline">Etiquetas</span>
           </Link>
-          <Link href "/admin/drops" className="text-zinc-600 hover:text-zinc-900">
+          <Link href="/admin/drops" className="text-zinc-600 hover:text-zinc-900">
             <span className="material-symbols-outlined text-[18px]">crop_square</span>
             <span className="hidden lg:inline">Drops</span>
           </Link>
