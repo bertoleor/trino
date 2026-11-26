@@ -110,7 +110,7 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
 
           <footer
             data-purpose="footer-credits"
-            className="border-ink mt-6 border-t-2 pt-4 text-center"
+            className="border-ink shadow-pop bg-cream rounded-card mt-6 border-[3px] p-4 text-center"
           >
             <p className="font-display text-3xl font-extrabold tracking-tight">
               trino<span className="text-pink">.</span>

@@ -47,6 +47,34 @@ test('bio link keeps the share action and adapts to mobile', async ({ page }) =>
   expect(shareBox?.x).toBeLessThan(390);
 });
 
+test('bio link keeps the brand lockup, ticker ribbon and footer anchored', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/es-AR/bio');
+
+  const audit = await page.evaluate(() => {
+    const hero = document.querySelector('[data-purpose="hero-identity"]');
+    const spans = hero ? [...hero.querySelectorAll('span')] : [];
+    const brand = spans.find((s) => s.textContent?.trim().startsWith('trino'));
+    const beauty = spans.find((s) => s.textContent?.trim() === 'beauty');
+    const ticker = document.querySelector('[data-purpose="ticker-announcement"]');
+    const footer = document.querySelector('[data-purpose="footer-credits"]');
+    const bg = (el) => (el ? getComputedStyle(el).backgroundColor : '');
+    return {
+      beautyInsideBrandCard: !!brand && !!beauty && brand.contains(beauty),
+      brandCardBackground: bg(beauty?.parentElement),
+      tickerShadow: ticker ? getComputedStyle(ticker).boxShadow : '',
+      tickerBackground: bg(ticker),
+      footerBackground: bg(footer),
+    };
+  });
+
+  expect(audit.beautyInsideBrandCard).toBe(true);
+  expect(audit.brandCardBackground).toBe('rgb(255, 248, 232)');
+  expect(audit.tickerShadow).not.toContain('rgb(23, 20, 27)');
+  expect(audit.tickerBackground).toBe('rgb(23, 20, 27)');
+  expect(audit.footerBackground).toBe('rgb(255, 248, 232)');
+});
+
 test('bio link keeps the desktop Stitch 7/5 grid without editorial assets', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   const response = await page.goto('/es-AR/bio');

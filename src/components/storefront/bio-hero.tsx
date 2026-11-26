@@ -35,14 +35,14 @@ export function BioHero({
         data-purpose="hero-identity"
         className="mx-auto mb-4 flex max-w-2xl flex-col items-center text-center"
       >
-        <div className="border-ink shadow-pop bg-cream rounded-card inline-flex items-center justify-center border-[3px] px-6 py-2 md:py-2.5">
+        <div className="border-ink shadow-pop bg-cream rounded-card inline-flex flex-col items-center justify-center border-[3px] px-6 py-2 md:py-2.5">
           <span className="font-display text-4xl leading-none font-extrabold tracking-tight md:text-6xl">
             {brand}
           </span>
+          <span className="font-label text-ink mt-1 text-[10px] leading-none font-black tracking-[0.25em]">
+            {line}
+          </span>
         </div>
-        <span className="font-label text-pink -mt-1 text-xs font-black tracking-widest uppercase">
-          {line}
-        </span>
         <h1 className="font-display mt-2 text-2xl leading-tight font-extrabold tracking-tight md:text-3xl">
           {headlineStart}{' '}
           <span className="border-ink shadow-pop-sm bg-cobalt text-cream rounded-card inline-block rotate-[-1.5deg] px-2.5 py-0.5">
@@ -60,9 +60,9 @@ export function BioHero({
 
       <section
         data-purpose="ticker-announcement"
-        className="border-ink shadow-pop bg-ink rounded-card mb-5 flex overflow-hidden border-[3px]"
+        className="bg-ink -mx-5 mb-5 flex overflow-hidden py-1 md:-mx-6"
       >
-        <div className="neopop-marquee flex w-max items-center gap-6 py-1.5">
+        <div className="neopop-marquee flex w-max items-center gap-8">
           {[...ticker, ...ticker].map((item, index) => (
             <span
               key={`${item}-${index}`}
