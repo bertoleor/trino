@@ -72,7 +72,7 @@ export default async function BioPage({ params }: { params: Promise<{ locale: st
           <span className="border-ink shadow-pop bg-aqua absolute top-[420px] -left-10 block size-24 rounded-full border-[3px]" />
         </div>
         <div className="relative mx-auto w-full max-w-md px-5 py-10 md:max-w-5xl md:px-10 md:py-16">
-          <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-14">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:gap-14">
             <section>
               <span className="border-ink shadow-pop-sm bg-cream text-ink font-label rounded-control inline-flex items-center gap-2 border-2 px-3 py-1 text-xs font-black tracking-wider uppercase">
                 <Sparkles aria-hidden="true" />

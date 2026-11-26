@@ -31,4 +31,18 @@ test('bio link keeps the share action and adapts to mobile', async ({ page }) =>
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.locator(`a[href="${LINKS[0]}"]`)).toBeVisible();
+
+  // The marquee must not stretch the implicit grid column past the viewport.
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const width = window.innerWidth;
+        return [...document.querySelectorAll('[data-shell-type="mobile_blank"] a[href^="http"]')]
+          .map((el) => el.getBoundingClientRect())
+          .filter((rect) => rect.width > width || rect.right > width + 1 || rect.left < -1).length;
+      })
+    )
+    .toBe(0);
+  const shareBox = await page.getByRole('button', { name: /compartir/i }).boundingBox();
+  expect(shareBox?.x).toBeLessThan(390);
 });
