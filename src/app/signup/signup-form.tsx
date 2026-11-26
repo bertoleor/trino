@@ -64,7 +64,7 @@ export function SignupForm() {
               name="email"
               required
               placeholder="vos@ejemplo.com"
-              className="border-ink bg-cream shadow-pop-sm text-ink placeholder:text-ink/50 focus:shadow-pop rounded-control font-body h-12 border-2 px-4"
+              className="border-ink bg-cream text-ink placeholder:text-ink/50 font-body h-12 rounded-none border-2 px-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:outline-none"
             />
           </div>
 
@@ -86,7 +86,7 @@ export function SignupForm() {
               name="password"
               required
               minLength={6}
-              className="border-ink bg-cream shadow-pop-sm text-ink placeholder:text-ink/50 focus:shadow-pop rounded-control font-body h-12 border-2 px-4"
+              className="border-ink bg-cream text-ink placeholder:text-ink/50 font-body h-12 rounded-none border-2 px-4 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:outline-none"
             />
           </div>
 
@@ -101,7 +101,7 @@ export function SignupForm() {
           {state.error ? (
             <p
               role="alert"
-              className="border-ink bg-lemon shadow-pop-sm font-body rounded-control border-2 p-3 text-xs font-bold"
+              className="font-body rounded-none border-2 border-[var(--surface-error)] bg-[var(--surface-warning)]/10 p-3 text-xs font-bold text-[var(--surface-error)]"
             >
               {state.error}
             </p>
@@ -110,7 +110,7 @@ export function SignupForm() {
           <button
             type="submit"
             disabled={pending || !token}
-            className="bg-ink text-cream border-ink shadow-pop-sm font-label hover:shadow-pop rounded-control flex h-14 items-center justify-center gap-3 border-2 text-xs font-bold tracking-wider uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60"
+            className="bg-ink text-cream border-ink font-label flex h-14 items-center justify-center gap-3 rounded-none border-2 text-xs font-bold tracking-wider uppercase transition-colors hover:bg-[var(--ink)]/90 focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
           >
             {pending ? 'Creando…' : 'Crear mi cuenta'}
             <ArrowRight aria-hidden="true" className="size-5" />
