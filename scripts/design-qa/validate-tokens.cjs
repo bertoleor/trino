@@ -91,6 +91,7 @@ const skipPatterns = [
   /tailwind\.config/,
   /globals\.css/, // Token definitions
   /tokens\.(css|json)/,
+  /\.stories\.(tsx|jsx|ts|js)$/, // Storybook fixtures are excluded from app builds
 ];
 
 /**
@@ -138,8 +139,12 @@ function scanFile(filePath) {
       return;
     }
 
+    // HTML `sizes` attributes contain media queries such as `(max-width: 640px)`;
+    // those colons are not CSS declarations and must not count as token violations.
+    const scanLine = line.replace(/\bsizes\s*=\s*"[^"]*"/g, '');
+
     for (const [name, pattern] of Object.entries(patterns)) {
-      const matches = line.match(pattern.regex);
+      const matches = scanLine.match(pattern.regex);
       if (matches) {
         matches.forEach((match) => {
           // Skip common exceptions
