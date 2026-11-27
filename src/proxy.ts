@@ -100,15 +100,31 @@ export async function updateSession(request: NextRequest, nonce?: string) {
       },
     }
   );
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // Use getClaims() instead of getUser() for middleware (official Supabase recommendation)
+  // getClaims() validates JWT locally and doesn't throw on invalid/expired tokens
+  let user = null;
+  try {
+    const { data } = await supabase.auth.getClaims();
+    user = data?.claims ?? null;
+  } catch (err) {
+    logger.warn('proxy_auth_failed', { route: 'proxy', error: String(err) });
+    user = null;
+  }
   // pathname/rawPathname: stripped locale prefix from above (ORN-62).
   const url = request.nextUrl.clone();
   const isAdminRoute = pathname.startsWith('/admin');
   const isAccountRoute = pathname.startsWith('/account');
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
-  if (!user && (isAdminRoute || isAccountRoute)) {
+  // Public routes that don't require authentication
+  const isPublicRoute = pathname === '/' || pathname.startsWith('/tienda') || pathname.startsWith('/cultura') || 
+                        pathname.startsWith('/producto/') || pathname.startsWith('/bio') ||
+                        pathname.startsWith('/login') || pathname.startsWith('/signup') ||
+                        pathname.startsWith('/api/catalog') || pathname.startsWith('/api/catalog/');
+  
+  logger.info('proxy_debug', { pathname, isPublicRoute, isAdminRoute, isAccountRoute, hasUser: !!user });
+  
+  // Only redirect to login for protected routes without user
+  if (!user && (isAdminRoute || isAccountRoute) && !isPublicRoute) {
     url.pathname = '/login';
     url.searchParams.set('redirect', rawPathname);
     return NextResponse.redirect(url);
@@ -171,14 +187,23 @@ export async function proxy(request: NextRequest) {
     );
     return NextResponse.json({ error: 'rate limit' }, { status: 429, headers: rl.headers });
   }
-  const intlResponse = intlMiddleware(request) as NextResponse | undefined;
-  if (intlResponse && intlResponse.status >= 300 && intlResponse.status < 400) return intlResponse;
+
+  logger.info('proxy_before_updateSession', { pathname: path, tier });
+
   const nonce = nonceForRequest(request.nextUrl.pathname);
   const response = await updateSession(request, nonce);
-  if (intlResponse)
-    intlResponse.headers.forEach((v, k) => {
-      if (!response.headers.has(k)) response.headers.set(k, v);
-    });
+  
+  // DEBUG: Log after updateSession
+  logger.info('proxy_after_updateSession', { pathname: path, responseStatus: response.status });
+  
+  // If updateSession returned a redirect (3xx), return it immediately
+  if (response.status >= 300 && response.status < 400) {
+    return response;
+  }
+  // if (intlResponse)
+  //   intlResponse.headers.forEach((v, k) => {
+  //     if (!response.headers.has(k)) response.headers.set(k, v);
+  //   });
   for (const [k, v] of Object.entries(rl.headers)) response.headers.set(k, v);
   const isAdminPath = request.nextUrl.pathname.startsWith('/admin');
   const cookieOpts = `HttpOnly; Secure=${process.env.NODE_ENV === 'production'}; SameSite=${isAdminPath ? 'Strict' : 'Lax'}; Path=/`;
