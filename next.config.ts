@@ -67,6 +67,16 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: '/staff/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'private, no-cache, no-store' },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+      {
         source: '/api/me/:path*',
         headers: [{ key: 'Cache-Control', value: 'private, no-cache, no-store' }],
       },

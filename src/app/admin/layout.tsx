@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect('/login');
+  if (!user) redirect('/staff/login?redirect=/admin');
   if (user.app_metadata?.role !== 'admin') redirect('/account');
 
   return (

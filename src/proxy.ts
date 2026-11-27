@@ -6,6 +6,7 @@ import type { Role } from '@/lib/auth/roles';
 import { checkRateLimit } from '@/lib/rate-limit';
 import createIntlMiddleware from 'next-intl/middleware';
 import { createServerClient } from '@supabase/ssr';
+import { destinationAfterLogin } from '@/lib/auth/safe-redirect';
 import { enqueueSecurityAudit } from '@/lib/proxy/turnstile';
 import { hasRole } from '@/lib/auth/roles';
 import { logRbacDeny } from '@/lib/proxy/rbac-audit';
@@ -54,7 +55,16 @@ function isAuthTierPath(pathname: string): boolean {
 // [locale]/[...slug] catch-all and returns 404 - notably breaking the admin
 // login. Skip i18n prefixing for these families; locale-prefixed URLs still
 // go through the middleware and keep working as before.
-const UNLOCALIZED_PATHS = ['/admin', '/account', '/login', '/signup', '/producto', '/auth', '/api'];
+const UNLOCALIZED_PATHS = [
+  '/admin',
+  '/account',
+  '/login',
+  '/signup',
+  '/producto',
+  '/auth',
+  '/api',
+  '/staff',
+];
 
 function isUnlocalizedPath(pathname: string): boolean {
   return UNLOCALIZED_PATHS.some(
@@ -121,16 +131,24 @@ export async function updateSession(request: NextRequest, nonce?: string) {
   const url = request.nextUrl.clone();
   const isAdminRoute = pathname.startsWith('/admin');
   const isAccountRoute = pathname.startsWith('/account');
-  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isStaffLogin = pathname.startsWith('/staff/login');
+  const isAuthPage =
+    pathname.startsWith('/login') || pathname.startsWith('/signup') || isStaffLogin;
   if (!user && (isAdminRoute || isAccountRoute)) {
-    url.pathname = '/login';
+    url.pathname = '/staff/login';
     // Use the locale-stripped path: /es-AR/admin is not a real route and the
     // login action only accepts internal unlocalized destinations.
     url.searchParams.set('redirect', pathname);
     return NextResponse.redirect(url);
   }
   if (user && isAuthPage) {
-    const fallback = (user.app_metadata?.role as string) === 'admin' ? '/admin' : '/';
+    const role = user.app_metadata?.role as string | undefined;
+    const fallback = isStaffLogin
+      ? destinationAfterLogin('/admin', role)
+      : role === 'admin'
+        ? '/admin'
+        : '/';
+    if (isStaffLogin) url.search = '';
     url.pathname = fallback;
     return NextResponse.redirect(url);
   }
