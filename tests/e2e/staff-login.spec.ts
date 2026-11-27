@@ -1,4 +1,28 @@
-import { expect, test } from '@playwright/test';
+import { type Page, expect, test } from '@playwright/test';
+import { createHash } from 'node:crypto';
+
+// CI sessions share a single IP; isolate each test so the proxy rate limiter
+// does not turn later browser projects into 429 JSON instead of the login page.
+test.beforeEach(async ({ context }, testInfo) => {
+  const digest = createHash('sha256')
+    .update(`${testInfo.project.name}:${testInfo.title}:${testInfo.retry}`)
+    .digest('hex')
+    .slice(0, 8);
+  await context.setExtraHTTPHeaders({ 'x-forwarded-for': `2001:db8::${digest}` });
+});
+
+async function togglePassword(page: Page, expectedType: 'password' | 'text') {
+  const password = page.locator('#staff-password');
+  const toggle = page.getByRole('button', {
+    name: expectedType === 'text' ? 'Mostrar contraseña' : 'Ocultar contraseña',
+  });
+
+  // A first click can land before React hydration; retry the whole interaction.
+  await expect(async () => {
+    await toggle.click();
+    await expect(password).toHaveAttribute('type', expectedType);
+  }).toPass({ timeout: 10_000 });
+}
 
 test.describe('HQ staff login', () => {
   test('unauthenticated admin visits reach the dedicated HQ screen', async ({ page }) => {
@@ -22,9 +46,7 @@ test.describe('HQ staff login', () => {
 
     const password = page.locator('#staff-password');
     await expect(password).toHaveAttribute('type', 'password');
-    await page.getByRole('button', { name: 'Mostrar contraseña' }).click();
-    await expect(password).toHaveAttribute('type', 'text');
-    await page.getByRole('button', { name: 'Ocultar contraseña' }).click();
-    await expect(password).toHaveAttribute('type', 'password');
+    await togglePassword(page, 'text');
+    await togglePassword(page, 'password');
   });
 });
