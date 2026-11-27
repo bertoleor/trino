@@ -39,7 +39,7 @@ describe('T-CSP drift guard: single authoritative CSP, no static conflict (slice
 
   it('private HTML routes let the proxy own the nonce CSP', async () => {
     const entries = await loadHeaderEntries();
-    for (const source of ['/admin/:path*', '/account/:path*']) {
+    for (const source of ['/admin/:path*', '/account/:path*', '/staff/:path*']) {
       const entry = entries.find((h) => h.source === source);
       expect(entry).toBeDefined();
       expect(entry?.headers.find((h) => h.key === 'Content-Security-Policy')).toBeUndefined();

@@ -38,7 +38,10 @@ describe('login redirect stays internal and unlocalized', () => {
   });
 
   it('proxy stores the locale-stripped destination in the redirect param', () => {
-    expect(read('src/proxy.ts')).toMatch(/searchParams\.set\('redirect', pathname\)/);
+    const proxy = read('src/proxy.ts');
+    expect(proxy).toMatch(/url\.pathname = '\/staff\/login'/);
+    expect(proxy).toMatch(/searchParams\.set\('redirect', pathname\)/);
+    expect(proxy).toMatch(/'\/staff'/);
   });
 
   it('login page, form and server action carry and honor the safe destination', () => {
@@ -47,5 +50,14 @@ describe('login redirect stays internal and unlocalized', () => {
     const action = read('src/app/auth/actions.ts');
     expect(action).toMatch(/safeRedirect\(/);
     expect(action).not.toMatch(/redirect\('\/account'\);/);
+  });
+
+  it('staff login reuses the hardened action and AdminLayout falls back to it', () => {
+    const form = read('src/app/staff/login/staff-login-form.tsx');
+    expect(form).toMatch(/useActionState<AuthState, FormData>\(login/);
+    expect(form).toMatch(/name="cf-turnstile-response"/);
+    expect(form).toMatch(/name="redirect"/);
+    const layout = read('src/app/admin/layout.tsx');
+    expect(layout).toMatch(/redirect\('\/staff\/login\?redirect=\/admin'\)/);
   });
 });
