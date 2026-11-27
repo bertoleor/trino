@@ -37,6 +37,15 @@ describe('T-CSP drift guard: single authoritative CSP, no static conflict (slice
     }
   });
 
+  it('private HTML routes let the proxy own the nonce CSP', async () => {
+    const entries = await loadHeaderEntries();
+    for (const source of ['/admin/:path*', '/account/:path*']) {
+      const entry = entries.find((h) => h.source === source);
+      expect(entry).toBeDefined();
+      expect(entry?.headers.find((h) => h.key === 'Content-Security-Policy')).toBeUndefined();
+    }
+  });
+
   it('no static script-src allows unsafe-inline or strict-dynamic', async () => {
     const entries = await loadHeaderEntries();
     for (const entry of entries) {
@@ -47,6 +56,7 @@ describe('T-CSP drift guard: single authoritative CSP, no static conflict (slice
       expect(scriptSrc).not.toMatch(/strict-dynamic/);
     }
     expect(configSource()).not.toMatch(/strict-dynamic/);
+    expect(configSource()).not.toMatch(/unsafe-eval/);
   });
 
   it('proxy emits exactly one CSP — no double-CSP enforcement', () => {

@@ -5,8 +5,9 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const staticPublicCsp = [
   "default-src 'self'",
-  // TODO: Remove 'unsafe-eval' before production - investigate source of eval() (likely Next.js dev internals or Turnstile widget)
-  "script-src 'self' 'unsafe-eval' https://challenges.cloudflare.com",
+  // The proxy owns the nonce-based CSP for HTML routes. This policy is only
+  // for cacheable public pages that intentionally skip the nonce.
+  `script-src 'self' https://challenges.cloudflare.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
@@ -49,7 +50,6 @@ const nextConfig: NextConfig = {
         source: '/admin/:path*',
         headers: [
           { key: 'Cache-Control', value: 'private, no-cache, no-store' },
-          { key: 'Content-Security-Policy', value: staticPublicCsp },
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
@@ -60,7 +60,6 @@ const nextConfig: NextConfig = {
         source: '/account/:path*',
         headers: [
           { key: 'Cache-Control', value: 'private, no-cache, no-store' },
-          { key: 'Content-Security-Policy', value: staticPublicCsp },
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',

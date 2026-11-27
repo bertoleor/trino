@@ -6,6 +6,8 @@ describe('T-S05 logger mutex orphan GC', () => {
     expect(c).toMatch(/requestId|x-vercel-id|uuid/);
     expect(c).toMatch(/route|severity|stack|environment|env/);
     expect(c).toMatch(/OTel|trace|span/);
+    expect(c).not.toMatch(/from ['"]node:crypto['"]/);
+    expect(c).toMatch(/globalThis\.crypto\.randomUUID\(\)/);
   });
   it('health ready real checks 2s 1s 2s', () => {
     const c = fs.readFileSync('src/app/api/health/ready/route.ts', 'utf8');

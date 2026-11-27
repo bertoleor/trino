@@ -1,6 +1,12 @@
-import { randomUUID } from 'node:crypto';
-
 type Level = 'error' | 'warn' | 'info' | 'debug';
+
+// Web Crypto works in Node 22, Edge and browsers. Importing node:crypto here
+// pulled a Node crypto polyfill (and its eval-based ASN.1 decoder) into every
+// client bundle that uses logger, causing CSP script-src violations.
+function randomUUID(): string {
+  return globalThis.crypto.randomUUID();
+}
+
 type Meta = Record<string, unknown> & { requestId?: string; route?: string; severity?: string };
 
 // eslint-disable-next-line complexity -- pre-existing 13, refactor deferred: single branch over max-12 on shared hot path covered by logger spies; ticket: repo-cleanup-final/COMP-14
