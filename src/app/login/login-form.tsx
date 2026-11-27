@@ -7,7 +7,7 @@ import { AuthScreenFrame } from '@/components/storefront/auth-screen-frame';
 import Link from 'next/link';
 import { TurnstileWidget } from '@/components/auth/turnstile-widget';
 
-export function LoginForm() {
+export function LoginForm({ redirectTo }: { redirectTo?: string | null }) {
   const [state, formAction, pending] = useActionState<AuthState, FormData>(login, {});
   // A-01: the server verifies cf-turnstile-response fail-closed; the hidden
   // input carries the token the widget produced. Tokens are single-use, so
@@ -77,6 +77,7 @@ export function LoginForm() {
           </div>
 
           <input type="hidden" name="cf-turnstile-response" value={token} />
+          <input type="hidden" name="redirect" value={redirectTo ?? ''} />
           <TurnstileWidget
             key={widgetKey}
             onVerify={setToken}

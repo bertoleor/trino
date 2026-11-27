@@ -1,3 +1,4 @@
+import { destinationAfterLogin, safeRedirect } from '@/lib/auth/safe-redirect';
 import { LoginForm } from './login-form';
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
@@ -12,13 +13,21 @@ async function isLoggedIn() {
   return user;
 }
 
-export default async function LoginPage() {
+type LoginPageProps = { searchParams: Promise<{ redirect?: string | string[] }> };
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
+  const requested = safeRedirect(
+    Array.isArray(params.redirect) ? params.redirect[0] : params.redirect
+  );
   const user = await isLoggedIn();
-  if (user) redirect(user.app_metadata?.role === 'admin' ? '/admin' : '/account');
+  if (user) {
+    redirect(destinationAfterLogin(requested, user.app_metadata?.role as string | undefined));
+  }
 
   return (
     <main data-purpose="auth-login-page" className="bg-cream text-ink w-full flex-1">
-      <LoginForm />
+      <LoginForm redirectTo={requested} />
     </main>
   );
 }

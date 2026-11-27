@@ -5,6 +5,7 @@ import {
   enqueueSecurityAudit,
   verifyTurnstile,
 } from '@/lib/proxy/turnstile';
+import { destinationAfterLogin, safeRedirect } from '@/lib/auth/safe-redirect';
 import { createClient } from '@/lib/supabase/server';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -72,16 +73,20 @@ export async function login(_prevState: AuthState, formData: FormData): Promise<
   const supabase = await createClient();
   const email = String(formData.get('email') ?? '');
   const password = String(formData.get('password') ?? '');
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     await audit('auth_login_failed_password');
     return { error: mapSupabaseAuthError(error.message) };
   }
 
+  const role = data?.user?.app_metadata?.role as string | undefined;
+  const requested = safeRedirect(String(formData.get('redirect') ?? ''));
+  const destination = destinationAfterLogin(requested, role);
+
   await audit('auth_login_success');
   revalidatePath('/', 'layout');
-  redirect('/account');
+  redirect(destination);
 }
 
 export async function signup(_prevState: AuthState, formData: FormData): Promise<AuthState> {
