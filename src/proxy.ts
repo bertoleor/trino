@@ -124,7 +124,9 @@ export async function updateSession(request: NextRequest, nonce?: string) {
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
   if (!user && (isAdminRoute || isAccountRoute)) {
     url.pathname = '/login';
-    url.searchParams.set('redirect', rawPathname);
+    // Use the locale-stripped path: /es-AR/admin is not a real route and the
+    // login action only accepts internal unlocalized destinations.
+    url.searchParams.set('redirect', pathname);
     return NextResponse.redirect(url);
   }
   if (user && isAuthPage) {
