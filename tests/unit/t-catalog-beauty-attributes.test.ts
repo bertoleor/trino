@@ -31,25 +31,30 @@ const validRow = {
   status: 'published',
 };
 
-describe('catalog beauty attributes (0028)', () => {
-  it('adds canonical columns, partial indexes and GIN-backed FTS', () => {
-    const sql = read('supabase/migrations/0028_product_beauty_attributes.sql');
-    for (const col of ['category', 'subcategory', 'brand', 'shade', 'finish']) {
-      expect(sql).toMatch(new RegExp(`add column if not exists ${col} text`));
-    }
-    expect(sql).toMatch(/idx_products_beauty_category/);
-    expect(sql).toMatch(/idx_products_beauty_shade/);
-    expect(sql).toMatch(/to_tsvector/);
-    expect(sql).toMatch(/idx_products_search_vector/);
-    expect(sql).toMatch(/coalesce\(new\.brand/);
-    expect(sql).not.toMatch(/tipo|tradicion|intencion|tarot|velas/i);
+describe('catalog beauty attributes (new schema - catalog_core)', () => {
+  it('adds canonical columns in products and product_variants tables', () => {
+    const sql = read('supabase/migrations/20261126000002_catalog_core.sql');
+    // Products table has category, subcategory, brand, finish
+    expect(sql).toMatch(/category\s+text/i);
+    expect(sql).toMatch(/subcategory\s+text/i);
+    expect(sql).toMatch(/brand\s+text/i);
+    expect(sql).toMatch(/finish\s+text/i);
+    // Product_variants has shade
+    expect(sql).toMatch(/shade\s+text/i);
+    // Partial indexes for published products
+    expect(sql).toMatch(/idx_products_category.*where status = 'published'/);
+    expect(sql).toMatch(/idx_products_subcategory.*where status = 'published'/);
+    expect(sql).toMatch(/idx_products_brand.*where status = 'published'/);
+    expect(sql).toMatch(/idx_products_finish.*where status = 'published'/);
+    // GIN index for search
+    expect(sql).toMatch(/idx_products_search_vector.*using gin.*search_vector/);
   });
 
   it('exposes the new columns in generated database types', () => {
     const types = read('src/types/database.types.ts');
-    const products = types.slice(types.indexOf('products: {'), types.indexOf('profiles: {'));
-    for (const col of ['brand', 'category', 'finish', 'shade', 'subcategory']) {
-      expect(products).toMatch(new RegExp(`${col}: string \\| null`));
+    const products = types.slice(types.indexOf('products": {'), types.indexOf('profiles": {'));
+    for (const col of ['brand', 'category', 'finish', 'subcategory']) {
+      expect(products).toMatch(new RegExp(`"${col}": string`));
     }
   });
 
@@ -76,7 +81,9 @@ describe('catalog beauty attributes (0028)', () => {
     expect(seed).not.toMatch(/sahumerio|palo santo|vela soja|incienzo|ritual|tarot/i);
     expect(seed).toMatch(/labial-liquido-mate-berry/);
     expect(seed).toMatch(/paleta-sombras-crushed/);
-    expect(seed).toMatch(/insert into public\.makeup_products/);
-    expect(seed).toMatch(/'labios','labiales','trino\.','8a2e4b','mate'/);
+    expect(seed).toMatch(/insert into public\.products/i);
+    expect(seed).toMatch(/insert into public\.product_variants/i);
+    expect(seed).toMatch(/insert into public\.product_translations/i);
+    expect(seed).toMatch(/insert into public\.product_images/i);
   });
 });

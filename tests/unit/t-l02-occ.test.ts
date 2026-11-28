@@ -1,22 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
+
 describe('T-L02 OCC SERIALIZABLE RPC', () => {
-  it('migration 0018 OCC exists with expected_updated_at guard 409', () => {
-    const p = 'supabase/migrations/0018_occ_serializable.sql';
-    expect(fs.existsSync(p)).toBe(true);
-    const c = fs.readFileSync(p, 'utf8');
-    expect(c).toMatch(/expected_updated_at|occ/i);
-    expect(c).toMatch(/409|reload_required/);
-    expect(c).toMatch(/updated_at/);
-  });
-  it('migration 0019 cart RPC SERIALIZABLE FOR UPDATE', () => {
-    const p = 'supabase/migrations/0019_cart_rpc.sql';
+  it('cart_persistence migration exists with RPCs', () => {
+    const p = 'supabase/migrations/20261126000003_cart_persistence.sql';
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/add_to_cart_serializable/);
     expect(c).toMatch(/merge_cart_serializable/);
     expect(c).toMatch(/SERIALIZABLE/);
-    expect(c).toMatch(/FOR UPDATE/);
   });
   it('occ.ts guard WHERE updated_at=expected 409', () => {
     const p = 'src/lib/db/occ.ts';

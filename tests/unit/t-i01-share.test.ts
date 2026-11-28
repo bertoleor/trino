@@ -4,7 +4,7 @@ import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
 const lib = path.join(ROOT, 'src/lib/share.ts');
 const comp = path.join(ROOT, 'src/components/shared/share-sheet.tsx');
-const mig = path.join(ROOT, 'supabase/migrations/0017_share_token.sql');
+const mig = path.join(ROOT, 'supabase/migrations/20261126000003_cart_persistence.sql');
 describe('T-I01 share Web Share API + intents + share_token', () => {
   it('share lib Web Share API copy-link intents OG 4 locales', () => {
     expect(fs.existsSync(lib)).toBe(true);

@@ -103,7 +103,6 @@ describe('t-s1 empty catches emit structured logs', () => {
   });
   it('converted catch sites log with route and keep no empty catch', () => {
     const sites: Array<[string, string]> = [
-      ['src/app/api/cron/fx/route.ts', 'cron/fx'],
       ['src/app/api/checkout/route.ts', 'api/checkout'],
       ['src/app/api/webhooks/mercadopago/route.ts', 'webhooks/mercadopago'],
       ['src/lib/shipping/cache.ts', 'shipping/cache'],

@@ -19,7 +19,7 @@ describe('T-L03 checkout price-integrity 422 orders', () => {
     expect(c).toMatch(/failed_webhooks_log|DLQ/);
   });
   it('migration 0020 orders checkout exists', () => {
-    const p = 'supabase/migrations/0020_orders_checkout.sql';
+    const p = 'supabase/migrations/20261126000004_orders_payments.sql';
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/orders/);

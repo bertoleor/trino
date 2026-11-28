@@ -12,6 +12,7 @@ import { logRbacDeny } from '@/lib/proxy/rbac-audit';
 import { logger } from '@/lib/logger';
 import { routing } from '@/i18n/routing';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- required by T-C04 test; ticket: repo-cleanup-final/COMP-9
 const intlMiddleware = createIntlMiddleware(routing);
 
 // ORN-62 P3 RBAC depth: localePrefix is 'always', so every route (incl. /admin)
@@ -165,6 +166,7 @@ export async function updateSession(request: NextRequest, nonce?: string) {
   return supabaseResponse;
 }
 
+ 
 // eslint-disable-next-line complexity -- pre-existing 20, refactor deferred: auth-critical path, substantive hardening owned by T4; ticket: repo-cleanup-final/COMP-9
 export async function proxy(request: NextRequest) {
   const honeypot = request.nextUrl.searchParams.get('hp');

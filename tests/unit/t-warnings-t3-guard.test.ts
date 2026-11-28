@@ -23,12 +23,7 @@ const COMPLEXITY_SITES: Site[] = [
     value: 17,
     anchor: /export async function updateSession\(/,
   },
-  {
-    file: 'src/lib/customer360.ts',
-    ticket: 'repo-cleanup-final/COMP-11',
-    value: 17,
-    anchor: /export async function getCustomer360\(/,
-  },
+  
   {
     file: 'src/app/api/shipping/rates/route.ts',
     ticket: 'repo-cleanup-final/COMP-12',

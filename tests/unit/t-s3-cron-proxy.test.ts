@@ -57,10 +57,9 @@ describe('t-s3 cron fail-closed + proxy void guards', () => {
     expect(isCronAuthorized(reqWithAuth())).toBe(false);
   });
 
-  it('all 3 cron routes delegate to isCronAuthorized (no local fail-open)', () => {
+  it('all cron routes delegate to isCronAuthorized (no local fail-open)', () => {
     for (const route of [
       'src/app/api/cron/keepalive/route.ts',
-      'src/app/api/cron/fx/route.ts',
       'src/app/api/cron/cultura-sync/route.ts',
     ]) {
       const src = readFileSync(route, 'utf8');

@@ -9,7 +9,7 @@ describe('T-L01 legal P0 3 pages + footer arrepentimiento + 0800', () => {
     for (const p of [p1, p2, p3]) {
       expect(fs.existsSync(p), p).toBe(true);
       const c = fs.readFileSync(p, 'utf8');
-      expect(c).toMatch(/global_settings|return_policy_by_tipo/);
+      expect(c).toMatch(/global_settings|return_policy_by_category|shipping_policy_by_category|warranty_policy_by_category/);
       expect(c).toMatch(/generateMetadata|hreflang|alternates/);
       expect(c).toMatch(/Ley 24\.240|24\.240/);
     }

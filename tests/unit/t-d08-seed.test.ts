@@ -9,7 +9,7 @@ describe('T-D08 seed factories 90/80 SEED sadPaths', () => {
   });
   it('factories and inserts', () => {
     const c = fs.readFileSync(p, 'utf8');
-    expect(c).toMatch(/insert into|products|cultura_posts|wishlists|reviews/i);
+    expect(c).toMatch(/insert into|products|editorial_posts|wishlists|reviews/i);
     expect(c.length).toBeGreaterThan(500);
   });
   it('sadPaths coverage', () => {

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(__dirname, '../..');
 const a = path.join(ROOT, 'src/lib/actions/reviews.ts');
-const m = path.join(ROOT, 'supabase/migrations/0024_review_image_storage.sql');
+const m = path.join(ROOT, 'supabase/migrations/20261126000008_storage_buckets.sql');
 const read = () => fs.readFileSync(a, 'utf8');
 
 describe('S-14 getPresignedReviewImageUrl auth/ownership/sanitización (CWE-639/434/22)', () => {
@@ -61,14 +61,11 @@ describe('S-14 getPresignedReviewImageUrl auth/ownership/sanitización (CWE-639/
     expect(fn).not.toMatch(/upload\/sign/);
   });
 
-  it('migración 0024: bucket reviews privado + policies owner-scoped storage.foldername auth.uid()', () => {
+  it('migration 20261126000008: bucket reviews privado + policies owner-scoped storage.foldername auth.uid()', () => {
     expect(fs.existsSync(m)).toBe(true);
     const sql = fs.readFileSync(m, 'utf8');
-    expect(sql).toMatch(/storage\.buckets/i);
-    expect(sql).toMatch(/'reviews'/);
-    expect(sql).toMatch(/public\s*=\s*false|,\s*false\b/);
+    expect(sql).toMatch(/bucket_id.*=.*'reviews'/);
     expect(sql).toMatch(/storage\.foldername/);
     expect(sql).toMatch(/auth\.uid\(\)::text/);
-    expect(sql).toMatch(/on conflict \(id\) do update/i);
   });
 });

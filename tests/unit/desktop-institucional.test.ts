@@ -67,10 +67,11 @@ describe('desktop institucional port', () => {
 
   it('preserves the cultura query and its real post link', () => {
     const source = read(CULTURA_ROUTE);
-    expect(source).toContain(".from('cultura_posts')");
+    expect(source).toContain(".from('editorial_posts')");
     expect(source).toContain(".select('id, slug, title, excerpt, cover_image, published_at')");
     expect(source).toContain(".eq('status', 'published')");
     expect(source).toContain(".is('deleted_at', null)");
+    expect(source).toContain(".eq('locale', locale)");
     expect(source).toContain(".order('published_at', { ascending: false })");
     expect(source).toContain('.limit(12)');
     expect(source).toContain('revalidate = 300');

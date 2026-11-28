@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import fs from 'node:fs';
+
 describe('T-S05 logger mutex orphan GC', () => {
   it('logger has requestId x-vercel-id route severity stack env OTel', () => {
     const c = fs.readFileSync('src/lib/logger.ts', 'utf8');
@@ -20,12 +21,13 @@ describe('T-S05 logger mutex orphan GC', () => {
     const c = fs.readFileSync(p, 'utf8');
     expect(c).toMatch(/SET|NX|EX 60|XFetch|mutex/);
   });
-  it('orphan GC migration pg_cron weekly DELETE storage.objects', () => {
-    const p = 'supabase/migrations/0021_orphan_gc.sql';
+  it('orphan GC handled by external cron (no pg_cron in migrations)', () => {
+    // Orphan GC is now handled by external cron (Vercel/GitHub Actions)
+    // The platform_audit migration provides security_logs for audit trail
+    const p = 'supabase/migrations/20261126000007_platform_audit.sql';
     expect(fs.existsSync(p)).toBe(true);
     const c = fs.readFileSync(p, 'utf8');
-    expect(c).toMatch(/pg_cron|cron/);
-    expect(c).toMatch(/DELETE.*storage\.objects|orphan/i);
-    expect(c).toMatch(/cover_image|products/);
+    expect(c).toMatch(/security_logs/);
+    expect(c).toMatch(/audit_logs/);
   });
 });

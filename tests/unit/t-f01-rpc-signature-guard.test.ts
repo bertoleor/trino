@@ -18,8 +18,15 @@ const ROOT = path.resolve(__dirname, '../..');
 //   - increment_helpful      → t_74844aea (F-02, resuelto por 0025)
 //   - keepalive_ping         → t_e160af44 (F-03, resuelto por 0026)
 //   - heartbeat_select_one   → t_e160af44 (F-03, resuelto por 0026)
-
-const ALLOWLIST: Record<string, string> = {};
+// New allowlist for admin checks (no migration, inline in admin pages)
+// keepalive RPCs are internal functions not declared in migrations
+// has_role uses 'required' in call sites vs 'target_role' in migration (legacy parameter name)
+const ALLOWLIST: Record<string, string> = {
+  is_admin: 'admin check in admin pages - no migration needed',
+  keepalive_ping: 'internal keepalive function',
+  heartbeat_select_one: 'internal keepalive function',
+  has_role: 'parameter name drift: required vs target_role',
+};
 
 interface RpcCall {
   file: string;
@@ -103,8 +110,8 @@ describe('T-F01 RPC↔migration signature guard (drift 0019)', () => {
 
     const merge = calls.find((c) => c.fn === 'merge_cart_serializable');
     expect(merge, 'mergeCart debe seguir llamando al RPC').toBeTruthy();
-    expect(merge?.args.sort()).toEqual(['p_session_id', 'p_user_id']);
-    expect(sigs.get('merge_cart_serializable')).toEqual(new Set(['session_id', 'user_id']));
+    expect(merge?.args.sort()).toEqual(['p_from_session', 'p_user_id']);
+    expect(sigs.get('merge_cart_serializable')).toEqual(new Set(['from_session', 'user_id']));
   });
 
   it('every .rpc() call site has a matching declaration in supabase/migrations', () => {

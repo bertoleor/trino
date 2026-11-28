@@ -1,3 +1,4 @@
+import { createClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
 export const LTV_STATUSES = ['authorized', 'processing', 'shipped', 'delivered'] as const;
@@ -11,41 +12,57 @@ export type Customer360 = {
   cart_id: string | null;
 };
 
-type SupabaseLike = {
-  rpc: (fn: string, params: Record<string, unknown>) => Promise<{ data: unknown; error: unknown }>;
-  from?: (table: string) => {
-    select: (cols: string) => {
-      eq: (
-        col: string,
-        val: string
-      ) => { single: () => Promise<{ data: unknown; error: unknown }> };
-    };
-  };
-};
-
-// eslint-disable-next-line complexity -- pre-existing 17, refactor deferred: RPC-plus-fallback branching, budget reserved for T4 resilience; ticket: repo-cleanup-final/COMP-11
-export async function getCustomer360(supabase: SupabaseLike, userId: string): Promise<Customer360> {
+export async function getCustomer360(
+  supabaseParam: Awaited<ReturnType<typeof createClient>> | null,
+  userId: string
+): Promise<Customer360> {
   const start =
     typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
   let data: Customer360 | null = null;
   let error: unknown = null;
 
+  const supabase = supabaseParam ?? (await createClient());
+
   try {
-    const res = await supabase.rpc('get_customer_360', { target_user: userId });
-    data = res.data as Customer360 | null;
-    error = res.error;
+    // Fetch profile
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('id, email, full_name')
+      .eq('id', userId)
+      .single();
+
+    if (profileError) throw profileError;
+
+    // Fetch active cart
+    const { data: cart, error: cartError } = await supabase
+      .from('carts')
+      .select('id')
+      .eq('user_id', userId)
+      .maybeSingle();
+
+    if (cartError) throw cartError;
+
+    // Compute LTV from orders (single query)
+    const { data: orders, error: ordersError } = await supabase
+      .from('orders')
+      .select('total_cents')
+      .eq('user_id', userId)
+      .in('status', LTV_STATUSES);
+
+    if (ordersError) throw ordersError;
+
+    const ltv_cents = (orders ?? []).reduce((sum: number, o: { total_cents?: number }) => sum + (o.total_cents ?? 0), 0);
+
+    data = {
+      id: profile.id,
+      email: profile.email,
+      full_name: profile.full_name ?? null,
+      ltv_cents,
+      last_login: null, // Not tracked in new schema yet
+      cart_id: cart?.id ?? null,
+    };
   } catch (e) {
     error = e;
-  }
-
-  if ((error || !data) && supabase.from) {
-    try {
-      const res2 = await supabase.from('customer_360').select('*').eq('id', userId).single();
-      data = res2.data as Customer360 | null;
-      error = res2.error;
-    } catch (e) {
-      error = e;
-    }
   }
 
   const end =
@@ -67,12 +84,5 @@ export async function getCustomer360(supabase: SupabaseLike, userId: string): Pr
     logger.warn('customer360 slow', { route: 'customer360', durationMs, userId });
   }
 
-  return {
-    id: data.id,
-    email: data.email,
-    full_name: (data as { full_name?: string | null }).full_name ?? null,
-    ltv_cents: Number((data as { ltv_cents: number }).ltv_cents ?? 0),
-    last_login: (data as { last_login: string | null }).last_login ?? null,
-    cart_id: (data as { cart_id: string | null }).cart_id ?? null,
-  };
+  return data;
 }
