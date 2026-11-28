@@ -190,7 +190,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [lint-and-typecheck]
-    if: github.event_name == 'pull_request' || github.ref == 'refs/refs/heads/main'
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    env:
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+      SUPABASE_SERVICE_ROLE: placeholder-service-role
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: placeholder-site-key
+      TURNSTILE_SECRET_KEY: placeholder-secret-key
+      ALLOW_MEMORY_RATE_LIMIT: 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
